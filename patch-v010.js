@@ -1,9 +1,9 @@
 window.otoPatchV010=function(html){
-// v0.10.1 — ceremony audio, centered learning feedback, retry queue, body-return misses,
-// 2.5D knockdown, intentional TIME pass-through, and a separate competition-info feed.
+// v0.10.3 — ceremony audio, centered learning feedback, retry queue, body-return misses,
+// 2.5D knockdown, intentional TIME pass-through, hidden post-TIME ball, and a separate competition-info feed.
 const marker="$('#start').addEventListener('click',start);";
 html=html.replace("v0.9 PRACTICE → TIME → 礼 → HAJIME","v0.10 PRACTICE → TIME → 礼 → HAJIME");
-html=html.replace("version:'0.9.0-time-rei-hajime'","version:'0.10.1-sport-feed-time-pass'");
+html=html.replace("version:'0.9.0-time-rei-hajime'","version:'0.10.3-time-clear-slow-bow'");
 html=html.replace("p=state.mode==='ready'?0:Math.min(1.18,state.flight/state.duration);","p=state.mode==='ready'?0:Math.min((typeof ceremony!=='undefined'&&ceremony==='time')?1.58:1.18,state.flight/state.duration);");
 html=html.replace('<small id="hpValue">体力 100 / 100</small>','<small id="hpValue">体力 100 / 100</small><div id="sportFeed" class="sport-feed" aria-live="polite" aria-label="競技情報"></div>');
 html=html.replace("body.reduced-motion .symbols button.tutorial-target{animation:none}","body.reduced-motion .symbols button.tutorial-target{animation:none}.practice-card.answer-card{border-color:#9fd8bd;background:#102b28ed;box-shadow:0 5px 18px #0004,0 0 22px #9fd8bd22}.practice-card.answer-card small{color:#f1c883}#arena.body-hit{box-shadow:inset 0 0 0 3px #e9c58b}.sport-feed{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:42px;max-width:330px;margin-top:7px;overflow:visible}.sport-item{display:flex;align-items:baseline;gap:8px;min-height:16px;opacity:0;transform:translateX(-10px);transition:opacity .16s ease,transform .16s ease;text-shadow:0 1px 4px #132b2a;white-space:nowrap}.sport-item.show{opacity:1;transform:translateX(0)}.sport-item.leave{opacity:0;transform:translateY(-4px)}.sport-item b{font-size:14px;letter-spacing:.1em;font-weight:650;color:#fff5d9}.sport-item span{font-size:10px;letter-spacing:.05em;color:#c7d8cf}.sport-item.perfect b{color:#bff0d6}.sport-item.miss b,.sport-item.down b{color:#ffd0b5}.sport-item.down b{font-size:16px}.sport-item.practice b{color:#f1c883}@media(max-width:680px){.sport-feed{max-width:240px;min-height:36px;margin-top:5px}.sport-item{gap:5px}.sport-item b{font-size:12px}.sport-item span{font-size:9px;max-width:150px;overflow:hidden;text-overflow:ellipsis}.sport-item:nth-child(n+3){display:none}}");
@@ -23,7 +23,7 @@ const _updatePracticeCardV09=updatePracticeCard;
 updatePracticeCard=function(){const card=$('#practiceCard');if(ceremony==='match'&&answerCardTimerV010>0){card.hidden=false;card.setAttribute('aria-hidden','false');card.classList.add('answer-card');const ipa=WORD_IPA_V010[state.word]||('/'+SOUNDS[state.target].symbol+'/');card.innerHTML='<strong>'+state.word+'</strong><span>'+ipa+'</span><small>'+(answerCardCorrectV010?'正解':'正しくは')+' /'+SOUNDS[state.target].symbol+'/'+(state.isRetry?' · RETRY':'')+'</small>';return;}card.classList.remove('answer-card');return _updatePracticeCardV09();};
 function showAnswerCardV010(correct){if(ceremony!=='match')return;answerCardCorrectV010=!!correct;answerCardTimerV010=correct?1.05:1.35;updatePracticeCard();}
 const _sampleBallV09=sampleBall;
-sampleBall=function(progress=state.flight/state.duration){if(ceremony==='time'&&progress>1){const r=Math.min(1,(progress-1)/.52),ease=1-Math.pow(1-r,2),targetZ=state.aimZ||0;return [-3.3-4.25*ease,.23+Math.abs(Math.sin(r*Math.PI*3.5))*.065*(1-r),targetZ+.34*ease];}return _sampleBallV09(progress);};
+sampleBall=function(progress=state.flight/state.duration){if(ceremony==='choice'||ceremony==='bow-wait'||ceremony==='hajime')return [-30,-12,8];if(ceremony==='time'&&progress>1){const r=Math.min(1,(progress-1)/.52),ease=1-Math.pow(1-r,2),targetZ=state.aimZ||0;return [-3.3-4.25*ease,.23+Math.abs(Math.sin(r*Math.PI*3.5))*.065*(1-r),targetZ+.34*ease];}return _sampleBallV09(progress);};
 const _beginTimePassV09=beginTimePass;
 beginTimePass=function(){const r=_beginTimePassV09();speakCallV010('Time!');return r;};
 $('#bowBtn').addEventListener('click',()=>{if(ceremony==='bow-wait')bowWait=3.65;});
