@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101f21">
-<title>音の庭 — v0.10.3 TIME CLEAR / SLOW BOW</title>
+<title>音の庭 — v0.10.4 SLOW TIME FADE / BOW HOLD</title>
 <style>html,body{margin:0;min-height:100%;background:#101f21;color:#f3eddc;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans",sans-serif}body{display:grid;place-items:center;padding:24px}.loading{text-align:center;line-height:1.8}.loading small{display:block;color:#b4c7bf;margin-top:8px}</style>
 <script src="patch-base.js"></script>
 <script src="patch-practice.js"></script>
 <script src="patch-v010.js"></script>
 <script src="patch-ui-v0102.js"></script>
+<script src="patch-ceremony-v0104.js"></script>
 </head>
 <body>
-<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.10.3 PRACTICE → TIME → 礼 → HAJIME!!!</small></div>
+<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.10.4 PRACTICE → TIME → 礼 → HAJIME!!!</small></div>
 <script>
 (async()=>{
  try{
@@ -24,6 +25,7 @@
   html=window.otoPatchPractice(html);
   html=window.otoPatchV010(html);
   html=window.otoPatchUIV0102(html);
+  html=window.otoPatchCeremonyV0104(html);
   document.open();document.write(html);document.close();
  }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
 })();
