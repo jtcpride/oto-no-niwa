@@ -31,3 +31,4 @@ https://jtcpride.github.io/oto-no-niwa/
 設計の経緯、学習仮説、更新履歴、今後のロードマップ、最終ステージ構想、技術的負債、次のエージェントへの引継ぎ事項は以下にまとめています。
 
 - [docs/PROJECT_HANDOFF.md](docs/PROJECT_HANDOFF.md)
+- [docs/V010_PLAYTEST_NOTES.md](docs/V010_PLAYTEST_NOTES.md) — v0.10の変更意図、試遊観察、検証項目
