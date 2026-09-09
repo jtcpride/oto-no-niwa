@@ -41,7 +41,7 @@ html=html.replace('<div id="practiceCard" class="practice-card" hidden aria-hidd
 html=html.replace("poseFoot(dt);const hurt=motion?state.hurt:0;","poseFoot(dt);applyBowPose();const hurt=motion?state.hurt:0;");
 const v09Marker="$('#start').addEventListener('click',start);";
 const v09=`
-const BOW_DURATION=.82,BOW_TO_HAJIME=2.45;
+const BOW_DURATION=1.28,BOW_TO_HAJIME=2.45;
 let bowAnim=0,bowWait=0;
 const _ballPromptV08=ballPrompt;
 ballPrompt=function(){if(ceremony==='choice'||ceremony==='bow-wait')return '';return _ballPromptV08();};
