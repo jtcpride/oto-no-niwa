@@ -4,48 +4,72 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101f21">
-<title>音の庭 — v0.7 4球ならし</title>
+<title>音の庭 — v0.8 PRACTICE / TIME / HAJIME</title>
 <style>
 html,body{margin:0;min-height:100%;background:#101f21;color:#f3eddc;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans",sans-serif}
-body{display:grid;place-items:center;padding:24px}.loading{text-align:center;line-height:1.8}.loading small{display:block;color:#b4c7bf;margin-top:8px}
+body{display:grid;place-items:center;padding:24px}
+.loading{text-align:center;line-height:1.8}
+.loading small{display:block;color:#b4c7bf;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.7 4球ならし → 本番</small></div>
+<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.8 PRACTICE → TIME → HAJIME!!!</small></div>
 <script>
 (async()=>{
  try{
   const names=['app1.b64','app2.b64','app3.b64','app4.b64','app5.b64'];
-  const parts=await Promise.all(names.map(async n=>{const r=await fetch(n,{cache:'no-store'});if(!r.ok)throw new Error(n+' '+r.status);return r.text()}));
-  const b64=parts.join('').replace(/\s/g,'');const bin=atob(b64);const bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  const parts=await Promise.all(names.map(async n=>{
+   const r=await fetch(n,{cache:'no-store'});
+   if(!r.ok) throw new Error(n+' '+r.status);
+   return r.text();
+  }));
+  const b64=parts.join('').replace(/\s/g,'');
+  const bin=atob(b64);
+  const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
   let html=new TextDecoder('utf-8').decode(bytes);
   const edits=[[52869,52869,",word:state.word"],[52773,52774,"-quiz"],[52772,52772,"ste"],[52766,52770,""],[52762,52763,"6"],[51380,51380,"));$('#repeatWord').addEventListener('click',()=>speakWord("],[50367,50368,"、合わせ"],[50363,50365,"聞"],[49830,49830,"state.direction===-1?'?':"],[46661,46661,");speakWord("],[46622,46622,"7"],[46619,46619,"単語を聞いて、記号を選ぶ"],[46613,46616,"EN"],[46611,46611,"LI"],[46453,46453,");speakWord("],[46361,46385,"ion"],[46359,46359,"newQue"],[45712,45712,"80"],[45711,45711,"25);if(kind==='symbol')setTimeout(()=>speakWord(state.word),"],[45574,45578,"${state.word} →"],[45012,45013,"8"],[45010,45010,")"],[44999,45009,""],[44996,44996," · "],[44991,44993,""],[44982,44984,""],[44962,44965,""],[44954,44956,""],[44938,44938,"`${state.word} · /${SOUNDS[state.target].symbol}/`+("],[43617,43619,"録音"],[43597,43607,"を選んで返す"],[43595,43595,"英単語を聞き、狙った音の発音"],[43305,43322,""],[43287,43287,"${heard} · "],[43250,43251,"。"],[43229,43230,"${heard} の狙った音"],[42811,42811,",heard=state.word||target.word"],[41671,41695,"ion"],[41669,41669,"newQue"],[41257,41257,"if(!('speechSynthesis' in window)){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは単語読み上げに未対応',1.6);}"],[38768,38780,""],[38213,38213,"const lastWord=Array(SOUNDS.length).fill('');\nfunction chooseWord(index){const words=SOUNDS[index].words;let word=words[Math.floor(Math.random()*words.length)];if(words.length>1&&word===lastWord[index]){const i=words.indexOf(word);word=words[(i+1+Math.floor(Math.random()*(words.length-1)))%words.length];}lastWord[index]=word;state.word=word;return word;}\nfunction speakWord(word=state.word){if(!word||!('speechSynthesis' in window))return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);u.lang='en-US';u.rate=.82;u.pitch=1;u.volume=1;const voices=window.speechSynthesis.getVoices();const preferred=voices.find(v=>/^en-US/i.test(v.lang)&&/Samantha|Ava|Alex|Daniel/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));if(preferred)u.voice=preferred;window.speechSynthesis.speak(u);}catch(e){console.warn('speech synthesis failed',e);}}\nfunction newQuestion(){state.target=shuffleTarget();chooseWord(state.target);$('#repeatWord').disabled=false;}\n"],[35480,35480,"word:'',"],[26998,26998,",words:['vision','measure','usual','pleasure','decision','television']"],[26952,26952,"words:['ship','shop','she','shoe','fish','wash'],"],[26905,26905,",words:['this','that','these','those','mother','weather']"],[26862,26862,"words:['think','thin','thank','three','bath','mouth'],"],[17903,17905,"聞く"],[17012,17017,"button"],[17003,17010,"🔊 もう一度"],[17001,17002,"ed"],[17000,17000,"gain\" type=\"button\" disab"],[16998,16999,"s=\"listen-"],[16997,16997,"button id=\"repeatWord\" cla"],[16985,16985,"聞いて"],[15776,15776,"。選択する"],[15771,15771,"単語を聞き、狙った音の"],[15638,15641,"選ぶ"],[15633,15635,"単語を聞いて"],[15564,15568,""],[15549,15555,"を選ぶ。<br>"],[15545,15546,"相手が読む英単語を聞いて、狙った音"],[13761,13765,"聞いて選ぶ"],[13759,13760,"6"],[7232,7232,"listen-again{border:1px solid #5f7c70;background:transparent;color:#dce9df;border-radius:4px;padding:4px 8px;font-size:11px;min-height:30px}.listen-again:hover{border-color:var(--gold);background:#263f3a}.listen-again:disabled{opacity:.35}."]];
-  for(const [a,b,s] of edits)html=html.slice(0,a)+s+html.slice(b);
-  // iPad Safari speech unlock, and no duplicate opening word.
+  for(const [a,b,s] of edits) html=html.slice(0,a)+s+html.slice(b);
+  // iPad Safari: unlock speech from the initial tap; READY must not read the opening word again.
   html=html.replace("window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);","window.speechSynthesis.cancel();window.speechSynthesis.resume();const u=new SpeechSynthesisUtterance(word);");
   html=html.replace("newQuestion();trail=[];select(0);","newQuestion();speakWord();trail=[];select(0);");
   html=html.replace("audio.hit(false,0,false);speakWord();}}","audio.hit(false,0,false);}}");
-  // v0.7 tutorial presentation.
-  html=html.replace("v0.6 聞いて選ぶ","v0.7 4球ならし → 本番");
-  html=html.replace("version:'0.6.0-listen-quiz'","version:'0.7.0-teach-four'");
-  html=html.replace("</style>",".symbols button.tutorial-target{border-color:var(--gold);box-shadow:0 0 0 2px #f1c88366,0 0 18px #f1c88355;animation:tutorialPulse .8s ease-in-out infinite alternate}.symbols button.tutorial-dim{opacity:.24;filter:saturate(.45)}@keyframes tutorialPulse{from{transform:translateY(0)}to{transform:translateY(-3px)}}body.reduced-motion .symbols button.tutorial-target{animation:none}</style>");
-  html=html.replace("$('#ballLabel').textContent=state.direction===-1?'?':`/${SOUNDS[state.target].symbol}/`;","$('#ballLabel').textContent=state.direction===-1?(tutorialTurn<4?`/${SOUNDS[state.target].symbol}/`:'?'):`/${SOUNDS[state.target].symbol}/`;");
+
+  // v0.8 presentation: representative word, full-word IPA during practice, and practice ceremony.
+  html=html.replace("v0.6 聞いて選ぶ","v0.8 PRACTICE → 本番");
+  html=html.replace("version:'0.6.0-listen-quiz'","version:'0.8.0-practice-time-hajime'");
+  html=html.replace("<small>thin</small></button><button data-symbol=\"1\"","<small>think</small></button><button data-symbol=\"1\"");
+  html=html.replace("/θ/ · thin —","/θ/ · think —");
+  html=html.replace("</style>",`.practice-card{position:absolute;left:50%;top:31%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;text-align:center;padding:10px 18px 12px;border:1px solid #d9c58c;background:#142b29e8;box-shadow:0 5px 18px #0004;border-radius:6px;min-width:190px}.practice-card strong{display:block;font-size:22px;letter-spacing:.08em;font-weight:600;color:#fff5d9}.practice-card span{display:block;margin-top:3px;font:24px/1.15 Arial,sans-serif;color:#bff0d6}.practice-card small{display:block;margin-top:5px;font-size:10px;letter-spacing:.08em;color:#d6dfd4}.symbols button.tutorial-target{border-color:var(--gold);box-shadow:0 0 0 2px #f1c88366,0 0 18px #f1c88355;animation:tutorialPulse .8s ease-in-out infinite alternate}.symbols button.tutorial-dim{opacity:.24;filter:saturate(.45)}@keyframes tutorialPulse{from{transform:translateY(0)}to{transform:translateY(-3px)}}body.reduced-motion .symbols button.tutorial-target{animation:none}@media(max-width:680px){.practice-card{top:34%;padding:8px 14px 10px;min-width:160px}.practice-card strong{font-size:18px}.practice-card span{font-size:21px}}</style>`);
+  html=html.replace("<div id=\"feedback\" class=\"feedback\" aria-live=\"polite\"></div>","<div id=\"feedback\" class=\"feedback\" aria-live=\"polite\"></div><div id=\"practiceCard\" class=\"practice-card\" hidden aria-hidden=\"true\"><strong>think</strong><span>/θɪŋk/</span><small>狙い /θ/</small></div>");
+  html=html.replace("$('#ballLabel').textContent=state.direction===-1?'?':`/${SOUNDS[state.target].symbol}/`;","$('#ballLabel').textContent=ballPrompt();");
+  html=html.replace("聞く → 合わせる → 返す → 続く → 速くなる","PRACTICE → TIME → HAJIME!!! → 聞く → 返す");
+
   const marker="$('#start').addEventListener('click',start);";
-  const tutorial=[
-   "const TUTORIAL_WORDS=['think','this','ship','vision'];",
-   "const NORMAL_HIT_WINDOW=CONFIG.hitWindow;",
-   "let tutorialTurn=0;",
-   "function applyTutorialUI(){const active=tutorialTurn<4;all('[data-symbol]').forEach((b,i)=>{b.classList.toggle('tutorial-target',active&&i===tutorialTurn);b.classList.toggle('tutorial-dim',active&&i!==tutorialTurn);b.disabled=active&&i!==tutorialTurn;});if(active){$('#phaseNo').textContent='00';$('#phaseName').textContent='IMITATE';$('#phaseHint').textContent='お手本 '+(tutorialTurn+1)+' / 4 · 聞いて、同じ場所を踏む。';$('#timingText').textContent='まずは真似する';}else{all('[data-symbol]').forEach(b=>b.disabled=false);}}",
-   "const _newQuestionV06=newQuestion;newQuestion=function(){if(tutorialTurn<4){state.target=tutorialTurn;state.word=TUTORIAL_WORDS[tutorialTurn];lastWord[tutorialTurn]=state.word;$('#repeatWord').disabled=false;}else{_newQuestionV06();}applyTutorialUI();};",
-   "const _refreshHudV06=refreshHud;refreshHud=function(){_refreshHudV06();if(tutorialTurn<4){$('#phaseNo').textContent='00';$('#phaseName').textContent='IMITATE';$('#phaseHint').textContent='お手本 '+(tutorialTurn+1)+' / 4 · 聞いて、同じ場所を踏む。';$('#rally').textContent='--';}};",
-   "const _startV06=start;start=function(){tutorialTurn=0;CONFIG.hitWindow=.34;const r=_startV06();state.duration=Math.max(state.duration,2.12);applyTutorialUI();announce('IMITATE 1 / 4','聞く → /'+SOUNDS[0].symbol+'/ → 左端',1.1);return r;};",
-   "const _cpuReturnV06=cpuReturn;cpuReturn=function(){const leavingTutorial=tutorialTurn===3;if(tutorialTurn<4)tutorialTurn++;if(tutorialTurn>=4)CONFIG.hitWindow=NORMAL_HIT_WINDOW;const r=_cpuReturnV06();if(tutorialTurn<4){state.duration=Math.max(state.duration,2.12);applyTutorialUI();announce('IMITATE '+(tutorialTurn+1)+' / 4','聞く → /'+SOUNDS[tutorialTurn].symbol+'/ → '+(tutorialTurn+1)+'番',.95);}else if(leavingTutorial){applyTutorialUI();announce('STAGE START','ここからは、音だけで思い出す。',1.25);}return r;};",
-   "const _kickV06=kick;kick=function(){const practice=tutorialTurn<4,rallyBefore=state.rally,perfectBefore=state.perfect;const r=_kickV06();if(practice&&state.rally>rallyBefore){state.rally=rallyBefore;state.perfect=perfectBefore;state.streak=0;refreshHud();}return r;};",
-   "const _rescueV06=rescue;rescue=function(kind){const practice=tutorialTurn<4,hpBefore=state.hp,missBefore=state.misses;const r=_rescueV06(kind);if(practice&&state.mode!=='over'){state.hp=hpBefore;state.misses=missBefore;refreshHp();announce('PRACTICE','ここでは体力は減らない。次の音へ。',.95);}return r;};"
-  ].join('\n');
-  html=html.replace(marker,tutorial+'\n'+marker);
+  const v08=`
+const PRACTICE_SET=[{word:'think',ipa:'/θɪŋk/'},{word:'this',ipa:'/ðɪs/'},{word:'ship',ipa:'/ʃɪp/'},{word:'vision',ipa:'/ˈvɪʒən/'}];
+const PRACTICE_TURNS=8,NORMAL_HIT_WINDOW=CONFIG.hitWindow;let practiceTurn=0,ceremony='practice',ceremonyTimer=0;const practiceSlot=()=>practiceTurn%4,practiceRound=()=>Math.floor(practiceTurn/4)+1;
+function ballPrompt(){if(ceremony==='time'||ceremony==='hajime')return '';if(state.direction===-1)return ceremony==='practice'?\`/\${SOUNDS[state.target].symbol}/\`:'?';return \`/\${SOUNDS[state.target].symbol}/\`;}
+function updatePracticeCard(){const card=$('#practiceCard'),active=ceremony==='practice'&&practiceTurn<PRACTICE_TURNS;card.hidden=!active;card.setAttribute('aria-hidden',String(!active));if(!active)return;const slot=practiceSlot(),p=PRACTICE_SET[slot];card.innerHTML=\`<strong>\${p.word}</strong><span>\${p.ipa}</span><small>狙い /\${SOUNDS[slot].symbol}/ · \${practiceRound()}周目</small>\`;}
+function applyPracticeUI(){const active=ceremony==='practice'&&practiceTurn<PRACTICE_TURNS,slot=practiceSlot();all('[data-symbol]').forEach((b,i)=>{b.classList.toggle('tutorial-target',active&&i===slot);b.classList.toggle('tutorial-dim',active&&i!==slot);b.disabled=(ceremony==='time'||ceremony==='hajime')||(active&&i!==slot);});$('#repeatWord').disabled=ceremony==='time'||ceremony==='hajime';updatePracticeCard();if(active){$('#phaseNo').textContent='00';$('#phaseName').textContent='PRACTICE';$('#phaseHint').textContent=practiceRound()+' / 2 · '+(slot+1)+' / 4 · 聞いて、同じ場所を踏む。';$('#timingText').textContent='まずは音と場所を結ぶ';$('#rally').textContent='--';}else if(ceremony==='time'){$('#phaseNo').textContent='--';$('#phaseName').textContent='TIME';$('#phaseHint').textContent='打てる。でも、打たない。';$('#rally').textContent='--';}else if(ceremony==='hajime'){$('#phaseNo').textContent='--';$('#phaseName').textContent='HAJIME';$('#phaseHint').textContent='';$('#rally').textContent='--';}}
+const _newQuestionV06=newQuestion;newQuestion=function(){if(ceremony==='practice'&&practiceTurn<PRACTICE_TURNS){const slot=practiceSlot();state.target=slot;state.word=PRACTICE_SET[slot].word;lastWord[slot]=state.word;$('#repeatWord').disabled=false;}else _newQuestionV06();applyPracticeUI();};
+const _refreshHudV06=refreshHud;refreshHud=function(){_refreshHudV06();if(ceremony!=='match')applyPracticeUI();};
+const _startV06=start;start=function(){practiceTurn=0;ceremony='practice';ceremonyTimer=0;CONFIG.hitWindow=.36;const r=_startV06();state.duration=Math.max(state.duration,2.18);state.elapsed=0;applyPracticeUI();announce('PRACTICE 1 / 2','think · '+PRACTICE_SET[0].ipa+' · /'+SOUNDS[0].symbol+'/',1.15);return r;};
+function beginTimePass(){ceremony='time';CONFIG.hitWindow=NORMAL_HIT_WINDOW;state.pendingMiss=null;state.streak=0;$('#kick').disabled=true;$('#repeatWord').disabled=true;cpu.kick=.34;cpu.shot='normal';launchShot('normal',-1,[3.3,1.2,0]);state.duration=Math.max(1.75,state.duration);state.aimZ=0;applyPracticeUI();announce('TIME','',1.05);audio.hit(false,0,false);}
+function beginHajime(){ceremony='hajime';ceremonyTimer=.72;state.pendingMiss=null;$('#kick').disabled=true;applyPracticeUI();announce('HAJIME!!!','',.72);}
+function beginMatch(){ceremony='match';ceremonyTimer=0;CONFIG.hitWindow=NORMAL_HIT_WINDOW;Object.assign(state,{rally:0,perfect:0,streak:0,elapsed:0,hp:CONFIG.maxHp,misses:0,rescues:0,pendingMiss:null,hurt:0,rescueStart:null});all('[data-symbol]').forEach(b=>b.disabled=false);$('#repeatWord').disabled=false;$('#kick').disabled=false;$('#practiceCard').hidden=true;newQuestion();cpu.kick=.34;cpu.shot='normal';launchShot('normal',-1,[3.3,1.2,0]);audio.hit(false,0,false);speakWord();refreshHud();$('#time').textContent=CONFIG.maxSeconds;announce('LISTEN','ここからは、音だけで返す。',.8);}
+const _cpuReturnV06=cpuReturn;cpuReturn=function(){if(ceremony==='practice'&&practiceTurn<PRACTICE_TURNS){if(practiceTurn===PRACTICE_TURNS-1){practiceTurn++;beginTimePass();return;}practiceTurn++;const r=_cpuReturnV06();state.duration=Math.max(state.duration,2.18);applyPracticeUI();const slot=practiceSlot(),round=practiceRound();announce('PRACTICE '+round+' / 2',PRACTICE_SET[slot].word+' · '+PRACTICE_SET[slot].ipa+' · /'+SOUNDS[slot].symbol+'/',.92);return r;}return _cpuReturnV06();};
+const _kickV06=kick;kick=function(){if(ceremony==='time'||ceremony==='hajime')return;const practice=ceremony==='practice',rallyBefore=state.rally,perfectBefore=state.perfect;const r=_kickV06();if(practice&&state.rally>rallyBefore){state.rally=rallyBefore;state.perfect=perfectBefore;state.streak=0;refreshHud();}return r;};
+const _rescueV06=rescue;rescue=function(kind){if(ceremony==='time'||ceremony==='hajime')return;const practice=ceremony==='practice',hpBefore=state.hp,missBefore=state.misses;const r=_rescueV06(kind);if(practice&&state.mode!=='over'){state.hp=hpBefore;state.misses=missBefore;refreshHp();announce('PRACTICE','ここでは体力は減らない。次の音へ。',.95);}return r;};
+const _updateGameV06=updateGame;updateGame=function(dt){if(ceremony==='time'&&state.mode==='playing'){state.flight+=dt;state.aimZ+=(0-state.aimZ)*Math.min(1,dt*5);$('#time').textContent='--';if(state.flight>state.duration+.38)beginHajime();return;}if(ceremony==='hajime'&&state.mode==='playing'){ceremonyTimer-=dt;$('#time').textContent='--';if(ceremonyTimer<=0)beginMatch();return;}if(ceremony==='practice'){const elapsedBefore=state.elapsed,modeBefore=state.mode;_updateGameV06(dt);state.elapsed=elapsedBefore;$('#time').textContent='--';if(modeBefore==='ready'&&state.mode==='playing'){applyPracticeUI();announce('PRACTICE '+practiceRound()+' / 2',PRACTICE_SET[practiceSlot()].word+' · '+PRACTICE_SET[practiceSlot()].ipa,1.0);}return;}_updateGameV06(dt);};
+`;
+  html=html.replace(marker,v08+'\n'+marker);
   document.open();document.write(html);document.close();
- }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
+ }catch(e){
+  const el=document.getElementById('status');
+  if(el) el.textContent='読み込みに失敗しました: '+e.message;
+  console.error(e);
+ }
 })();
 </script>
 </body>
