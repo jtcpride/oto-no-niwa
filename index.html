@@ -4,38 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101f21">
-<title>音の庭 — v0.6 読み上げクイズ</title>
+<title>音の庭 — v0.6.1 iPad音声修正</title>
 <style>
 html,body{margin:0;min-height:100%;background:#101f21;color:#f3eddc;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans",sans-serif}
-body{display:grid;place-items:center;padding:24px}
-.loading{text-align:center;line-height:1.8}
-.loading small{display:block;color:#b4c7bf;margin-top:8px}
+body{display:grid;place-items:center;padding:24px}.loading{text-align:center;line-height:1.8}.loading small{display:block;color:#b4c7bf;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.6 聞いて選ぶ</small></div>
+<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.6.1 聞いて選ぶ / iPad音声修正</small></div>
 <script>
 (async()=>{
  try{
   const names=['app1.b64','app2.b64','app3.b64','app4.b64','app5.b64'];
-  const parts=await Promise.all(names.map(async n=>{
-   const r=await fetch(n,{cache:'no-store'});
-   if(!r.ok) throw new Error(n+' '+r.status);
-   return r.text();
-  }));
-  const b64=parts.join('').replace(/\s/g,'');
-  const bin=atob(b64);
-  const bytes=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  const parts=await Promise.all(names.map(async n=>{const r=await fetch(n,{cache:'no-store'});if(!r.ok)throw new Error(n+' '+r.status);return r.text()}));
+  const b64=parts.join('').replace(/\s/g,'');const bin=atob(b64);const bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
   let html=new TextDecoder('utf-8').decode(bytes);
   const edits=[[52869,52869,",word:state.word"],[52773,52774,"-quiz"],[52772,52772,"ste"],[52766,52770,""],[52762,52763,"6"],[51380,51380,"));$('#repeatWord').addEventListener('click',()=>speakWord("],[50367,50368,"、合わせ"],[50363,50365,"聞"],[49830,49830,"state.direction===-1?'?':"],[46661,46661,");speakWord("],[46622,46622,"7"],[46619,46619,"単語を聞いて、記号を選ぶ"],[46613,46616,"EN"],[46611,46611,"LI"],[46453,46453,");speakWord("],[46361,46385,"ion"],[46359,46359,"newQue"],[45712,45712,"80"],[45711,45711,"25);if(kind==='symbol')setTimeout(()=>speakWord(state.word),"],[45574,45578,"${state.word} →"],[45012,45013,"8"],[45010,45010,")"],[44999,45009,""],[44996,44996," · "],[44991,44993,""],[44982,44984,""],[44962,44965,""],[44954,44956,""],[44938,44938,"`${state.word} · /${SOUNDS[state.target].symbol}/`+("],[43617,43619,"録音"],[43597,43607,"を選んで返す"],[43595,43595,"英単語を聞き、狙った音の発音"],[43305,43322,""],[43287,43287,"${heard} · "],[43250,43251,"。"],[43229,43230,"${heard} の狙った音"],[42811,42811,",heard=state.word||target.word"],[41671,41695,"ion"],[41669,41669,"newQue"],[41257,41257,"if(!('speechSynthesis' in window)){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは単語読み上げに未対応',1.6);}"],[38768,38780,""],[38213,38213,"const lastWord=Array(SOUNDS.length).fill('');\nfunction chooseWord(index){const words=SOUNDS[index].words;let word=words[Math.floor(Math.random()*words.length)];if(words.length>1&&word===lastWord[index]){const i=words.indexOf(word);word=words[(i+1+Math.floor(Math.random()*(words.length-1)))%words.length];}lastWord[index]=word;state.word=word;return word;}\nfunction speakWord(word=state.word){if(!word||!('speechSynthesis' in window))return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);u.lang='en-US';u.rate=.82;u.pitch=1;u.volume=1;const voices=window.speechSynthesis.getVoices();const preferred=voices.find(v=>/^en-US/i.test(v.lang)&&/Samantha|Ava|Alex|Daniel/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));if(preferred)u.voice=preferred;window.speechSynthesis.speak(u);}catch(e){console.warn('speech synthesis failed',e);}}\nfunction newQuestion(){state.target=shuffleTarget();chooseWord(state.target);$('#repeatWord').disabled=false;}\n"],[35480,35480,"word:'',"],[26998,26998,",words:['vision','measure','usual','pleasure','decision','television']"],[26952,26952,"words:['ship','shop','she','shoe','fish','wash'],"],[26905,26905,",words:['this','that','these','those','mother','weather']"],[26862,26862,"words:['think','thin','thank','three','bath','mouth'],"],[17903,17905,"聞く"],[17012,17017,"button"],[17003,17010,"🔊 もう一度"],[17001,17002,"ed"],[17000,17000,"gain\" type=\"button\" disab"],[16998,16999,"s=\"listen-"],[16997,16997,"button id=\"repeatWord\" cla"],[16985,16985,"聞いて"],[15776,15776,"。選択する"],[15771,15771,"単語を聞き、狙った音の"],[15638,15641,"選ぶ"],[15633,15635,"単語を聞いて"],[15564,15568,""],[15549,15555,"を選ぶ。<br>"],[15545,15546,"相手が読む英単語を聞いて、狙った音"],[13761,13765,"聞いて選ぶ"],[13759,13760,"6"],[7232,7232,"listen-again{border:1px solid #5f7c70;background:transparent;color:#dce9df;border-radius:4px;padding:4px 8px;font-size:11px;min-height:30px}.listen-again:hover{border-color:var(--gold);background:#263f3a}.listen-again:disabled{opacity:.35}."]];
-  for(const [a,b,s] of edits) html=html.slice(0,a)+s+html.slice(b);
+  for(const [a,b,s] of edits)html=html.slice(0,a)+s+html.slice(b);
+  // iPad Safari: unlock speech synthesis inside the user's initial tap, then resume it on later calls.
+  html=html.replace("window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);","window.speechSynthesis.cancel();window.speechSynthesis.resume();const u=new SpeechSynthesisUtterance(word);");
+  html=html.replace("newQuestion();trail=[];select(0);","newQuestion();speakWord();trail=[];select(0);");
+  html=html.replace("v0.6 聞いて選ぶ","v0.6.1 聞いて選ぶ");
   document.open();document.write(html);document.close();
- }catch(e){
-  const el=document.getElementById('status');
-  if(el) el.textContent='読み込みに失敗しました: '+e.message;
-  console.error(e);
- }
+ }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
 })();
 </script>
 </body>
