@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101f21">
-<title>音の庭 — v0.6.1 iPad音声修正</title>
+<title>音の庭 — v0.6.2 初回読み上げ修正</title>
 <style>
 html,body{margin:0;min-height:100%;background:#101f21;color:#f3eddc;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans",sans-serif}
 body{display:grid;place-items:center;padding:24px}.loading{text-align:center;line-height:1.8}.loading small{display:block;color:#b4c7bf;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.6.1 聞いて選ぶ / iPad音声修正</small></div>
+<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.6.2 聞いて選ぶ / 初回読み上げ修正</small></div>
 <script>
 (async()=>{
  try{
@@ -24,7 +24,9 @@ body{display:grid;place-items:center;padding:24px}.loading{text-align:center;lin
   // iPad Safari: unlock speech synthesis inside the user's initial tap, then resume it on later calls.
   html=html.replace("window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);","window.speechSynthesis.cancel();window.speechSynthesis.resume();const u=new SpeechSynthesisUtterance(word);");
   html=html.replace("newQuestion();trail=[];select(0);","newQuestion();speakWord();trail=[];select(0);");
-  html=html.replace("v0.6 聞いて選ぶ","v0.6.1 聞いて選ぶ");
+  // The opening word is already spoken by the tap above. Do not speak it again when READY ends.
+  html=html.replace("audio.hit(false,0,false);speakWord();}}","audio.hit(false,0,false);}}");
+  html=html.replace("v0.6 聞いて選ぶ","v0.6.2 聞いて選ぶ");
   document.open();document.write(html);document.close();
  }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
 })();
