@@ -19,8 +19,7 @@ const _sampleBallV09=sampleBall;
 sampleBall=function(progress=state.flight/state.duration){if(ceremony==='time'&&progress>1){const r=Math.min(1,(progress-1)/.52),targetZ=state.aimZ||0;return [-3.3-3.0*r,.26+Math.abs(Math.sin(r*Math.PI*3))*.035*(1-r),targetZ];}return _sampleBallV09(progress);};
 const _beginTimePassV09=beginTimePass;
 beginTimePass=function(){const r=_beginTimePassV09();speakCallV010('Time!');return r;};
-const _bowV09=bow;
-bow=function(){const r=_bowV09();if(ceremony==='bow-wait')bowWait=3.65;return r;};
+$('#bowBtn').addEventListener('click',()=>{if(ceremony==='bow-wait')bowWait=3.65;});
 const _beginHajimeV09=beginHajime;
 beginHajime=function(){const r=_beginHajimeV09();ceremonyTimer=.95;speakCallV010('Hajime!');return r;};
 const _beginMatchV09=beginMatch;
@@ -34,7 +33,7 @@ rescue=function(kind){const before=state.misses,word=state.word,target=state.tar
 const _applyBowPoseV09=applyBowPose;
 applyBowPose=function(){_applyBowPoseV09();if(bowAnim>0){const t=1-bowAnim/BOW_DURATION,k=Math.sin(Math.PI*Math.max(0,Math.min(1,t)));cpu.body.rot[2]-=k*.62;cpu.body.pos[1]-=k*.08;cpu.head.rot[2]+=k*.22;cpu.arm.rot[2]-=k*.14;cpu.farArm.rot[2]+=k*.10;}if(bodyHitV010>0){const k=Math.sin(bodyHitV010/.62*Math.PI);player.n.pos[0]-=k*.16;player.head.rot[2]+=k*.18;}if(knockdownV010>0){const t=1-knockdownV010/KNOCKDOWN_DURATION_V010,travel=Math.sin(Math.min(1,t/.72)*Math.PI/2),drop=Math.sin(Math.min(1,t/.58)*Math.PI/2);player.n.pos[2]+=knockDirV010*2.0*travel;player.body.pos[1]-=.48*drop;player.body.rot[0]+=knockDirV010*Math.PI*1.45*travel;player.body.rot[2]+=knockDirV010*.55*travel;player.arm.rot[2]-=knockDirV010*.9*travel;player.farArm.rot[2]+=knockDirV010*.7*travel;}};
 const _updateGameV09=updateGame;
-updateGame=function(dt){if(ceremony==='time'&&state.mode==='playing'){state.flight+=dt;state.aimZ+=(0-state.aimZ)*Math.min(1,dt*5);$('#time').textContent='--';if(state.flight>state.duration+.92)enterTimeChoice();return;}const r=_updateGameV09(dt);if(ceremony==='match'){if(answerCardTimerV010>0){answerCardTimerV010=Math.max(0,answerCardTimerV010-dt);if(answerCardTimerV010===0)updatePracticeCard();}bodyHitV010=Math.max(0,bodyHitV010-dt);knockdownV010=Math.max(0,knockdownV010-dt);}return r;};
+updateGame=function(dt){if(ceremony==='time'&&state.mode==='playing'){state.flight+=dt;state.aimZ+=(0-state.aimZ)*Math.min(1,dt*5);$('#time').textContent='--';if(state.flight>state.duration+.92)enterTimeChoiceV09();return;}const r=_updateGameV09(dt);if(ceremony==='match'){if(answerCardTimerV010>0){answerCardTimerV010=Math.max(0,answerCardTimerV010-dt);if(answerCardTimerV010===0)updatePracticeCard();}bodyHitV010=Math.max(0,bodyHitV010-dt);knockdownV010=Math.max(0,knockdownV010-dt);}return r;};
 `;
 html=html.replace(marker,v010+'\n'+marker);
 return html;
