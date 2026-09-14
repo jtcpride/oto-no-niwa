@@ -1,8 +1,8 @@
 window.otoPatchKicksV011=function(html){
-// v0.11.2 — four unmistakably different player kick forms, one per IPA slot.
-// Fixes cumulative transform drift by restoring the prior render pose before poseFoot runs.
+// v0.11.3 — exaggerate the three non-TH kick silhouettes while keeping pose restoration stable.
+// Goal: in PRACTICE, /θ/ /ð/ /ʃ/ /ʒ/ should read as four different techniques at a glance.
 const marker="$('#start').addEventListener('click',start);";
-html=html.replace("version:'0.10.4-slow-fade-time-ball-bow-hold'","version:'0.11.2-stable-distinct-kick-forms'");
+html=html.replace("version:'0.10.4-slow-fade-time-ball-bow-hold'","version:'0.11.3-distinct-kick-variants'");
 html=html.replace("player.kick=.38;player.shot=kind;launchShot(kind,1,contact);","player.kick=.92;player.kickSlot=state.selected;player.shot=kind;launchShot(kind,1,contact);");
 html=html.replace("poseFoot(dt);applyBowPose();","resetKickFormV011();poseFoot(dt);applyKickFormV011();applyBowPose();");
 const patch=`
@@ -41,9 +41,9 @@ function applyKickFormV011(){
  const slot=Number.isInteger(player.kickSlot)?player.kickSlot:state.selected;
 
  if(slot===0){
-  // /θ/ — straight front snap. A tall, narrow silhouette with a high front foot.
-  const chamber=heldV011(t,.07,.17,.35);
-  const k=heldV011(t,.12,.30,.63);
+  // /θ/ THINK — vertical front snap. Narrow, upright, sharp.
+  const chamber=heldV011(t,.07,.17,.34);
+  const k=heldV011(t,.12,.30,.62);
   player.body.pos[1]+=.045*chamber;
   player.leg.pos[1]+=.40*k;
   player.leg.pos[0]+=.11*k;
@@ -56,59 +56,63 @@ function applyKickFormV011(){
   player.farArm.rot[2]+=.38*k;
   player.head.rot[2]-=.09*k;
  }else if(slot===1){
-  // /ð/ — rear-leg inside sweep. Wide horizontal arc and strong torso twist toward depth.
-  const prep=heldV011(t,.08,.18,.34);
-  const k=heldV011(t,.20,.48,.82);
-  const arc=Math.sin(clamp01V011((t-.10)/.72)*Math.PI);
-  player.body.pos[1]-=.055*prep;
-  player.body.pos[2]+=.14*arc;
-  player.back.pos[1]+=.22*k;
-  player.back.pos[2]+=.22*arc;
-  player.back.rot[2]+=1.12*k;
-  player.back.rot[0]-=1.34*k;
-  player.leg.rot[2]-=.34*k;
-  player.leg.rot[0]+=.14*k;
-  player.body.rot[1]-=.82*k;
-  player.body.rot[2]-=.30*k;
-  player.arm.rot[2]-=.86*k;
-  player.farArm.rot[2]+=.72*k;
-  player.head.rot[2]-=.16*k;
+  // /ð/ THIS — rear-leg inside sweep. Low setup, wide depth arc, strong hip turn.
+  const prep=heldV011(t,.07,.19,.34);
+  const k=heldV011(t,.19,.47,.82);
+  const sweep=Math.sin(clamp01V011((t-.08)/.74)*Math.PI);
+  player.body.pos[1]-=.085*prep;
+  player.body.pos[2]+=.28*sweep;
+  player.back.pos[1]+=.25*k;
+  player.back.pos[2]+=.32*sweep;
+  player.back.rot[2]+=1.34*k;
+  player.back.rot[0]-=1.48*k;
+  player.leg.rot[2]-=.38*k;
+  player.leg.rot[0]+=.18*k;
+  player.body.rot[1]-=.98*k;
+  player.body.rot[2]-=.34*k;
+  player.body.rot[0]+=.14*k;
+  player.arm.rot[2]-=.92*k;
+  player.farArm.rot[2]+=.78*k;
+  player.head.rot[2]-=.18*k;
  }else if(slot===2){
-  // /ʃ/ — hopping outside side kick. Front leg opens outward while the torso cuts the other way.
-  const hop=Math.sin(clamp01V011(t/.72)*Math.PI);
-  const k=heldV011(t,.14,.36,.72);
-  player.body.pos[1]+=.15*hop;
-  player.body.pos[2]-=.18*hop;
-  player.leg.pos[1]+=.25*k;
-  player.leg.pos[2]-=.26*k;
-  player.leg.rot[2]+=.78*k;
-  player.leg.rot[0]+=1.48*k;
-  player.back.rot[2]-=.50*k;
-  player.back.rot[0]-=.24*k;
-  player.body.rot[1]+=.94*k;
-  player.body.rot[2]+=.22*k;
-  player.body.rot[0]-=.20*k;
-  player.arm.rot[2]-=.26*k;
-  player.farArm.rot[2]+=.96*k;
-  player.head.rot[2]+=.12*k;
+  // /ʃ/ SHIP — hopping outside side kick. Clear upward hop plus opposite depth cut.
+  const hop=Math.sin(clamp01V011(t/.70)*Math.PI);
+  const k=heldV011(t,.13,.36,.72);
+  const slash=Math.sin(clamp01V011((t-.05)/.58)*Math.PI);
+  player.body.pos[1]+=.17*hop;
+  player.body.pos[2]-=.34*hop;
+  player.leg.pos[1]+=.26*k+.05*hop;
+  player.leg.pos[2]-=.34*k;
+  player.leg.rot[2]+=.92*k+.24*slash;
+  player.leg.rot[0]+=1.58*k;
+  player.back.rot[2]-=.58*k;
+  player.back.rot[0]-=.28*k;
+  player.body.rot[1]+=1.02*k;
+  player.body.rot[2]+=.25*hop;
+  player.body.rot[0]-=.24*k;
+  player.arm.rot[2]-=.28*k;
+  player.farArm.rot[2]+=1.02*k;
+  player.head.rot[2]+=.14*hop;
  }else{
-  // /ʒ/ — deep sink then rear-leg scoop. Deliberate two-beat motion with the deepest crouch.
-  const sink=heldV011(t,.10,.30,.47);
-  const k=heldV011(t,.28,.56,.88);
-  const rebound=heldV011(t,.50,.67,.90);
-  player.body.pos[1]-=.24*sink;
-  player.body.pos[1]+=.07*rebound;
-  player.back.pos[1]+=.43*k;
-  player.back.pos[0]+=.10*k;
-  player.back.rot[2]+=1.98*k;
-  player.back.rot[0]+=.58*k;
-  player.leg.rot[2]-=.54*k+.16*sink;
-  player.body.rot[1]-=.18*k;
-  player.body.rot[2]-=.44*k;
-  player.body.rot[0]-=.28*sink;
-  player.arm.rot[2]-=1.00*k;
-  player.farArm.rot[2]+=.58*k;
-  player.head.rot[2]-=.20*k+.07*rebound;
+  // /ʒ/ VISION — sink, pause, then scoop. Deepest two-beat silhouette.
+  const sink=heldV011(t,.09,.30,.48);
+  const scoop=heldV011(t,.27,.57,.89);
+  const rebound=heldV011(t,.50,.68,.91);
+  player.body.pos[1]-=.27*sink;
+  player.body.pos[1]+=.08*rebound;
+  player.body.pos[2]+=.06*scoop;
+  player.back.pos[1]+=.48*scoop;
+  player.back.pos[0]+=.12*scoop;
+  player.back.rot[2]+=2.05*scoop;
+  player.back.rot[0]+=.62*scoop;
+  player.leg.rot[2]-=.58*sink;
+  player.leg.rot[0]+=.14*rebound;
+  player.body.rot[1]-=.22*scoop;
+  player.body.rot[2]-=.50*sink+.18*rebound;
+  player.body.rot[0]-=.34*sink+.10*rebound;
+  player.arm.rot[2]-=1.06*scoop;
+  player.farArm.rot[2]+=.62*scoop;
+  player.head.rot[2]-=.22*sink+.09*rebound;
  }
 }
 `;
