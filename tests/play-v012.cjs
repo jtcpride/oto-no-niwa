@@ -13,11 +13,11 @@ const assemble=require('./assemble.cjs');
  recover(){player.kick=0;bodyHitV010=0;knockdownV010=0;state.mode='ready';state.ready=100;updateScene(0);}
  };select(0);refreshHud();requestAnimationFrame(frame);`);
  await page.route('http://kemari.test/**',route=>route.fulfill({contentType:'text/html',body:html}));await page.goto('http://kemari.test/');
- assert.equal(await page.evaluate(()=>window.kemari.version),'0.12.0-mix-and-kick-flight');
+ assert.equal(await page.evaluate(()=>window.kemari.version),'0.13.0-steady-ball-pace');
  await page.locator('#start').click();
  const cases=await page.evaluate(()=>{const g=testGame,results=[];for(let slot=0;slot<4;slot++)for(const error of [-.15,0,.15]){g.setup(slot,error);const contact=g.sampleBall();g.kick();g.updateScene(0);const start=g.sampleBall(0),mid=g.sampleBall(.5),end=g.sampleBall(1);results.push({slot,error,contact,start,mid,end,duration:g.state.duration,style:kemari.getKick().style,kind:g.state.shot});}return results;});
  for(const c of cases){assert.deepEqual(c.start,c.contact,'no teleport on successful return');assert(Math.hypot(...c.end.map((v,i)=>v-[3.3,1.2,0][i]))<1e-9);assert(c.duration>=.7&&c.duration<=2.5);assert(c.mid.every(Number.isFinite));}
- for(let slot=0;slot<4;slot++){const a=cases.filter(c=>c.slot===slot);assert(a[0].mid[1]>a[1].mid[1]&&a[1].mid[1]>a[2].mid[1],'early rises, late drives');assert(a[0].duration>a[1].duration&&a[1].duration>a[2].duration);}
+ for(let slot=0;slot<4;slot++){const a=cases.filter(c=>c.slot===slot);assert(a[0].mid[1]>a[1].mid[1]&&a[1].mid[1]>a[2].mid[1],'early rises, late drives');assert(a.every(c=>Math.abs(c.duration-a[0].duration)<1e-9),'timing does not change flight time');}
  assert.equal(new Set(cases.filter(c=>c.error===0).map(c=>c.mid[2].toFixed(2))).size,4,'four different depth paths');
  const stable=await page.evaluate(()=>{const g=testGame;g.setup(0,0);g.recover();const snapshot=()=>JSON.stringify(kemari.getKick().nodes),base=snapshot();for(let i=0;i<100;i++){g.setup(i%4,[-.15,0,.15][i%3]);g.kick();for(let n=0;n<55;n++)g.updateScene(1/60);g.recover();}g.setup(0,0);g.recover();return {same:base===snapshot(),y:g.player.n.pos[1]};});
  assert(stable.same,'all touched nodes restore exactly');assert.equal(stable.y,.12);
