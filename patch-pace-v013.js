@@ -30,8 +30,9 @@ sampleBall=function(progress=state.flight/state.duration){
  a[1]+(endY-a[1])*q+arch*state.arc*(1+flightSkewV012*(1-2*q))-Math.max(0,t-1)*1.4,
  a[2]*(1-q)+(incoming?state.aimZ:0)*q+flightCurveV012*bend+state.wobble*Math.sin(q*3*Math.PI)*bend];
 };
-window.kemari.getPace=()=>({flightSeconds:state.duration,gameSeconds:CONFIG.maxSeconds,horizontalSpeed:Math.abs((-3.78+foot.x)-state.flightStart[0])/state.duration});
 $('#start').addEventListener('click',start);`);
+replaceOnce('window.kemari.getAudioMix=',`window.kemari.getPace=()=>({flightSeconds:state.duration,gameSeconds:CONFIG.maxSeconds,horizontalSpeed:Math.abs((-3.78+foot.x)-state.flightStart[0])/state.duration});
+window.kemari.getAudioMix=`);
 replaceOnce("$('#time').textContent=45;announce('READY'", "$('#time').textContent=CONFIG.maxSeconds;announce('READY'");
 return html;
 };
