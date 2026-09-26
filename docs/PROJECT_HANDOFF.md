@@ -1,7 +1,7 @@
 # 発音記号蹴鞠「音の庭」— Project Handoff / Design Context
 
-最終更新: 2026-09-26 17:12 JST
-現在の公開版: **v0.14.1 MIRRORED TIMING BAR**
+最終更新: 2026-09-26 17:50 JST
+現在の公開版: **v0.15.1 COMPACT UI**
 試遊URL: https://jtcpride.github.io/oto-no-niwa/
 
 この文書は、Codex / ChatGPT / Notion / その他のエージェントへ作業を引き継ぐための**文脈付き正本**です。単なる仕様一覧ではなく、「なぜそうしたか」「何をまだ決めていないか」「何を壊してはいけないか」まで残します。
@@ -36,6 +36,13 @@
 - 原因: v0.13.0のペース調整パッチが `window.kemari` の生成より先に `getPace` を設定し、実行時エラーで初期化が止まっていた。構文検査だけでは検出できなかった。
 - 変更: `getPace` の設定を `window.kemari` 生成後へ移し、更新したパッチのURLに新しいクエリ値を指定。画面内の版表示をv0.14.1へ揃えた。
 - 検証・公開: 合成後JavaScriptの構文検査と、ローカルChrome・公開ページでの読み込みと「庭に入る」からPRACTICE開始を確認。コードコミット `83aef37726ba854ca639eee33dc81263a2a9d1ce` を `main` へpushし、GitHub Pages build `1240508921` は `built`。Playwrightはこの環境に未導入のため自動通し試験は未実施。返球から試合終了までとiPad Safariの実操作は未確認。
+
+## 画面の説明削減とiPhone配置（v0.15.1）
+
+- 目的と変更: タイトルの長い遊び方・規則・注記とフッターを外し、開始前は一行の説明と開始ボタンに絞った。プレイ中の重複説明を隠し、操作見出しを短くした。iPhone幅ではタイトル・一時停止・結果パネルを画面下寄りの幅いっぱいの配置にし、ステージ高と操作パネルの間隔を調整した。
+- 変更箇所: `patch-ui-v015.js`、`index.html`、`README.md`、`tests/play-v012.cjs`。ゲーム判定・音・軌道は変更しない。
+- 検証: 合成後JavaScriptの構文と `git diff --check` が成功。Chromeの390×844エミュレーションでタイトルの開始ボタンとPRACTICE画面の操作パネルを目視確認し、開始操作でPRACTICEに入った。Playwrightの自動通し試験と実機iPhone Safariでの表示・操作は未確認。
+- 次: Pagesへの公開状態を確認し、iPhone実機でダイアログとタップ操作を試す。
 
 動作の参考（実際の競技の完全再現ではなくゲーム用のアレンジ）:
 - [宮内庁・蹴鞠](https://www.kunaicho.go.jp/learn/culture/kemari/index.html): 上体を穏やかに保ち、低い位置で蹴り上げる所作。

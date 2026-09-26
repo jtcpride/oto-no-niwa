@@ -1,7 +1,7 @@
 window.otoPatchUIV015=function(html){
 function replaceOnce(from,to){if(html.split(from).length!==2)throw new Error('v0.15 patch anchor: '+from.slice(0,72));html=html.replace(from,to);}
-replaceOnce("version:'0.14.1-mirrored-timing-bar'","version:'0.15.0-compact-ui'");
-replaceOnce('<title>音の庭 — v0.14.1 TIMING BAR</title>','<title>音の庭 — v0.15.0</title>');
+replaceOnce("version:'0.14.1-mirrored-timing-bar'","version:'0.15.1-compact-ui'");
+replaceOnce('<title>音の庭 — v0.14.1 TIMING BAR</title>','<title>音の庭 — v0.15.1</title>');
 replaceOnce('<h1>音の庭 <small>OTO NO NIWA</small></h1>','<h1>音の庭</h1>');
 replaceOnce('<p>発音記号蹴鞠 · v0.14.1 TIMING BAR → TIME → 礼 → HAJIME</p>','');
 replaceOnce('<span class="eyebrow">A LITTLE GARDEN OF SOUND</span>','');
@@ -30,7 +30,8 @@ replaceOnce('</style>',`
  .audio-mix{justify-content:space-between;gap:6px;margin:0 0 6px;font-size:11px}
  .audio-mix label{gap:5px;min-height:28px}
  .audio-mix input{width:min(22vw,90px)}
- #arena{height:clamp(300px,43svh,360px)}
+ #arena{height:clamp(300px,calc(100svh - 290px),480px)}
+ #arena:has(#intro:not([hidden])){height:clamp(420px,calc(100svh - 120px),660px)}
  .overlay,.overlay:has(.intro:not([hidden])){align-items:flex-end;justify-content:center;padding:10px;background:linear-gradient(180deg,#10282924,#102829bd);backdrop-filter:none}
  .panel,.intro,.panel:not(.intro){box-sizing:border-box;width:100%;max-width:100%;max-height:calc(100% - 8px);overflow-y:auto;margin:0;padding:14px 16px;background:#17302ef2;border:1px solid #7b968677;border-radius:8px;text-align:left;box-shadow:0 8px 24px #0005}
  .intro h2{font-size:28px;margin:0 0 8px;line-height:1.16}
