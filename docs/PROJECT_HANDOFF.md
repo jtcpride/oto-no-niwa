@@ -1,7 +1,7 @@
 # 発音記号蹴鞠「音の庭」— Project Handoff / Design Context
 
-最終更新: 2026-09-26 16:54 JST
-現在の試作: **v0.14.0 MIRRORED TIMING BAR（ローカル案）**
+最終更新: 2026-09-26 16:58 JST
+現在の公開版: **v0.14.0 MIRRORED TIMING BAR**
 試遊URL: https://jtcpride.github.io/oto-no-niwa/
 
 この文書は、Codex / ChatGPT / Notion / その他のエージェントへ作業を引き継ぐための**文脈付き正本**です。単なる仕様一覧ではなく、「なぜそうしたか」「何をまだ決めていないか」「何を壊してはいけないか」まで残します。
@@ -25,11 +25,11 @@
 - 検証: 合成後JSの構文を確認。Playwrightのテストは未実施。公開: コードコミット `f397185fa2d143fda898b869342d4a395709322e` をmainへpush。Pages build `1240485408` は `built`。公開URLはv0.13.0 HTMLとペース調整パッチを返し、パッチはHTTP 200。未確認: 実機での聞き取りやすさと軌道の体感。
 - 成果物: `../outputs/oto-no-niwa-v0.13.0.html`。
 
-## 今回のUI調整案（v0.14.0・未公開）
+## 今回のUI調整（v0.14.0）
 
 - 横タイミングバーを左右反転し、相手から来る球の進行（右から左）とマーカーをそろえる。判定と到着時間は変えず、成功窓を自分側（バー左）へ置く。
 - `patch-timing-v014.js` を追加してローダー末尾で適用。CSSの `scaleX(-1)` だけで表示を反転する。
-- 構文の生成確認後、公開ページには未反映。実機表示は確認していない。
+- 検証・公開: 合成後JavaScriptの構文を確認。コードコミット `eaa46c89333b74d98cd3dc09a780d50bf7316ab2` を `main` へpush。GitHub Pages build `1240492547` は `built`。公開HTMLはv0.14.0を返し、`patch-timing-v014.js?v=0140` はHTTP 200。実機表示・操作感は未確認。
 
 動作の参考（実際の競技の完全再現ではなくゲーム用のアレンジ）:
 - [宮内庁・蹴鞠](https://www.kunaicho.go.jp/learn/culture/kemari/index.html): 上体を穏やかに保ち、低い位置で蹴り上げる所作。
