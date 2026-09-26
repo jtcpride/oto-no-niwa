@@ -13,7 +13,7 @@ const assemble=require('./assemble.cjs');
  recover(){player.kick=0;bodyHitV010=0;knockdownV010=0;state.mode='ready';state.ready=100;updateScene(0);}
  };select(0);refreshHud();requestAnimationFrame(frame);`);
  await page.route('http://kemari.test/**',route=>route.fulfill({contentType:'text/html',body:html}));await page.goto('http://kemari.test/');
- assert.equal(await page.evaluate(()=>window.kemari.version),'0.14.1-mirrored-timing-bar');
+ assert.equal(await page.evaluate(()=>window.kemari.version),'0.15.0-compact-ui');
  await page.locator('#start').click();
  const cases=await page.evaluate(()=>{const g=testGame,results=[];for(let slot=0;slot<4;slot++)for(const error of [-.15,0,.15]){g.setup(slot,error);const contact=g.sampleBall();g.kick();g.updateScene(0);const start=g.sampleBall(0),mid=g.sampleBall(.5),end=g.sampleBall(1);results.push({slot,error,contact,start,mid,end,duration:g.state.duration,style:kemari.getKick().style,kind:g.state.shot});}return results;});
  for(const c of cases){assert.deepEqual(c.start,c.contact,'no teleport on successful return');assert(Math.hypot(...c.end.map((v,i)=>v-[3.3,1.2,0][i]))<1e-9);assert(c.duration>=.7&&c.duration<=2.5);assert(c.mid.every(Number.isFinite));}
