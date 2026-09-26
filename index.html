@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101f21">
-<title>音の庭 — v0.15.1</title>
+<title>音の庭 — v0.16.0</title>
 <style>html,body{margin:0;min-height:100%;background:#101f21;color:#f3eddc;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans",sans-serif}body{display:grid;place-items:center;padding:24px}.loading{text-align:center;line-height:1.8}.loading small{display:block;color:#b4c7bf;margin-top:8px}</style>
 <script src="patch-base.js"></script>
 <script src="patch-practice.js"></script>
@@ -18,9 +18,10 @@
 <script src="patch-pace-v013.js?v=0131"></script>
 <script src="patch-timing-v014.js?v=0141"></script>
 <script src="patch-ui-v015.js?v=0151"></script>
+<script src="patch-battle-v016.js?v=0160"></script>
 </head>
 <body>
-<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.15.1</small></div>
+<div class="loading"><div id="status">音の庭を読み込み中…</div><small>v0.16.0</small></div>
 <script>
 (async()=>{
  try{
@@ -40,6 +41,7 @@
   html=window.otoPatchPaceV013(html);
   html=window.otoPatchTimingV014(html);
   html=window.otoPatchUIV015(html);
+  html=window.otoPatchBattleV016(html);
   document.open();document.write(html);document.close();
  }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
 })();
