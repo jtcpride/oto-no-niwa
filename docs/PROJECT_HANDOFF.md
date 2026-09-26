@@ -1,7 +1,7 @@
 # 発音記号蹴鞠「音の庭」— Project Handoff / Design Context
 
-最終更新: 2026-09-26 16:58 JST
-現在の公開版: **v0.14.0 MIRRORED TIMING BAR**
+最終更新: 2026-09-26 17:12 JST
+現在の公開版: **v0.14.1 MIRRORED TIMING BAR**
 試遊URL: https://jtcpride.github.io/oto-no-niwa/
 
 この文書は、Codex / ChatGPT / Notion / その他のエージェントへ作業を引き継ぐための**文脈付き正本**です。単なる仕様一覧ではなく、「なぜそうしたか」「何をまだ決めていないか」「何を壊してはいけないか」まで残します。
@@ -30,6 +30,12 @@
 - 横タイミングバーを左右反転し、相手から来る球の進行（右から左）とマーカーをそろえる。判定と到着時間は変えず、成功窓を自分側（バー左）へ置く。
 - `patch-timing-v014.js` を追加してローダー末尾で適用。CSSの `scaleX(-1)` だけで表示を反転する。
 - 検証・公開: 合成後JavaScriptの構文を確認。コードコミット `eaa46c89333b74d98cd3dc09a780d50bf7316ab2` を `main` へpush。GitHub Pages build `1240492547` は `built`。公開HTMLはv0.14.0を返し、`patch-timing-v014.js?v=0140` はHTTP 200。実機表示・操作感は未確認。
+
+## 起動不能の修正（v0.14.1）
+
+- 原因: v0.13.0のペース調整パッチが `window.kemari` の生成より先に `getPace` を設定し、実行時エラーで初期化が止まっていた。構文検査だけでは検出できなかった。
+- 変更: `getPace` の設定を `window.kemari` 生成後へ移し、更新したパッチのURLに新しいクエリ値を指定。画面内の版表示をv0.14.1へ揃えた。
+- 検証・公開: 合成後JavaScriptの構文検査と、ローカルChrome・公開ページでの読み込みと「庭に入る」からPRACTICE開始を確認。コードコミット `83aef37726ba854ca639eee33dc81263a2a9d1ce` を `main` へpushし、GitHub Pages build `1240508921` は `built`。Playwrightはこの環境に未導入のため自動通し試験は未実施。返球から試合終了までとiPad Safariの実操作は未確認。
 
 動作の参考（実際の競技の完全再現ではなくゲーム用のアレンジ）:
 - [宮内庁・蹴鞠](https://www.kunaicho.go.jp/learn/culture/kemari/index.html): 上体を穏やかに保ち、低い位置で蹴り上げる所作。
