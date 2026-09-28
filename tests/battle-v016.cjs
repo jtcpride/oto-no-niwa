@@ -4,9 +4,9 @@ function element(){return {style:{},dataset:{},children:[],hidden:false,textCont
 const elements=new Map(),symbols=Array.from({length:4},(_,i)=>Object.assign(element(),{dataset:{symbol:String(i)}}));
 const document={body:element(),querySelector(s){if(!elements.has(s))elements.set(s,element());return elements.get(s)},querySelectorAll(){return symbols},createElement:element,addEventListener(){}};
 const spoken=[],refereeVoice={name:"Alex",lang:"en-US"};
-const context={SpeechSynthesisUtterance:class{constructor(text){this.text=text}},document,console,performance:{now:()=>1000},requestAnimationFrame(){},setTimeout(fn,ms){if(ms===500)fn();},clearTimeout(){},window:{speechSynthesis:{cancel(){},resume(){},getVoices(){return [refereeVoice]},speak(u){spoken.push(u)}},matchMedia:()=>({matches:false})}};vm.createContext(context);
+const context={URL,URLSearchParams,SpeechSynthesisUtterance:class{constructor(text){this.text=text}},document,console,performance:{now:()=>1000},requestAnimationFrame(){},setTimeout(fn,ms){if(ms===500)fn();},clearTimeout(){},window:{location:{href:'http://kemari.test/?stage='+(process.env.FEG_TEST_STAGE||'first-court'),search:'?stage='+(process.env.FEG_TEST_STAGE||'first-court')},speechSynthesis:{cancel(){},resume(){},getVoices(){return [refereeVoice]},speak(u){spoken.push(u)}},matchMedia:()=>({matches:false})}};vm.createContext(context);
 let html=assemble().replace('renderer=new G.Renderer(canvas)','renderer={zoom:1,resize(){},render(){window.renderedRotation=window.test?[...window.test.ball.rot]:null},project(){return [200,240]}}');
-html=html.replace('select(0);refreshHud();requestAnimationFrame(frame);','window.test={state,ball,audio,end,setMotion,beginTimePass,beginHajime,speakCallV010,start,beginMatch,kick,cpuReturn,updateGame,updateScene,pause,select,resetFoot,launchShot,get ceremony(){return ceremony}};select(0);refreshHud();requestAnimationFrame(frame);');
+html=html.replace('select(0);refreshHud();requestAnimationFrame(frame);','window.test={state,ball,audio,player,cpu,newQuestion,chooseWord,showAnswerCardV010,queueRetryV010,PRACTICE_SET,SOUNDS,WORD_IPA_V010,ACTIVE_STAGE,ACTIVE_DECK,PLAYER_CHARACTER,CPU_CHARACTER,end,setMotion,beginTimePass,beginHajime,speakCallV010,start,beginMatch,kick,cpuReturn,updateGame,updateScene,pause,select,resetFoot,launchShot,get ceremony(){return ceremony}};select(0);refreshHud();requestAnimationFrame(frame);');
 for(const [,script] of html.matchAll(/<script>([\s\S]*?)<\/script>/g))vm.runInContext(script,context);
 const g=context.window.test,s=g.state;
 function match(){g.start();g.beginMatch();s.mode='playing';}
@@ -77,3 +77,5 @@ a.stopVoice();s.mode='idle';a.userChoice=true;a.set(false);const beforeSilent=sp
 a.set(true);a.voiceVolume=0;s.mode='idle';g.start();assert.equal(s.mode,'ready','zero voice skips wait');
 a.voiceVolume=.85;s.mode='idle';let watchdog;context.setTimeout=(fn,ms)=>{if(ms===8000)watchdog=fn;else if(ms===500)fn()};g.start();assert.equal(s.mode,'idle');assert(watchdog);watchdog();assert.equal(s.mode,'ready','missing speech callbacks cannot strand title');
 console.log('PASS: title/word voice equality, completion before play, double start, stale end, error, mute, zero voice, watchdog');
+
+module.exports={g,s,elements,spoken,context};

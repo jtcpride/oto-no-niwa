@@ -1,0 +1,8 @@
+// Fixed contact points and named joints are the animation contract. See docs/STAGE_MODULES.md.
+window.FEGCharacterRigs=window.FEGCharacterRigs||{};
+window.FEGCharacterRigs.garden=function({root,group,mesh},x,appearance,face){
+const {robe:tint,trim,skin,hair,cap,eyes,nose,trousers,shoes}=appearance;const n=group(root,[x,.12,0]);n.rot[1]=face<0?Math.PI:0;const body=group(n,[0,1.08,0]);mesh(body,'robe',tint,[0,.68,0],[.47,1.14,.43]);mesh(body,'box',trim,[0,.27,0],[.8,.13,.74]);mesh(body,'box',trim,[.37,.7,0],[.06,.65,.47],[0,0,-.17]);
+const head=group(body,[.03,1.49,0]);mesh(head,'head',skin,[0,0,0],[.29,.48,.28],[0,.2,0]);mesh(head,'box',hair,[-.05,.26,0],[.46,.19,.43]);mesh(head,'box',cap,[-.12,.53,0],[.22,.46,.26],[0,0,-.15]);mesh(head,'box',eyes,[.256,.03,.105],[.04,.055,.055]);mesh(head,'box',nose,[.286,-.035,0],[.12,.13,.12]);
+const arm=group(body,[.06,1.05,.4]);mesh(arm,'robe',tint,[.04,-.32,0],[.32,.66,.3],[0,0,.18]);mesh(arm,'ico',skin,[.12,-.73,0],[.15,.16,.14]);const farArm=group(body,[.06,1.05,-.4]);mesh(farArm,'robe',tint,[.07,-.3,0],[.28,.64,.29],[0,0,.25]);
+const leg=group(n,[.08,1.05,.22]),back=group(n,[-.13,1.05,-.23]);const joints=[];for(const l of [leg,back]){const thigh=group(l),knee=group(thigh,[0,-.48,0]),shoe=group(knee,[0,-.48,0]);mesh(thigh,'robe',trousers,[0,-.23,0],[.21,.49,.23]);mesh(knee,'robe',trousers,[0,-.22,0],[.18,.47,.20]);mesh(shoe,'box',shoes,[.12,0,.02],[.40,.14,.29]);joints.push(thigh,knee,shoe);}
+return {n,body,head,arm,farArm,leg,back,thigh:joints[0],knee:joints[1],shoe:joints[2],backThigh:joints[3],backKnee:joints[4],backShoe:joints[5],kick:0,phase:face<0?1.7:0};};

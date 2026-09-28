@@ -12,9 +12,9 @@ const assemble=require('./assemble.cjs');
  setup(slot,error=0){start();beginMatch();state.mode='playing';select(slot);resetFoot();state.target=slot;state.word=PRACTICE_SET[slot].word;state.hitstop=0;launchShot('normal',-1,[3.3,1.2,0]);state.flight=state.duration+error;updateScene(0);},
  recover(){player.kick=0;bodyHitV010=0;knockdownV010=0;state.mode='ready';state.ready=100;updateScene(0);}
  };select(0);refreshHud();requestAnimationFrame(frame);`);
- await page.route('http://kemari.test/**',route=>route.fulfill({contentType:'text/html',body:html}));await page.goto('http://kemari.test/');
- assert.equal(await page.evaluate(()=>window.kemari.version),'0.20.0-fifteenth-ever-garden');
- await page.locator('#start').click();
+ await page.route('http://kemari.test/**',route=>route.fulfill({contentType:'text/html',body:html}));await page.goto('http://kemari.test/?stage='+(process.env.FEG_TEST_STAGE||'first-court'));
+ assert.equal(await page.evaluate(()=>window.kemari.version),'0.21.0-stage-modules');
+ await page.locator('#start').click();await page.evaluate(()=>__spoken.at(-1).onend());await page.waitForFunction(()=>testGame.state.mode==='ready',null,{polling:50});
  const cases=await page.evaluate(()=>{const g=testGame,results=[];for(let slot=0;slot<4;slot++)for(const error of [-.15,0,.15]){g.setup(slot,error);const contact=g.sampleBall();g.kick();g.updateScene(0);const start=g.sampleBall(0),mid=g.sampleBall(.5),end=g.sampleBall(1);results.push({slot,error,contact,start,mid,end,duration:g.state.duration,style:kemari.getKick().style,kind:g.state.shot});}return results;});
  for(const c of cases){assert.deepEqual(c.start,c.contact,'no teleport on successful return');assert(Math.hypot(...c.end.map((v,i)=>v-[3.3,1.2,0][i]))<1e-9);assert(c.duration>=.7&&c.duration<=2.5);assert(c.mid.every(Number.isFinite));}
  for(let slot=0;slot<4;slot++){const a=cases.filter(c=>c.slot===slot);assert(a[0].mid[1]>a[1].mid[1]&&a[1].mid[1]>a[2].mid[1],'early rises, late drives');assert(a.every(c=>Math.abs(c.duration-a[0].duration)<1e-9),'timing does not change flight time');}
@@ -38,9 +38,9 @@ const assemble=require('./assemble.cjs');
  const live=await browser.newPage({viewport:{width:1280,height:900}});live.on('pageerror',e=>errors.push(e.message));
  await live.addInitScript(()=>{Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return []},speak(u){u.onstart?.();setTimeout(()=>u.onend?.(),450);}}});});
  await live.clock.install();await live.clock.pauseAt(new Date(Date.now()+1000));
- await live.route('http://kemari-live.test/**',route=>{const name=new URL(route.request().url()).pathname.slice(1)||'index.html';if(!/^(index\.html|patch-[a-z0-9-]+\.js|app[1-5]\.b64)$/.test(name))return route.abort();route.fulfill({contentType:name.endsWith('.js')?'text/javascript':name.endsWith('.html')?'text/html':'text/plain',body:fs.readFileSync(name,'utf8')});});
- await live.goto('http://kemari-live.test/');await live.waitForFunction(()=>!!window.kemari);
- await live.locator('#start').click();await live.clock.runFor(1500);
+ await live.route('http://kemari-live.test/**',route=>{const name=new URL(route.request().url()).pathname.slice(1)||'index.html';if(!/^(index\.html|patch-[a-z0-9-]+\.js|app[1-5]\.b64|content\/[a-z-]+\.js|characters\/[a-z-]+\.js)$/.test(name))return route.abort();route.fulfill({contentType:name.endsWith('.js')?'text/javascript':name.endsWith('.html')?'text/html':'text/plain',body:fs.readFileSync(name,'utf8')});});
+ await live.goto('http://kemari-live.test/?stage='+(process.env.FEG_TEST_STAGE||'first-court'));await live.waitForFunction(()=>!!window.kemari);
+ await live.locator('#start').click();await live.clock.runFor(2200);
  for(let i=0;i<8;i++){
   const s=await live.evaluate(()=>kemari.getState());assert.equal(s.direction,-1);
   assert(await live.locator('[data-symbol="'+s.target+'"]').isEnabled());await live.locator('[data-symbol="'+s.target+'"]').dispatchEvent('click');
@@ -48,7 +48,7 @@ const assemble=require('./assemble.cjs');
   const out=await live.evaluate(()=>kemari.getState());assert.equal(out.direction,1,'public practice kick succeeds');
   await live.clock.runFor((out.duration+.18)*1000);
  }
- await live.clock.runFor(4500);assert(await live.locator('#bowBtn').isVisible(),'TIME reaches bow choice');
+ const timeState=await live.evaluate(()=>kemari.getState());await live.clock.runFor((Math.max(0,timeState.duration-timeState.flight)+2.6)*1000);assert(await live.locator('#bowBtn').isVisible(),'TIME reaches bow choice');
  await live.locator('#bowBtn').dispatchEvent('click');await live.clock.runFor(6500);
  // State must now be in the match and input still works after the ceremony.
  const match=await live.evaluate(()=>kemari.getState());assert.equal(match.mode,'playing');assert.equal(match.config.hitWindow,.18);
