@@ -37,3 +37,23 @@ s.cpuHp=10;hit();arrive();g.end('win');const calls=spoken.filter(u=>u.text==='Sh
 for(const key of ['voice','lang','rate','pitch','volume'])assert.equal(calls.at(-1)[key],hajime[key]);
 match();g.audio.set(false);s.cpuHp=10;hit();arrive();assert.equal(spoken.filter(u=>u.text==='Shobu ari!').length,calls.length,'mute suppresses victory voice');
 console.log('PASS: distance-driven roll, render order, stationary/pause/reduced motion, bow transition, same referee voice, single call, mute');
+
+// Shared mobile mix: check actual bus targets, voice callbacks, stale events and mute.
+const a=g.audio;
+assert.equal(a.musicVolume,.8);assert.equal(a.voiceVolume,.85);
+const gain=()=>({value:1,setTargetAtTime(v){this.value=v}});
+context.window.AudioContext=class{
+ constructor(){this.currentTime=0;this.destination={};this.state='running'}
+ createGain(){return {gain:gain(),connect(){}}}
+ createDynamicsCompressor(){return {connect(){}}}
+ resume(){return Promise.resolve()}
+};
+a.set(true);assert.equal(a.master.gain.value,.32);assert.equal(a.musicBus.gain.value,.8);assert.equal(a.fxBus.gain.value,.8);
+a.speak({text:'first'});const first=spoken.at(-1);
+assert.equal(a.musicBus.gain.value,.48);assert.equal(a.fxBus.gain.value,.8,'voice must not suppress kick cues');
+a.speak({text:'second'});first.onend();assert.equal(a.ducked,true,'old voice must not release current voice');spoken.at(-1).onerror();assert.equal(a.musicBus.gain.value,.8,'error restores music');
+a.speak({text:'third'});spoken.at(-1).onend();assert.equal(a.musicBus.gain.value,.8,'end restores music');
+a.musicVolume=0;a.applyMix();a.speak({text:'fourth'});assert.equal(a.musicBus.gain.value,0,'ducking respects music slider zero');
+a.set(false);assert.equal(a.master.gain.value,0);assert.equal(a.ducked,false);const count=spoken.length;a.speak({text:'muted'});assert.equal(spoken.length,count);
+a.set(true);assert.equal(a.master.gain.value,.32,'re-enable retains new game gain');a.voiceVolume=0;a.speak({text:'silent voice'});assert.equal(spoken.length,count);
+console.log('PASS: mobile defaults, bus gains, audible kick during speech, stale/end/error callbacks, zero sliders, mute/re-enable');
