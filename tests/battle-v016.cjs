@@ -57,3 +57,22 @@ a.musicVolume=0;a.applyMix();a.speak({text:'fourth'});assert.equal(a.musicBus.ga
 a.set(false);assert.equal(a.master.gain.value,0);assert.equal(a.ducked,false);const count=spoken.length;a.speak({text:'muted'});assert.equal(spoken.length,count);
 a.set(true);assert.equal(a.master.gain.value,.32,'re-enable retains new game gain');a.voiceVolume=0;a.speak({text:'silent voice'});assert.equal(spoken.length,count);
 console.log('PASS: mobile defaults, bus gains, audible kick during speech, stale/end/error callbacks, zero sliders, mute/re-enable');
+
+
+// Title speech must finish before practice, and use the same voice as the first word.
+const titleVoice={name:'Samantha',lang:'en-US'};
+context.window.speechSynthesis.getVoices=()=>[refereeVoice,titleVoice];
+a.voiceVolume=.85;a.musicVolume=.8;a.userChoice=false;s.mode='idle';
+g.start();const title=spoken.at(-1);
+assert.equal(title.text,'FIFTEENTH EVER GARDEN');assert.equal(title.voice,titleVoice);
+assert.equal(s.mode,'idle','keep title screen while speaking');assert.equal(elements.get('#start').disabled,true);
+const titleCount=spoken.length;g.start();assert.equal(spoken.length,titleCount,'ignore repeated start while title is speaking');
+title.onend();assert.equal(s.mode,'ready');assert.equal(elements.get('#start').disabled,false);
+const firstWord=spoken.at(-1);assert.notEqual(firstWord.text,title.text);
+for(const key of ['voice','lang','rate','pitch','volume'])assert.equal(title[key],firstWord[key]);
+const afterTitle=spoken.length;title.onend();assert.equal(spoken.length,afterTitle,'late title end cannot restart play');
+a.stopVoice();s.mode='idle';g.start();spoken.at(-1).onerror();assert.equal(s.mode,'ready','speech error cannot block start');
+a.stopVoice();s.mode='idle';a.userChoice=true;a.set(false);const beforeSilent=spoken.length;g.start();assert.equal(s.mode,'ready');assert.equal(spoken.length,beforeSilent,'mute skips title and word');
+a.set(true);a.voiceVolume=0;s.mode='idle';g.start();assert.equal(s.mode,'ready','zero voice skips wait');
+a.voiceVolume=.85;s.mode='idle';let watchdog;context.setTimeout=(fn,ms)=>{if(ms===8000)watchdog=fn};g.start();assert.equal(s.mode,'idle');assert(watchdog);watchdog();assert.equal(s.mode,'ready','missing speech callbacks cannot strand title');
+console.log('PASS: title/word voice equality, completion before play, double start, stale end, error, mute, zero voice, watchdog');

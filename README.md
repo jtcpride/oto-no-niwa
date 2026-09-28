@@ -1,6 +1,6 @@
-# oto-no-niwa
+# FIFTEENTH EVER GARDEN
 
-発音記号蹴鞠「音の庭」の試作リポジトリです。
+発音記号蹴鞠「FIFTEENTH EVER GARDEN」の試作リポジトリです。
 
 ## iPad / Safari 試遊
 
@@ -8,7 +8,8 @@ https://jtcpride.github.io/oto-no-niwa/
 
 ## Current
 
-- **v0.19.0「iPhone・iPad向け音量バランス」**
+- **v0.20.0「FIFTEENTH EVER GARDEN」**
+- 左上と開始画面のタイトルを二段組へ。STARTで単語と同じ音声がタイトルを読み上げ、終了後にプレイ開始。消音・未対応時はそのまま開始
 - 初期音量はBGM 80％／発音85％。発音中もBGMを60％残し、効果音は下げない。ゲーム音の共通ゲインを0.22→0.32へ調整（実機の聴感は未確認）
 - TIME後の鞠は床上の移動距離に合わせて回転し、消えていく
 - 勝利時はHAJIMEと同じ英語音声設定で「Shobu ari!」を一度だけ読み上げ
