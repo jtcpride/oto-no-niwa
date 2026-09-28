@@ -27,10 +27,15 @@ start=function(){
  if(state.mode!=='idle')return startV020();
  audio.ensure();if(!audio.userChoice)audio.set(true);
  titlePendingV020=true;$('#start').disabled=true;
+ let finished=false;
  const finish=()=>{
-  if(!titlePendingV020)return;
-  titlePendingV020=false;$('#start').disabled=false;
-  startV020();
+  if(finished||!titlePendingV020)return;
+  finished=true;
+  setOverlay(null);
+  setTimeout(()=>{
+   titlePendingV020=false;$('#start').disabled=false;
+   startV020();
+  },500);
  };
  speakWord('FIFTEENTH EVER GARDEN',finish);
 };
