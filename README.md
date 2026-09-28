@@ -45,6 +45,7 @@ https://jtcpride.github.io/oto-no-niwa/
 
 - [docs/PROJECT_HANDOFF.md](docs/PROJECT_HANDOFF.md)
 - [docs/V010_PLAYTEST_NOTES.md](docs/V010_PLAYTEST_NOTES.md) — v0.10の変更意図、試遊観察、検証項目
+- [docs/CONCEPT_3D_STAGE_VISION_2026-09-28.md](docs/CONCEPT_3D_STAGE_VISION_2026-09-28.md) — セルルック3D、Rally Heat、Depth Break / 奥舞台、京都ステージ群、宿命構造の仮構想
 
 ## Checks
 
