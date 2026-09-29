@@ -30,7 +30,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   await page.evaluate(()=>{feelTest.tick(.36);feelTest.tick(.29);feelTest.tick(.36);});
   for(let i=0;i<5;i++){await page.locator('#kick').dispatchEvent('pointerdown');await page.evaluate(()=>feelTest.tick(.1));}
   assert.equal(await page.evaluate(()=>kemari.getDuel().taps),5);
-  assert(await page.evaluate(()=>document.querySelector('#duelWord').getBoundingClientRect().top>document.querySelector('#rally').getBoundingClientRect().bottom),'rush word clears HUD');
+  assert(await page.evaluate(()=>[...document.querySelectorAll('.rush-word-v025')].filter(e=>!e.hidden).every(e=>e.getBoundingClientRect().top>document.querySelector('#rally').getBoundingClientRect().bottom)),'rush word clears HUD '+JSON.stringify(await page.evaluate(()=>({size:[innerWidth,innerHeight],rally:document.querySelector('#rally').getBoundingClientRect().toJSON(),words:[...document.querySelectorAll('.rush-word-v025')].filter(e=>!e.hidden).map(e=>e.getBoundingClientRect().toJSON())}))));
   if([390,844,1024].includes(width))await page.screenshot({path:`../work/feel-rush-${width}.png`});
   await page.evaluate(()=>feelTest.pause());const frozen=await page.evaluate(()=>JSON.stringify(kemari.getDuel()));await page.evaluate(()=>feelTest.tick(5));assert.equal(await page.evaluate(()=>JSON.stringify(kemari.getDuel())),frozen);await page.evaluate(()=>feelTest.pause());
   await page.evaluate(()=>{feelTest.tick(5);feelTest.tick(.86);feelTest.tick(1.3);});assert.equal(await page.evaluate(()=>kemari.getState().mode),'over');
