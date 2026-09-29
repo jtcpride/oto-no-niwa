@@ -7,7 +7,9 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
  await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return []},speak(u){u.onstart?.()}}});});
  const html=require('./assemble.cjs')().replace('select(0);refreshHud();requestAnimationFrame(frame);',`window.feelTest={state,duelV022,feelV023,renderer,player,cpu,ball,audio,start,beginMatch,pause,kick,setMotion,updateScene,
  tick(dt){visualTime+=dt;updateGame(dt);updateScene(dt);},match(){state.mode='over';start();beginMatch();state.mode='playing';},
- hit(){select(0);resetFoot();state.target=0;state.pendingMiss=null;state.hitstop=0;launchShot('normal',-1,[3.3,1.2,0]);state.flight=state.duration;kick();},
+ hit(){select(0);resetFoot();state.target=0;state.pendingMiss=null;state.hitstop=0;launchShot('normal',-1,[3.3,1.2,0]);state.flight=state.duration;kick();
+ // This older suite focuses on post-gate layout; dedicated close tests cover the interaction.
+ if(duelV022.phase==='close'){updateGame(.86);for(let i=0;i<4;i++){updateGame(.3);select(closeV027.target);updateGame(.81)}updateGame(.86);}},
  impact(){state.hitstop=0;state.flight=state.duration;updateGame(.001);updateScene(0);},
  settle(){for(let i=0;i<180&&['impact','break'].includes(duelV022.phase);i++){updateGame(1/60);updateScene(1/60);}},
  sample(p){state.flight=state.duration*p;updateScene(0);}
