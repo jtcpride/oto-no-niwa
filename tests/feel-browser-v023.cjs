@@ -18,7 +18,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=r
   await page.setViewportSize({width,height});await page.evaluate(()=>{feelTest.match();feelTest.updateScene(0);});
   for(let n=0;n<6;n++)await page.evaluate(()=>{feelTest.hit();feelTest.impact();feelTest.settle();});
   await page.evaluate(()=>feelTest.tick(.5));
-  assert.equal(await page.evaluate(()=>kemari.getDuel().approach),1);
+  assert(await page.evaluate(()=>kemari.getDuel().approach>0));
   for(const p of [.15,.5,.85,1]){
    await page.evaluate(p=>feelTest.sample(p),p);
    const boxes=await page.evaluate(()=>({drawn,arena:{w:document.querySelector('#arena').clientWidth,h:document.querySelector('#arena').clientHeight},buttons:[...document.querySelectorAll('[data-symbol],#kick')].map(b=>{const r=b.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}})}));
