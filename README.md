@@ -8,9 +8,12 @@ https://jtcpride.github.io/oto-no-niwa/
 
 ## Current
 
-- **v0.22.0「奥舞台とVocabulary Rush 試作」**
+- **v0.23.0「一ノ庭・一試合の演出調整候補」**（ローカル試遊・未公開）
+- 一ノ庭は成功着弾の短い間→相手先行の奥への崩れ→追い足→成功に応じた接近とカメラの寄り→溜め→Vocabulary Rush→着弾の余韻へ
+- 通常の飛行時間・回答猶予は維持。ラッシュは毎タップ攻撃し、最近の語から読む。発音中の連打は同じ語の鞠を撃ち、最低0.65秒と発音終了を待って次のタップで次語へ（終了通知なしは1.25秒で置換、音声待ち列なし）
+- 一ノ庭のみを調整。二ノ庭のv0.22演出は維持。試遊・比較証拠は [引継ぎ冒頭](docs/PROJECT_HANDOFF.md) を参照
 - 相手HPが半分以下になると奥へ倒れ、カメラが回り込んで第二の庭へ。後半は成功返球で接近（通常の飛行時間は維持）
-- 最後の返球は0.7秒の溜め→高速の鞠→5秒の連打ラッシュ→SHOUBU ARI。ラッシュ音声は毎タップで前の語をキャンセル
+- 最後の返球は0.7秒の溜め→高速の鞠→5秒の連打ラッシュ→SHOUBU ARI。一ノ庭では開始前と最終着弾後に短い間を置く
 - 奥舞台は現行の低ポリ描画による仮背景。完成版の京都美術ではない
 - 最大7ステージの定義に対応。デッキ・単語/IPA・自キャラ・敵キャラ・描画リグを分離
 - 現行の一ノ庭に加え、`/f/ /v/ /s/ /z/` の二ノ庭を選択可能。背景は共用
@@ -59,3 +62,7 @@ https://jtcpride.github.io/oto-no-niwa/
 - `node tests/assemble.cjs`: 全runtime patchの適用と生成後JSの構文検査。
 - `node tests/play-v012.cjs`: Playwright + Chromeで球道12通り、100回の姿勢復帰、失敗、音量制御、スマホ幅、実indexからの練習→礼→本戦を検証。Playwrightを解決できる環境で実行（必要なら `NODE_PATH`）、Chromeパスは `CHROME_PATH` で指定可。
 - TTSは自動検証ではイベントを模擬。実際の声・聞こえ方・iPad Safariの体感は実機試遊で確認。
+
+- `node tests/feel-v023.cjs`: 一ノ庭の着弾待機・発音保護・姿勢復元・停止/再開・演出OFF。
+- `node tests/feel-browser-v023.cjs`: 実WebGLの6画面サイズ、至近距離の見切れ、単語とHUDの非重複、操作と決着。
+- `node tests/match-feel-browser.cjs <label> [assembled.html]`: 出題乱数を演出と分離した同条件の自然進行2試合を録画。Playwright/Chrome/録画用ffmpegが必要。TTSは模擬。

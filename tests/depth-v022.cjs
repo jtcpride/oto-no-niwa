@@ -1,3 +1,5 @@
+// Legacy second-court presentation remains unchanged; first court is tested in feel-v023.
+process.env.FEG_TEST_STAGE='second-court';
 const assert=require('node:assert/strict');
 const {g,s,context,elements,spoken}=require('./battle-v016.cjs');
 const duel=()=>context.window.kemari.getDuel();
