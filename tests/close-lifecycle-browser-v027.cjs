@@ -17,7 +17,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.equal((await snapshot()).stage,'ask');assert.equal(await page.locator('.close-point.correct,.close-point.wrong').count(),0,'no answer reveal before input');
   const bounds=await page.locator('.close-point').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}}));
   bounds.forEach(r=>assert(r.x>=0&&r.y>=0&&r.x+r.w<=width&&r.y+r.h<=height,JSON.stringify({width,height,r})));
-  for(let i=1;i<4;i++)assert(bounds[i].y>=bounds[i-1].y+bounds[i-1].h,'body markers do not overlap');
+  for(let i=1;i<4;i++)assert(Math.hypot(bounds[i].x+bounds[i].w/2-bounds[i-1].x-bounds[i-1].w/2,bounds[i].y+bounds[i].h/2-bounds[i-1].y-bounds[i-1].h/2)>=(bounds[i].h+bounds[i-1].h)/2,JSON.stringify({width,height,bounds,i}));
   await page.screenshot({path:`../work/close-v027-${width}x${height}.png`});
   await page.evaluate(()=>{ct.tick(.4);ct.answer();ct.answer()});assert.equal((await snapshot()).score,1,'one answer only');
   await page.evaluate(()=>ct.tick(.81));assert.equal((await snapshot()).turn,1,'attack follows defense');

@@ -5,7 +5,7 @@ const d=g.duelV022,a=g.strideV024;
 function match(){g.audio.set(false);g.start();g.beginMatch();s.mode='playing';}
 function hit(wrong=false){g.select(0);g.resetFoot();s.target=wrong?1:0;s.pendingMiss=null;s.hitstop=0;if(d.phase==='front')g.launchShot('normal',-1,[3.3,1.2,0]);else{s.direction=-1;s.flightStart=[3.3,1.2,0];s.shot='normal';}s.flight=s.duration;g.kick();}
 function impact(){s.hitstop=0;s.flight=s.duration;g.updateGame(.001);}
-match();s.cpuHp=55;hit();impact();g.updateGame(2.66);
+match();s.cpuHp=55;hit();impact();g.updateGame(3.41);
 assert.equal(d.phase,'back');assert.equal(a.player.x,-1.2);assert.equal(a.cpu.x,1.2);assert(d.spacing>1.12,'back court begins wider than v023');
 const duration=s.duration,launchPoint=JSON.stringify(g.depthPointV022([3.3,1.2,0]));
 g.updateGame(.41);assert.equal(a.cpu.x,1.2,'kick precedes the step');assert.equal(a.player.x,-1.2);
