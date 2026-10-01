@@ -7,7 +7,7 @@ const out=path.resolve(__dirname,'../../work');
  setup(slot=0,back=false){state.mode='over';start();beginMatch();state.mode='playing';resetFoot();select(slot);if(back){duelV022.entered=true;duelV022.phase='back';Object.assign(strideV024.player,{x:0,from:0,to:0,age:99});Object.assign(strideV024.cpu,{x:0,from:0,to:0,age:99});}state.target=slot;state.word=PRACTICE_SET[slot].word;launchShot('normal',-1,[3.3,1.2,0]);state.hitstop=0;state.flight=state.duration;strideV024.cpu.attack=99;if(typeof motionV029!=='undefined')motionV029.cpu.age=99;updateScene(0)},
  draw(){updateScene(0)},
  rules(){return {duration:state.duration,arc:state.arc,pendingDamage:state.pendingDamage,hp:state.hp,cpuHp:state.cpuHp,rally:state.rally,perfect:state.perfect,hit:CONFIG.hitWindow,perfectWindow:CONFIG.perfectWindow,samples:[0,.25,.5,.75,1].map(t=>sampleBall(t))}},
- roots(){return JSON.stringify([player.n.pos,player.n.rot,cpu.n.pos,cpu.n.rot,player.body.pos,player.body.rot,cpu.body.pos,cpu.body.rot,ball.scale,shadow.scale])},
+ roots(){return JSON.stringify([player.n.pos,player.n.rot,cpu.n.pos,cpu.n.rot,player.body.pos,player.body.rot,cpu.body.pos,cpu.body.rot,ball.scale,shadow.scale,...KICK_NODES_V011.map(k=>[player[k].pos,player[k].rot,cpu[k].pos,cpu[k].rot])])},
  getMotion(){return typeof motionV029==='undefined'?null:{...motionV029,impacts:impactsV029.map(p=>({point:p.point,kind:p.kind,age:p.age,duration:p.duration,hidden:p.e.hidden}))}},
  drive(phase){for(let i=0;i<12000&&duelV022.phase!==phase;i++){if(['front','back'].includes(duelV022.phase)&&state.direction===-1&&state.flight>=state.duration-.01){document.querySelector('[data-symbol="'+state.target+'"]').click();document.querySelector('#kick').dispatchEvent(new PointerEvent('pointerdown'));}this.tick(1/60)}if(duelV022.phase!==phase)throw Error('No '+phase)}
  };const drawMotion=renderer.render.bind(renderer);renderer.render=function(root){drawMotion(root);window.motionDrawn={ball:[...ball.pos],scale:[...ball.scale],playerNodes:Object.fromEntries(KICK_NODES_V011.map(k=>[k,[...player[k].rot]])),cpuNodes:Object.fromEntries(KICK_NODES_V011.map(k=>[k,[...cpu[k].rot]]))};};select(0);refreshHud();`;
@@ -23,6 +23,7 @@ const out=path.resolve(__dirname,'../../work');
    results[version].push(await page.evaluate(()=>mt.rules()));
    if(version==='after'){
     const contact=await page.evaluate(()=>mt.getMotion().contactFoot);assert.equal(contact.side,'player');assert(Math.hypot(...contact.foot.map((v,i)=>v-contact.point[i]))<.10,'normal ball contact at launch');
+    assert(await page.evaluate(()=>motionDrawn.playerNodes.elbow[2]>.5&&motionDrawn.playerNodes.farElbow[2]>.5&&Math.abs(motionDrawn.playerNodes.toe[2])>.1),'elbows and toes articulate during kicks');
    }
    await page.evaluate(()=>mt.tick(.18));await page.screenshot({path:path.join(out,`motion-v029-${version}-${back?'back':'front'}-${slot}.png`)});
    const roots=await page.evaluate(()=>mt.roots());await page.evaluate(()=>{for(let n=0;n<30;n++)mt.draw()});assert.equal(await page.evaluate(()=>mt.roots()),roots,'no render accumulation');

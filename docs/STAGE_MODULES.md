@@ -67,8 +67,11 @@
 
 ```
 n, body, head, arm, farArm, leg, back,
-thigh, knee, shoe, backThigh, backKnee, backShoe
+thigh, knee, shoe, backThigh, backKnee, backShoe,
+elbow, wrist, farElbow, farWrist, toe, backToe
 ```
+
+v0.29.1で肘・手首・つま先を追加。`elbow`/`farElbow` は肩ノードの下、`wrist`/`farWrist` は肘の下、`toe`/`backToe` は足首ノードの下に置く。肘/前腕各0.35、つま先ピボットは靴ローカルx=0.16。現行Gardenリグへは末尾runtime patchで追加している。
 
 さらに `kick:0` と `phase` を返す。単に関節名が合えば任意の3Dモデルを使えるわけではない。現行アニメーションはGardenGLの座標系、ルート高さ0.12、脚の各節0.48、接触位置を前提とする。既存リグの親子関係・ピボット・長さを維持して形を変える。骨格・大きさ・GLTF等の形式を変える場合は、接触とアニメーションのアダプターが別途必要。
 
