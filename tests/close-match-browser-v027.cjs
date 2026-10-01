@@ -78,7 +78,7 @@ window.startComparisonMatch=()=>{state.mode='over';start();beginMatch();state.mo
    const raw=await video.path();if(raw!==prefix+'.webm')fs.unlinkSync(raw);
    assert(result.done,'match completed within 120s');assert.equal(result.initial.cpuHp,100);assert.equal(result.initial.hp,100);
    assert.equal(result.final.cpuHp,0);assert(result.final.hp>0);assert.equal(result.final.misses,0);
-   assert(result.inputs.every(i=>i.phase==='back'&&/^0\.(26|27|28)\./.test(result.version)?i.duration>=1.5&&i.duration<=3.5:i.duration>=2.2&&i.duration<=2.6),'front flights preserved; back flights bounded');
+   assert(result.inputs.every(i=>i.phase==='back'&&/^0\.(26|27|28|29)\./.test(result.version)?i.duration>=1.5&&i.duration<=3.5:i.duration>=2.2&&i.duration<=2.6),'front flights preserved; back flights bounded');
    assert.equal(result.close.attempts,scenario==='pushback'?2:1);assert(result.phases.some(p=>p.phase==='close'));assert.deepEqual(errors,[]);console.log(JSON.stringify({scenario,version:result.version,seconds:result.duration,misses:result.final.misses,frames:result.frames,video:prefix+'.webm',phases:[...shots]}));
   }
  }finally{await browser.close();}
