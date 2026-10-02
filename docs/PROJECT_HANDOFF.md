@@ -1,7 +1,7 @@
 # 発音記号蹴鞠「FIFTEENTH EVER GARDEN」— Project Handoff / Design Context
 
 最終更新: 2026-10-02（v0.29.1 関節・動作・鞠・接触の調整）
-現在の対象版: **v0.29.1 ARTICULATED MOTION**（公開先main。基点 `fd2e5df`）
+現在の対象版: **v0.29.1 ARTICULATED MOTION**（公開main `3a84568`。基点 `fd2e5df`）
 試遊URL: https://jtcpride.github.io/oto-no-niwa/
 
 この文書は、Codex / ChatGPT / Notion / その他のエージェントへ作業を引き継ぐための**文脈付き正本**です。単なる仕様一覧ではなく、「なぜそうしたか」「何をまだ決めていないか」「何を壊してはいけないか」まで残します。
@@ -13,6 +13,7 @@
 - **変更・検証**: `patch-joints-v0291.js` とindex、リグ契約の説明を更新。新関節を姿勢の保存/復元対象に含め、欠けたカスタムリグは起動時に検出。Chromeで12球道と100回姿勢復帰、実indexの練習→TIME→礼→本戦、両者4技の足先接触、6画面、近接の全4部位×攻守×成否×ON/OFF接触、停止/再開始を確認。比較試験では球道・時間・判定・HPがv0.28と一致。新しい肘/つま先の回転と描画後の復元も検証済み。
 - **通し・比較記録**: 新関節版の自然RAFと通常DOM入力で、成功52.81秒、近接で一度競り負けてラリーへ戻り再挑戦67.11秒で決着。全局面と描画、近接の回答、48タップのラッシュを確認（発音は模擬）。`../work/match-joints-v0291-{success,pushback}.webm` とJSON。v0.28との8球比較 `motion-v029-comparison.mp4`（約13秒）の右側は最終v0.29.1、通し抜粋 `motion-v029-match-close.mp4`（18秒）も新関節版で差し替えた。単語を聞く操作の代わりに検証側が正解を取得しているため、学習難易度や面白さを検証したものではない。
 - **公開前の経緯**: v0.29 `fd2e5df` のPages run `36879043933` は成功し公開バイト一致。公開smokeはチュートリアルの明滅ボタンにPlaywrightの安定待ちが合わず返球前にtimeout。v0.29.1公開確認ではDOMイベント入力を用いる。
+- **公開確認（2026-10-02 JST）**: `3a84568bf293d8b1b7cdab488c33e3fc2f758f7a` をmainへ反映。Pages run `36881174939` 成功。公開index/動作JS/関節JSは手元バイトと一致。公開URLの実Chrome（390×844）でv0.29.1を読み込み、発声音量0→START→練習8返球→TIME→礼→本戦を確認、pageerrorなし。`../work/public-motion-v0291.{cjs,json,png}` とhash JSONを保存。
 - **未確認・次**: 実音/iPhone・iPad実機は未確認。現行Gardenリグでの試作。次の新リグでは `docs/STAGE_MODULES.md` の追加関節/親子/ピボットを守り、接触を再確認。工房ノート追記なし。
 
 ## 動作・鞠・接触の調整（v0.29.0 / 2026-10-01）
