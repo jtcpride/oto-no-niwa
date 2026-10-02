@@ -18,6 +18,15 @@ body.campaign-screen #app .console,body.campaign-screen #arena :is(.hud,.phase,.
 body.campaign-cinematic #arena :is(.ball-label,.fighter-label,.practice-card,.ceremony-menu){visibility:hidden!important}.campaign-home{margin:8px auto 0;min-height:44px;padding:8px 14px;background:transparent;color:#f3eddc;border:1px solid #789a8a;border-radius:4px}
 @media(max-width:680px){.campaign-top{top:14px;left:14px;right:14px}.campaign-top h2{font-size:20px}.campaign-top small{font-size:9px}.campaign-detail{left:12px;right:12px;bottom:16px;padding:12px;gap:8px}.campaign-detail h3{font-size:17px}.campaign-detail p{font-size:10px}.campaign-detail button{padding:8px 11px}.campaign-top .campaign-small{font-size:10px;min-height:36px}.campaign-dialogue{left:4%;right:4%;bottom:8%;padding:18px}.campaign-dialogue .ja{font-size:12px}.campaign-stone:after{font-size:9px}.campaign-note{left:16px}body.campaign-screen #arena{height:calc(100svh - 100px);min-height:420px}}
 @media(orientation:landscape) and (max-height:600px){body.campaign-screen .masthead{display:none}body.campaign-screen .audio-mix{position:absolute;top:7px;right:14px;z-index:15;font-size:9px}body.campaign-screen #arena{height:calc(100svh - 16px);min-height:280px;margin:0}body.campaign-screen #app{display:block}.campaign-top{top:11px;left:16px;right:16px}.campaign-top h2{font-size:17px}.campaign-orbs{margin-right:225px;font-size:9px}.campaign-orbs span{display:inline;font-size:15px;margin-left:5px}.campaign-detail{bottom:8px;padding:8px 12px;left:14px;right:14px}.campaign-detail h3{font-size:16px;margin:0 0 2px}.campaign-detail p{font-size:10px}.campaign-detail button{min-height:38px;padding:6px 10px}.campaign-stone:after{font-size:8px}.campaign-dialogue{bottom:6%;padding:16px 20px}.campaign-dialogue .en{font-size:25px;margin:8px 0}.campaign-dialogue .ja{margin-bottom:8px}.campaign-note{bottom:0;font-size:8px}}
+/* Reserve the short landscape view for the stones between two readable rails. */
+@media(orientation:landscape) and (max-height:600px){
+ .campaign-top{z-index:1}.campaign-top:before{content:'';position:absolute;inset:-11px -16px -6px;background:linear-gradient(#112b2bf2,#112b2bb8);z-index:-1;pointer-events:none}
+ .campaign-top>div:first-child{flex:none;display:grid;grid-template-columns:auto auto;align-items:center;column-gap:10px}.campaign-top small{grid-column:1/-1}.campaign-top h2{font-size:16px;letter-spacing:.08em;white-space:nowrap}
+ .campaign-top .campaign-small{min-height:32px;padding:5px 9px}
+ .campaign-orbs{position:absolute;right:0;top:28px;margin:0;font-size:10px}.campaign-orbs span{font-size:17px}
+ .campaign-stone{min-width:44px;min-height:44px}.campaign-stone:after{font-size:9px}
+}
+.campaign-stone[data-kind=ordinary]{min-width:20px;min-height:20px;width:20px;height:20px;cursor:default}
 </style>`);
  once('<canvas id="world"', '<canvas id="world"'); // Assert the game canvas remains present.
  once("$('#start').addEventListener('click',start);",`const CampaignModelV030=(${window.FEGCampaign.toString()})();\n`+String.raw`
@@ -65,8 +74,8 @@ function showGardenV030(){
  campaignUIV030.innerHTML='<header class="campaign-top"><div><small>FIFTEENTH EVER GARDEN</small><h2>十五の石、七つの鞠。</h2><button class="campaign-small" id="stationAgain">京都駅へ</button></div><div class="campaign-orbs">受け継いだ鞠<span>'+CampaignModelV030.orbCount(campaignSaveV030)+' / 7</span></div></header><div id="gardenStones"></div><div class="campaign-detail"><div><h3 id="gardenName"></h3><p id="gardenDescription"></p></div><div class="campaign-actions"><button id="gardenGo">ここで勝負</button>'+(CampaignModelV030.unlocked(campaignSaveV030)?'<button id="gardenFinal" class="campaign-gion">祇園へ ↗</button>':'')+'</div></div><span class="campaign-note">'+saveNoticeV030+'</span>';
  const host=campaignUIV030.querySelector('#gardenStones');
  for(const [i,s] of stoneLayoutV030.entries()){
-  const b=document.createElement('button');b.className='campaign-stone';b.dataset.kind=s.kind;b.dataset.index=i;b.dataset.label=s.kind==='self'?'YOU':s.kind==='ordinary'?'':STAGE_CONTENT.characters.find(c=>c.id===STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent).name;b.setAttribute('aria-label',s.kind==='ordinary'?'石':s.kind==='self'?PLAYER_CHARACTER.name+' / 自分の石':b.dataset.label+'を選ぶ');
-  if(s.kind==='opponent'){b.dataset.stage=s.stage;b.dataset.acquired=String(campaignSaveV030.acquired.includes(STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent));b.addEventListener('click',()=>{campaignV030.selected=s.stage;audio.note(330,.1,.04,'sine');gardenDetailV030();});}else if(s.kind==='ordinary'){b.addEventListener('click',()=>audio.note(180+i*13,.06,.025,'triangle'));}else b.setAttribute('aria-disabled','true');host.appendChild(b);
+  const b=document.createElement(s.kind==='ordinary'?'span':'button');b.className='campaign-stone';b.dataset.kind=s.kind;b.dataset.index=i;b.dataset.label=s.kind==='self'?'YOU':s.kind==='ordinary'?'':STAGE_CONTENT.characters.find(c=>c.id===STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent).name;b.setAttribute('aria-label',s.kind==='ordinary'?'石':s.kind==='self'?PLAYER_CHARACTER.name+' / 自分の石':b.dataset.label+'を選ぶ');
+  if(s.kind==='opponent'){b.dataset.stage=s.stage;b.dataset.acquired=String(campaignSaveV030.acquired.includes(STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent));b.addEventListener('click',()=>{campaignV030.selected=s.stage;audio.note(330,.1,.04,'sine');gardenDetailV030();});}else if(s.kind==='self')b.setAttribute('aria-disabled','true');host.appendChild(b);
  }
  campaignUIV030.querySelector('#gardenGo').addEventListener('click',()=>campaignNavV030(campaignV030.selected));campaignUIV030.querySelector('#stationAgain').addEventListener('click',()=>campaignNavV030('jingu',true));campaignUIV030.querySelector('#gardenFinal')?.addEventListener('click',()=>campaignNavV030('gion'));
  gardenDetailV030();
@@ -144,10 +153,13 @@ prepareDepthRenderV022=function(){
  gardenRootV030.visible=phase==='garden';inheritedOrbV030.visible=false;sevenOrbsV030.forEach(n=>n.visible=false);campaignFlashV030.style.opacity='0';
  if(phase==='garden'){
   frontSceneryV022.visible=false;backSceneryV022.visible=false;player.n.visible=false;cpu.n.visible=false;ball.visible=false;shadow.visible=false;ghosts.forEach(n=>n.visible=false);sparks.forEach(s=>s.n.visible=false);rushBallsV022.forEach(p=>p.n.visible=false);
-  const aspect=(renderer.width||canvas.clientWidth)/(renderer.height||canvas.clientHeight);renderer.eye=[0,17,8];renderer.target=[0,.3,0];renderer.zoom=aspect>1.7?1.05:1;renderer.shake=[0,0];
+  const viewHeight=canvas.clientHeight||renderer.height,aspect=(canvas.clientWidth||renderer.width)/viewHeight,shortLandscape=aspect>1&&viewHeight<600;
+  renderer.eye=[0,17,8];renderer.target=[0,.3,0];renderer.zoom=shortLandscape?.55:1;renderer.shake=[0,0];
   for(const [i,n] of stoneNodesV030.entries()){const s=stoneLayoutV030[i];if(n.orb){const stage=STAGE_CONTENT.stages.find(t=>t.id===s.stage);n.orb.visible=s.kind==='self'||campaignSaveV030.acquired.includes(stage?.opponent);n.orb.pos[1]=.95+(motion?Math.sin(visualTime*1.2+i)*.05:0);}}
  }else{
-  player.n.visible=phase!=='ending';cpu.n.visible=phase!=='ending';
+  player.n.visible=phase!=='ending';
+  // Reveal the mirror only after the seven orbs have transformed the player.
+  cpu.n.visible=phase!=='ending'&&!(ACTIVE_STAGE.id==='gion'&&(phase==='stage-card'||(phase==='gather'&&t<3.4)));
   if(['title','dialogue','stage-card'].includes(phase)){ball.visible=false;shadow.visible=false;}
   if(['gather','inheritance','scatter','intro-win'].includes(phase)){
    ball.visible=false;shadow.visible=false;const playerChest=campaignChestV030(player),cpuChest=campaignChestV030(cpu);
@@ -168,6 +180,9 @@ updateScene=function(dt){
  if(campaignV030.phase==='garden')for(const b of campaignUIV030.querySelectorAll('.campaign-stone')){const n=stoneNodesV030[Number(b.dataset.index)],[x,y]=renderer.project([n.pos[0],.25,n.pos[2]]);b.style.left=x+'px';b.style.top=y+'px';}
 };
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&campaignV030.phase==='title'&&titlePendingV020){++campaignTitleSerialV030;titlePendingV020=false;$('#start').disabled=false;audio.stopVoice();}});
+// A cached garden predates the match just played and its audio was disposed on
+// navigation. Rebuild from the canonical URL and latest save instead of reviving it.
+window.addEventListener('pageshow',event=>{if(event.persisted&&campaignV030.returning)window.location.reload();});
 const exitGardenV030=document.createElement('button');exitGardenV030.className='campaign-home';exitGardenV030.textContent='石庭へ戻る';exitGardenV030.addEventListener('click',showGardenV030);$('#pausePanel').appendChild(exitGardenV030);
 function initializeCampaignV030(){
  if(stageParamsV030.get('view')==='garden'){showGardenV030();return;}

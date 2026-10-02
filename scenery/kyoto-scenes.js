@@ -65,7 +65,9 @@ window.otoPatchSceneryV030=function(html){
    const hall=module(s,'kannon-sanctum',0,-7.2);box(hall.solid,'#211c22',0,4,-3,42,8,1);box(hall.solid,'#342830',0,6,-.3,42,.8,8);for(let row=0;row<3;row++){const y=row*.73,z=-row*1.75;box(hall.solid,'#574036',0,y+.14,z,39,.26,1.4);for(let col=-11;col<=11;col++){kannon(hall,col*1.57,y+.23,z,.81);metadata.statues.back++;}}
    for(const x of [-12,12]){const side=module(s,'dark-timber-colonnade',x,0);for(let z=-11;z<=8;z+=3.6){cyl(side.solid,'#5d382c',0,2.8,z,.27,5.6);box(side.solid,'#34212b',0,5.4,z,2.6,.35,.4);}box(side.solid,'#30212b',0,5.7,-1,1,1,25);}for(const x of [-9,9]){const lamp=module(s,'votive-light',x,-4);cyl(lamp.solid,'#8e6943',0,.58,0,.12,1.1);ico(lamp.glow,'#e7b66f',0,1.22,0,.10,.25,.10);}}
   function chion(s,back){const ground=module(s,'ground',0,0,false);box(ground.solid,back?'#554653':'#87887a',0,-.16,0,95,.28,95);if(!back){pavers(ground.solid,20,8,'#96958a');const b=module(s,'great-bell-tower',-2,-6.6);box(b.solid,'#676667',0,.25,0,8,.5,5);for(const x of [-3.2,3.2])for(const z of [-1.6,1.6]){box(b.solid,'#74533f',x,2.5,z,.4,4.8,.4);box(b.solid,'#bbb09a',x,.25,z,.72,.52,.72);}roof(b.solid,0,5.3,0,10,7,'#414d57');box(b.solid,'#594239',0,4.5,0,6.8,.55,.5);cyl(b.solid,'#445f5e',-.4,2.82,0,1.14,2.65,1.06);cyl(b.solid,'#789182',-.4,1.54,0,1.32,.28,1.20);ico(b.solid,'#577567',-.4,4.05,0,1.13,.48,1.05);for(let y=2.1;y<3.8;y+=.43)for(let i=0;i<8;i++)ico(b.solid,'#819184',-.4+Math.sin(i*Math.PI/4)*1.06,y,Math.cos(i*Math.PI/4)*1.01,.065);
-    const hammer=group(s.root,[2.5,3.1,-6.6]);beam(hammer,'#977251',[-.5,0,0],[2,0,0],.27);beam(hammer,'#433d3b',[0,0,0],[0,1.6,0],.03);beam(hammer,'#433d3b',[1.6,0,0],[1.6,1.6,0],.03);moving.push({n:hammer,s,kind:'bell-striker'});const monk=module(s,'bell-striking-monk',4.3,-5.4);human(monk.solid,0,0,'#827052',1.7);beam(monk.solid,'#aa9170',[-.13,1.1,0],[-.7,1.35,-.3],.13);for(const x of [-10,9]){const spectators=module(s,'bell-spectators',x,-3);for(let a=0;a<5;a++)human(spectators.solid,(a-2)*.58,0,['#677585','#807b6f','#8b6e78'][a%3],1.4);}return;}
+    // The dynamic striker shares the tower's compressed height and cutaway.
+    // Suspend it at the roof beam so its left end reaches the bell's right rim.
+    const hammer=group(b.n,[2.1,4.5,0]);beam(hammer,'#977251',[-1.3,-1.7,0],[1.4,-1.7,0],.27);for(const x of [-.75,.75])beam(hammer,'#433d3b',[x,-1.7,0],[x,0,0],.03);moving.push({n:hammer,s,kind:'bell-striker'});const monk=module(s,'bell-striking-monk',2.2,-6.3);human(monk.solid,0,0,'#827052',1.7);beam(monk.solid,'#aa9170',[-.13,1.1,0],[-.7,1.96,-.3],.13);for(const x of [-10,9]){const spectators=module(s,'bell-spectators',x,-3);for(let a=0;a<5;a++)human(spectators.solid,(a-2)*.58,0,['#677585','#807b6f','#8b6e78'][a%3],1.4);}return;}
    const tree=module(s,'giant-weeping-sakura',0,-8);cyl(tree.solid,'#574550',0,2.8,0,.52,5.6,.45);for(let i=0;i<8;i++){const a=i/8*Math.PI*2,x=Math.cos(a),z=Math.sin(a);beam(tree.solid,'#685160',[0,3.2,0],[x*4.2,5.6+(i%2)*.7,z*2.4],.26);ico(tree.solid,['#cb95b3','#c787a8','#e2acc3'][i%3],x*3.7,5.85+(i%2)*.6,z*2.1,2.5,1.55,1.7);for(let q=0;q<3;q++){const xx=x*4.0+(q-1)*.8,zz=z*2.7;beam(tree.solid,'#907080',[xx,5.8,zz],[xx+.15,2.0+q*.4,zz+.3],.027);for(let k=0;k<4;k++)ico(tree.glow,['#a97296','#c687aa','#ce94b3'][q],xx,5.0-k*.70,zz,.39,.45,.26);}}
    ico(tree.solid,'#ddadc4',0,6.7,0,3.4,1.5,2.3);for(let i=0;i<32;i++){const n=mesh(s.root,'ico',i%2?'#e8b8d3':'#ba82a4',[0,0,0],[.055,.019,.08]);moving.push({n,s,kind:'petal',seed:i});}puddles(ground,'#766078',17,12);}
   function streetLamp(m,x,z){cyl(m.solid,'#3f4b58',x,2,z,.075,4);box(m.solid,'#384653',x+.23,4,z,.65,.09,.10);ico(m.glow,'#ffd6a0',x+.48,3.88,z,.25,.11,.24);}
@@ -97,10 +99,24 @@ window.otoPatchSceneryV030=function(html){
    // uses theatrical compressed vertical proportions so its identifying roof,
    // torii lintel or crown is visible rather than permanently above the frame.
    for(const m of s.modules){const height={'great-torii':.44,'long-hall-outside':.80,'kannon-sanctum':.85,'great-bell-tower':.70,'giant-weeping-sakura':.46,'festival-float':.64,'steel-glass-atrium':.40,'white-headquarters':.27,'impossible-kyoto-tower':.36}[m.name];if(height)m.n.scale[1]=height;if(m.name==='white-headquarters'){m.n.scale[0]=.55;m.n.scale[2]=.55;}if(m.name==='lantern-string')m.n.scale[1]=m.z<-8?.55:.72;}
-   for(const a of moving)if(a.s===s&&a.kind==='bell-striker')a.n.pos[1]=2.17;
    for(const m of s.modules){if(m.solid.children.length)G.mergeStatic(m.solid);if(m.glow.children.length){G.mergeStatic(m.glow);m.glow.children[0].unlit=1;}}}
   function count(n){return (n.geo?n.geo.count:0)+n.children.reduce((a,c)=>a+count(c),0);}
   metadata.vertices=scenes.map(s=>count(s.root));metadata.staticBatches=scenes.map(s=>s.modules.reduce((a,m)=>a+(m.solid.children.length?1:0)+(m.glow.children.length?1:0),0));metadata.dynamicNodes=moving.length;
+  // A tall orthographic viewport extends below the original eye's near plane,
+  // clipping the foreground into a sky-coloured strip. Retreat only while
+  // rendering, along the same view axis: projected X/Y, framing and cutaways
+  // stay unchanged, and the gameplay camera is restored even if rendering fails.
+  const renderSceneryV030=renderer.render;
+  if(renderSceneryV030)renderer.render=function(root){
+   const eye=this.eye,view=eye.map((v,i)=>v-this.target[i]),distance=Math.hypot(...view),down=view[1]/distance;
+   const {width,height}=this.canvas.getBoundingClientRect();
+   if(width>0&&height>0&&down>.01){
+    const halfHeight=Math.max(12.3,width/height*6.8)/this.zoom*height/width/2,up=Math.hypot(view[0],view[2])/distance;
+    const retreat=Math.max(0,(halfHeight*up+.15-eye[1]-(this.shake?.[1]||0))/down+.1);
+    if(retreat>0)this.eye=eye.map((v,i)=>v+view[i]/distance*retreat);
+   }
+   try{return renderSceneryV030.call(this,root);}finally{this.eye=eye;}
+  };
   let time=0,last=0;
   const before=prepareDepthRenderV022;
   prepareDepthRenderV022=function(){before();const current=visualTime;if(state.mode!=='paused'&&motion)time+=Math.max(0,Math.min(.15,current-last));last=current;const back=backSceneryV022.visible?1:0,s=scenes[back];renderer.fogColor=s.fog;renderer.fogCenter=s.origin;renderer.fogStrength=sceneId==='jingu'&&back?.88:.72;renderer.gl?.clearColor?.(...s.sky,1);

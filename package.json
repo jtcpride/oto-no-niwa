@@ -5,7 +5,15 @@
   "description": "Original low-poly phoneme kemari game; QA dependencies only",
   "scripts": {
     "test": "node tests/verify-v030.cjs",
+    "test:content": "node tests/content-v021.cjs",
+    "test:decks": "node tests/decks-v030.cjs",
+    "test:campaign": "node tests/campaign-model-v030.cjs && node tests/navigation-v030.cjs",
+    "test:characters": "node tests/characters-v030.cjs",
+    "test:scenery": "node tests/scenery-v030.cjs && node tests/chion-striker-v030.cjs && node tests/foreground-v030.cjs",
+    "test:sound": "node tests/sound-v030.cjs && node tests/audio-campaign-v030.cjs",
+    "test:flow": "node tests/complete-browser-v030.cjs --vm",
     "test:browser": "node tests/complete-browser-v030.cjs",
+    "test:audio-browser": "node tests/audio-browser-v030.cjs",
     "assemble": "node tests/assemble.cjs"
   },
   "devDependencies": {

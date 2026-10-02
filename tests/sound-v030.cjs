@@ -1,7 +1,7 @@
 // Deterministic WebAudio / WebSpeech lifecycle tests. No audible acceptance claim.
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),patchContext={window:{}};vm.createContext(patchContext);vm.runInContext(fs.readFileSync(path.join(root,'patch-sound-v030.js'),'utf8'),patchContext);
-const skeleton="<style></style><script>$('#start').addEventListener('click',start);select(0);refreshHud();requestAnimationFrame(frame);</script>";
+const skeleton="<style></style><script>if(key==='voiceVolume')audio.stopVoice();$('#start').addEventListener('click',start);select(0);refreshHud();requestAnimationFrame(frame);</script>";
 const patched=patchContext.window.otoPatchSoundV030(skeleton);
 const runtime=patched.slice(patched.indexOf('// Audio lifecycle'),patched.indexOf("$('#start').addEventListener('click',start);"));
 const diagnostics=patched.slice(patched.indexOf('window.kemari.getAudioDiagnostics='),patched.indexOf('select(0);refreshHud();requestAnimationFrame(frame);'));
@@ -55,7 +55,34 @@ function make(saved){
  const hiddenTitle=make();hiddenTitle.c.titlePendingV020=true;hiddenTitle.c.document.hidden=true;hiddenTitle.c.document.emit('visibilitychange');assert.equal(hiddenTitle.c.titlePendingV020,false,'interrupted title can be started again');assert.equal(hiddenTitle.get('#start').disabled,false);
  const deniedStorage=make();deniedStorage.c.localStorage.setItem=()=>{throw new Error('denied')};deniedStorage.c.start();assert.equal(deniedStorage.stats().contextState,'running','denied persistence does not prevent audio');deniedStorage.c.audio.dispose();
  const muted=make(prefs);muted.c.start();muted.c.beginMatch();assert.equal(muted.c.audio.enabled,false);assert.equal(muted.c.audio.musicVolume,.23);assert.equal(muted.c.audio.voiceVolume,.61);assert.equal(muted.stats().activeSources,0);
+ // The watchdog must remove a stalled native utterance, not only lift ducking.
+ const delayed=make();delayed.c.start();let timedDone=0;const delayedWord={text:'FIFTEENTH EVER GARDEN'};
+ delayed.c.audio.speak(delayedWord,()=>timedDone++);const timeout=delayed.timers.get(delayed.c.audio.voiceTimer);timeout();
+ assert.equal(delayed.speech.queue.length,0,'watchdog cancels native speech before releasing the game');assert.equal(timedDone,1);
+ delayedWord.onstart();delayedWord.onend();assert.equal(delayed.stats().ducked,false,'late native callbacks cannot restore stale ducking');assert.equal(timedDone,1);
+ delayed.c.audio.dispose();
+ // A replaced context starts its clock at zero; old throttles must not suppress cues.
+ const reopened=make();reopened.c.start();reopened.c.audio.ctx.currentTime=150;reopened.c.beginMatch();
+ for(let i=0;i<8;i++){reopened.c.audio.ctx.currentTime+=.2;reopened.c.kick();}reopened.c.select(2);reopened.c.updateGame(.1);
+ const former=reopened.c.audio.ctx,oldCounts=reopened.stats().counters;former.state='closed';former.emit('statechange');reopened.c.audio.resumeFromGesture();await Promise.resolve();
+ reopened.c.kick();reopened.c.select(3);reopened.c.updateGame(.1);
+ assert.equal(reopened.stats().contexts,2);assert.equal(reopened.stats().counters.hit,oldCounts.hit+1,'replacement context immediately plays hit');
+ assert.equal(reopened.stats().counters.movement,oldCounts.movement+1,'replacement context immediately plays movement');
+ assert(reopened.stats().counters.string>oldCounts.string,'replacement context immediately plays earned layers');reopened.c.audio.dispose();
+ // A promise belonging to a dead context cannot block or poison its replacement.
+ const pending=make();pending.c.start();await Promise.resolve();let rejectOld;
+ const abandoned=pending.c.audio.ctx;abandoned.resume=()=>new Promise((resolve,reject)=>{rejectOld=reject});
+ abandoned.state='interrupted';abandoned.emit('statechange');pending.c.audio.ensure();abandoned.state='closed';abandoned.emit('statechange');
+ pending.c.audio.ensure();await Promise.resolve();assert.equal(pending.stats().contexts,2);assert.equal(pending.stats().contextState,'running');
+ rejectOld(new Error('old context closed'));await Promise.resolve();await Promise.resolve();
+ assert.equal(pending.stats().needsGesture,false,'rejected old resume cannot expose a false recovery prompt');
+ assert.equal(abandoned.listeners.statechange.length,0,'replaced context listener removed');pending.c.audio.dispose();
+ const interruptedTitle=make();interruptedTitle.c.start();interruptedTitle.c.titlePendingV020=true;interruptedTitle.get('#start').disabled=true;let interruptedDone=0;
+ const interruptedWord={text:'FIFTEENTH EVER GARDEN'};interruptedTitle.c.audio.speak(interruptedWord,()=>interruptedDone++);
+ interruptedTitle.c.audio.ctx.state='interrupted';interruptedTitle.c.audio.ctx.emit('statechange');
+ assert.equal(interruptedTitle.c.titlePendingV020,false);assert.equal(interruptedTitle.get('#start').disabled,false);assert.equal(interruptedTitle.speech.queue.length,0);
+ interruptedWord.onstart();interruptedWord.onend();assert.equal(interruptedDone,0,'interrupted title requires another user gesture');assert.equal(interruptedTitle.stats().ducked,false);interruptedTitle.c.audio.dispose();
  a.set(true);c.beginMatch();c.updateGame(.1);assert.equal(h.stats().successes,0,'match resets progression');assert.equal(h.stats().shoVoices,5);a.dispose();await Promise.resolve();assert.equal(h.stats().activeSources,0);assert.equal(h.stats().contextState,'closed');assert.equal(h.stats().voiceTimer,false);c.updateGame(.1);a.resumeFromGesture();assert.equal(h.stats().contexts,1,'disposed engine cannot recreate itself');
  assert.throws(()=>patchContext.window.otoPatchSoundV030('<html></html>'),/anchor/,'missing assembly hooks fail loudly');
- console.log(JSON.stringify({passed:true,checks:['gesture activation','success-driven layers','separate movement/hit events','speech ducking and immediate replacement','no stale callbacks','pause/resume','interrupted and rejected resume','visibility recovery','bounded sources','restart/persistent mute and volumes','dispose'],verification:'VM API mocks only; real iPhone/iPad and audible mix unverified'}));
+ console.log(JSON.stringify({passed:true,checks:['gesture activation','success-driven layers','separate movement/hit events','speech ducking and immediate replacement','watchdog cancels stalled speech','no stale callbacks','pause/resume','interrupted and rejected resume','visibility recovery','closed context recreation and stale resume','interrupted title retry','bounded sources','restart/persistent mute and volumes','dispose'],verification:'VM API mocks only; real iPhone/iPad and audible mix unverified'}));
 })().catch(e=>{console.error(e);process.exitCode=1});

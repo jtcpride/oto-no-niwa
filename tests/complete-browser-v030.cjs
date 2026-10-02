@@ -18,7 +18,7 @@ const path = require('node:path');
 let chromium; // Loaded only by browser mode; VM mode works without Playwright.
 const assemble = require('./assemble.cjs');
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.resolve(__dirname, '../../feg-evidence');
+const OUT = path.resolve(process.env.FEG_EVIDENCE_DIR || path.join(__dirname, '../../work/complete-browser'));
 const ORIGIN = 'http://feg-qa.test';
 const VIEWPORTS = [[320,568],[390,844],[568,320],[844,390],[768,1024],[1024,768]];
 const STAGES = ['jingu','gendo','chion','sanjo','shinkyogoku','million','gion'];
@@ -28,15 +28,19 @@ const argv = process.argv.slice(2);
 const baselineIndex = argv.indexOf('--baseline');
 const baseline = baselineIndex >= 0 ? (argv[baselineIndex + 1] || DEFAULT_BASELINE) : null;
 fs.mkdirSync(OUT, {recursive:true});
-const report = {startedAt:new Date().toISOString(),mode:baseline?'baseline':'complete',browser:{path:process.env.CHROME_PATH||'/usr/bin/chromium'},tts:'mocked; audible speech and audio mixing on actual devices are untested',checks:[],errors:[],screenshots:[],limitations:[]};
+const chromePath=process.env.CHROME_PATH||(process.platform==='darwin'?'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome':'/usr/bin/chromium');
+const software=argv.includes('--software');
+const report = {startedAt:new Date().toISOString(),mode:baseline?'baseline':'complete',browser:{path:chromePath,requestedRenderer:software?'explicit software fallback':'default hardware',softwareFallback:software},tts:'mocked; audible speech and audio mixing on actual devices are untested',checks:[],errors:[],screenshots:[],limitations:[]};
+if(software)report.limitations.push('Explicit software rendering requested; this run is not hardware GPU validation.');
 function record(name, detail={}) { report.checks.push({name,status:'pass',...detail}); console.log('PASS '+name); }
 function saveReport() { fs.writeFileSync(path.join(OUT,baseline?'complete-baseline-browser.json':'complete-browser-report.json'),JSON.stringify(report,null,2)+'\n'); }
 function speechMock() {
   window.__spoken=[];
-  const voice={name:'QA English',lang:'en-US',default:true,localService:true,voiceURI:'qa-english'};
   let current;
   Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{
-    cancel(){clearTimeout(current)},resume(){},getVoices(){return [voice]},
+    // Keep native Utterance values valid: a plain object cannot be assigned to
+    // SpeechSynthesisUtterance.voice. An empty list exercises the en-US fallback.
+    cancel(){clearTimeout(current)},resume(){},getVoices(){return []},
     speak(u){window.__spoken.push({text:u.text,lang:u.lang,rate:u.rate,pitch:u.pitch,volume:u.volume,voice:u.voice?.name});u.onstart?.();current=setTimeout(()=>u.onend?.(),20)}
   }});
 }
@@ -46,7 +50,7 @@ function sourceSeam(html) {
 const qaTransform=(p,n)=>{let [x,y,z]=p.map((v,i)=>v*n.scale[i]);const [a,b,c]=n.rot;[y,z]=[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];[x,z]=[x*Math.cos(b)+z*Math.sin(b),-x*Math.sin(b)+z*Math.cos(b)];[x,y]=[x*Math.cos(c)-y*Math.sin(c),x*Math.sin(c)+y*Math.cos(c)];return [x+n.pos[0],y+n.pos[1],z+n.pos[2]];};
 const qaBounds=f=>{const points=[];let vertices=0;function visit(n,parents){if(!n.visible)return;const chain=[n,...parents];if(n.geo)for(let i=0;i<n.geo.p.length;i+=3){let p=Array.from(n.geo.p.slice(i,i+3));for(const node of chain)p=qaTransform(p,node);points.push(renderer.project(p));vertices++;}for(const child of n.children)visit(child,chain);}visit(f.n,[]);return {minX:Math.min(...points.map(p=>p[0])),maxX:Math.max(...points.map(p=>p[0])),minY:Math.min(...points.map(p=>p[1])),maxY:Math.max(...points.map(p=>p[1])),vertices};};
 const qaRender=renderer.render.bind(renderer);
-renderer.render=function(scene){qaRender(scene);window.__qaFrame={player:qaBounds(player),cpu:qaBounds(cpu),ball:renderer.project(ball.pos),ballVisible:ball.visible,size:[renderer.width,renderer.height],phase:duelV022.phase,mode:state.mode};};
+renderer.render=function(scene){qaRender(scene);window.__qaFrame={player:qaBounds(player),cpu:qaBounds(cpu),playerVisible:player.n.visible,cpuVisible:cpu.n.visible,sevenOrbs:typeof sevenOrbsV030==='undefined'?0:sevenOrbsV030.filter(n=>n.visible).length,ball:renderer.project(ball.pos),ballVisible:ball.visible,size:[renderer.width,renderer.height],phase:duelV022.phase,mode:state.mode};};
 window.qa={state,player,cpu,ball,renderer,root,CONFIG,launchShot,sampleBall,resetFoot,stepV024,select,kick,duel:duelV022,close:closeV027,start,pause,setMotion,end,beginMatch,beginTimePass,bow:bowV09,
  get ceremony(){return ceremony},get campaign(){return typeof campaignV030==='undefined'?null:campaignV030},
  draw(){updateScene(0);updateScene(0)},
@@ -70,10 +74,24 @@ async function routeFiles(page, fixtureHtml) {
     return route.fulfill({contentType:type,body:fs.readFileSync(file)});
   });
 }
-async function screenshot(page,name) { const file=path.join(OUT,name+'.png');await page.screenshot({path:file});report.screenshots.push(path.basename(file)); }
+function pauseGameRAF(){window.__qaNativeRAF=window.requestAnimationFrame.bind(window);window.requestAnimationFrame=()=>0;}
+async function screenshot(page,name) {
+  // Keep game time deterministic while allowing the browser's compositor to
+  // repaint both orientation layers before capture. Without this, Chrome can
+  // retain a strip of the previous viewport at the bottom of the screenshot.
+  await page.evaluate(()=>new Promise(resolve=>{
+    window.qa?.draw();void document.body.offsetHeight;
+    const frame=window.__qaNativeRAF||window.requestAnimationFrame.bind(window);
+    frame(()=>frame(resolve));
+  }));
+  const file=path.join(OUT,name+'.png');await page.screenshot({path:file});report.screenshots.push(path.basename(file));
+}
 async function assertRendered(page,label) {
-  const stats=await page.evaluate(()=>qa.renderStats());
+  // readPixels must share the task that rendered the frame: the drawing buffer
+  // may be cleared after compositing when preserveDrawingBuffer is false.
+  const stats=await page.evaluate(()=>{qa.draw();return qa.renderStats()});
   assert.equal(stats.error,0,label+' WebGL error');assert(stats.sampledColors>8,label+' actual colored scene');assert(stats.width>0&&stats.height>0);
+  assert(software||!/swiftshader|llvmpipe|software rasterizer/i.test(stats.renderer),label+' unexpectedly used software rendering: '+stats.renderer);
   report.browser.renderer=stats.renderer;record(label+' real WebGL',stats);
 }
 async function assertLayout(page,label,{actors=true}={}) {
@@ -81,8 +99,9 @@ async function assertLayout(page,label,{actors=true}={}) {
     const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
     const controls=[...document.querySelectorAll('[data-symbol],#kick,#pause')].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden').map(e=>({id:e.id||e.dataset.symbol,rect:rect(e),font:parseFloat(getComputedStyle(e).fontSize)}));
     const text=[...document.querySelectorAll('[data-symbol] span,#ballLabel,#practiceCard .word,#practiceCard .ipa')].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden').map(e=>({id:e.id||e.className,text:e.textContent,font:parseFloat(getComputedStyle(e).fontSize),rect:rect(e)}));
-    return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,controls,text,frame:window.__qaFrame,arena:rect(document.querySelector('#arena'))};
+    return {width:innerWidth,height:innerHeight,appCount:document.querySelectorAll('#app').length,scrollWidth:document.documentElement.scrollWidth,controls,text,frame:window.__qaFrame,arena:rect(document.querySelector('#arena'))};
   });
+  assert.equal(data.appCount,1,label+' duplicate application DOM');
   assert(data.scrollWidth<=data.width+1,label+' horizontal overflow');
   for(const c of data.controls){const r=c.rect;assert(r.x>=-1&&r.y>=-1&&r.right<=data.width+1&&r.bottom<=data.height+1,label+' control clipped: '+JSON.stringify(c));assert(r.w>=28&&r.h>=28,label+' control too small: '+JSON.stringify(c));}
   for(const t of data.text)assert(t.font>=11,label+' unreadable text: '+JSON.stringify(t));
@@ -108,9 +127,9 @@ async function productionLoader(browser) {
 async function baselineSuite(browser) {
   const source=fs.readFileSync(baseline,'utf8'),context=await browser.newContext(),page=await context.newPage();
   page.on('pageerror',e=>report.errors.push({suite:'baseline',message:e.message}));
-  await page.addInitScript(speechMock);await page.addInitScript(()=>{window.requestAnimationFrame=()=>0});
+  await page.addInitScript(speechMock);await page.addInitScript(pauseGameRAF);
   await routeFiles(page,sourceSeam(source));await page.goto(ORIGIN+'/__fixture.html?stage=first-court');
-  await page.waitForFunction(()=>!!window.qa);
+  await page.waitForFunction(()=>!!window.qa,null,{polling:50});
   await assertRendered(page,'baseline');
   for(const [width,height] of VIEWPORTS){await page.setViewportSize({width,height});await page.evaluate(()=>qa.begin());await assertLayout(page,'baseline front '+width+'x'+height);await screenshot(page,'baseline-front-'+width+'x'+height);}
   const pathResult=await page.evaluate(()=>qa.driveUntil('over'));record('baseline complete match',{...pathResult,state:await page.evaluate(()=>qa.snapshot())});
@@ -127,8 +146,9 @@ async function main() {
   ({chromium}=require('playwright'));
   let browser;
   try {
-    const args=['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'];
-    browser=await chromium.launch({executablePath:report.browser.path,headless:true,args});
+    const args=software?['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']:[];
+    report.browser.arguments=args;
+    browser=await chromium.launch({executablePath:report.browser.path,headless:true,args,ignoreDefaultArgs:software?[]:['--enable-unsafe-swiftshader']});
     report.browser.version=browser.version();
   } catch(error) {
     report.status='blocked';report.blocker='Chromium could not launch. No renderer test was performed.';report.errors.push(String(error));saveReport();console.error(report.blocker+'\n'+error);process.exitCode=2;return;
@@ -136,7 +156,9 @@ async function main() {
   try {
     if(baseline)await baselineSuite(browser);else await completeSuite(browser);
     assert.deepEqual(report.errors,[],'browser JavaScript errors');report.status='passed';console.log('PASS complete browser acceptance');
-  } catch(error) {report.status='failed';report.errors.push({message:error.message,stack:error.stack});console.error(error);process.exitCode=1}
+  } catch(error) {report.status='failed';report.errors.push({message:error.message,stack:error.stack});console.error(error);process.exitCode=1;
+    for(const [index,page] of browser.contexts().flatMap(context=>context.pages()).entries())if(!page.isClosed())await screenshot(page,'complete-failure-'+index).catch(()=>{});
+  }
   finally {report.finishedAt=new Date().toISOString();saveReport();await browser.close()}
 }
 if(require.main===module)main();
@@ -330,7 +352,52 @@ async function browserPractice(page,repeat=false) {
   await browserDrive(page,'ceremony','match');return result;
 }
 async function browserLayouts(page,stage,side) {
-  for(const [width,height] of VIEWPORTS){await page.setViewportSize({width,height});await page.evaluate(()=>qa.draw());await assertLayout(page,stage+' '+side+' '+width+'x'+height);await screenshot(page,'complete-'+stage+'-'+side+'-'+width+'x'+height)}
+  for(const [width,height] of VIEWPORTS){await page.setViewportSize({width,height});await page.evaluate(()=>qa.draw());await screenshot(page,'complete-'+stage+'-'+side+'-'+width+'x'+height);await assertLayout(page,stage+' '+side+' '+width+'x'+height)}
+}
+async function browserGardenLayouts(page,label='garden') {
+  const initial=page.viewportSize(),results=[];
+  for(const [width,height] of VIEWPORTS){
+    await page.setViewportSize({width,height});await page.evaluate(()=>{scrollTo(0,0);qa.draw()});
+    await screenshot(page,'complete-'+label+'-'+width+'x'+height);
+    const data=await page.evaluate(()=>{
+      const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
+      const panels=['.campaign-top small','.campaign-top h2','#stationAgain','.campaign-orbs','.campaign-detail'].map(selector=>({selector,...rect(document.querySelector(selector))}));
+      const labelRect=e=>{
+        if(!e.dataset.label)return null;
+        const css=getComputedStyle(e,'::after'),probe=document.createElement('span');
+        for(const key of ['font','fontSize','fontFamily','fontWeight','lineHeight','letterSpacing','padding','border','boxSizing'])probe.style[key]=css[key];
+        Object.assign(probe.style,{position:'fixed',visibility:'hidden',whiteSpace:'nowrap',width:'max-content'});probe.textContent=e.dataset.label;document.body.appendChild(probe);
+        const size=rect(probe),button=rect(e);probe.remove();const x=button.x+button.w/2-size.w/2,y=button.y+parseFloat(css.top);
+        return {x,y,w:size.w,h:size.h,right:x+size.w,bottom:y+size.h};
+      };
+      const stones=[...document.querySelectorAll('.campaign-stone')].map(e=>{
+        const r=rect(e),hit=document.elementFromPoint(r.x+r.w/2,r.y+r.h/2);
+        return {index:e.dataset.index,kind:e.dataset.kind,stage:e.dataset.stage,label:e.dataset.label,interactive:e.tagName==='BUTTON'&&e.getAttribute('aria-disabled')!=='true',rect:r,labelRect:labelRect(e),centerReceivesPointer:hit===e||e.contains(hit),hit:hit?.id||hit?.className||hit?.tagName};
+      });
+      return {width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,arena:rect(document.querySelector('#arena')),panels,stones};
+    });
+    const issues=[],inside=r=>r.x>=-1&&r.y>=-1&&r.right<=width+1&&r.bottom<=height+1;
+    const overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.x,b.x)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>1;
+    if(data.scrollWidth>width+1)issues.push('horizontal overflow');
+    for(const panel of data.panels)if(!inside(panel))issues.push('clipped '+panel.selector);
+    for(const stone of data.stones){
+      const name=stone.stage||stone.kind+' '+stone.index;
+      if(!inside(stone.rect))issues.push(name+' target clipped');
+      if(stone.interactive&&!stone.centerReceivesPointer)issues.push(name+' target blocked by '+stone.hit);
+      if(stone.kind==='opponent'&&(stone.rect.w<44||stone.rect.h<44))issues.push(name+' target below 44px');
+      for(const panel of data.panels){if(overlap(stone.rect,panel))issues.push(name+' target overlaps '+panel.selector);if(stone.labelRect&&overlap(stone.labelRect,panel))issues.push(name+' label overlaps '+panel.selector);}
+      if(stone.labelRect&&!inside(stone.labelRect))issues.push(name+' label clipped');
+    }
+    for(let a=0;a<data.stones.length;a++)for(let b=a+1;b<data.stones.length;b++){
+      const first=data.stones[a],second=data.stones[b];
+      if(first.labelRect&&second.labelRect&&overlap(first.labelRect,second.labelRect))issues.push('labels overlap '+first.index+'/'+second.index);
+    }
+    results.push({...data,issues});
+  }
+  fs.writeFileSync(path.join(OUT,'complete-'+label+'-layout.json'),JSON.stringify(results,null,2)+'\n');
+  report.checks.push({name:label+' six viewport targets and labels',status:results.some(r=>r.issues.length)?'fail':'pass',viewports:results.map(r=>({width:r.width,height:r.height,issues:r.issues}))});
+  await page.setViewportSize(initial);await page.evaluate(()=>{scrollTo(0,0);qa.draw()});
+  assert(results.every(r=>!r.issues.length),label+' layout: '+JSON.stringify(results.filter(r=>r.issues.length).map(r=>({width:r.width,height:r.height,issues:r.issues}))));
 }
 async function runCompleteCampaign(browser) {
   const production=await productionLoader(browser);
@@ -342,30 +409,38 @@ async function runCompleteCampaign(browser) {
   assert.equal(await production.page.locator('#practiceCard').isVisible(),true);record('actual production loader → START → dialogue → active practice');await screenshot(production.page,'complete-production-practice');await production.context.close();
   const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
   page.on('pageerror',e=>report.errors.push({suite:'complete',message:e.message}));
-  await page.addInitScript(speechMock);await page.addInitScript(()=>{window.requestAnimationFrame=()=>0});
+  await page.addInitScript(speechMock);await page.addInitScript(pauseGameRAF);
   await routeFiles(page,sourceSeam(assemble()));
-  const go=async query=>{await page.goto(ORIGIN+'/__fixture.html'+query);await page.waitForFunction(()=>!!window.qa)};
+  const go=async query=>{await page.goto(ORIGIN+'/__fixture.html'+query);await page.waitForFunction(()=>!!window.qa,null,{polling:50})};
   const c=()=>page.evaluate(()=>kemari.getCampaign());
-  const begin=async()=>{await page.locator('#start').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing')};
+  const begin=async()=>{await page.locator('#start').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50})};
   await go('');await assertRendered(page,'complete title');
-  await page.locator('#start').dblclick();await page.waitForFunction(()=>qa.campaign.phase==='dialogue');
+  await page.locator('#start').dblclick();await page.waitForFunction(()=>qa.campaign.phase==='dialogue',null,{polling:50});
   assert.equal(await page.evaluate(()=>__spoken.filter(u=>u.text==='FIFTEENTH EVER GARDEN').length),1);
-  await page.locator('#dialogueNext').click();await page.locator('#dialogueNext').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing');
+  await page.locator('#dialogueNext').click();await page.locator('#dialogueNext').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});
   await browserPractice(page,true);await page.locator('#pause').click();
   const frozen=await page.evaluate(()=>qa.snapshot());await page.evaluate(()=>qa.tick(8));assert.deepEqual(await page.evaluate(()=>qa.snapshot()),frozen);await page.locator('#resume').click();
   await browserDrive(page,'campaign','intro-win');await page.evaluate(()=>qa.tick(1.3));assert.equal((await c()).phase,'garden');
   assert.equal(await page.locator('.campaign-stone').count(),15);assert.equal(await page.locator('[data-kind=self]').count(),1);assert.equal(await page.locator('[data-kind=opponent]').count(),6);assert.equal(await page.locator('[data-kind=ordinary]').count(),8);record('browser intro, ceremony, pause and 15-stone garden');
-  await screenshot(page,'complete-garden');
+  await screenshot(page,'complete-garden');await browserGardenLayouts(page);
   const order=['million','chion','jingu','shinkyogoku','gendo','sanjo'];
   for(const [i,stage] of order.entries()){
+    // Cinema skip replaces the DOM; the paused fixture needs the normal next
+    // frame to project freshly created stone buttons before hit testing them.
+    await page.evaluate(()=>qa.draw());
     await page.locator('[data-stage="'+stage+'"]').click();assert.equal((await c()).selected,stage);
-    await page.locator('#gardenGo').click();await page.waitForURL('**stage='+stage);await page.waitForFunction(()=>!!window.qa);await begin();await browserPractice(page);
+    await page.locator('#gardenGo').click();await page.waitForURL('**stage='+stage);await page.waitForFunction(()=>!!window.qa,null,{polling:50});await begin();await browserPractice(page);
     await browserLayouts(page,stage,'front');await browserDrive(page,'duel','back');await browserLayouts(page,stage,'back');
     await browserDrive(page,'campaign','inheritance');assert.equal((await c()).orbs,i+2);await page.locator('#cinemaSkip').click();assert.equal((await c()).phase,'garden');record('browser free-order win '+stage);
   }
-  await page.reload();await page.waitForFunction(()=>!!window.qa);assert.equal((await c()).orbs,7);assert.equal((await c()).gionUnlocked,true);
-  await page.locator('#gardenFinal').click();await page.waitForURL('**stage=gion');await page.waitForFunction(()=>!!window.qa);await page.locator('#start').click();assert.equal((await c()).phase,'gather');await page.evaluate(()=>qa.tick(3));assert.equal((await c()).godmode,true);await screenshot(page,'complete-gion-gather');await page.evaluate(()=>qa.tick(1.4));await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing');await browserPractice(page);
+  await page.reload();await page.waitForFunction(()=>!!window.qa,null,{polling:50});assert.equal((await c()).orbs,7);assert.equal((await c()).gionUnlocked,true);await browserGardenLayouts(page,'garden-unlocked');
+  await page.locator('#gardenFinal').click();await page.waitForURL('**stage=gion');await page.waitForFunction(()=>!!window.qa,null,{polling:50});
+  await page.evaluate(()=>qa.draw());assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'shadow remains hidden on GION stage card');
+  await page.locator('#start').click();await page.evaluate(()=>qa.draw());assert.equal((await c()).phase,'gather');assert.equal((await c()).godmode,false);assert.equal(await page.evaluate(()=>__qaFrame.sevenOrbs),7,'exactly seven visible gathering orbs');assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'seven gather before shadow reveal');await screenshot(page,'complete-gion-gather-start');
+  await page.evaluate(()=>qa.tick(3));assert.equal((await c()).godmode,true);assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'godmode transformation precedes shadow');await screenshot(page,'complete-gion-gather');
+  await page.evaluate(()=>qa.tick(.5));assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),true,'shadow appears after transformation');await screenshot(page,'complete-gion-shadow-reveal');
+  await page.evaluate(()=>qa.tick(.9));await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});await browserPractice(page);record('seven orbs → godmode → shadow rendered in order');
   assert.equal(await page.evaluate(()=>kemari.getStage().opponent),'shadow');await browserLayouts(page,'gion','front');await browserDrive(page,'duel','back');await browserLayouts(page,'gion','back');await browserDrive(page,'campaign','scatter');await page.evaluate(()=>qa.tick(.8));assert(await page.evaluate(()=>__spoken.some(u=>u.text==='ひゃーん')));await screenshot(page,'complete-gion-scatter');await page.evaluate(()=>qa.tick(2.1));assert.equal((await c()).phase,'ending');await screenshot(page,'complete-ending');await page.locator('#endingGarden').click();assert.equal((await c()).phase,'garden');record('browser GION, godmode, shadow, seven scatter, end and replay');
-  await go('?stage=jingu');await begin();await browserPractice(page);const saveBefore=(await c()).save;await browserDrive(page,'mode','over',{wrong:true});assert.equal(await page.locator('#resultTitle').innerText(),'敗北');assert.deepEqual((await c()).save,saveBefore);await page.locator('#restart').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing');assert.equal(await page.evaluate(()=>qa.state.hp),100);await page.locator('#motion').click();await browserPractice(page);await browserDrive(page,'campaign','inheritance');assert.equal((await c()).orbs,7);record('browser loss/retry/effects-off and no duplicate award');
+  await go('?stage=jingu');await begin();await browserPractice(page);const saveBefore=(await c()).save;await browserDrive(page,'mode','over',{wrong:true});assert.equal(await page.locator('#resultTitle').innerText(),'敗北');assert.deepEqual((await c()).save,saveBefore);await page.locator('#restart').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});assert.equal(await page.evaluate(()=>qa.state.hp),100);await page.locator('#motion').click();await browserPractice(page);await browserDrive(page,'campaign','inheritance');assert.equal((await c()).orbs,7);record('browser loss/retry/effects-off and no duplicate award');
   await context.close();
 }

@@ -1,0 +1,838 @@
+{
+  "passed": true,
+  "mode": "actual WebGL pixels",
+  "results": [
+    {
+      "stage": "station",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "station",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "station",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "station",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "jingu",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "jingu",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "jingu",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "jingu",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gendo",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gendo",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gendo",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gendo",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "chion",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "chion",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "chion",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "chion",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "sanjo",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "sanjo",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "sanjo",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "sanjo",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "shinkyogoku",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "shinkyogoku",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "shinkyogoku",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "shinkyogoku",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "million",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "million",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "million",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "million",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gion",
+      "width": 320,
+      "height": 568,
+      "back": false,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gion",
+      "width": 320,
+      "height": 568,
+      "back": true,
+      "before": {
+        "clear": 0,
+        "total": 2980
+      },
+      "after": {
+        "clear": 0,
+        "total": 2980
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gion",
+      "width": 390,
+      "height": 844,
+      "back": false,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        1.2398980788145488,
+        5.6,
+        16.95472361184788
+      ],
+      "actual": [
+        2.4219637072783753,
+        9.032085536045305,
+        33.11862963292258
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "stage": "gion",
+      "width": 390,
+      "height": 844,
+      "back": true,
+      "before": {
+        "clear": 3680,
+        "total": 3680
+      },
+      "after": {
+        "clear": 0,
+        "total": 3680
+      },
+      "eye": [
+        7.744502120162333,
+        5.6,
+        7.133495528489151
+      ],
+      "actual": [
+        15.127778150851597,
+        9.032085536045305,
+        21.561120837693018
+      ],
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}

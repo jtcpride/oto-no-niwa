@@ -6,6 +6,8 @@ window.otoPatchSoundV030=function(html){
  #audioResumeV030{position:fixed;z-index:90;top:calc(env(safe-area-inset-top,0px) + 58px);right:12px;max-width:min(280px,85vw);padding:10px 14px;color:#fff5d1;background:#26392f;border:1px solid #dfc37d;border-radius:8px;font:600 13px/1.4 sans-serif;box-shadow:0 3px 18px #0008}
  #audioResumeV030[hidden]{display:none}
  </style>`);
+ // Changing pronunciation volume cancels the title's voice, but must still finish its transition.
+ once("if(key==='voiceVolume')audio.stopVoice();","if(key==='voiceVolume')audio.stopVoice(titlePendingV020);");
  once("$('#start').addEventListener('click',start);",String.raw`
 // Audio lifecycle has one frame-driven scheduler, no interval and no queued TTS.
 const soundV030={successes:0,level:0,active:new Set(),sho:[],nextPulse:0,breathAt:0,beat:0,
@@ -22,6 +24,7 @@ function soundUiV030(){
  $('#sound').textContent=audio.enabled?'音 ON':'音 OFF';$('#sound').setAttribute('aria-pressed',String(audio.enabled));
  audioResumeV030.hidden=!audio.enabled||soundV030.disposed||document.hidden||state.mode==='paused'||!(soundV030.needsGesture||soundV030.speechBlocked);
 }
+function abortTitleSoundV030(){if(titlePendingV020){titlePendingV020=false;$('#start').disabled=false;$('#stageSelect').disabled=false;}}
 function soundTargetV030(param,value,seconds=.04){const t=audio.ctx.currentTime;param.cancelScheduledValues(t);param.setTargetAtTime(value,t,seconds);}
 function stopSourcesV030(kind){
  for(const entry of [...soundV030.active])if(!kind||entry.kind===kind){entry.source.onended=null;try{entry.source.stop();}catch(e){}try{entry.source.disconnect();entry.gain.disconnect();}catch(e){}soundV030.active.delete(entry);}
@@ -34,7 +37,7 @@ function trackSourceV030(source,gain,kind){
 }
 function soundContextStateV030(){
  if(!audio.ctx)return;
- if(audio.ctx.state!=='running'){stopSourcesV030();soundV030.needsGesture=audio.enabled;}
+ if(audio.ctx.state!=='running'){abortTitleSoundV030();audio.stopVoice();stopSourcesV030();soundV030.needsGesture=audio.enabled;}
  else{soundV030.needsGesture=false;soundV030.resumePending=null;audio.applyMix();}
  soundUiV030();
 }
@@ -42,6 +45,10 @@ audio.ensure=function(){
  if(soundV030.disposed)return;
  if(!this.ctx||this.ctx.state==='closed'){
   const C=window.AudioContext||window.webkitAudioContext;if(!C){soundV030.needsGesture=false;return;}
+  if(this.ctx)this.ctx.removeEventListener('statechange',soundContextStateV030);
+  stopSourcesV030();++soundV030.resumeSerial;soundV030.resumePending=null;
+  // AudioContext.currentTime restarts at zero when a closed context is replaced.
+  Object.assign(soundV030,{breathAt:0,lastMove:-99,lastHit:-99,lastSuccess:-99});
   try{
    this.ctx=new C();soundV030.contextCount++;this.master=this.ctx.createGain();this.master.gain.value=this.enabled?.32:0;
    this.limiterV030=this.ctx.createDynamicsCompressor();this.limiterV030.threshold.value=-14;this.limiterV030.ratio.value=5;
@@ -77,16 +84,20 @@ audio.applyMix=function(){
 };
 audio.set=function(on){
  this.enabled=!!on;if(this.enabled){this.ensure();this.resumeFromGesture();}
- else{this.stopVoice();stopSourcesV030();soundV030.needsGesture=false;soundV030.speechBlocked=false;}
+ else{this.stopVoice(titlePendingV020);stopSourcesV030();soundV030.needsGesture=false;soundV030.speechBlocked=false;}
  this.applyMix();audioPrefsV030();soundUiV030();
 };
-audio.releaseVoice=function(token){
- if(token!==this.voiceToken)return;clearTimeout(this.voiceTimer);this.voiceTimer=null;this.ducked=false;this.applyMix();
- const done=this.voiceDone;this.voiceDone=null;done?.();
+audio.releaseVoice=function(token,cancel=false){
+ if(token!==this.voiceToken)return;++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceTimer=null;this.ducked=false;
+ const done=this.voiceDone;this.voiceDone=null;
+ // Invalidate callbacks before native cancellation, which may synchronously emit an error.
+ if(cancel&&'speechSynthesis' in window)try{window.speechSynthesis.cancel();}catch(e){}
+ this.applyMix();done?.();
 };
-audio.stopVoice=function(){
+audio.stopVoice=function(complete=false){
+ const done=complete?this.voiceDone:null;
  ++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceTimer=null;this.voiceDone=null;this.ducked=false;
- if('speechSynthesis' in window)try{window.speechSynthesis.cancel();}catch(e){}this.applyMix();
+ if('speechSynthesis' in window)try{window.speechSynthesis.cancel();}catch(e){}this.applyMix();done?.();
 };
 audio.speak=function(u,onDone){
  if(!this.enabled||!this.voiceVolume||soundV030.disposed||document.hidden){onDone?.();return;}
@@ -95,7 +106,7 @@ audio.speak=function(u,onDone){
  u.onstart=()=>{if(token!==this.voiceToken)return;this.ducked=true;soundV030.speechBlocked=false;this.applyMix();soundUiV030();};
  u.onend=()=>this.releaseVoice(token);
  u.onerror=e=>{if(token!==this.voiceToken)return;if(e?.error==='not-allowed'||e?.error==='audio-busy'){soundV030.speechBlocked=true;soundUiV030();}this.releaseVoice(token);};
- this.voiceTimer=setTimeout(()=>this.releaseVoice(token),Math.max(onDone?8000:2500,u.text.length*180));
+ this.voiceTimer=setTimeout(()=>this.releaseVoice(token,true),Math.max(onDone?8000:2500,u.text.length*180));
  try{window.speechSynthesis.cancel();window.speechSynthesis.resume();window.speechSynthesis.speak(u);soundV030.counters.speech++;}catch(e){soundV030.speechBlocked=true;this.releaseVoice(token);soundUiV030();}
 };
 function audibleV030(bus='fx'){return audio.enabled&&audio.ctx?.state==='running'&&!soundV030.disposed&&!document.hidden&&state.mode!=='paused'&&(bus!=='music'||audio.musicVolume>0);}
@@ -173,12 +184,12 @@ audioResumeV030.addEventListener('click',()=>{audio.resumeFromGesture();if(sound
 function gestureSoundV030(){if(audio.enabled&&(soundV030.needsGesture||audio.ctx?.state==='interrupted'||audio.ctx?.state==='suspended'))audio.resumeFromGesture();}
 document.addEventListener('pointerdown',gestureSoundV030,{passive:true});document.addEventListener('keydown',gestureSoundV030);
 document.addEventListener('visibilitychange',()=>{
- if(document.hidden){if(titlePendingV020){titlePendingV020=false;$('#start').disabled=false;$('#stageSelect').disabled=false;}audio.stopVoice();stopSourcesV030();if(audio.ctx?.state==='running')audio.ctx.suspend().catch(()=>{});}
+ if(document.hidden){abortTitleSoundV030();audio.stopVoice();stopSourcesV030();if(audio.ctx?.state==='running')audio.ctx.suspend().catch(()=>{});}
  else{soundV030.needsGesture=!!(audio.enabled&&audio.ctx&&audio.ctx.state!=='running');soundUiV030();}
 });
 audio.dispose=function(){if(soundV030.disposed)return;soundV030.disposed=true;++soundV030.resumeSerial;soundV030.resumePending=null;audio.stopVoice();stopSourcesV030();
  if(audio.ctx){audio.ctx.removeEventListener('statechange',soundContextStateV030);if(audio.ctx.state!=='closed')audio.ctx.close().catch(()=>{});}soundUiV030();};
-window.addEventListener('pagehide',e=>{if(e.persisted){audio.stopVoice();stopSourcesV030();if(audio.ctx?.state==='running')audio.ctx.suspend().catch(()=>{});}else audio.dispose();});
+window.addEventListener('pagehide',e=>{abortTitleSoundV030();if(e.persisted){audio.stopVoice();stopSourcesV030();if(audio.ctx?.state==='running')audio.ctx.suspend().catch(()=>{});}else audio.dispose();});
 window.addEventListener('pageshow',()=>{if(audio.enabled&&audio.ctx&&audio.ctx.state!=='running'){soundV030.needsGesture=true;soundUiV030();}});
 canvas.addEventListener('webglcontextlost',()=>{audio.stopVoice();stopSourcesV030();});
 $('#start').addEventListener('click',start);`);
