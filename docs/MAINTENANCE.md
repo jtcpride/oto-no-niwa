@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | キャラ名・色・舞台への割当 | `content/characters.js` の `id/name/appearance`、`content/stages.js` の `player/opponent` | `npm run test:content` |
 | キャラの輪郭・衣装・固有所作 | `characters/seven-rigs.js` の `profiles`、モデル別造形、`characterPoseV030` | `npm run test:characters` |
+| 蹴り後の踏み替え・追走カメラ | `patch-motion-v029.js` の `strikePoseV024`、`patch-drama-v028.js` の追走レンズ | `npm run test:motion` と `npm run test:characters` |
 | 舞台名・使うデッキ | `content/stages.js` の `name/deck` | `npm run test:content` |
 | 背景・表と奥・環境色 | `scenery/kyoto-scenes.js` の `stages` と舞台別関数（`jingu`、`gendo` など） | `npm run test:scenery` |
 | 単語・IPA・コツ・練習語 | `content/decks.js` の `sounds[].words/tip/example/practice` | `npm run test:content` と `npm run test:decks` |
@@ -33,6 +34,10 @@
 
 造形と表示用ポーズは既存の接触骨格を維持します。ルート高さ `.12`、股関節 `1.05`、脚各節 `.48`、つま先ピボット `.16`、返す関節名と親子関係を保ちます。衣装による輪郭の差は作れますが、接触時刻や判定猶予は変更しません。表示用変形は描画後に復元し、積み重ねません。影は `derivedFromPlayer` で現在の主人公から生成し、別の八人目を追加しません。
 
+顔の目・眉・口は `faceFeature` で実際の面へ密着させます。固定のXYZだけで浮かせないでください。`npm run review:characters` は実WebGLの七人一覧と単色の輪郭を `../work/characters-art/` に生成します。ゲーム内の小さな表示も比較する場合は `node tests/characters-game-art-v030.cjs <比較元のコミット>`。一覧の見栄えだけで、実プレイや実機の合格とは扱いません。
+
+踏み替え補償は蹴りの接触後だけの表示処理です。根元の移動量・球の飛行・判定を変えず、支持足と重心の表示を合わせます。`test:motion` は接地の滑り、歩行前後と追走終了時の連続性、繰返し描画での非累積、演出OFFを検査します。
+
 **舞台変更。** 名称・対戦相手・教材の対応と、背景造形は別ファイルです。`scenery/kyoto-scenes.js` の舞台関数には表／奥の `back` が渡ります。登録色・ランドマークと実際の造形を合わせ、静的部分の結合と動くノードの再利用を守ります。正面だけでなく追走・回転・奥も描画して確認します。三十三間堂は外→仄暗い観音堂、知恩院は鐘→夜桜、新京極は黄色い湾曲ひさし＋左の飛行機状造形を維持します。
 
 **単語・IPA修正。** 1デッキ4音、`symbol` はスラッシュなし、`ipa` は `/…/`、`example/practice` は同じ音の `words` を参照します。生成されたIPA表を別に直す必要はありません。辞書の米音と、そのデッキに複数の正答候補がないことを確認します。`tests/decks-v030.cjs` は新規語の期待値・出典と既存36語のダイジェストを保持します。意図した教材修正なら根拠とともに期待値を更新し、失敗を消すためだけのダイジェスト更新は避けます。端末TTSの聞こえ方は別途試聴します。
@@ -57,12 +62,15 @@ npm run test:content
 npm run test:decks
 npm run test:campaign
 npm run test:characters
+npm run test:motion
 npm run test:scenery
 npm run test:sound
 npm run test:flow
 ```
 
 上のコマンドは一覧です。毎回すべてを個別実行する必要はありません。`test:flow` はDOM入力と保存を含む通し試験で、他の単独試験より重くなります。描画呼出を記録するVMとCPU投影を使うため、**WebGL・CSS実配置・実音声の合格とは別**です。統合時は `npm test` で現行集約を実行します。旧 `battle-v016` / `stages-v021` / `feel-v023` 等は旧メニューやID前提を含み、現行集約の代用にはなりません。
+
+画面配置を変えた場合は `npm run test:ui-browser` で石庭、会話・演出の構図、鞠の札と人物の重なりも確認します。鞠の札は `placeBallPromptV030` に集約し、描画中の投影座標を使います。教材の表示内容や正解を隠す規則は配置調整の対象にしません。
 
 リリース前は次の順に確認します。
 

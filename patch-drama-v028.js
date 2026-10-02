@@ -123,7 +123,8 @@ prepareDepthRenderV022=function(){
   const stride=Math.sin(run*Math.PI*12)*Math.sin(run*Math.PI);
   player.leg.rot[2]=.68*stride;player.back.rot[2]=-.68*stride;player.knee.rot[2]=-Math.max(0,-stride)*.9;player.backKnee.rot[2]=-Math.max(0,stride)*.9;
   player.arm.rot[2]=-.7*stride;player.farArm.rot[2]=.7*stride;player.body.rot[2]=-.15*Math.sin(run*Math.PI);player.body.pos[1]+=.08*Math.abs(stride);
-  const yaw=.073+.23*run-1.42*orbit,z=-8*run;renderer.eye=[Math.sin(yaw)*17,5.6-orbit*.8,z+Math.cos(yaw)*17];const air=Math.sin(Math.PI*fly);renderer.target=[0,1.9+.9*air,z];renderer.zoom=1-.15*orbit-.10*air;
+  // Settle onto the back-court lens before control returns; its starting zoom is .90.
+  const yaw=.073+.23*run-1.42*orbit,z=-8*run;renderer.eye=[Math.sin(yaw)*17,5.6-orbit*.8,z+Math.cos(yaw)*17];const air=Math.sin(Math.PI*fly);renderer.target=[0,1.9+.9*air,z];renderer.zoom=1-.15*orbit-.10*air-.10*easeV023(t,2.6,3.4);
   ball.visible=false;shadow.visible=false;
  }
  if(inCloseV027()){

@@ -2,7 +2,7 @@
 // Aggregate CURRENT-edition checks. Browser/GPU/device acceptance is separate.
 const {spawnSync}=require('node:child_process');
 const path=require('node:path');
-const suites=['assemble.cjs','content-v021.cjs','decks-v030.cjs','campaign-model-v030.cjs','navigation-v030.cjs','sound-v030.cjs','audio-campaign-v030.cjs','scenery-v030.cjs','chion-striker-v030.cjs','foreground-v030.cjs','characters-v030.cjs','complete-browser-v030.cjs'];
+const suites=['assemble.cjs','content-v021.cjs','decks-v030.cjs','campaign-model-v030.cjs','navigation-v030.cjs','sound-v030.cjs','audio-campaign-v030.cjs','scenery-v030.cjs','scenery-polish-v030.cjs','chion-striker-v030.cjs','foreground-v030.cjs','characters-v030.cjs','motion-camera-v030.cjs','motion-step-v030.cjs','complete-browser-v030.cjs'];
 for(const suite of suites){
  console.log('\n=== '+suite+' ===');
  const args=[path.join(__dirname,suite),...(suite==='complete-browser-v030.cjs'?['--vm']:[])];

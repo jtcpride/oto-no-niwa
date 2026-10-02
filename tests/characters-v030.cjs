@@ -22,6 +22,12 @@ for(const f of ['content/characters.js','characters/seven-rigs.js'])vm.runInCont
 const G=rigCtx.window.GardenGL,geom={box:G.box(),ico:G.ico(),cyl:G.cylinder(1,1,8),cone:G.cylinder(0,1,5),robe:G.cylinder(.65,1,6),head:G.cylinder(.8,.9,6)};
 function transform(p,n){let[x,y,z]=p.map((v,i)=>v*n.scale[i]);let[c,s]=[Math.cos(n.rot[0]),Math.sin(n.rot[0])];[y,z]=[y*c-z*s,y*s+z*c];[c,s]=[Math.cos(n.rot[1]),Math.sin(n.rot[1])];[x,z]=[x*c+z*s,-x*s+z*c];[c,s]=[Math.cos(n.rot[2]),Math.sin(n.rot[2])];return [x*c-y*s+n.pos[0],x*s+y*c+n.pos[1],z+n.pos[2]];}
 function triangles(node){const out=[];function visit(n,parents){if(!n.visible)return;const chain=[n,...parents];if(n.geo)for(let i=0;i<n.geo.p.length;i+=9){const v=[];for(let j=0;j<3;j++)v.push(chain.reduce((p,k)=>transform(p,k),Array.from(n.geo.p.slice(i+j*3,i+j*3+3))));out.push({v,c:Array.from(n.color),part:n.fegPart});}for(const c of n.children)visit(c,chain);}visit(node,[]);return out;}
+function pointTriangleDistance(p,[a,b,c]){
+ const sub=(u,v)=>u.map((n,i)=>n-v[i]),dot=(u,v)=>u.reduce((s,n,i)=>s+n*v[i],0),ab=sub(b,a),ac=sub(c,a),ap=sub(p,a);
+ const aa=dot(ab,ab),bb=dot(ac,ac),d=dot(ab,ac),u=(dot(ap,ab)*bb-dot(ap,ac)*d)/(aa*bb-d*d),v=(dot(ap,ac)*aa-dot(ap,ab)*d)/(aa*bb-d*d);
+ if(u>=0&&v>=0&&u+v<=1)return Math.hypot(...ap.map((n,i)=>n-u*ab[i]-v*ac[i]));
+ return Math.min(...[[a,b],[b,c],[c,a]].map(([s,e])=>{const edge=sub(e,s),delta=sub(p,s),t=Math.max(0,Math.min(1,dot(delta,edge)/dot(edge,edge)));return Math.hypot(...delta.map((n,i)=>n-t*edge[i]));}));
+}
 const models=[],sigs=new Set();
 for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlayer)){
  const root=new G.Node(),group=(parent,pos=[0,0,0])=>{const n=new G.Node();n.pos=pos;parent.add(n);return n;},mesh=(parent,shape,tint,pos=[0,0,0],scale=[1,1,1],rot=[0,0,0],unlit=0)=>{const n=new G.Node(geom[shape],tint);Object.assign(n,{pos,scale,rot,unlit});parent.add(n);return n;};
@@ -29,6 +35,17 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
  for(const key of ['n','body','head','arm','farArm','leg','back','thigh','knee','shoe','backThigh','backKnee','backShoe','elbow','wrist','farElbow','farWrist','toe','backToe'])assert(f[key]?.pos&&f[key]?.rot,c.id+' '+key);
  assert.equal(f.knee.pos[1],-.48);assert.equal(f.backKnee.pos[1],-.48);assert.equal(f.shoe.pos[1],-.48);assert.equal(f.toe.pos[0],.16);
  const metadata=f.characterV030;sigs.add(metadata.profile.signature);assert(metadata.meshCount>=35,c.id+' actual detail');
+ const face=metadata.parts.find(n=>n.fegPart==='face'),faceTriangles=triangles(face);
+ for(const tag of ['eye','mouth',c.id==='sokichi'?'thick-white-brow':'brow']){
+  const features=metadata.parts.filter(n=>n.fegPart===tag);assert.equal(features.length,2,c.id+' '+tag+' pair');
+  for(const feature of features)assert(Math.min(...faceTriangles.map(t=>pointTriangleDistance(feature.pos,t.v)))<.02,c.id+' '+tag+' stays attached to the faceted face');
+ }
+ if(c.id==='luka'){
+  assert.equal(metadata.parts.filter(n=>n.fegPart==='bare-upper-arm').length,2);assert.equal(metadata.parts.filter(n=>n.fegPart==='bare-forearm').length,2);
+  assert(!metadata.parts.some(n=>['upper-sleeve','fore-sleeve'].includes(n.fegPart)),'Luka skin is not buried inside a larger sleeve');
+  const ys=n=>triangles(n).flatMap(t=>t.v.map(p=>p[1])),neck=ys(metadata.parts.find(n=>n.fegPart==='neck')),shirt=ys(metadata.parts.find(n=>n.fegPart==='rust-inner'));
+  assert(Math.min(...neck)<Math.max(...shirt)&&Math.max(...neck)>Math.min(...ys(face))+f.head.pos[1],'Luka neck joins both torso and head');
+ }
  const t=triangles(f.n),ys=t.flatMap(t=>t.v.map(p=>p[1]));const maxY=Math.max(...ys),minY=Math.min(...ys);models.push({id:c.id,height:maxY-minY,triangles:t,parts:metadata.meshCount});
  // Shadow factory must preserve every vertex and named joint, with a black palette.
  const shadow=rigCtx.window.FEGCharacterRigs.seven({root,group,mesh},0,{...c.appearance,shadow:true},1),st=triangles(shadow.n);

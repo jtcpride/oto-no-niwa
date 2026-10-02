@@ -79,11 +79,12 @@ async function screenshot(page,name) {
   // Keep game time deterministic while allowing the browser's compositor to
   // repaint both orientation layers before capture. Without this, Chrome can
   // retain a strip of the previous viewport at the bottom of the screenshot.
-  await page.evaluate(()=>new Promise(resolve=>{
+  await page.evaluate(async()=>{
     window.qa?.draw();void document.body.offsetHeight;
+    await Promise.all(document.getAnimations().filter(a=>a.animationName==='campaign-caption-enter').map(a=>a.finished.catch(()=>{})));
     const frame=window.__qaNativeRAF||window.requestAnimationFrame.bind(window);
-    frame(()=>frame(resolve));
-  }));
+    await new Promise(resolve=>frame(()=>frame(resolve)));
+  });
   const file=path.join(OUT,name+'.png');await page.screenshot({path:file});report.screenshots.push(path.basename(file));
 }
 async function assertRendered(page,label) {

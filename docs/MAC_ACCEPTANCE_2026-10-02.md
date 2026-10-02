@@ -35,18 +35,43 @@
 
 ## 保存した証拠
 
-実WebGLは最終統合版で**99検査・104画像・JavaScriptエラー0**。Gitには代表10画面と以下の機械可読レポートを保存しています。全画像は実行環境の `../work/complete-browser/` にあります。
+初回Mac統合版の実WebGLは**99検査・104画像・JavaScriptエラー0**。Gitには代表10画面と以下の機械可読レポートを保存しています。その後の磨き込みは次節の証拠を参照してください。
 
 - [実WebGL全結果](evidence/mac-2026-10-02/complete-browser-report.json) / [実音声API](evidence/mac-2026-10-02/audio-browser-report.json) / [足元の描画検査](evidence/mac-2026-10-02/foreground-browser-report.json)
 - [京都駅の練習](evidence/mac-2026-10-02/complete-production-practice.png) / [石庭・小さい横画面](evidence/mac-2026-10-02/complete-garden-unlocked-568x320.png)
 - [三十三間堂の奥](evidence/mac-2026-10-02/complete-gendo-back-1024x768.png) / [知恩院の夜桜](evidence/mac-2026-10-02/complete-chion-back-1024x768.png) / [新京極](evidence/mac-2026-10-02/complete-shinkyogoku-front-1024x768.png)
 - [七球集結](evidence/mac-2026-10-02/complete-gion-gather-start.png) → [変身](evidence/mac-2026-10-02/complete-gion-gather.png) → [影の登場](evidence/mac-2026-10-02/complete-gion-shadow-reveal.png) → [散開](evidence/mac-2026-10-02/complete-gion-scatter.png) → [終幕](evidence/mac-2026-10-02/complete-ending.png)
 
+## 追加の美術・画面・動作の磨き込み
+
+`1221a012` 保存後、実画面を見直して以下を修正しました。
+
+- 七人の目・眉・口を六角形の顔の面へ密着させ、目が横へ浮く問題を解消。少ない面で表情を分け、ルカの腕を袖なしにし、首と衣装を接続しました。輪郭・身長・衣装の違いは維持。
+- 蹴り後の歩行で支持足を交替し、接地中に足が胴体と一緒に滑る問題を改善。旧レビュー区間では約0.870の滑りがあり、修正後の各支持区間は実Chromeで0.000001〜0.00345でした。スーツ・袴・子どもを確認しています。判定・球道・接触時刻・骨長は変更していません。
+- 奥への追走終了時のズームの段差を解消。終端の変化を1.000→0.900から0.900012→0.900000へつなげました。
+- 神宮の社殿に低い基壇と前段を追加し、白砂から浮いて見える足元を修正。三条奥は広い青い床を陸に戻し、水路・護岸・橋・対岸の町家を整理しました。
+- 石庭の見出し、タイトルの日本語改行、京都駅会話への画面幅、導入・勝負カードの操作ラベルを整理。勝利・継承・散開の大きな文字を上部へ移し、人物と光が見える構図にしました。演出OFFとOSの動き軽減では追加アニメーションを無効にしています。
+- 鞠の札を読みやすい小ささにし、顔・胴・鞠・HUD・練習カードを避ける位置へ配置。細い線で球との対応を示し、同じ状態で位置が振動しないようにしました。TIME・礼・HAJIMEには空の札を残しません。教材や正解を隠す規則は維持しています。
+- 七球集結は小さい縦横画面でも七球が見切れない構図へ調整。集結、ゴッドモード、影の登場順と時刻は維持します。
+
+最終候補で `npm test`、実WebGLの通し99項目・104画像、UI2050項目・131画像が合格し、JavaScriptエラーは0でした。追加の回帰試験は `npm test` に統合。実WebGLの構図検査は `npm run test:ui-browser`、七人一覧は `npm run review:characters` で再現できます。[統合検証の要約](evidence/mac-2026-10-02/polish/verification-summary.json)には、製品HTMLのハッシュ、試験件数、検証範囲を保存しています。詳細な全画像・レポートは実行環境の `../work/ui-polish/`、`../work/characters-art/`、`../work/scenery-polish/`、`../work/motion-step/` にあります。
+
+- [七人・修正前](evidence/mac-2026-10-02/polish/characters-before.png) → [修正後](evidence/mac-2026-10-02/polish/characters-after.png) / [単色の輪郭](evidence/mac-2026-10-02/polish/character-silhouettes.png)
+- [袴の踏み替え](evidence/mac-2026-10-02/polish/sumi-planted-step.png) / [小学生の踏み替え](evidence/mac-2026-10-02/polish/kota-planted-step.png)
+- [神宮](evidence/mac-2026-10-02/polish/jingu-grounded.png) / [三条奥](evidence/mac-2026-10-02/polish/sanjo-canal.png)
+- [手動Edge・京都駅の会話](evidence/mac-2026-10-02/polish/manual-kyoto-dialogue.png) / [手動Edge・石庭](evidence/mac-2026-10-02/polish/manual-garden.png)
+- [顔を隠さない鞠の札](evidence/mac-2026-10-02/polish/ball-prompt.png) / [継承](evidence/mac-2026-10-02/polish/inheritance.png)
+- [七球・縦画面](evidence/mac-2026-10-02/polish/gion-seven-orbs.png) / [七球・小さい横画面](evidence/mac-2026-10-02/polish/gion-seven-orbs-landscape.png) / [変身後の影](evidence/mac-2026-10-02/polish/gion-shadow.png)
+
+七人の輪郭・衣装・姿勢は識別できますが、顔は簡潔な共通形状を基盤とし、蹴りも共通の接触骨格に所作の差を加える構成です。小さな実プレイ画面では細かな表情の効果は限定的です。旋回中に建築を透かして人物を見せる既存処理があり、三条などの背景が一時的に空く場面は残ります。完全に別々の格闘アニメーションや細かな顔芝居まで完成したとは扱いません。
+
 ## 残る受入
 
 **iPhone・iPadの実機SafariでのBGM／SE／単語音声、タップ、画面ロック・アプリ切替からの復帰は未確認です。** Macの画面サイズ変更や模擬音声を実機合格とは扱いません。特に `/ʒ/` と母音デッキの聴き取りは端末の声で確認が必要です。
 
-Macで端末一覧を確認したところ、実iPhoneは登録済みですが、iPhoneミラーリングはMacログインのロックで停止していました。利用者自身の解除が必要です。実iPadは接続一覧になく、iPad Simulatorのみでした。Simulatorを実機合格の代わりにはしていません。
+Macで端末一覧を確認したところ、実iPhoneは登録済みです。最初はiPhoneミラーリングがMacログインのロックで停止していましたが、利用者の解除後、実機画面の取得・Safari起動・アドレス欄へのタップまで確認できました。最新版を同じLAN内の実機へ一時配信する操作は、自動承認レビューがソースのネットワーク公開を理由に拒否しました。ゲーム用ファイルだけの一時配信について利用者の明示承認を依頼しており、まだゲーム自体の実機合格ではありません。配信サーバーは起動していません。
+
+実iPadは接続一覧になく、iPad Simulatorのみでした。Simulatorを実機合格の代わりにはしていません。
 
 mainへのマージとPages公開は、実機結果を確認したうえで別途承認を得る段階です。現在の公開試遊は従来のv0.29.1です。
 

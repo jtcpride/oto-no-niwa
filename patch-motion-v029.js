@@ -114,8 +114,21 @@ strikePoseV024=function(f,a,save){
  if(a.attack<.72)kickMotionV029(f,a.slot,a.attack,point,save,true);
  const step=easeV023(a.age,.42,.88),lift=Math.sin(step*Math.PI)*(motion?1:.3);
  if(step>0&&step<1&&Math.abs(a.to-a.from)>.001){
-  for(const key of ['leg','thigh','knee','back','backThigh','backKnee','body','arm','farArm'])save(f[key]);
-  legV024(f,'leg',[.08+.42*lift,.09+.22*lift,.22],1);legV024(f,'back',[-.13-.10*lift,.09,-.23],1);
+  for(const key of ['leg','thigh','knee','shoe','back','backThigh','backKnee','backShoe','body','arm','farArm'])save(f[key]);
+  // The existing step advances the root by 1.2 units. Keep the supporting foot
+  // in world space while the other foot travels, then transfer support halfway.
+  // This is render-only, after the kick contact; leg lengths and flight stay fixed.
+  if(motion){
+   const travel=a.to-a.from,moved=a.x-a.from,yaw=f.n.rot[1],lower=.25*Math.sin(step*Math.PI);
+   const ankle=easeV023(a.age,.42,.46)*(1-easeV023(a.age,.84,.88));
+   f.n.pos[1]-=lower; // n is already saved by prepareDepthRenderV022.
+   for(const [key,x,z,from,to] of [['leg',.08,.22,0,.5],['back',-.13,-.23,.5,1]]){
+    const progress=easeV023(step,from,to),offset=travel*progress-moved;
+    legV024(f,key,[x+Math.cos(yaw)*offset,.09+lower+.22*Math.sin(progress*Math.PI),z+Math.sin(yaw)*offset],1);
+    const thigh=f[key==='leg'?'thigh':'backThigh'],knee=f[key==='leg'?'knee':'backKnee'],shoe=f[key==='leg'?'shoe':'backShoe'];
+    shoe.rot[2]+=(-f[key].rot[2]-thigh.rot[2]-knee.rot[2]-shoe.rot[2])*ankle;
+   }
+  }else{legV024(f,'leg',[.08+.42*lift,.09+.22*lift,.22],1);legV024(f,'back',[-.13-.10*lift,.09,-.23],1);}
   f.body.pos[1]-=.035*lift;f.body.rot[2]-=.11*lift;f.arm.rot[2]+=.24*lift;f.farArm.rot[2]-=.20*lift;
  }
 };

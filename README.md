@@ -13,6 +13,8 @@ https://jtcpride.github.io/oto-no-niwa/
 
 15石、七人の固有造形、京都六舞台＋GION、六デッキ84語、鞠の継承と保存、七球集結・影・散開まで実装した作業ブランチです。MacのChrome／Apple M4の実WebGLで、京都駅から終幕・再挑戦まで通過しました。**iPhone/iPad実機の音とタッチは未確認、main／Pagesは未更新**です。
 
+さらに七人の顔・衣装接続、踏み替えの足滑り、追走カメラ、神宮と三条の接地・構図、会話・継承字幕、鞠の札、七球の見切れを実描画で磨きました。通し検証99項目とUI検証2050項目が合格。[修正前後と残る表現上の限界](docs/MAC_ACCEPTANCE_2026-10-02.md)も記録しています。
+
 `npm install && npm test` で現在の集約試験。`python3 -m http.server 8765` で起動。
 [希望全文](docs/FEG_CREATIVE_BRIEF_2026-10-02.txt) / [コードと検証・実行順](docs/CODEX_START_HERE.md)
 

@@ -1,0 +1,22 @@
+'use strict';
+// Review actual seven-rig geometry in GardenGL; this gallery does not replace motion tests.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {chromium}=require('playwright');
+const ROOT=path.resolve(__dirname,'..'),OUT=path.resolve(process.env.FEG_CHARACTER_ART_DIR||'../work/characters-art');
+const label=process.argv[2]||'current';
+const html=require('./assemble.cjs')();
+const engine=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('GardenGL 0.1'));
+assert(engine);fs.mkdirSync(OUT,{recursive:true});
+const source='<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;padding:16px;background:#17252d;color:#e7e4d5;font:14px system-ui}h1{font-size:20px;margin:0 0 8px}p{margin:0 0 12px;color:#aabdca}.row{display:grid;grid-template-columns:repeat(7,220px);gap:8px}.row div{background:#243540;text-align:center;padding-top:8px}canvas{display:block;width:220px;height:310px}h2{margin:10px 0;font-size:16px}</style></head><body><h1>Seven original rigs · '+label+'</h1><p>Native GardenGL / actual WebGL · neutral geometry and portrait review · no animation or device claim</p><h2>Clothing and silhouette</h2><section class="row" id="full"></section><h2>Faces at the same portrait scale</h2><section class="row" id="face"></section><script>'+engine+'</script><script>'+fs.readFileSync(path.join(ROOT,'content/characters.js'),'utf8')+'</script><script>'+fs.readFileSync(path.join(ROOT,'characters/seven-rigs.js'),'utf8')+'</script><script>'+String.raw`
+const G=GardenGL,geometry={box:G.box(),ico:G.ico(),cyl:G.cylinder(1,1,8),cone:G.cylinder(0,1,5),robe:G.cylinder(.65,1,6),head:G.cylinder(.8,.9,6)},renderers=[];
+function group(p,pos=[0,0,0]){const n=new G.Node();n.pos=pos;p.add(n);return n;}
+function mesh(p,shape,color,pos=[0,0,0],scale=[1,1,1],rot=[0,0,0],unlit=0){const n=new G.Node(typeof shape==='string'?geometry[shape]:shape,color);Object.assign(n,{pos,scale,rot,unlit});p.add(n);return n;}
+for(const kind of ['full','face'])for(const c of FEGContent.characters.filter(c=>!c.derivedFromPlayer)){
+ const cell=document.createElement('div');cell.textContent=c.name;const canvas=document.createElement('canvas');cell.append(canvas);document.querySelector('#'+kind).append(cell);
+ const root=new G.Node(),f=FEGCharacterRigs.seven({root,group,mesh},0,c.appearance,1),r=new G.Renderer(canvas);r.gl.clearColor(.14,.20,.25,1);
+ if(kind==='full'){f.body.rot[2]=f.characterV030.profile.stance;r.eye=[9,4.8,17];r.target=[0,1.75,0];r.zoom=3.25;}else{const y=f.n.pos[1]+f.body.pos[1]+f.head.pos[1]+.24;r.target=[0,y,0];r.eye=[13,y+2.5,17];r.zoom=11.0;}
+ r.render(root);renderers.push({r,root,f,kind});
+}
+window.art={renderers,monochrome(){for(const {r,root,f,kind} of renderers){if(kind!=='full')continue;for(const n of f.characterV030.parts){n.color=[.045,.045,.055];n.unlit=1;}r.gl.clearColor(.65,.7,.72,1);r.render(root);}},stats(){return renderers.map(({r,f,kind})=>{const g=r.gl,x=g.getExtension('WEBGL_debug_renderer_info');return{id:f.characterV030.id,kind,error:g.getError(),renderer:x?g.getParameter(x.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER)}})}};
+`+'</script></body></html>';
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});try{const page=await browser.newPage({viewport:{width:1620,height:790}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.setContent(source);await page.waitForFunction(()=>window.art);const stats=await page.evaluate(()=>art.stats());assert.equal(errors.length,0,JSON.stringify(errors));assert(stats.every(s=>s.error===0&&!/swiftshader|software/i.test(s.renderer)));await page.screenshot({path:path.join(OUT,label+'-seven-rigs.png'),fullPage:true});await page.evaluate(()=>art.monochrome());await page.screenshot({path:path.join(OUT,label+'-silhouettes.png'),fullPage:true});fs.writeFileSync(path.join(OUT,label+'-report.json'),JSON.stringify({passed:true,stats},null,2));console.log(JSON.stringify({passed:true,out:OUT,label,renderers:stats.length,renderer:stats[0].renderer},null,2));}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

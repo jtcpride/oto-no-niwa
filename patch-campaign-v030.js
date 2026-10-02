@@ -6,6 +6,7 @@ window.otoPatchCampaignV030=function(html){
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");
+ once("const highBall=renderer.project(depthPointV022([x,y,z]))[1]<195;$('#ballLabel').style.transform=highBall?'translate(-50%, 0)':'translate(-50%, -125%)';place($('#ballLabel'),depthPointV022([x,y+.3,z]),highBall?40:-2);$('#ballLabel').textContent=ballPrompt();","$('#ballLabel').textContent=ballPrompt();placeBallPromptV030();");
  once('</style>',String.raw`
 /* Complete-edition navigation lives in the same native scene. */
 .stage-picker{display:none!important}.campaign-ui{position:absolute;inset:0;z-index:8;pointer-events:none;color:#f5edda}.campaign-ui button,.campaign-ui input{pointer-events:auto}
@@ -27,6 +28,25 @@ body.campaign-cinematic #arena :is(.ball-label,.fighter-label,.practice-card,.ce
  .campaign-stone{min-width:44px;min-height:44px}.campaign-stone:after{font-size:9px}
 }
 .campaign-stone[data-kind=ordinary]{min-width:20px;min-height:20px;width:20px;height:20px;cursor:default}
+/* Keep the figures and the inherited light readable through each scene change. */
+.campaign-top{z-index:1}.campaign-top:before{content:'';position:absolute;inset:-18px -22px -9px;background:linear-gradient(#112b2be8,#112b2ba8);border-bottom:1px solid #bdbb8f33;z-index:-1;pointer-events:none}
+.campaign-top>div:first-child{min-width:0}.campaign-top h2{white-space:nowrap;letter-spacing:.08em}.campaign-orbs{flex:none}
+.campaign-cinema{align-items:flex-start;padding-top:clamp(18px,5vh,42px)}
+.campaign-cinema>div{max-width:calc(100% - 32px);padding:8px 18px;animation:campaign-caption-enter .22s ease-out both}
+.campaign-cinema h2{font-size:clamp(28px,5vw,54px);line-height:1.1;margin:0;letter-spacing:.12em}
+.campaign-cinema p{margin:10px 0 0;line-height:1.5;text-shadow:0 2px 8px #071015}
+.campaign-dialogue{animation:campaign-caption-enter .18s ease-out both}
+.practice-card:not(.answer-card){top:max(78px,28%);transform:translateX(-50%)}
+#intro p{max-width:none}#intro p .campaign-phrase{display:inline-block}
+.ball-label{min-width:48px;padding:4px 8px 5px;font-size:26px;line-height:1.1;border-radius:5px;box-shadow:0 2px 0 #ab8a4c,0 3px 9px #0003}
+.ball-label:after{left:var(--prompt-line-x,50%);top:var(--prompt-line-y,100%);bottom:auto;width:var(--prompt-line-length,0px);height:1px;border:0;background:#e4c98c;transform:rotate(var(--prompt-line-angle,0rad));transform-origin:0 50%;opacity:.8}
+@media(max-width:680px){.ball-label{font-size:24px;min-width:44px;padding:4px 7px}}
+@keyframes campaign-caption-enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:680px){.campaign-top{gap:8px}.campaign-top:before{inset:-14px -14px -9px}.campaign-top h2{font-size:clamp(15px,4.5vw,20px)}.campaign-orbs{font-size:10px;min-width:54px}.campaign-orbs span{font-size:22px}.campaign-cinema p{font-size:11px}}
+@media(orientation:landscape) and (min-width:560px) and (min-height:601px){body.campaign-screen #arena{grid-column:1/-1;grid-row:2/4;height:100%;min-height:0;max-height:none}}
+@media(orientation:landscape) and (max-height:600px){.campaign-top:before{inset:-11px -16px -6px}.campaign-top h2{font-size:16px}.campaign-cinema{padding-top:18px}.campaign-cinema h2{font-size:30px}.campaign-cinema p{margin-top:5px}.campaign-orbs span{font-size:17px}.campaign-dialogue{padding:12px 18px;display:grid;grid-template-columns:1fr auto;column-gap:16px}.campaign-dialogue .speaker,.campaign-dialogue .en{grid-column:1/-1}.campaign-dialogue .en{font-size:24px;margin:6px 0}.campaign-dialogue .ja{margin:0;align-self:center}.campaign-dialogue button{float:none;grid-column:2;grid-row:3}.campaign-dialogue:after{display:none}}
+body.reduced-motion .campaign-dialogue,body.reduced-motion .campaign-cinema>div{animation:none;transition:none}
+@media(prefers-reduced-motion:reduce){.campaign-dialogue,.campaign-cinema>div{animation:none;transition:none}}
 </style>`);
  once('<canvas id="world"', '<canvas id="world"'); // Assert the game canvas remains present.
  once("$('#start').addEventListener('click',start);",`const CampaignModelV030=(${window.FEGCampaign.toString()})();\n`+String.raw`
@@ -71,7 +91,7 @@ function gardenDetailV030(){
 function showGardenV030(){
  audio.stopVoice();state.mode='idle';state.pendingDamage=0;campaignV030.committed=false;campaignV030.godmode=false;window.kemari?.setGodMode?.(false);campaignSetPhaseV030('garden');campaignScreenV030(true);persistCampaignV030();
  const url=new URL(window.location.href);url.searchParams.delete('stage');url.searchParams.delete('intro');url.searchParams.set('view','garden');history.replaceState(null,'',url.href);
- campaignUIV030.innerHTML='<header class="campaign-top"><div><small>FIFTEENTH EVER GARDEN</small><h2>十五の石、七つの鞠。</h2><button class="campaign-small" id="stationAgain">京都駅へ</button></div><div class="campaign-orbs">受け継いだ鞠<span>'+CampaignModelV030.orbCount(campaignSaveV030)+' / 7</span></div></header><div id="gardenStones"></div><div class="campaign-detail"><div><h3 id="gardenName"></h3><p id="gardenDescription"></p></div><div class="campaign-actions"><button id="gardenGo">ここで勝負</button>'+(CampaignModelV030.unlocked(campaignSaveV030)?'<button id="gardenFinal" class="campaign-gion">祇園へ ↗</button>':'')+'</div></div><span class="campaign-note">'+saveNoticeV030+'</span>';
+ campaignUIV030.innerHTML='<header class="campaign-top"><div><small>相手を選ぶ</small><h2>十五の石、七つの鞠。</h2><button class="campaign-small" id="stationAgain">京都駅へ</button></div><div class="campaign-orbs">受け継いだ鞠<span>'+CampaignModelV030.orbCount(campaignSaveV030)+' / 7</span></div></header><div id="gardenStones"></div><div class="campaign-detail"><div><h3 id="gardenName"></h3><p id="gardenDescription"></p></div><div class="campaign-actions"><button id="gardenGo">ここで勝負</button>'+(CampaignModelV030.unlocked(campaignSaveV030)?'<button id="gardenFinal" class="campaign-gion">祇園へ ↗</button>':'')+'</div></div><span class="campaign-note">'+saveNoticeV030+'</span>';
  const host=campaignUIV030.querySelector('#gardenStones');
  for(const [i,s] of stoneLayoutV030.entries()){
   const b=document.createElement(s.kind==='ordinary'?'span':'button');b.className='campaign-stone';b.dataset.kind=s.kind;b.dataset.index=i;b.dataset.label=s.kind==='self'?'YOU':s.kind==='ordinary'?'':STAGE_CONTENT.characters.find(c=>c.id===STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent).name;b.setAttribute('aria-label',s.kind==='ordinary'?'石':s.kind==='self'?PLAYER_CHARACTER.name+' / 自分の石':b.dataset.label+'を選ぶ');
@@ -83,7 +103,7 @@ function showGardenV030(){
 function showDialogueV030(){
  campaignSetPhaseV030('dialogue');campaignScreenV030(true);state.mode='idle';
  const lines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。']],line=lines[campaignV030.dialogue];
- campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">KYOTO STATION / 烏丸 朔</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><button id="dialogueNext" class="campaign-small">'+(campaignV030.dialogue?'鞠を受ける':'…')+' ↗</button></div>';
+ campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">KYOTO STATION / 烏丸 朔</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><button id="dialogueNext" class="campaign-small">'+(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗</button></div>';
  campaignUIV030.querySelector('#dialogueNext').addEventListener('click',()=>{if(campaignV030.phase!=='dialogue')return;audio.ensure();if(!audio.userChoice)audio.set(true);if(campaignV030.dialogue++===0)showDialogueV030();else startCampaignMatchV030();});
 }
 const campaignKernelStartV030=start;
@@ -146,6 +166,36 @@ function campaignTransformV030(n,p){
  [y,z]=[y*Math.cos(rx)-z*Math.sin(rx),y*Math.sin(rx)+z*Math.cos(rx)];[x,z]=[x*Math.cos(ry)+z*Math.sin(ry),-x*Math.sin(ry)+z*Math.cos(ry)];[x,y]=[x*Math.cos(rz)-y*Math.sin(rz),x*Math.sin(rz)+y*Math.cos(rz)];
  return [x+n.pos[0],y+n.pos[1],z+n.pos[2]];
 }
+let promptPlaceV030=-1;
+function placeBallPromptV030(){
+ if(campaignV030.phase!=='match'||!['front','back'].includes(duelV022.phase))return;
+ const label=$('#ballLabel'),active=['practice','match'].includes(ceremony);label.style.visibility=active?'':'hidden';if(!active)return;
+ // Called between prepareDepthRenderV022 and its restoration: these positions
+ // already include the exact depth shift and actor transforms used by WebGL.
+ const [bx,by]=renderer.project(ball.pos),w=label.offsetWidth||48,h=label.offsetHeight||38,W=renderer.width,H=renderer.height;
+ if(!Number.isFinite(bx+by)||!W||!H)return;
+ const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
+ const avoid=[];
+ for(const f of [player,cpu])for(const [node,center,extent] of [[f.head,[0,.15,0],[.48,.66,.45]],[f.body,[0,.60,0],[.52,.68,.45]]]){
+  const points=[];for(const x of [-1,1])for(const y of [-1,1])for(const z of [-1,1]){
+   let p=campaignTransformV030(node,center.map((v,i)=>v+[x,y,z][i]*extent[i]));if(node===f.head)p=campaignTransformV030(f.body,p);points.push(renderer.project(campaignTransformV030(f.n,p)));
+  }
+  const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);avoid.push({x:Math.min(...xs)-4,y:Math.min(...ys)-4,w:Math.max(...xs)-Math.min(...xs)+8,h:Math.max(...ys)-Math.min(...ys)+8});
+ }
+ const arena=canvas.getBoundingClientRect();
+ for(const e of [$('.hud'),$('#practiceCard')])if(e&&!e.hidden&&e.getClientRects().length){const r=e.getBoundingClientRect();avoid.push({x:r.left-arena.left-4,y:r.top-arena.top-4,w:r.width+8,h:r.height+8});}
+ // Four nearby positions; retain the last safe one rather than changing sides
+ // for a one-pixel preference. This changes only the prompt's screen position.
+ const spots=[[bx-w-22,by-h/2],[bx+22,by-h/2],[bx-w/2,by-h-22],[bx-w/2,by+22]].map(([x,y],i)=>{
+  const r={x:Math.max(5,Math.min(W-w-5,x)),y:Math.max(5,Math.min(H-h-5,y)),w,h};
+  return {...r,i,clamp:Math.abs(r.x-x)+Math.abs(r.y-y),cover:avoid.reduce((n,b)=>n+overlap(r,b),0)};
+ });
+ const previous=spots[promptPlaceV030],preferred=bx>W/2?0:1;
+ const chosen=previous&&previous.cover<1&&previous.clamp<1?previous:spots.reduce((a,b)=>{const score=c=>c.cover*100+c.clamp*2+(c.i===preferred?0:8);return score(a)<=score(b)?a:b});
+ promptPlaceV030=chosen.i;label.style.transform='none';label.style.left=chosen.x+'px';label.style.top=chosen.y+'px';
+ const dx=bx-(chosen.x+w/2),dy=by-(chosen.y+h/2),distance=Math.hypot(dx,dy),edge=1/Math.max(Math.abs(dx)/(w/2),Math.abs(dy)/(h/2),1);
+ label.style.setProperty('--prompt-line-x',(w/2+dx*edge)+'px');label.style.setProperty('--prompt-line-y',(h/2+dy*edge)+'px');label.style.setProperty('--prompt-line-length',Math.max(0,distance*(1-edge)-4)+'px');label.style.setProperty('--prompt-line-angle',Math.atan2(dy,dx)+'rad');
+}
 function campaignChestV030(f){return campaignTransformV030(f.n,campaignTransformV030(f.body,[0,(f.chestHeight||1.9)-1.08,0]));}
 const campaignPrepareKernelV030=prepareDepthRenderV022;
 prepareDepthRenderV022=function(){
@@ -161,6 +211,12 @@ prepareDepthRenderV022=function(){
   // Reveal the mirror only after the seven orbs have transformed the player.
   cpu.n.visible=phase!=='ending'&&!(ACTIVE_STAGE.id==='gion'&&(phase==='stage-card'||(phase==='gather'&&t<3.4)));
   if(['title','dialogue','stage-card'].includes(phase)){ball.visible=false;shadow.visible=false;}
+  if(ACTIVE_STAGE.id==='gion'&&['stage-card','gather'].includes(phase)){
+   // Frame all seven arriving orbs around the player, then settle back before
+   // the mirror appears. The card shares the first frame to avoid a start jump.
+   const returning=motion&&phase==='gather'?smoothDepthV022((t-2.7)/.65):0,shift=campaignChestV030(player)[0]*(1-returning);
+   renderer.eye[0]+=shift;renderer.target[0]+=shift;
+  }
   if(['gather','inheritance','scatter','intro-win'].includes(phase)){
    ball.visible=false;shadow.visible=false;const playerChest=campaignChestV030(player),cpuChest=campaignChestV030(cpu);
    if(phase==='inheritance'){
@@ -190,9 +246,9 @@ function initializeCampaignV030(){
  if(requestedStage){
   campaignV030.intro=false;campaignSetPhaseV030('stage-card');
   if(ACTIVE_STAGE.id==='gion'&&!CampaignModelV030.unlocked(campaignSaveV030)){showGardenV030();return;}
-  $('#intro h2').textContent=ACTIVE_STAGE.id==='gion'?'GION':ACTIVE_STAGE.name.split(' / ')[0];$('#intro p').textContent=STAGE_CONTENT.characters.find(c=>c.id===ACTIVE_STAGE.opponent).name+' / '+ACTIVE_DECK.name;$('#start').innerHTML='勝負を始める <span>↗</span>';const back=document.createElement('button');back.className='campaign-home';back.textContent='石庭へ戻る';back.addEventListener('click',showGardenV030);$('#intro').appendChild(back);return;
+  $('#intro h2').textContent=ACTIVE_STAGE.id==='gion'?'GION':ACTIVE_STAGE.name.split(' / ')[0];$('#intro p').textContent=STAGE_CONTENT.characters.find(c=>c.id===ACTIVE_STAGE.opponent).name+' / '+ACTIVE_DECK.name;$('#start').innerHTML=(ACTIVE_STAGE.id==='gion'?'最後の勝負へ':'PRACTICEを始める')+' <span>↗</span>';const back=document.createElement('button');back.className='campaign-home';back.textContent='石庭へ戻る';back.addEventListener('click',showGardenV030);$('#intro').appendChild(back);return;
  }
- $('#intro p').textContent='音を聞く。記号を合わせる。鞠を返す。';
+ $('#intro p').innerHTML='<span class="campaign-phrase">音を聞く。</span><span class="campaign-phrase">記号を合わせる。</span><span class="campaign-phrase">鞠を返す。</span>';
 }
 $('#start').addEventListener('click',start);`);
  once('select(0);refreshHud();requestAnimationFrame(frame);',String.raw`

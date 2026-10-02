@@ -1,0 +1,141 @@
+{
+  "createdAt": "2026-10-02T15:39:34.428Z",
+  "scope": "Mac art and presentation refinement after 1221a012; physical-device game acceptance remains pending",
+  "assembledHtmlSha256": "4b8394d4e3f4782bc553fed27f133b2d34601fc8a16c9df8dca4c6e438a26bcf",
+  "aggregate": {
+    "command": "npm test",
+    "status": "passed",
+    "includes": [
+      "content and deck validation",
+      "campaign/save/navigation/audio lifecycle",
+      "112 character contacts and face attachment",
+      "grounded shrine and bounded canal",
+      "152 foreground cases",
+      "six pursuit camera handoffs",
+      "planted stepping: adult/hakama/child, both sides",
+      "v0.29.1 trajectory/timing/damage equivalence",
+      "full campaign VM"
+    ]
+  },
+  "campaignWebGL": {
+    "command": "npm run test:browser",
+    "status": "passed",
+    "checks": 99,
+    "screenshots": 104,
+    "errors": [],
+    "browser": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "requestedRenderer": "default hardware",
+      "softwareFallback": false,
+      "arguments": [],
+      "version": "154.0.8037.97",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    "finishedAt": "2026-10-02T15:32:52.483Z",
+    "limitations": []
+  },
+  "uiWebGL": {
+    "command": "npm run test:ui-browser",
+    "status": "passed",
+    "checks": 2050,
+    "screenshots": 131,
+    "failures": [],
+    "gpu": {
+      "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "width": 960,
+      "height": 583,
+      "sampledColors": 204,
+      "error": 0
+    },
+    "finishedAt": "2026-10-02T15:36:37.216Z",
+    "coverage": [
+      "7 stages, actual front/back scenes, 6 viewports, 5 ball positions",
+      "independent GPU ball-present/absent pixel difference",
+      "heads/ball/practice/HUD avoidance and stable label placement",
+      "TIME/bow/HAJIME prompt hidden",
+      "all 7 orb mesh bounds at 10 times across 6 viewports",
+      "continuous stage card/gather/practice camera handoffs",
+      "godmode then visible shadow",
+      "effects OFF and system reduced-motion"
+    ],
+    "limitations": [
+      "Deterministic phase setup and mocked speech; no acoustic or physical-device acceptance."
+    ]
+  },
+  "characterArt": {
+    "command": "npm run review:characters",
+    "status": "passed",
+    "renderedViews": 14,
+    "geometry": "112 gameplay contacts plus actual cheek-facet attachment",
+    "comparisonImages": 18
+  },
+  "sceneryArt": {
+    "status": "passed",
+    "comparisonImages": 36,
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "limitations": [
+      "Frames require visual review; audio is mocked. The initial announcement is explicitly cleared after 1.1 game seconds because the paused native RAF owns its DOM expiry.",
+      "Static scenery review clears transient opening feedback after advancing game time.",
+      "Existing architectural cutaway remains during orbit."
+    ]
+  },
+  "foregroundGPU": {
+    "status": "passed",
+    "cases": 32,
+    "errors": 0
+  },
+  "motionGPU": {
+    "status": "passed",
+    "sampledFrames": 33,
+    "errors": [],
+    "cameraBefore": {
+      "eye": [
+        5.069484514917002,
+        5.599893807407407,
+        8.22653156879241
+      ],
+      "zoom": 0.900012414916088
+    },
+    "cameraAfter": {
+      "eye": [
+        5.072542993826116,
+        5.6,
+        8.225575724016252
+      ],
+      "zoom": 0.9
+    },
+    "plantedFootMaximumDriftRange": [
+      0.0000013,
+      0.00345
+    ],
+    "units": "world units; separate stance windows",
+    "beforeObservation": "Previous review interval showed 0.8699 units of rear-foot sliding; not the identical two stance windows."
+  },
+  "manualEdge": {
+    "verified": [
+      "title Japanese wrapping",
+      "stable arena width into Kyoto dialogue",
+      "dialogue buttons",
+      "PRACTICE and its prompt",
+      "TIME/ceremony without stray empty prompt",
+      "bow button",
+      "loss to garden navigation"
+    ],
+    "evidence": [
+      "manual-kyoto-dialogue.png",
+      "manual-garden.png"
+    ]
+  },
+  "audio": {
+    "note": "Native WebAudio/WebSpeech 14-check report from initial Mac acceptance remains separate; audio product code unchanged in this refinement.",
+    "report": "../audio-browser-report.json",
+    "physicalListening": false
+  },
+  "physicalDevices": {
+    "iphone": "Mirroring unlocked; screen, Safari launch, and address-bar click verified. Game not opened: temporary LAN server blocked by approval review, explicit consent requested.",
+    "ipad": "No physical iPad connected; not accepted.",
+    "speakerListening": false,
+    "screenLockRecovery": false
+  }
+}

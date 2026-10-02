@@ -22,27 +22,41 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
  function panel(parent,pos,scale,color,rot=[0,0,0],tag='cloth'){
   const g=group(parent,pos);g.rot=rot;part(g,'box',color,[0,0,0],scale,[0,0,0],tag);cloth.push({n:g,rest:[...rot],kind:tag});return g;
  }
- // Faceted face, pronounced nose, side-visible eyes, ears and distinct hair outlines.
- part(head,id==='kota'?'ico':'head',a.skin,[0,0,0],[p.headWidth,id==='kota'?p.headHeight*.60:p.headHeight,p.headWidth],[0,.12,0],'face');
+ // Put eyes and brows on the actual cheek facets. Fixed box coordinates made
+ // them float outside the hexagonal head, especially in a three-quarter view.
+ const faceMesh=part(head,id==='kota'?'ico':'head',a.skin,[0,0,0],[p.headWidth,id==='kota'?p.headHeight*.60:p.headHeight,p.headWidth],[0,.12,0],'face');
+ function faceFeature(y,z,width,height,color,tag,tilt=0){
+  const geo=faceMesh.geo,verts=[];let hit=null;
+  for(let i=0;i<geo.p.length;i+=3){const x=geo.p[i]*faceMesh.scale[0],zz=geo.p[i+2]*faceMesh.scale[2];verts.push([x*Math.cos(.12)+zz*Math.sin(.12),geo.p[i+1]*faceMesh.scale[1],-x*Math.sin(.12)+zz*Math.cos(.12)]);}
+  for(let i=0;i<verts.length;i+=3){
+   const [v,w,q]=verts.slice(i,i+3),den=(w[2]-q[2])*(v[1]-q[1])+(q[1]-w[1])*(v[2]-q[2]);if(Math.abs(den)<1e-8)continue;
+   const u=((w[2]-q[2])*(y-q[1])+(q[1]-w[1])*(z-q[2]))/den,b=((q[2]-v[2])*(y-q[1])+(v[1]-q[1])*(z-q[2]))/den;
+   if(u<0||b<0||u+b>1)continue;const x=u*v[0]+b*w[0]+(1-u-b)*q[0];if(hit&&hit.x>=x)continue;
+   const d=w.map((n,j)=>n-v[j]),e=q.map((n,j)=>n-v[j]),nx=d[1]*e[2]-d[2]*e[1],nz=d[0]*e[1]-d[1]*e[0],len=Math.hypot(nx,nz)||1;hit={x,nx:Math.abs(nx)/len,nz:(nx<0?-nz:nz)/len};
+  }
+  if(!hit)return;
+  part(head,'box',color,[hit.x+hit.nx*.009,y,z+hit.nz*.009],[.014,height,width],[tilt,Math.atan2(-hit.nz,hit.nx),0],tag);
+ }
+ const expression={toru:[.040,.084,.030,.16,-.005],saku:[.028,.076,.023,.07,.0],sokichi:[.033,.090,.073,-.10,-.006],sumi:[.034,.071,.022,-.07,.0],nagi:[.035,.084,.031,-.22,.007],kota:[.045,.070,.027,.12,.012],luka:[.034,.081,.025,-.05,.0]}[id]||[.038,.080,.027,0,0];
  for(const z of [-1,1]){
-  part(head,'box',a.eyes,[p.headWidth*.74,.045,z*p.headWidth*.76],[.065,.047,.035],[0,0,0],'eye');
+  faceFeature(.044,z*p.headWidth*.38,expression[1],expression[0],a.eyes,'eye');
+  faceFeature(.111,z*p.headWidth*.38,expression[1]*1.22,expression[2],a.hair,id==='sokichi'?'thick-white-brow':'brow',z*expression[3]);
+  faceFeature(-.133+expression[4],z*.028,.060,id==='kota'?.020:.014,a.nose,'mouth',z*(id==='kota'?.22:expression[4]*4));
   part(head,'ico',a.skin,[-.04,-.055,z*p.headWidth*.91],[.068,.095,.05],[0,0,0],'ear');
  }
- part(head,'box',a.nose,[p.headWidth*.91,-.04,0],[id==='sokichi'?.15:.11,.10,.12],[0,0,0],'nose');
+ part(head,'box',a.nose,[p.headWidth*.91,-.04,0],[id==='sokichi'?.14:id==='saku'?.085:.10,id==='luka'?.13:.09,id==='saku'?.095:.115],[0,0,0],'nose');
  const hairTop=p.headHeight*.45;
  part(head,'box',a.hair,[-.06,hairTop,0],[p.headWidth*1.67,.14,p.headWidth*1.70],[0,0,-.045],'hair');
  part(head,'box',a.hair,[-p.headWidth*.69,.085,0],[.11,.32,p.headWidth*1.65],[0,0,-.12],'back-hair');
  if(id==='toru'){
   part(head,'box',a.hair,[.07,hairTop+.05,.05],[.27,.08,.36],[0,0,.10],'parted-hair');
   part(head,'cone',a.hair,[-.10,hairTop+.12,-.03],[.07,.21,.08],[0,0,-.65],'stray-lock');
-  for(const z of [-.205,.205])part(head,'box',a.hair,[.18,.115,z],[.13,.03,.03],[0,0,.16],'worried-brow');
  }else if(id==='saku'){
   part(head,'box',a.cap,[-.075,.43,0],[.38,.28,.40],[0,0,-.12],'cap-base');
   part(head,'box',a.cap,[-.13,.66,0],[.22,.48,.27],[0,0,-.18],'high-eboshi');
   part(head,'box',a.trim,[.09,.34,.215],[.03,.23,.022],[0,0,-.08],'cap-cord');
  }else if(id==='sokichi'){
   for(const z of [-.21,.21]){
-   part(head,'box',a.hair,[.20,.11,z],[.18,.08,.045],[0,0,-.12],'thick-white-brow');
    part(head,'box',a.hair,[.08,-.12,z],[.13,.05,.055],[0,0,.15],'white-sideburn');
   }
   part(head,'box',a.hair,[.12,-.205,0],[.24,.08,.25],[0,0,0],'short-white-beard');
@@ -118,6 +132,7 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
   part(body,'box',a.trim,[.35,.23,0],[.025,.17,.39],[0,0,0],'kangaroo-pocket');
   for(const z of [-.11,.11])part(body,'box',a.shirt,[.35,.50,z],[.025,.23,.024],[0,0,z],'drawstring');
  }else{
+  part(body,'cyl',a.skin,[0,1.53,0],[.12,.32,.12],[0,0,0],'neck');
   part(body,'box',a.shirt,[0,.86,0],[.47,1.19,.62],[0,0,0],'rust-inner');
   part(body,'box',a.robe,[-.24,.83,0],[.20,1.45,.77],[0,0,.035],'coat-back');
   for(const z of [-1,1]){
@@ -132,15 +147,19 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
  for(const [i,shoulder] of [arm,farArm].entries()){
   const elbow=group(shoulder,[.07,-.35,0]),wrist=group(elbow,[.05,-.35,0]);arms.push(elbow,wrist);
   const clothColor=id==='luka'?a.shirt:a.robe,wide=id==='saku'?.43:id==='sumi'?.32:id==='kota'?.29:.21;
-  part(shoulder,'robe',clothColor,[.015,-.16,0],[wide,.37,wide],[0,0,.08],id==='saku'?'court-upper-sleeve':'upper-sleeve');
-  part(elbow,'robe',clothColor,[.015,-.16,0],[wide*.88,.35,wide*.90],[0,0,.08],'fore-sleeve');
+  if(id==='luka'){
+   part(shoulder,'robe',a.skin,[.025,-.16,0],[.145,.38,.145],[0,0,.08],'bare-upper-arm');
+   part(elbow,'robe',a.skin,[.025,-.16,0],[.125,.35,.125],[0,0,.08],'bare-forearm');
+  }else{
+   part(shoulder,'robe',clothColor,[.015,-.16,0],[wide,.37,wide],[0,0,.08],id==='saku'?'court-upper-sleeve':'upper-sleeve');
+   part(elbow,'robe',clothColor,[.015,-.16,0],[wide*.88,.35,wide*.90],[0,0,.08],'fore-sleeve');
+  }
   if(id==='saku'){
    const sleeve=panel(elbow,[-.14,-.11,0],[.50,.50,.68],a.robe,[0,0,-.15],'hanging-court-sleeve');
    part(sleeve,'box',a.trim,[.25,-.23,0],[.025,.045,.69],[0,0,0],'sleeve-border');
   }
   if(id==='nagi')part(elbow,'box',a.trim,[.01,-.12,(i?-.18:.18)],[.24,.045,.03],[0,0,-.12],'sleeve-reflector');
   if(id==='toru')part(elbow,'box',a.shirt,[.04,-.31,0],[.23,.08,.24],[0,0,0],'shirt-cuff');
-  if(id==='luka')part(shoulder,'box',a.skin,[.025,-.13,0],[.24,.36,.24],[0,0,.08],'bare-upper-arm');
   part(wrist,'ico',a.skin,[0,-.035,0],[id==='sokichi'?.16:.13,.15,.13],[0,0,0],'hand');
  }
  // Fixed hip / knee / ankle / toe pivots: contact solver and shot timing are unchanged.
