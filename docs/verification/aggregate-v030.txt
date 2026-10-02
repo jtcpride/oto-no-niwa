@@ -1,0 +1,93 @@
+
+=== assemble.cjs ===
+Assembly and script syntax OK
+
+=== content-v021.cjs ===
+PASS: 43 content validations; authored seven stages / two-stage subset, rejected invalid decks/characters/references, input immutability
+
+=== decks-v030.cjs ===
+{"passed":true,"decks":6,"totalWords":84,"newWordsAudited":48,"dictionarySources":47,"originalDecks":"unchanged","deviceTTS":"iPhone/iPad listening not performed"}
+
+=== campaign-model-v030.cjs ===
+PASS campaign model: six free-order unique awards, seven total orbs, replay idempotency, invalid/versioned saves, unlock, persistence and shadow exclusion
+
+=== sound-v030.cjs ===
+{"passed":true,"checks":["gesture activation","success-driven layers","separate movement/hit events","speech ducking and immediate replacement","no stale callbacks","pause/resume","interrupted and rejected resume","visibility recovery","bounded sources","restart/persistent mute and volumes","dispose"],"verification":"VM API mocks only; real iPhone/iPad and audible mix unverified"}
+
+=== scenery-v030.cjs ===
+PASS scenery jingu {"vertices":[6252,3864],"batches":[9,4],"dynamic":0}
+PASS scenery gendo {"vertices":[5616,81240],"batches":[3,8],"dynamic":1}
+PASS scenery chion {"vertices":[9144,10524],"batches":[5,4],"dynamic":33}
+PASS scenery sanjo {"vertices":[7440,9420],"batches":[8,6],"dynamic":24}
+PASS scenery shinkyogoku {"vertices":[14532,10332],"batches":[10,8],"dynamic":0}
+PASS scenery million {"vertices":[11424,4320],"batches":[8,5],"dynamic":0}
+PASS scenery gion {"vertices":[42480,30312],"batches":[12,24],"dynamic":16}
+PASS scenery station {"vertices":[17892,17892],"batches":[7,7],"dynamic":0}
+PASS native geometry: eight scene pairs, 360-degree cutaway, stage origins, bounded pools, paused/reduced motion, source features and aliases
+
+=== characters-v030.cjs ===
+{
+  "passed": true,
+  "models": [
+    {
+      "id": "toru",
+      "height": 2.902588798847651,
+      "parts": 46
+    },
+    {
+      "id": "saku",
+      "height": 3.45331573934599,
+      "parts": 39
+    },
+    {
+      "id": "sokichi",
+      "height": 2.4314465864813544,
+      "parts": 46
+    },
+    {
+      "id": "sumi",
+      "height": 2.809601919132629,
+      "parts": 49
+    },
+    {
+      "id": "nagi",
+      "height": 2.7104359147666557,
+      "parts": 42
+    },
+    {
+      "id": "kota",
+      "height": 2.1975000000000002,
+      "parts": 41
+    },
+    {
+      "id": "luka",
+      "height": 3.2400075284883183,
+      "parts": 41
+    }
+  ],
+  "uniqueSilhouettes": 7,
+  "contactChecks": 112,
+  "rendering": "VM WebGL command recorder; GPU and real-device audio not tested"
+}
+
+=== complete-browser-v030.cjs ===
+PASS baseline kernel equality
+PASS START → Kyoto Station dialogue → practice (DOM controls)
+PASS 8 practice → TIME → repeated bow → HAJIME
+PASS pause, stale input and resume
+PASS intro win → garden
+PASS garden has exactly 15 stones: 1 self + 6 opponents + 8 ordinary
+PASS free-order opponent million → unique persisted inheritance
+PASS free-order opponent chion → unique persisted inheritance
+PASS free-order opponent jingu → unique persisted inheritance
+PASS free-order opponent shinkyogoku → unique persisted inheritance
+PASS free-order opponent gendo → unique persisted inheritance
+PASS free-order opponent sanjo → unique persisted inheritance
+PASS all six orbs persist after page reload
+PASS replayed opponent cannot duplicate orb
+PASS GION gather → godmode → shadow → scatter/ひゃーん → abrupt ending → replay
+PASS loss does not award; retry resets; effects OFF completes
+PASS stale/corrupt/duplicate saves normalize; blocked storage is disclosed
+PASS VM acceptance (not a real browser/WebGL run)
+
+PASS: current-edition non-browser aggregate. Real WebGL, CSS, audio and iPhone/iPad acceptance remain separate.

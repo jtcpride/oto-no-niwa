@@ -1,0 +1,304 @@
+{
+  "startedAt": "2026-10-02T13:58:45.768Z",
+  "mode": "VM game-state and software-projection fallback",
+  "browser": {
+    "path": "/usr/bin/chromium"
+  },
+  "tts": "mocked; audible speech and audio mixing on actual devices are untested",
+  "checks": [
+    {
+      "name": "baseline kernel equality",
+      "status": "pass",
+      "cases": 8
+    },
+    {
+      "name": "START → Kyoto Station dialogue → practice (DOM controls)",
+      "status": "pass"
+    },
+    {
+      "name": "8 practice → TIME → repeated bow → HAJIME",
+      "status": "pass",
+      "practice": {
+        "seconds": 45.366666666665374,
+        "kicks": 8,
+        "closeAnswers": 0,
+        "phases": [
+          "practice:front",
+          "time:front"
+        ]
+      },
+      "ceremony": {
+        "seconds": 1.9666666666666646,
+        "kicks": 0,
+        "closeAnswers": 0,
+        "phases": [
+          "bow-wait:front",
+          "hajime:front"
+        ]
+      }
+    },
+    {
+      "name": "pause, stale input and resume",
+      "status": "pass"
+    },
+    {
+      "name": "intro win → garden",
+      "status": "pass",
+      "path": {
+        "seconds": 49.19999999999849,
+        "kicks": 7,
+        "closeAnswers": 4,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break",
+          "match:back",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      }
+    },
+    {
+      "name": "garden has exactly 15 stones: 1 self + 6 opponents + 8 ordinary",
+      "status": "pass"
+    },
+    {
+      "name": "free-order opponent million → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.866666666666422,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 2
+    },
+    {
+      "name": "free-order opponent chion → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.866666666666422,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 3
+    },
+    {
+      "name": "free-order opponent jingu → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.899999999999753,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 4
+    },
+    {
+      "name": "free-order opponent shinkyogoku → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.816666666666425,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 5
+    },
+    {
+      "name": "free-order opponent gendo → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.866666666666422,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 6
+    },
+    {
+      "name": "free-order opponent sanjo → unique persisted inheritance",
+      "status": "pass",
+      "back": {
+        "seconds": 22.300000000000015,
+        "kicks": 4,
+        "closeAnswers": 0,
+        "phases": [
+          "match:front",
+          "match:impact",
+          "match:breakCharge",
+          "match:breakShot",
+          "match:break"
+        ]
+      },
+      "win": {
+        "seconds": 26.94999999999975,
+        "kicks": 3,
+        "closeAnswers": 4,
+        "phases": [
+          "match:back",
+          "match:impact",
+          "match:close",
+          "match:charge",
+          "match:shot",
+          "match:rush",
+          "match:settle"
+        ]
+      },
+      "orbs": 7
+    },
+    {
+      "name": "all six orbs persist after page reload",
+      "status": "pass"
+    },
+    {
+      "name": "replayed opponent cannot duplicate orb",
+      "status": "pass"
+    },
+    {
+      "name": "GION gather → godmode → shadow → scatter/ひゃーん → abrupt ending → replay",
+      "status": "pass"
+    },
+    {
+      "name": "loss does not award; retry resets; effects OFF completes",
+      "status": "pass"
+    },
+    {
+      "name": "stale/corrupt/duplicate saves normalize; blocked storage is disclosed",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "baseline-software-projection.png",
+    "complete-software-garden.png",
+    "complete-software-million-front.png",
+    "complete-software-million-back.png",
+    "complete-software-chion-front.png",
+    "complete-software-chion-back.png",
+    "complete-software-jingu-front.png",
+    "complete-software-jingu-back.png",
+    "complete-software-shinkyogoku-front.png",
+    "complete-software-shinkyogoku-back.png",
+    "complete-software-gendo-front.png",
+    "complete-software-gendo-back.png",
+    "complete-software-sanjo-front.png",
+    "complete-software-sanjo-back.png",
+    "complete-software-gion-gather.png",
+    "complete-software-gion-front.png",
+    "complete-software-gion-back.png",
+    "complete-software-gion-scatter.png"
+  ],
+  "limitations": [
+    "No actual browser, CSS layout, WebGL GPU execution or audible real-device TTS validated",
+    "Software scene images use original mesh/camera output with depth-buffered CPU shader approximation; they are not screenshots"
+  ],
+  "status": "passed",
+  "finishedAt": "2026-10-02T14:00:41.055Z"
+}

@@ -221,4 +221,360 @@ window.FEGContent.decks=[
       }
     ]
   }
+,
+  {
+    "id": "stop-and-release",
+    "name": "p · b · t · d",
+    "sounds": [
+      {
+        "symbol": "p",
+        "tip": "唇を閉じて、息で開く。",
+        "example": "pea",
+        "practice": "pea",
+        "words": [
+          {
+            "text": "pea",
+            "ipa": "/piː/"
+          },
+          {
+            "text": "pine",
+            "ipa": "/paɪn/"
+          },
+          {
+            "text": "push",
+            "ipa": "/pʊʃ/"
+          }
+        ]
+      },
+      {
+        "symbol": "b",
+        "tip": "唇を閉じて、声をのせて開く。",
+        "example": "bee",
+        "practice": "bee",
+        "words": [
+          {
+            "text": "bee",
+            "ipa": "/biː/"
+          },
+          {
+            "text": "bay",
+            "ipa": "/beɪ/"
+          },
+          {
+            "text": "bun",
+            "ipa": "/bʌn/"
+          }
+        ]
+      },
+      {
+        "symbol": "t",
+        "tip": "舌先を上の歯の後ろに当て、息で開く。",
+        "example": "tea",
+        "practice": "tea",
+        "words": [
+          {
+            "text": "tea",
+            "ipa": "/tiː/"
+          },
+          {
+            "text": "ten",
+            "ipa": "/tɛn/"
+          },
+          {
+            "text": "toe",
+            "ipa": "/toʊ/"
+          }
+        ]
+      },
+      {
+        "symbol": "d",
+        "tip": "舌先を上の歯の後ろに当て、声で開く。",
+        "example": "day",
+        "practice": "day",
+        "words": [
+          {
+            "text": "day",
+            "ipa": "/deɪ/"
+          },
+          {
+            "text": "dough",
+            "ipa": "/doʊ/"
+          },
+          {
+            "text": "dawn",
+            "ipa": "/dɑn/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "back-and-burst",
+    "name": "k · g · tʃ · dʒ",
+    "sounds": [
+      {
+        "symbol": "k",
+        "tip": "舌の奥で息を止め、声を出さず開く。",
+        "example": "key",
+        "practice": "key",
+        "words": [
+          {
+            "text": "key",
+            "ipa": "/kiː/"
+          },
+          {
+            "text": "car",
+            "ipa": "/kɑr/"
+          },
+          {
+            "text": "cow",
+            "ipa": "/kaʊ/"
+          }
+        ]
+      },
+      {
+        "symbol": "g",
+        "tip": "舌の奥で息を止め、声をのせて開く。",
+        "example": "go",
+        "practice": "go",
+        "words": [
+          {
+            "text": "go",
+            "ipa": "/goʊ/"
+          },
+          {
+            "text": "game",
+            "ipa": "/geɪm/"
+          },
+          {
+            "text": "gum",
+            "ipa": "/gʌm/"
+          }
+        ]
+      },
+      {
+        "symbol": "tʃ",
+        "tip": "舌で止めた息を「チ」の摩擦へつなぐ。",
+        "example": "chain",
+        "practice": "chain",
+        "words": [
+          {
+            "text": "chain",
+            "ipa": "/tʃeɪn/"
+          },
+          {
+            "text": "chair",
+            "ipa": "/tʃɛr/"
+          },
+          {
+            "text": "chin",
+            "ipa": "/tʃɪn/"
+          }
+        ]
+      },
+      {
+        "symbol": "dʒ",
+        "tip": "/tʃ/ と同じ動きに、声をのせる。",
+        "example": "jam",
+        "practice": "jam",
+        "words": [
+          {
+            "text": "jam",
+            "ipa": "/dʒæm/"
+          },
+          {
+            "text": "joy",
+            "ipa": "/dʒɔɪ/"
+          },
+          {
+            "text": "June",
+            "ipa": "/dʒuːn/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "liquid-and-glide",
+    "name": "r · l · w · j",
+    "sounds": [
+      {
+        "symbol": "r",
+        "tip": "舌先を上あごにつけず、声を響かせる。",
+        "example": "rain",
+        "practice": "rain",
+        "words": [
+          {
+            "text": "rain",
+            "ipa": "/reɪn/"
+          },
+          {
+            "text": "rice",
+            "ipa": "/raɪs/"
+          },
+          {
+            "text": "run",
+            "ipa": "/rʌn/"
+          }
+        ]
+      },
+      {
+        "symbol": "l",
+        "tip": "舌先を上の歯の後ろにつけ、横から声を出す。",
+        "example": "leaf",
+        "practice": "leaf",
+        "words": [
+          {
+            "text": "leaf",
+            "ipa": "/liːf/"
+          },
+          {
+            "text": "lake",
+            "ipa": "/leɪk/"
+          },
+          {
+            "text": "lip",
+            "ipa": "/lɪp/"
+          }
+        ]
+      },
+      {
+        "symbol": "w",
+        "tip": "唇を丸くすぼめ、すぐ次の母音へ。",
+        "example": "wave",
+        "practice": "wave",
+        "words": [
+          {
+            "text": "wave",
+            "ipa": "/weɪv/"
+          },
+          {
+            "text": "wet",
+            "ipa": "/wɛt/"
+          },
+          {
+            "text": "win",
+            "ipa": "/wɪn/"
+          }
+        ]
+      },
+      {
+        "symbol": "j",
+        "tip": "舌を「イ」の位置から、すぐ次の母音へ。",
+        "example": "yes",
+        "practice": "yes",
+        "words": [
+          {
+            "text": "yes",
+            "ipa": "/jɛs/"
+          },
+          {
+            "text": "yet",
+            "ipa": "/jɛt/"
+          },
+          {
+            "text": "young",
+            "ipa": "/jʌŋ/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "four-vowels",
+    "name": "æ · ɪ · ʌ · ɑ",
+    "sounds": [
+      {
+        "symbol": "æ",
+        "tip": "口を横に開き、舌を前の低い位置へ。",
+        "example": "cat",
+        "practice": "cat",
+        "words": [
+          {
+            "text": "cat",
+            "ipa": "/kæt/"
+          },
+          {
+            "text": "cap",
+            "ipa": "/kæp/"
+          },
+          {
+            "text": "back",
+            "ipa": "/bæk/"
+          }
+        ]
+      },
+      {
+        "symbol": "ɪ",
+        "tip": "口を軽く開き、力を抜いた短い「イ」。",
+        "example": "kit",
+        "practice": "kit",
+        "words": [
+          {
+            "text": "kit",
+            "ipa": "/kɪt/"
+          },
+          {
+            "text": "kick",
+            "ipa": "/kɪk/"
+          },
+          {
+            "text": "lip",
+            "ipa": "/lɪp/"
+          }
+        ]
+      },
+      {
+        "symbol": "ʌ",
+        "tip": "唇を丸めず、舌を中央に置いた短い音。",
+        "example": "cut",
+        "practice": "cut",
+        "words": [
+          {
+            "text": "cut",
+            "ipa": "/kʌt/"
+          },
+          {
+            "text": "cup",
+            "ipa": "/kʌp/"
+          },
+          {
+            "text": "bus",
+            "ipa": "/bʌs/"
+          }
+        ]
+      },
+      {
+        "symbol": "ɑ",
+        "tip": "口を大きく開き、舌を奥の低い位置へ。",
+        "example": "cot",
+        "practice": "cot",
+        "words": [
+          {
+            "text": "cot",
+            "ipa": "/kɑt/"
+          },
+          {
+            "text": "cop",
+            "ipa": "/kɑp/"
+          },
+          {
+            "text": "rock",
+            "ipa": "/rɑk/"
+          }
+        ]
+      }
+    ]
+  }
 ];
+
+// v0.30 authoring audit (2026-10-02): new words were checked against the
+// Oxford Advanced Learner's Dictionary, with Cambridge US pronunciations for
+// toe, go, dough and dawn. Sources and exact normalization are in
+// tests/decks-v030.cjs. These are broad General American phonemic forms:
+// dictionary /e/ -> /ɛ/, /ɑː/ -> /ɑ/, IPA single-storey ɡ -> g, /r/ denotes
+// the English approximant (normally [ɹ]), not a trilled consonant.
+// Each new word has exactly one DISTINCT target phoneme from its own 4-sound
+// set. Cross-deck repetitions (rice, leaf, lip) are intentional; do not remix
+// sets without another ambiguity audit. iPhone/iPad TTS listening remains a
+// real-device acceptance check, especially LOT vowels and existing /ʒ/ words.

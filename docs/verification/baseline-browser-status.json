@@ -1,0 +1,16 @@
+{
+  "baseline": "/tmp/feg-before.html",
+  "gameVersion": "0.29.1-articulated-motion",
+  "timeUTC": "2026-10-02T13:38:00Z",
+  "actualRendererVerified": false,
+  "browser": "/usr/bin/chromium",
+  "playwright": "/opt/codex/cua_node/lib/node_modules/playwright",
+  "launchFlags": ["--no-sandbox", "--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"],
+  "blocker": "Chromium aborts before page creation: process_singleton_posix.cc socket() failed: Operation not permitted. Approved escalation retry has same result. AF_INET works but AF_UNIX socket creation returns EPERM.",
+  "cloudBrowserFallback": "file URL protocol explicitly disallowed; HTTP localhost preview returned net::ERR_BLOCKED_BY_CLIENT. No attempt to bypass restrictions.",
+  "baselineNonRenderingChecks": {
+    "passed": ["assemble.cjs", "content-v021.cjs", "stages-v021.cjs", "battle-v016.cjs", "depth-v022.cjs", "combat-v024.cjs", "tempo-v026.cjs"],
+    "failed": [{"test": "feel-v023.cjs", "line": 11, "expected": "back", "actual": "break", "note": "Baseline failure before v030 implementation integration"}]
+  },
+  "audio": "No audible real-device test was performed"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "fifteenth-ever-garden",
+  "version": "0.30.0",
+  "private": true,
+  "description": "Original low-poly phoneme kemari game; QA dependencies only",
+  "scripts": {
+    "test": "node tests/verify-v030.cjs",
+    "test:browser": "node tests/complete-browser-v030.cjs",
+    "assemble": "node tests/assemble.cjs"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.100",
+    "jsdom": "30.1.1",
+    "playwright": "1.62.1",
+    "pngjs": "7.0.0"
+  },
+  "engines": { "node": ">=22" }
+}

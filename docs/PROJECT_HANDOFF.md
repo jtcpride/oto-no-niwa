@@ -1,3 +1,5 @@
+> **2026-10-02 v0.30 作業ブランチの担当へ**：先に [CODEX_START_HERE.md](CODEX_START_HERE.md) と [最新希望全文](FEG_CREATIVE_BRIEF_2026-10-02.txt) を読む。以下はv0.29.1以前の設計・公開履歴として保存。現在は15石/七人/六舞台+GION/継承/終幕が実装済みだが、実WebGL・端末最終受入は未完了。旧8球の記述より最新7球を優先。
+
 # 発音記号蹴鞠「FIFTEENTH EVER GARDEN」— Project Handoff / Design Context
 
 最終更新: 2026-10-02（v0.29.1 関節・動作・鞠・接触の調整）

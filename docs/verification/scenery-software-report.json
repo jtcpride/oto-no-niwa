@@ -1,0 +1,377 @@
+{
+  "renderer": "software reference rasterization; NOT WebGL or device proof",
+  "scenes": [
+    {
+      "id": "jingu",
+      "intro": false,
+      "front": "大鳥居前",
+      "back": "無限白砂",
+      "landmarks": [
+        "great-torii",
+        "heian-vermilion-hall",
+        "infinite-raked-sand"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        6252,
+        3864
+      ],
+      "staticBatches": [
+        9,
+        4
+      ],
+      "dynamicNodes": 0,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.4588235294117647,
+          0.6078431372549019,
+          0.6901960784313725
+        ],
+        "fog": [
+          0.6588235294117647,
+          0.7450980392156863,
+          0.7568627450980392
+        ]
+      },
+      "visibleModules": [
+        "sand",
+        "great-torii",
+        "heian-shrine",
+        "spectators-and-lanterns",
+        "spectators-and-lanterns",
+        "white-wall",
+        "white-wall"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "gendo",
+      "intro": false,
+      "front": "三十三間堂・堂外",
+      "back": "千手観音の堂内",
+      "landmarks": [
+        "long-exterior-hall",
+        "repeating-timber-pillars",
+        "kannon-rows"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 69
+      },
+      "sourceReference": null,
+      "vertices": [
+        5616,
+        81240
+      ],
+      "staticBatches": [
+        3,
+        8
+      ],
+      "dynamicNodes": 1,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.5490196078431373,
+          0.5686274509803921,
+          0.5372549019607843
+        ],
+        "fog": [
+          0.6745098039215687,
+          0.6901960784313725,
+          0.6352941176470588
+        ]
+      },
+      "visibleModules": [
+        "floor",
+        "long-hall-outside"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "chion",
+      "intro": false,
+      "front": "大鐘楼",
+      "back": "夜の枝垂桜",
+      "landmarks": [
+        "great-bronze-bell",
+        "bell-striking-monk",
+        "giant-weeping-sakura"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        9144,
+        10524
+      ],
+      "staticBatches": [
+        5,
+        4
+      ],
+      "dynamicNodes": 33,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.26666666666666666,
+          0.33725490196078434,
+          0.4117647058823529
+        ],
+        "fog": [
+          0.4745098039215686,
+          0.5019607843137255,
+          0.5372549019607843
+        ]
+      },
+      "visibleModules": [
+        "ground",
+        "great-bell-tower",
+        "bell-striking-monk",
+        "bell-spectators",
+        "bell-spectators"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "sanjo",
+      "intro": false,
+      "front": "三条の階段",
+      "back": "高瀬川沿い",
+      "landmarks": [
+        "stone-steps",
+        "street-lamps",
+        "canal-and-bridge"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        7440,
+        9420
+      ],
+      "staticBatches": [
+        8,
+        6
+      ],
+      "dynamicNodes": 24,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.12549019607843137,
+          0.17647058823529413,
+          0.2627450980392157
+        ],
+        "fog": [
+          0.2,
+          0.25882352941176473,
+          0.32941176470588235
+        ]
+      },
+      "visibleModules": [
+        "ground",
+        "stone-stairway",
+        "riverbank-street",
+        "riverbank-street",
+        "bridge-city"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "shinkyogoku",
+      "intro": false,
+      "front": "LATE GAME CENTER",
+      "back": "閉店後の搬入口",
+      "landmarks": [
+        "curved-yellow-canopy",
+        "left-airplane-sculpture",
+        "blue-arcade-sign",
+        "red-neighbor",
+        "crt-cabinets-loading-bay"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": "IMG_4900.jpeg",
+      "vertices": [
+        14532,
+        10332
+      ],
+      "staticBatches": [
+        10,
+        8
+      ],
+      "dynamicNodes": 0,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.10196078431372549,
+          0.13333333333333333,
+          0.22745098039215686
+        ],
+        "fog": [
+          0.18823529411764706,
+          0.23137254901960785,
+          0.3176470588235294
+        ]
+      },
+      "visibleModules": [
+        "asphalt",
+        "yellow-canopy-arcade",
+        "blue-sign-airplane",
+        "red-neighbor",
+        "utility-pole",
+        "utility-pole"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "million",
+      "intro": false,
+      "front": "百万遍交差点",
+      "back": "無人の講堂",
+      "landmarks": [
+        "crosswalk-and-bus",
+        "student-boards",
+        "president-statue",
+        "lecture-hall-blackboard"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        11424,
+        4320
+      ],
+      "staticBatches": [
+        8,
+        5
+      ],
+      "dynamicNodes": 0,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.4117647058823529,
+          0.48627450980392156,
+          0.5490196078431373
+        ],
+        "fog": [
+          0.6235294117647059,
+          0.6627450980392157,
+          0.615686274509804
+        ]
+      },
+      "visibleModules": [
+        "ground",
+        "university-gate",
+        "university-gate",
+        "campus-and-boards",
+        "president-statue",
+        "city-bus"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "gion",
+      "intro": false,
+      "front": "雨上がりの宵山",
+      "back": "祇園の濡れた路地",
+      "landmarks": [
+        "festival-float",
+        "lantern-procession",
+        "wet-machiya-alley"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        42480,
+        30312
+      ],
+      "staticBatches": [
+        12,
+        24
+      ],
+      "dynamicNodes": 16,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.1450980392156863,
+          0.11372549019607843,
+          0.19607843137254902
+        ],
+        "fog": [
+          0.2901960784313726,
+          0.21176470588235294,
+          0.28627450980392155
+        ]
+      },
+      "visibleModules": [
+        "wet-paving",
+        "festival-float",
+        "festival-street",
+        "festival-street",
+        "lantern-string",
+        "lantern-string"
+      ],
+      "animationTime": 0
+    },
+    {
+      "id": "station",
+      "intro": true,
+      "front": "KYOTO STATION",
+      "back": "KYOTO STATION",
+      "landmarks": [
+        "steel-glass-atrium",
+        "impossible-kyoto-tower",
+        "white-headquarters"
+      ],
+      "statues": {
+        "front": 0,
+        "back": 0
+      },
+      "sourceReference": null,
+      "vertices": [
+        17892,
+        17892
+      ],
+      "staticBatches": [
+        7,
+        7
+      ],
+      "dynamicNodes": 0,
+      "side": "front",
+      "atmosphere": {
+        "sky": [
+          0.34901960784313724,
+          0.4666666666666667,
+          0.5490196078431373
+        ],
+        "fog": [
+          0.5725490196078431,
+          0.6549019607843137,
+          0.6980392156862745
+        ]
+      },
+      "visibleModules": [
+        "station-plaza",
+        "steel-glass-atrium",
+        "impossible-kyoto-tower",
+        "white-headquarters"
+      ],
+      "animationTime": 0
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+> **v0.30 update**：現在は `jingu/gendo/chion/sanjo/shinkyogoku/million/gion` の7ステージと、導入専用Kyoto Station。人物リグは `characters/seven-rigs.js`、京都立体は `scenery/kyoto-scenes.js`、進行は `content/campaign.js` と `patch-campaign-v030.js`。関節契約は以下を継承。旧「二つの庭」「共用背景」「今回の範囲外」は履歴で、現在地は [CODEX_START_HERE](CODEX_START_HERE.md) を参照。
+
 # ステージ追加・差し替え（v0.21.0）
 
 ゲームは GardenGL の固定4スロット制。HP、蹴り動作、球速、練習→TIME→礼→本戦、音量設定を共通にし、内容を分離した。現在は二つのデッキを選択できる。最大7ステージまで登録可能だが、7ステージ分の完成コンテンツは含めていない。

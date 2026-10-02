@@ -6,7 +6,17 @@
 
 https://jtcpride.github.io/oto-no-niwa/
 
-## Current
+## v0.30 完成候補：Codexへの引継ぎ
+
+**次の担当は [CODEX_START_HERE](docs/CODEX_START_HERE.md) から始めてください。**
+ユーザーの希望全文と、京都駅の英語台詞・日本語字幕、守る試合形式、残る実ブラウザ/実機検証をまとめています。
+
+15石、七人の固有造形、京都六舞台＋GION、六デッキ84語、鞠の継承と保存、七球集結・影・散開まで実装した作業ブランチです。DOMと模擬APIの通し試験は通過。**この環境で実WebGL描画とiPhone/iPadの実音は未確認**なので、公開完成版と混同しないでください。
+
+`npm install && npm test` で現在の集約試験。`python3 -m http.server 8765` で起動。
+[希望全文](docs/FEG_CREATIVE_BRIEF_2026-10-02.txt) / [コードと検証・実行順](docs/CODEX_START_HERE.md)
+
+## Previous published baseline
 
 - **v0.29.1「関節・動作・鞠・接触の調整」**（公開試遊版）
 - 両キャラに肘・手首・つま先の左右6関節を追加。蹴りで肘を畳み、ガードで腕を上げ、足先で踏ん張る。現行の低ポリ造形を維持
