@@ -77,9 +77,10 @@ audio.applyMix=function(){
  if(!this.ctx||!this.musicBus)return;
  const phase=typeof duelV022!=='undefined'?duelV022.phase:'front';
  const scene=['charge','breakCharge','settle'].includes(phase)?.24:phase==='break'?.5:phase==='close'?.58:1;
- // A 72% accompaniment reduction leaves word recognition in the foreground.
- soundV030.mixTarget=this.musicVolume*(this.ducked?.28:1)*scene;
- soundTargetV030(this.musicBus.gain,soundV030.mixTarget,this.ducked?.025:.18);
+ // Retain the earlier 60% speech bed. Scene and speech reductions share one
+ // ceiling: multiplying them made pronunciation nearly silence the score.
+ soundV030.mixTarget=this.musicVolume*Math.min(scene,this.ducked?.60:1);
+ soundTargetV030(this.musicBus.gain,soundV030.mixTarget,this.ducked?.06:.18);
  soundTargetV030(this.fxBus.gain,.8,.04);soundTargetV030(this.master.gain,this.enabled?.32:0,.025);
 };
 audio.set=function(on){
@@ -101,7 +102,9 @@ audio.stopVoice=function(complete=false){
 };
 audio.speak=function(u,onDone){
  if(!this.enabled||!this.voiceVolume||soundV030.disposed||document.hidden){onDone?.();return;}
- const token=++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceDone=onDone;this.ducked=true;this.applyMix();
+ const token=++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceDone=onDone;
+ // Native TTS may wait before starting. Keep the music steady until onstart;
+ // an immediate replacement retains the current duck without a volume bounce.
  // Preserve the caller-selected en-US voice, rate, pitch and volume.
  u.onstart=()=>{if(token!==this.voiceToken)return;this.ducked=true;soundV030.speechBlocked=false;this.applyMix();soundUiV030();};
  u.onend=()=>this.releaseVoice(token);
@@ -147,8 +150,10 @@ function successSoundV030(){
 audio.hit=function(isPlayer,rally,perfect){
  if(isPlayer&&rally>0)successSoundV030();
  if(!audibleV030())return;const t=this.ctx.currentTime;if(t-soundV030.lastHit<.04)return;soundV030.lastHit=t;
- this.note(isPlayer?310:245,.13,.16,'sine',0,90);this.note(isPlayer?1100:850,.045,.055,'triangle');
- if(perfect)this.note(1174.66,.21,.06,'sine',.015);soundV030.counters.hit++;
+ // Restore the pre-v0.30 electronic kick for both sides, including rally accents.
+ this.note(isPlayer?440:330,.18,.36,'sine',0,isPlayer?180:140);this.note(isPlayer?880:660,.24,.12,'triangle');
+ if(rally>=4)this.note(82,.3,.32,'sine');if(rally>=8)this.note(1320,.1,.08,'triangle');
+ if(perfect)this.note(1174.66,.36,.15,'sine',.02);soundV030.counters.hit++;
 };
 audio.movement=function(slot=0){if(!audibleV030())return;const t=this.ctx.currentTime;if(t-soundV030.lastMove<.11)return;soundV030.lastMove=t;
  this.note(145+slot*13,.065,.055,'triangle',0,65);soundV030.counters.movement++;};

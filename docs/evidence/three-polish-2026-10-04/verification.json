@@ -1,0 +1,523 @@
+{
+  "date": "2026-10-04 JST",
+  "version": "0.31.0-three-polish",
+  "baseCommit": "bd4b4e4877f167dc7544b3ac57a6690f98e6d968",
+  "branch": "migration/threejs-renderer",
+  "browser": {
+    "status": "passed",
+    "checks": 99,
+    "errors": []
+  },
+  "audio": {
+    "status": "passed",
+    "checks": 16
+  },
+  "rendererParity": {
+    "passed": true,
+    "checks": [
+      {
+        "phase": "front",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "back",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "close",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "rush",
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "front",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "back",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "close",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mae": 0,
+        "changedRatio": 0
+      },
+      {
+        "phase": "rush",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mae": 0,
+        "changedRatio": 0
+      }
+    ],
+    "note": "look=baseline disables new light/shadows and antialiasing; same new models compared across renderers"
+  },
+  "matches": [
+    {
+      "version": "0.30.0-seven-inheritances",
+      "variant": "before",
+      "scenario": "success",
+      "seconds": 51.6646,
+      "frames": 3074,
+      "averageDriverFramesPerSecond": 59.49915415971478,
+      "phases": [
+        {
+          "phase": "front",
+          "seconds": 0
+        },
+        {
+          "phase": "impact",
+          "seconds": 4.8999
+        },
+        {
+          "phase": "front",
+          "seconds": 5.1498
+        },
+        {
+          "phase": "impact",
+          "seconds": 10.2163
+        },
+        {
+          "phase": "front",
+          "seconds": 10.4663
+        },
+        {
+          "phase": "impact",
+          "seconds": 15.349400000000001
+        },
+        {
+          "phase": "front",
+          "seconds": 15.599400000000001
+        },
+        {
+          "phase": "breakCharge",
+          "seconds": 18.032700000000002
+        },
+        {
+          "phase": "breakShot",
+          "seconds": 18.7326
+        },
+        {
+          "phase": "break",
+          "seconds": 19.032600000000002
+        },
+        {
+          "phase": "back",
+          "seconds": 22.4491
+        },
+        {
+          "phase": "impact",
+          "seconds": 28.8656
+        },
+        {
+          "phase": "back",
+          "seconds": 29.1156
+        },
+        {
+          "phase": "impact",
+          "seconds": 33.8986
+        },
+        {
+          "phase": "back",
+          "seconds": 34.1486
+        },
+        {
+          "phase": "close",
+          "seconds": 36.0152
+        },
+        {
+          "phase": "charge",
+          "seconds": 44.4482
+        },
+        {
+          "phase": "shot",
+          "seconds": 45.148199999999996
+        },
+        {
+          "phase": "rush",
+          "seconds": 45.431599999999996
+        },
+        {
+          "phase": "settle",
+          "seconds": 50.798
+        },
+        {
+          "phase": "done",
+          "seconds": 51.6646
+        }
+      ],
+      "closeAttempts": 1,
+      "final": {
+        "hp": 100,
+        "cpuHp": 0,
+        "misses": 0
+      }
+    },
+    {
+      "version": "0.30.0-seven-inheritances",
+      "variant": "before",
+      "scenario": "pushback",
+      "seconds": 65.84740000000001,
+      "frames": 3950,
+      "averageDriverFramesPerSecond": 59.9871824855651,
+      "phases": [
+        {
+          "phase": "front",
+          "seconds": 0
+        },
+        {
+          "phase": "impact",
+          "seconds": 4.8998
+        },
+        {
+          "phase": "front",
+          "seconds": 5.1498
+        },
+        {
+          "phase": "impact",
+          "seconds": 10.049599999999998
+        },
+        {
+          "phase": "front",
+          "seconds": 10.299599999999998
+        },
+        {
+          "phase": "impact",
+          "seconds": 15.182799999999999
+        },
+        {
+          "phase": "front",
+          "seconds": 15.432699999999999
+        },
+        {
+          "phase": "breakCharge",
+          "seconds": 17.865899999999996
+        },
+        {
+          "phase": "breakShot",
+          "seconds": 18.566
+        },
+        {
+          "phase": "break",
+          "seconds": 18.8826
+        },
+        {
+          "phase": "back",
+          "seconds": 22.2991
+        },
+        {
+          "phase": "impact",
+          "seconds": 28.7155
+        },
+        {
+          "phase": "back",
+          "seconds": 28.9655
+        },
+        {
+          "phase": "impact",
+          "seconds": 33.74870000000001
+        },
+        {
+          "phase": "back",
+          "seconds": 33.99870000000001
+        },
+        {
+          "phase": "close",
+          "seconds": 35.865300000000005
+        },
+        {
+          "phase": "back",
+          "seconds": 44.3149
+        },
+        {
+          "phase": "close",
+          "seconds": 50.1813
+        },
+        {
+          "phase": "charge",
+          "seconds": 58.631
+        },
+        {
+          "phase": "shot",
+          "seconds": 59.34760000000001
+        },
+        {
+          "phase": "rush",
+          "seconds": 59.631
+        },
+        {
+          "phase": "settle",
+          "seconds": 64.9974
+        },
+        {
+          "phase": "done",
+          "seconds": 65.84740000000001
+        }
+      ],
+      "closeAttempts": 2,
+      "final": {
+        "hp": 100,
+        "cpuHp": 0,
+        "misses": 0
+      }
+    },
+    {
+      "version": "0.31.0-three-polish",
+      "variant": "final",
+      "scenario": "success",
+      "seconds": 51.91460000000001,
+      "frames": 3073,
+      "averageDriverFramesPerSecond": 59.19336756904608,
+      "phases": [
+        {
+          "phase": "front",
+          "seconds": 0
+        },
+        {
+          "phase": "impact",
+          "seconds": 4.8998
+        },
+        {
+          "phase": "front",
+          "seconds": 5.149900000000001
+        },
+        {
+          "phase": "impact",
+          "seconds": 10.049599999999998
+        },
+        {
+          "phase": "front",
+          "seconds": 10.299599999999998
+        },
+        {
+          "phase": "impact",
+          "seconds": 15.182699999999999
+        },
+        {
+          "phase": "front",
+          "seconds": 15.432699999999999
+        },
+        {
+          "phase": "breakCharge",
+          "seconds": 17.866
+        },
+        {
+          "phase": "breakShot",
+          "seconds": 18.566
+        },
+        {
+          "phase": "break",
+          "seconds": 18.8826
+        },
+        {
+          "phase": "back",
+          "seconds": 22.2992
+        },
+        {
+          "phase": "impact",
+          "seconds": 28.7155
+        },
+        {
+          "phase": "back",
+          "seconds": 28.9655
+        },
+        {
+          "phase": "impact",
+          "seconds": 33.74870000000001
+        },
+        {
+          "phase": "back",
+          "seconds": 33.99870000000001
+        },
+        {
+          "phase": "close",
+          "seconds": 35.8652
+        },
+        {
+          "phase": "charge",
+          "seconds": 44.6816
+        },
+        {
+          "phase": "shot",
+          "seconds": 45.3982
+        },
+        {
+          "phase": "rush",
+          "seconds": 45.6815
+        },
+        {
+          "phase": "settle",
+          "seconds": 51.048
+        },
+        {
+          "phase": "done",
+          "seconds": 51.91460000000001
+        }
+      ],
+      "closeAttempts": 1,
+      "final": {
+        "hp": 100,
+        "cpuHp": 0,
+        "misses": 0
+      }
+    },
+    {
+      "version": "0.31.0-three-polish",
+      "variant": "final",
+      "scenario": "pushback",
+      "seconds": 65.79740000000001,
+      "frames": 3949,
+      "averageDriverFramesPerSecond": 60.01756908327684,
+      "phases": [
+        {
+          "phase": "front",
+          "seconds": 0
+        },
+        {
+          "phase": "impact",
+          "seconds": 4.8998
+        },
+        {
+          "phase": "front",
+          "seconds": 5.1498
+        },
+        {
+          "phase": "impact",
+          "seconds": 10.049599999999998
+        },
+        {
+          "phase": "front",
+          "seconds": 10.299599999999998
+        },
+        {
+          "phase": "impact",
+          "seconds": 15.182799999999999
+        },
+        {
+          "phase": "front",
+          "seconds": 15.432699999999999
+        },
+        {
+          "phase": "breakCharge",
+          "seconds": 17.865899999999996
+        },
+        {
+          "phase": "breakShot",
+          "seconds": 18.5659
+        },
+        {
+          "phase": "break",
+          "seconds": 18.865899999999996
+        },
+        {
+          "phase": "back",
+          "seconds": 22.2824
+        },
+        {
+          "phase": "impact",
+          "seconds": 28.6989
+        },
+        {
+          "phase": "back",
+          "seconds": 28.9488
+        },
+        {
+          "phase": "impact",
+          "seconds": 33.732
+        },
+        {
+          "phase": "back",
+          "seconds": 33.982
+        },
+        {
+          "phase": "close",
+          "seconds": 35.848600000000005
+        },
+        {
+          "phase": "back",
+          "seconds": 44.281600000000005
+        },
+        {
+          "phase": "close",
+          "seconds": 50.148
+        },
+        {
+          "phase": "charge",
+          "seconds": 58.5644
+        },
+        {
+          "phase": "shot",
+          "seconds": 59.281
+        },
+        {
+          "phase": "rush",
+          "seconds": 59.5643
+        },
+        {
+          "phase": "settle",
+          "seconds": 64.9307
+        },
+        {
+          "phase": "done",
+          "seconds": 65.79740000000001
+        }
+      ],
+      "closeAttempts": 2,
+      "final": {
+        "hp": 100,
+        "cpuHp": 0,
+        "misses": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Mac Chrome only; not iPhone/iPad/Safari acceptance",
+    "Videos are silent with mocked TTS, while the separate audio report uses native AudioContext/TTS",
+    "Driver knows correct answers; no difficulty/fun claim",
+    "Frame counts are automated capture observations, not a device performance guarantee"
+  ],
+  "ui": {
+    "status": "passed",
+    "checks": 2050,
+    "screenshots": 131,
+    "failures": []
+  }
+}

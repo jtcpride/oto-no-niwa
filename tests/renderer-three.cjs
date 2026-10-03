@@ -15,7 +15,7 @@ const out=path.resolve(__dirname,'../../work/three-migration');fs.mkdirSync(out,
    page.on('pageerror',e=>report.errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())});
    await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;Math.random=()=>.37});
    await page.route('http://compare.test/**',r=>r.fulfill({contentType:'text/html',body:sourceSeam(assemble())}));
-   await page.goto('http://compare.test/?stage=jingu&renderer='+renderer);
+   await page.goto('http://compare.test/?stage=jingu&look=baseline&renderer='+renderer);
    await page.evaluate(phase=>{qa.begin();if(phase!=='front')qa.driveUntil(phase);qa.tick(.15);qa.draw()},phase);
    const info=await page.evaluate(()=>({revision:window.FEGThreeRevision,three:!!qa.renderer.engine?.isWebGLRenderer,vp:Array.from(qa.renderer.vp),stats:qa.renderStats()}));
    assert.equal(info.three,renderer==='three');assert.equal(info.stats.error,0);assert(info.stats.sampledColors>20);

@@ -1,9 +1,10 @@
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-function assemble(){
- const dir=path.resolve(__dirname,'..'),index=fs.readFileSync(path.join(dir,'index.html'),'utf8'),context={window:{}};
+function assemble(read){
+ const dir=path.resolve(__dirname,'..');read=read||(file=>fs.readFileSync(path.join(dir,file),'utf8'));
+ const index=read('index.html'),context={window:{}};
  vm.createContext(context);
- for(const [,file] of index.matchAll(/<script src="([^"?]+)/g))vm.runInContext(fs.readFileSync(path.join(dir,file),'utf8'),context,{filename:file});
- let html=Buffer.from([1,2,3,4,5].map(i=>fs.readFileSync(path.join(dir,`app${i}.b64`),'utf8')).join('').replace(/\s/g,''),'base64').toString('utf8');
+ for(const [,file] of index.matchAll(/<script src="([^"?]+)/g))vm.runInContext(read(file),context,{filename:file});
+ let html=Buffer.from([1,2,3,4,5].map(i=>read(`app${i}.b64`)).join('').replace(/\s/g,''),'base64').toString('utf8');
  for(const [,name] of index.matchAll(/html=window\.(\w+)\(html\)/g))html=context.window[name](html);
  for(const [,script] of html.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(script);
  return html;

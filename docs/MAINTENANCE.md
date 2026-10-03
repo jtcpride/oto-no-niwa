@@ -4,7 +4,9 @@
 
 ## 移行ブランチの描画（2026-10-04）
 
-`rendering/three-adapter.js` がThree.js描画の正本です。旧Nodeの形状と姿勢をThreeのGroup/Meshへ同期し、既存の接触座標とカメラ投影を保持します。変更後は `npm run build:renderer` で `rendering/three-runtime.js` を再生成し、両方を保存します。生成物の直接編集は禁止です。Three.js 0.186.1とesbuild 0.28.2をlockfileで固定し、CDNには依存しません。実行時はWebGL2が必要です。
+`rendering/three-adapter.js` がThree.js描画の正本です。旧Nodeの形状と姿勢をThreeのGroup/Meshへ同期し、既存の接触座標とカメラ投影を保持します。変更後は `npm run build:renderer` で `rendering/three-runtime.js` を再生成し、両方を保存します。生成物の直接編集は禁止です。Three.js 0.186.1とesbuild 0.28.2をlockfileで固定し、CDNには依存しません。実行時はWebGL2が必要です。キャラの `renderRole=fighter` と足の `foot` を使って面の照明と軽い接地影を描きます。高負荷な影マップ・ポストエフェクトは使いません。投影の旧描画比較は `look=baseline` で追加照明・アンチエイリアスを切ります。
+
+`npm run test:polish` は保存コミット `bd4b4e4` のコードをGitから直接合成して球道・判定・接触・姿勢復元を比較します。`node tests/polish-match-browser.cjs polish-before baseline` と `npm run test:match-video` は自然な時間進行の前後比較動画（無音）を記録します。通常試合のボタン入力を使いますが、テスト開始では練習を省き、正解を検証側で取得します。
 
 `npm run test:renderer` はMac Chromeで旧描画との固定条件比較。`npm run test:browser` は移行後の実ブラウザ進行試験です。既存VMは記録用Garden描画を明示選択するため、`npm test`だけでThree.js描画を検証したとは扱いません。旧描画はURLの `renderer=garden` で比較できます。
 
@@ -32,7 +34,7 @@
 - `tests/fixtures/baseline-v0291.html` は旧挙動との比較基準です。新実装で上書きしてテストを通してはいけません。
 - スクリーンショット、ソフトウェア投影画像、試験レポートは証拠です。UI・造形の編集元ではありません。
 
-配布対象はローダー、基底、正本のJS群です。製品にビルド依存はなく、npmの依存は検証用です。
+配布対象はローダー、基底、正本のJS群とビルド済みThree.jsランタイムです。通常のコンテンツ修正はビルド不要ですが、`rendering/three-adapter.js` を変更した場合は再ビルドが必要です。Three.jsは製品依存、esbuildは生成用依存です。
 
 ## よくある変更
 

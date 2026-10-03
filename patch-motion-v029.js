@@ -7,13 +7,33 @@ window.otoPatchMotionV029=function(html){
  once("const k=f!==player&&f.kick>0?Math.sin((.38-f.kick)/.38*Math.PI):0;","const k=!['practice','match'].includes(ceremony)&&f!==player&&f.kick>0?Math.sin((.38-f.kick)/.38*Math.PI):0; /* Rally CPU uses the articulated pose; TIME keeps its pass. */");
  once('.245+Math.abs(Math.sin(r*Math.PI*2.6))*.02*(1-r)', '.245+.07*Math.exp(-8*r)*Math.abs(Math.sin(r*Math.PI*6))');
  once('</style>',`
+ .grain{opacity:.22} /* Low-poly geometry stays crisp without heavy scanline masking. */
  .motion-impact-v029{position:absolute;z-index:3;pointer-events:none;transform:translate(-50%,-50%);color:#ffe3a5;width:28px;height:28px}
  .motion-impact-v029 .ring{position:absolute;inset:4px;border:2px solid currentColor;border-radius:50%}
- .motion-impact-v029 .ray{position:absolute;left:50%;top:50%;width:2px;height:10px;background:currentColor;transform-origin:50% 0}
+ .motion-impact-v029 .ray{position:absolute;left:50%;top:50%;width:3px;height:12px;background:linear-gradient(currentColor,transparent);clip-path:polygon(50% 0,100% 100%,0 100%);transform-origin:50% 0}
  .motion-impact-v029.guard{color:#a5e6ff}.motion-impact-v029.guard .ring{border-radius:30%;border-style:double}
  .motion-impact-v029.dust{color:#b9baa5}.motion-impact-v029.dust .ring{border:0}.motion-impact-v029.dust .ray{width:4px;height:4px;border-radius:50%}
  </style>`);
  once("$('#start').addEventListener('click',start);",String.raw`
+// Shared faceted sphere and curved stitched bands: radius and all shot math stay fixed.
+function kemariShapesV031(){
+ if(kemariShapesV031.cache)return kemariShapesV031.cache;
+ const sphere=[],band=[],point=(a,b,r=1)=>[Math.cos(a)*Math.sin(b)*r,Math.cos(b)*r,Math.sin(a)*Math.sin(b)*r];
+ for(let j=0;j<8;j++)for(let i=0;i<16;i++){
+  const a=i*Math.PI/8,b=(i+1)*Math.PI/8,c=j*Math.PI/8,d=(j+1)*Math.PI/8;
+  const p=point(a,c),q=point(b,c),r=point(b,d),t=point(a,d);
+  if(j>0)sphere.push([p,q,r]);if(j<7)sphere.push([p,r,t]);
+ }
+ for(let i=0;i<32;i++){
+  const a=i*Math.PI/16,b=(i+1)*Math.PI/16,c=Math.PI/2-.052,d=Math.PI/2+.052;
+  const p=point(a,c,1.009),q=point(b,c,1.009),r=point(b,d,1.009),t=point(a,d,1.009);band.push([p,q,r],[p,r,t]);
+ }
+ return kemariShapesV031.cache=[G.geometry(sphere),G.geometry(band)];
+}
+const kemariShapes=kemariShapesV031();
+for(const n of [ball,...rushBallsV022.map(b=>b.n)]){
+ n.renderRole='ball';n.children.forEach((piece,i)=>{piece.geo=kemariShapes[i===0?0:1];if(i===0&&n!==ball)piece.unlit=.18;piece.scale=[.24,.24,.24];piece.rot=i===2?[Math.PI/2,0,.28]:[0,0,.16];});
+}
 const motionV029={player:{age:99,slot:0,point:null},cpu:{age:99,slot:0,point:null},spin:0,serial:0,closeCue:false,land:[],rushImpact:99};
 const impactsV029=Array.from({length:10},()=>{const e=document.createElement('div');e.className='motion-impact-v029';e.hidden=true;
  const ring=document.createElement('i');ring.className='ring';e.appendChild(ring);
@@ -90,17 +110,26 @@ function kickMotionV029(f,slot,age,point,save,back=false){
  const contact=point||transformDramaV028([.70,.72,.22],f.n),local=localMotionV029(f,contact),hip=f[key];
  const distance=Math.hypot(local[0]-hip.pos[0],local[1]-hip.pos[1],local[2]-hip.pos[2]);
  if(distance>.91){save(f.n);const shift=Math.min(.32,distance-.90)*hold*strength;f.n.pos[0]+=Math.cos(f.n.rot[1])*shift;f.n.pos[2]-=Math.sin(f.n.rot[1])*shift;}
- const hit=localMotionV029(f,contact),follow=easeV023(age,0,.18),returning=easeV023(age,.18,.50);
+ // Contact is age zero; the first 90 ms carry momentum past the ball, then
+ // withdraw the knee before settling. None of these curves changes shot time.
+ const hit=localMotionV029(f,contact),follow=easeV023(age,0,.09),returning=easeV023(age,.13,.43);
  let end=[hit[0]+.18,hit[1]+.20,hit[2]];
- if(slot===1)end=[hit[0]+.08,hit[1]+.26,hit[2]+.58];
- if(slot===2)end=back?[.64,1.95,hip.pos[2]-.40]:[hit[0]+.02,hit[1]+.38,hit[2]-.48];
+ if(slot===1)end=[hit[0]+.08,hit[1]+.26,hit[2]+.72];
+ if(slot===2)end=back?[.64,1.95,hip.pos[2]-.40]:[hit[0]+.02,hit[1]+.46,hit[2]-.48];
  if(slot===3)end=back?[.66+.24*easeV023(age,.18,.35),1.95-.90*easeV023(age,.18,.35),hip.pos[2]]:[hit[0]+.05,hit[1]+.48*(1-easeV023(age,.10,.27)),hit[2]-.15];
- const chamber=[.25,1.05,hip.pos[2]],swing=hit.map((v,i)=>v+(end[i]-v)*follow),target=swing.map((v,i)=>v+(chamber[i]-v)*returning);
+ const chamber=[.25,slot>=2?1.16:1.05,hip.pos[2]],swing=hit.map((v,i)=>v+(end[i]-v)*follow),target=swing.map((v,i)=>v+(chamber[i]-v)*returning);
  legV024(f,key,target,hold*strength);
  legV024(f,support,localMotionV029(f,supportPoint),Math.min(1,hold+.35*settle)*strength);
  f.body.pos[1]-=(.055*hold+.045*settle)*strength;
  f.body.rot[2]+=(slot===2?.20:slot===3?.12:-.18)*hold*strength;
- f.body.rot[1]+=(slot===1?.62:slot===2?-.40:0)*Math.sin(Math.PI*easeV023(age,0,.52))*strength;
+ const torque=(.38+.62*Math.sin(Math.PI*easeV023(age,0,.34)))*(1-easeV023(age,.24,.58))*strength;
+ f.body.rot[1]+=(slot===1?.78:slot===2?-.46:slot===3?-.18:.12)*torque;
+ // Counterbalance the trunk while keeping the gaze towards the opponent.
+ f.body.rot[0]+=(slot===1?.10:slot===2?-.14:0)*torque;
+ f.head.rot[1]-=(slot===1?.48:slot===2?-.28:slot===3?-.10:.06)*torque;
+ f.arm.rot[0]-=.16*torque;f.farArm.rot[0]+=.22*torque;
+ const supportShoe=f[support==='leg'?'shoe':'backShoe'];
+ supportShoe.rot[1]+=(slot===1?.50:slot===2?-.30:0)*torque;
  f.arm.rot[2]-=(.55*hold-.18*settle)*strength;f.farArm.rot[2]+=(.48*hold+.12*settle)*strength;
  f.head.rot[2]-=.04*hold*strength;
  f[key==='leg'?'shoe':'backShoe'].rot[2]-=.20*hold*strength;
@@ -175,8 +204,9 @@ updateScene=function(dt){
   const [x,y]=renderer.project(p.point),t=p.age/p.duration;
   p.e.className='motion-impact-v029 '+p.kind;p.e.style.left=x+'px';p.e.style.top=y+'px';
   const size=(p.kind==='dust'?20:p.kind==='kick'?22:p.kind==='guard'?52:44)*p.strength*(.90+.70*t);
-  p.e.style.width=size+'px';p.e.style.height=size+'px';p.e.style.opacity=String((1-t)*(p.kind==='dust'?.55:.9));
-  p.rays.forEach((ray,i)=>{ray.style.transform='rotate('+(i*90+35)+'deg) translateY('+(-5-t*10)+'px)';});
+  p.e.style.width=size+'px';p.e.style.height=size+'px';p.e.style.opacity=String((1-t)*(p.kind==='dust'?.45:.92));
+  const ring=p.e.firstChild;ring.style.transform='scale('+(p.kind==='guard'?1:.55+.65*t)+')';ring.style.opacity=String(Math.max(0,1-t*1.6));
+  p.rays.forEach((ray,i)=>{ray.style.transform='rotate('+(i*90+35+(p.kind==='guard'?0:t*16))+'deg) translateY('+(-4-t*17)+'px)';});
  }
 };
 $('#start').addEventListener('click',start);`);

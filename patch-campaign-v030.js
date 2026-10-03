@@ -1,8 +1,8 @@
 // Complete campaign around the unchanged v0.29.1 rally / ceremony kernel.
 window.otoPatchCampaignV030=function(html){
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 campaign anchor: '+a.slice(0,80));html=html.replace(a,b);}
- once("version:'0.29.1-articulated-motion'","version:'0.30.0-seven-inheritances'");
- once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.30.0');
+ once("version:'0.29.1-articulated-motion'","version:'0.31.0-three-polish'");
+ once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.31.0');
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");
@@ -41,6 +41,7 @@ body.campaign-cinematic #arena :is(.ball-label,.fighter-label,.practice-card,.ce
 .ball-label{min-width:48px;padding:4px 8px 5px;font-size:26px;line-height:1.1;border-radius:5px;box-shadow:0 2px 0 #ab8a4c,0 3px 9px #0003}
 .ball-label:after{left:var(--prompt-line-x,50%);top:var(--prompt-line-y,100%);bottom:auto;width:var(--prompt-line-length,0px);height:1px;border:0;background:#e4c98c;transform:rotate(var(--prompt-line-angle,0rad));transform-origin:0 50%;opacity:.8}
 @media(max-width:680px){.ball-label{font-size:24px;min-width:44px;padding:4px 7px}}
+@media(orientation:landscape) and (max-height:450px){.campaign-cinema{padding-top:10px}.campaign-cinema>div{padding:4px 14px}.campaign-cinema p{margin-top:4px}}
 @keyframes campaign-caption-enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:680px){.campaign-top{gap:8px}.campaign-top:before{inset:-14px -14px -9px}.campaign-top h2{font-size:clamp(15px,4.5vw,20px)}.campaign-orbs{font-size:10px;min-width:54px}.campaign-orbs span{font-size:22px}.campaign-cinema p{font-size:11px}}
 @media(orientation:landscape) and (min-width:560px) and (min-height:601px){body.campaign-screen #arena{grid-column:1/-1;grid-row:2/4;height:100%;min-height:0;max-height:none}}

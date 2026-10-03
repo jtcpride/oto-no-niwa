@@ -30,11 +30,19 @@ function pointTriangleDistance(p,[a,b,c]){
 }
 const models=[],sigs=new Set();
 for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlayer)){
- const root=new G.Node(),group=(parent,pos=[0,0,0])=>{const n=new G.Node();n.pos=pos;parent.add(n);return n;},mesh=(parent,shape,tint,pos=[0,0,0],scale=[1,1,1],rot=[0,0,0],unlit=0)=>{const n=new G.Node(geom[shape],tint);Object.assign(n,{pos,scale,rot,unlit});parent.add(n);return n;};
+ const root=new G.Node(),group=(parent,pos=[0,0,0])=>{const n=new G.Node();n.pos=pos;parent.add(n);return n;},mesh=(parent,shape,tint,pos=[0,0,0],scale=[1,1,1],rot=[0,0,0],unlit=0)=>{const n=new G.Node(typeof shape==='string'?geom[shape]:shape,tint);Object.assign(n,{pos,scale,rot,unlit});parent.add(n);return n;};
  const f=rigCtx.window.FEGCharacterRigs.seven({root,group,mesh},0,c.appearance,1);
  for(const key of ['n','body','head','arm','farArm','leg','back','thigh','knee','shoe','backThigh','backKnee','backShoe','elbow','wrist','farElbow','farWrist','toe','backToe'])assert(f[key]?.pos&&f[key]?.rot,c.id+' '+key);
  assert.equal(f.knee.pos[1],-.48);assert.equal(f.backKnee.pos[1],-.48);assert.equal(f.shoe.pos[1],-.48);assert.equal(f.toe.pos[0],.16);
  const metadata=f.characterV030;sigs.add(metadata.profile.signature);assert(metadata.meshCount>=35,c.id+' actual detail');
+ assert(metadata.meshCount<=64,c.id+' bounded mesh budget');
+ const triangleCount=metadata.parts.reduce((sum,n)=>sum+n.geo.count/3,0);assert(triangleCount<=2000,c.id+' bounded low-poly budget');
+ for(const n of metadata.parts){
+  assert.equal(n.geo.p.length,n.geo.n.length,c.id+' geometry has matching normals');assert.equal(n.geo.p.length,n.geo.count*3,c.id+' draw count matches geometry');
+  assert(Array.from(n.geo.p).every(Number.isFinite),c.id+' finite sculpted positions');
+  assert(Array.from(n.geo.n).every(Number.isFinite),c.id+' finite surface normals');
+  if(!Object.values(geom).includes(n.geo))for(let i=0;i<n.geo.n.length;i+=3)assert(Math.abs(Math.hypot(...n.geo.n.slice(i,i+3))-1)<1e-5,c.id+' nondegenerate sculpted surface normals');
+ }
  const face=metadata.parts.find(n=>n.fegPart==='face'),faceTriangles=triangles(face);
  for(const tag of ['eye','mouth',c.id==='sokichi'?'thick-white-brow':'brow']){
   const features=metadata.parts.filter(n=>n.fegPart===tag);assert.equal(features.length,2,c.id+' '+tag+' pair');
@@ -46,7 +54,7 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
   const ys=n=>triangles(n).flatMap(t=>t.v.map(p=>p[1])),neck=ys(metadata.parts.find(n=>n.fegPart==='neck')),shirt=ys(metadata.parts.find(n=>n.fegPart==='rust-inner'));
   assert(Math.min(...neck)<Math.max(...shirt)&&Math.max(...neck)>Math.min(...ys(face))+f.head.pos[1],'Luka neck joins both torso and head');
  }
- const t=triangles(f.n),ys=t.flatMap(t=>t.v.map(p=>p[1]));const maxY=Math.max(...ys),minY=Math.min(...ys);models.push({id:c.id,height:maxY-minY,triangles:t,parts:metadata.meshCount});
+ const t=triangles(f.n),ys=t.flatMap(t=>t.v.map(p=>p[1]));const maxY=Math.max(...ys),minY=Math.min(...ys);models.push({id:c.id,height:maxY-minY,triangles:t,triangleCount,parts:metadata.meshCount});
  // Shadow factory must preserve every vertex and named joint, with a black palette.
  const shadow=rigCtx.window.FEGCharacterRigs.seven({root,group,mesh},0,{...c.appearance,shadow:true},1),st=triangles(shadow.n);
  assert.equal(JSON.stringify(t.map(t=>t.v)),JSON.stringify(st.map(t=>t.v)));assert(st.every(t=>t.c.every(v=>v<.12)));
@@ -77,4 +85,4 @@ for(const id of Object.keys(STAGES)){
  ctx.fixture.close();
 }
 const out=process.env.FEG_CHARACTER_GEOMETRY;if(out)fs.writeFileSync(out,JSON.stringify(models));
-console.log(JSON.stringify({passed:true,models:models.map(({id,height,parts})=>({id,height,parts})),uniqueSilhouettes:sigs.size,contactChecks:contacts,rendering:'VM WebGL command recorder; GPU and real-device audio not tested'},null,2));
+console.log(JSON.stringify({passed:true,models:models.map(({id,height,parts,triangleCount})=>({id,height,parts,triangleCount})),uniqueSilhouettes:sigs.size,contactChecks:contacts,rendering:'VM WebGL command recorder; GPU and real-device audio not tested'},null,2));

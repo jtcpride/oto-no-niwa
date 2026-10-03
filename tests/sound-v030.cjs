@@ -39,8 +39,28 @@ function make(saved){
  c.duelV022.phase='rush';c.kick();assert.equal(h.stats().successes,old+2,'rush interaction drives score');c.duelV022.phase='front';
  c.closeV027.stage='idle';c.select(2);assert(h.stats().counters.movement>0,'movement has its own event');
  const voice={name:'Chosen Voice',lang:'en-US'},u={text:'think',voice,lang:'en-US',rate:.82,pitch:1,volume:.85};let done=0;
- a.speak(u,()=>done++);const stale=u.onend;assert.equal(h.stats().musicTarget,.8*.28);assert.equal(u.voice,voice,'selected voice preserved');
+ a.speak(u,()=>done++);const stale=u.onend;assert.equal(h.stats().musicTarget,.8*.60);assert.equal(u.voice,voice,'selected voice preserved');
  const v={text:'ship'};a.speak(v);assert.equal(h.speech.queue.length,1,'replacement cannot queue speech');stale();assert.equal(a.ducked,true,'stale completion cannot unduck newer voice');assert.equal(done,0);v.onend();assert.equal(a.ducked,false);
+ // TTS startup latency must not pre-emptively lower or restart the score.
+ const waiting=make();waiting.c.start();waiting.speech.speak=u=>waiting.speech.queue.push(u);
+ const waitingWord={text:'think'},shoBefore=waiting.c.audio.ctx.created.filter(n=>n.wave);
+ waiting.c.audio.speak(waitingWord);assert.equal(waiting.stats().ducked,false);assert.equal(waiting.stats().musicTarget,.8,'pending native voice leaves BGM at full user volume');
+ waitingWord.onstart();assert.equal(waiting.stats().musicTarget,.8*.60);assert(shoBefore.every(n=>!n.stopped),'speech keeps the same sustained music sources alive');
+ for(const [phase,factor] of [['front',1],['rush',1],['close',.58],['break',.5],['charge',.24],['breakCharge',.24],['settle',.24]]){
+  waiting.c.duelV022.phase=phase;waiting.c.audio.applyMix();assert.equal(waiting.stats().musicTarget,.8*Math.min(factor,.60),phase+' cannot stack speech and scene attenuation');
+ }
+ waitingWord.onend();assert.equal(waiting.stats().musicTarget,.8*.24,'speech completion preserves intentional scene dynamics');waiting.c.audio.dispose();
+ // Compare the restored kick against the preserved historical product, not a
+ // second copy of the new implementation. Both sides retain rally/Perfect cues.
+ const legacyHitSource=fs.readFileSync(path.join(__dirname,'fixtures/baseline-v0291.html'),'utf8').match(/hit\(isPlayer,rally,perfect\)\{([^\n]+)\}/)[1];
+ const legacyHit=new Function('isPlayer','rally','perfect',legacyHitSource),kickAudio=make();kickAudio.c.start();
+ let actual=[];kickAudio.c.audio.note=(...args)=>{if(args[6]!=='music')actual.push(args)};
+ for(const isPlayer of [false,true])for(const rally of [0,3,4,8])for(const perfect of [false,true]){
+  const expected=[];legacyHit.call({note:(...args)=>expected.push(args)},isPlayer,rally,perfect);
+  actual=[];kickAudio.c.audio.ctx.currentTime+=.2;kickAudio.c.audio.hit(isPlayer,rally,perfect);
+  assert.deepEqual(actual,expected,'historical electronic kick '+JSON.stringify({isPlayer,rally,perfect}));
+ }
+ kickAudio.c.audio.dispose();
  a.speak({text:'vision'});c.pause();assert.equal(h.stats().activeSources,0);assert.equal(h.stats().voiceTimer,false);assert.equal(h.timers.size,0);c.pause();c.updateGame(.1);assert.equal(h.stats().shoVoices,5);assert.equal(h.stats().contexts,1);
  // Native context interruption must expose an explicit recovery control.
  a.ctx.state='interrupted';a.ctx.emit('statechange');assert.equal(h.stats().activeSources,0);assert(h.stats().resumeVisible);a.ctx.blockResume=true;a.resumeFromGesture();await Promise.resolve();await Promise.resolve();assert(h.stats().resumeVisible,'rejected resume remains actionable');
@@ -84,5 +104,5 @@ function make(saved){
  interruptedWord.onstart();interruptedWord.onend();assert.equal(interruptedDone,0,'interrupted title requires another user gesture');assert.equal(interruptedTitle.stats().ducked,false);interruptedTitle.c.audio.dispose();
  a.set(true);c.beginMatch();c.updateGame(.1);assert.equal(h.stats().successes,0,'match resets progression');assert.equal(h.stats().shoVoices,5);a.dispose();await Promise.resolve();assert.equal(h.stats().activeSources,0);assert.equal(h.stats().contextState,'closed');assert.equal(h.stats().voiceTimer,false);c.updateGame(.1);a.resumeFromGesture();assert.equal(h.stats().contexts,1,'disposed engine cannot recreate itself');
  assert.throws(()=>patchContext.window.otoPatchSoundV030('<html></html>'),/anchor/,'missing assembly hooks fail loudly');
- console.log(JSON.stringify({passed:true,checks:['gesture activation','success-driven layers','separate movement/hit events','speech ducking and immediate replacement','watchdog cancels stalled speech','no stale callbacks','pause/resume','interrupted and rejected resume','visibility recovery','closed context recreation and stale resume','interrupted title retry','bounded sources','restart/persistent mute and volumes','dispose'],verification:'VM API mocks only; real iPhone/iPad and audible mix unverified'}));
+ console.log(JSON.stringify({passed:true,checks:['gesture activation','success-driven layers','historical electronic player and CPU kicks','separate movement/hit events','moderate speech ducking without stacked attenuation','TTS startup preserves BGM','immediate speech replacement','watchdog cancels stalled speech','no stale callbacks','pause/resume','interrupted and rejected resume','visibility recovery','closed context recreation and stale resume','interrupted title retry','bounded sources','restart/persistent mute and volumes','dispose'],verification:'VM API mocks only; real iPhone/iPad and audible mix unverified'}));
 })().catch(e=>{console.error(e);process.exitCode=1});

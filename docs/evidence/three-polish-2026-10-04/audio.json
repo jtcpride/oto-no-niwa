@@ -1,0 +1,1932 @@
+{
+  "startedAt": "2026-10-03T15:47:32.654Z",
+  "status": "passed",
+  "browser": {
+    "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headed": false,
+    "profile": "Playwright isolated temporary profile",
+    "autoplayOverride": false,
+    "defaultAudioMuteRemoved": true,
+    "softwareGLFallbackRemoved": true,
+    "version": "154.0.8037.97",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+  },
+  "checks": [
+    {
+      "name": "system Chrome hardware WebGL fixture",
+      "status": "pass",
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "error": 0
+    },
+    {
+      "name": "trusted click unlocks native AudioContext",
+      "status": "pass",
+      "diagnostics": {
+        "version": "0.30-gagaku",
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 0,
+        "layer": 0,
+        "layerNames": [
+          "shō"
+        ],
+        "activeSources": 5,
+        "shoVoices": 5,
+        "voiceToken": 0,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 1,
+          "string": 0,
+          "flute": 0,
+          "taiko": 0,
+          "movement": 0,
+          "hit": 0,
+          "speech": 0,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.005333333333333333
+    },
+    {
+      "name": "synthesized sho BGM produces signal",
+      "status": "pass",
+      "peak": 0.028921743854880333,
+      "rms": 0.01015730570082058,
+      "minimumRms": 0.00994803982806726,
+      "firstContextTime": 0.9173333333333333,
+      "lastContextTime": 1.2266666666666666
+    },
+    {
+      "name": "native success events add strings flute and taiko",
+      "status": "pass",
+      "diagnostics": {
+        "version": "0.30-gagaku",
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 8,
+        "layer": 3,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 23,
+        "shoVoices": 5,
+        "voiceToken": 0,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 1,
+          "string": 7,
+          "flute": 2,
+          "taiko": 1,
+          "movement": 0,
+          "hit": 8,
+          "speech": 0,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      },
+      "output": {
+        "peak": 0.039635900408029556,
+        "rms": 0.013150057921955751,
+        "minimumRms": 0.012454991859427313,
+        "firstContextTime": 2.1866666666666665,
+        "lastContextTime": 2.490666666666667
+      }
+    },
+    {
+      "name": "CPU electronic kick produces signal",
+      "status": "pass",
+      "peak": 0.32934895157814026,
+      "rms": 0.05712245149558566,
+      "minimumRms": 0.005853345105453303,
+      "firstContextTime": 2.7146666666666666,
+      "lastContextTime": 2.848
+    },
+    {
+      "name": "player electronic kick produces signal",
+      "status": "pass",
+      "peak": 0.33807817101478577,
+      "rms": 0.05770012967898401,
+      "minimumRms": 0.00733620481552902,
+      "firstContextTime": 3.1733333333333333,
+      "lastContextTime": 3.3066666666666666
+    },
+    {
+      "name": "BGM slider attenuates actual graph",
+      "status": "pass",
+      "full": {
+        "peak": 0.02793128415942192,
+        "rms": 0.010186896253054108,
+        "minimumRms": 0.009739173148448639,
+        "firstContextTime": 5.157333333333334,
+        "lastContextTime": 5.466666666666667
+      },
+      "quiet": {
+        "peak": 0.0028346856124699116,
+        "rms": 0.0010283416577980202,
+        "minimumRms": 0.0009745563687943233,
+        "firstContextTime": 6.709333333333333,
+        "lastContextTime": 7.018666666666666
+      },
+      "ratio": 0.1009474949241498
+    },
+    {
+      "name": "zero BGM volume is silent",
+      "status": "pass",
+      "peak": 0.0000014892458466420067,
+      "rms": 1.0601121357467774e-7,
+      "minimumRms": 0,
+      "firstContextTime": 8.464,
+      "lastContextTime": 8.773333333333333
+    },
+    {
+      "name": "mute stops sources and persists preference",
+      "status": "pass",
+      "signal": {
+        "peak": 0,
+        "rms": 0,
+        "minimumRms": 0,
+        "firstContextTime": 9.093333333333334,
+        "lastContextTime": 9.402666666666667
+      },
+      "diagnostics": {
+        "version": "0.30-gagaku",
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": false,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 8,
+        "layer": 3,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 0,
+        "shoVoices": 0,
+        "voiceToken": 1,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 2,
+          "string": 7,
+          "flute": 2,
+          "taiko": 1,
+          "movement": 0,
+          "hit": 10,
+          "speech": 0,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    },
+    {
+      "name": "unmute reuses one native context",
+      "status": "pass"
+    },
+    {
+      "name": "native suspend and visible gesture recovery",
+      "status": "pass",
+      "signal": {
+        "peak": 0.026208458468317986,
+        "rms": 0.009149379771284098,
+        "minimumRms": 0.008929807754371527,
+        "firstContextTime": 11.632,
+        "lastContextTime": 11.936
+      },
+      "diagnostics": {
+        "version": "0.30-gagaku",
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 8,
+        "layer": 3,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 5,
+        "shoVoices": 5,
+        "voiceToken": 2,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 4,
+          "string": 8,
+          "flute": 3,
+          "taiko": 2,
+          "movement": 0,
+          "hit": 10,
+          "speech": 0,
+          "recoveries": 4
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    },
+    {
+      "name": "native system speech voices available",
+      "status": "pass",
+      "count": 180,
+      "english": [
+        {
+          "name": "Albert",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Bad News",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Bahh",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Boing",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Bubbles",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Cellos",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Daniel",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Eddy (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Eddy (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Flo (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Flo (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Fred",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Good News",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Grandma (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Grandma (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Grandpa (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Grandpa (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Junior",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Karen",
+          "lang": "en-AU",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Kathy",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Moira",
+          "lang": "en-IE",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Ralph",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Reed (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Reed (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Rishi",
+          "lang": "en-IN",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Rocko (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Rocko (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Samantha",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Sandy (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Sandy (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Shelley (英語（イギリス）)",
+          "lang": "en-GB",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Shelley (英語（アメリカ合衆国）)",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Tessa",
+          "lang": "en-ZA",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "Zarvox",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "ささやき声",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "オルガン",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "スーパースター",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "トリノイド",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "ベル",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "道化",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        },
+        {
+          "name": "震え",
+          "lang": "en-US",
+          "localService": true,
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "native word starts and ends with accompaniment ducking",
+      "status": "pass",
+      "start": {
+        "id": "word",
+        "type": "start",
+        "error": null,
+        "at": 12389.199999809265,
+        "text": "think",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      "end": {
+        "id": "word",
+        "type": "end",
+        "error": null,
+        "at": 13204.699999809265,
+        "text": "think",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      "duckedMix": 0.48
+    },
+    {
+      "name": "native pronunciation preserves continuous BGM without stacked ducking",
+      "status": "pass",
+      "phases": [
+        {
+          "phase": "front",
+          "before": {
+            "peak": 0.07727883756160736,
+            "rms": 0.027410926387821208,
+            "minimumRms": 0.026950524109695808,
+            "firstContextTime": 13.925333333333333,
+            "lastContextTime": 14.133333333333333
+          },
+          "during": {
+            "peak": 0.04754212126135826,
+            "rms": 0.016617008563764253,
+            "minimumRms": 0.016064523966756464,
+            "firstContextTime": 14.56,
+            "lastContextTime": 14.88
+          },
+          "ratio": 0.6062184228529854,
+          "expected": 0.6,
+          "musicTarget": 0.48
+        },
+        {
+          "phase": "charge",
+          "before": {
+            "peak": 0.01898062601685524,
+            "rms": 0.006746655130407999,
+            "minimumRms": 0.006545209864087455,
+            "firstContextTime": 20.538666666666668,
+            "lastContextTime": 20.730666666666668
+          },
+          "during": {
+            "peak": 0.018930314108729362,
+            "rms": 0.006775139760767579,
+            "minimumRms": 0.006484629121103733,
+            "firstContextTime": 21.157333333333334,
+            "lastContextTime": 21.482666666666667
+          },
+          "ratio": 1.0042220374109825,
+          "expected": 1,
+          "musicTarget": 0.192
+        }
+      ]
+    },
+    {
+      "name": "native replacement cancels old speech without queue",
+      "status": "pass",
+      "oldStart": {
+        "id": "replaced",
+        "type": "start",
+        "error": null,
+        "at": 26455.199999809265,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      "cancellation": {
+        "id": "replaced",
+        "type": "error",
+        "error": "interrupted",
+        "at": 26520.900000095367,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      "newStart": {
+        "id": "replacement",
+        "type": "start",
+        "error": null,
+        "at": 26520.900000095367,
+        "text": "ship",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      "newEnd": {
+        "id": "replacement",
+        "type": "end",
+        "error": null,
+        "at": 26985.900000095367,
+        "text": "ship",
+        "voice": "Samantha",
+        "lang": "en-US"
+      }
+    },
+    {
+      "name": "mute cancels native pronunciation",
+      "status": "pass",
+      "events": [
+        {
+          "id": "muted-voice",
+          "type": "start",
+          "error": null,
+          "at": 27038.400000095367,
+          "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+          "voice": "Samantha",
+          "lang": "en-US"
+        }
+      ],
+      "diagnostics": {
+        "version": "0.30-gagaku",
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": false,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 8,
+        "layer": 3,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 0,
+        "shoVoices": 0,
+        "voiceToken": 13,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 4,
+          "string": 8,
+          "flute": 3,
+          "taiko": 2,
+          "movement": 0,
+          "hit": 10,
+          "speech": 6,
+          "recoveries": 4
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    }
+  ],
+  "blocked": [],
+  "errors": [],
+  "limitations": [
+    "Analysers measure the internally generated Web Audio graph, not the physical speakers.",
+    "Native speech events confirm synthesis lifecycle, not subjective intelligibility or pronunciation quality.",
+    "No iPhone/iPad, screen-lock, or OS-level audio interruption acceptance is claimed.",
+    "The test-only seam advances audio events directly and freezes gameplay animation; production files are unchanged."
+  ],
+  "nativeSpeech": {
+    "voices": [
+      {
+        "name": "Kyoko",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": true
+      },
+      {
+        "name": "Albert",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Alice",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Alva",
+        "lang": "sv-SE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Amélie",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Amira",
+        "lang": "ms-MY",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Anna",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Bad News",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Bahh",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Boing",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Bubbles",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Carmit",
+        "lang": "he-IL",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Cellos",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Damayanti",
+        "lang": "id-ID",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Daniel",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Daria",
+        "lang": "bg-BG",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Eddy (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Ellen",
+        "lang": "nl-BE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Flo (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Fred",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Geeta",
+        "lang": "te-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Good News",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandma (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Grandpa (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Ioana",
+        "lang": "ro-RO",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Jacques",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Joana",
+        "lang": "pt-PT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Junior",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Kanya",
+        "lang": "th-TH",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Karen",
+        "lang": "en-AU",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Kathy",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Lana",
+        "lang": "hr-HR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Laura",
+        "lang": "sk-SK",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Lekha",
+        "lang": "hi-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Lesya",
+        "lang": "uk-UA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Linh",
+        "lang": "vi-VN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Luciana",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Majed",
+        "lang": "ar-001",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Meijia",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Melina",
+        "lang": "el-GR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Milena",
+        "lang": "ru-RU",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Moira",
+        "lang": "en-IE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Montse",
+        "lang": "ca-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Mónica",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Nora",
+        "lang": "nb-NO",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Paulina",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Piya",
+        "lang": "bn-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Ralph",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Reed (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rishi",
+        "lang": "en-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Rocko (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Samantha",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sandy (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sara",
+        "lang": "da-DK",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Satu",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (日本語（日本）)",
+        "lang": "ja-JP",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (中国語（中国本土）)",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (中国語（台湾）)",
+        "lang": "zh-TW",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (ドイツ語（ドイツ）)",
+        "lang": "de-DE",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (英語（イギリス）)",
+        "lang": "en-GB",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (英語（アメリカ合衆国）)",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (スペイン語（スペイン）)",
+        "lang": "es-ES",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (スペイン語（メキシコ）)",
+        "lang": "es-MX",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (フィンランド語（フィンランド）)",
+        "lang": "fi-FI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (フランス語（カナダ）)",
+        "lang": "fr-CA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (フランス語（フランス）)",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (イタリア語（イタリア）)",
+        "lang": "it-IT",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (韓国語（韓国）)",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Shelley (ポルトガル語（ブラジル）)",
+        "lang": "pt-BR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Sinji",
+        "lang": "yue-HK",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Soumya",
+        "lang": "kn-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Tessa",
+        "lang": "en-ZA",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Thomas",
+        "lang": "fr-FR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Tina",
+        "lang": "sl-SI",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Ting-Ting",
+        "lang": "zh-CN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Tünde",
+        "lang": "hu-HU",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Vani",
+        "lang": "ta-IN",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Xander",
+        "lang": "nl-NL",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Yelda",
+        "lang": "tr-TR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Yuna",
+        "lang": "ko-KR",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Zarvox",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Zosia",
+        "lang": "pl-PL",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "Zuzana",
+        "lang": "cs-CZ",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "ささやき声",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "オルガン",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "スーパースター",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "トリノイド",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "ベル",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "道化",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      },
+      {
+        "name": "震え",
+        "lang": "en-US",
+        "localService": true,
+        "default": false
+      }
+    ],
+    "events": [
+      {
+        "id": "word",
+        "type": "start",
+        "error": null,
+        "at": 12389.199999809265,
+        "text": "think",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "word",
+        "type": "end",
+        "error": null,
+        "at": 13204.699999809265,
+        "text": "think",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "word",
+        "type": "released",
+        "at": 13205.099999904633
+      },
+      {
+        "id": "continuous-front",
+        "type": "start",
+        "error": null,
+        "at": 14571.400000095367,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "continuous-front",
+        "type": "end",
+        "error": null,
+        "at": 19817.099999904633,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "continuous-front",
+        "type": "released",
+        "at": 19817.199999809265
+      },
+      {
+        "id": "continuous-charge",
+        "type": "start",
+        "error": null,
+        "at": 21172,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "continuous-charge",
+        "type": "end",
+        "error": null,
+        "at": 26399.199999809265,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "continuous-charge",
+        "type": "released",
+        "at": 26399.400000095367
+      },
+      {
+        "id": "replaced",
+        "type": "start",
+        "error": null,
+        "at": 26455.199999809265,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "replaced",
+        "type": "error",
+        "error": "interrupted",
+        "at": 26520.900000095367,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "replacement",
+        "type": "start",
+        "error": null,
+        "at": 26520.900000095367,
+        "text": "ship",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "replacement",
+        "type": "end",
+        "error": null,
+        "at": 26985.900000095367,
+        "text": "ship",
+        "voice": "Samantha",
+        "lang": "en-US"
+      },
+      {
+        "id": "replacement",
+        "type": "released",
+        "at": 26986
+      },
+      {
+        "id": "muted-voice",
+        "type": "start",
+        "error": null,
+        "at": 27038.400000095367,
+        "text": "This pronunciation test keeps the native voice speaking until the next word replaces it.",
+        "voice": "Samantha",
+        "lang": "en-US"
+      }
+    ]
+  },
+  "finalDiagnostics": {
+    "version": "0.30-gagaku",
+    "contextState": "running",
+    "contexts": 1,
+    "enabled": false,
+    "music": 0.8,
+    "voice": 0.85,
+    "ducked": false,
+    "musicTarget": 0.8,
+    "successes": 8,
+    "layer": 3,
+    "layerNames": [
+      "shō",
+      "plucked strings",
+      "flute",
+      "taiko"
+    ],
+    "activeSources": 0,
+    "shoVoices": 0,
+    "voiceToken": 13,
+    "voiceTimer": false,
+    "needsGesture": false,
+    "speechBlocked": false,
+    "resumeVisible": false,
+    "disposed": false,
+    "counters": {
+      "sho": 4,
+      "string": 8,
+      "flute": 3,
+      "taiko": 2,
+      "movement": 0,
+      "hit": 10,
+      "speech": 6,
+      "recoveries": 4
+    },
+    "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+  },
+  "finishedAt": "2026-10-03T15:48:00.181Z"
+}

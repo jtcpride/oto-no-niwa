@@ -1,3 +1,5 @@
+> **2026-10-04の現在地**: Three.js移行と造形・動作・音の調整は `migration/threejs-renderer` のv0.31です。まず [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+
 # Codexへ：FEGを最後まで完成させる
 
 > **Macでの更新（2026-10-02）**：転送基点 `a59e931` から、実Chrome／Apple M4のWebGLで終幕まで検証し、石庭の横画面配置・音声中断・祇園の影の登場順などを修正しました。最新の結果は [Mac検証記録](MAC_ACCEPTANCE_2026-10-02.md)、普段の修正は [保守ガイド](MAINTENANCE.md) を入口にしてください。以下のクラウド環境の失敗記録は履歴です。iPhone/iPad実機確認と公開承認は引き続き別です。

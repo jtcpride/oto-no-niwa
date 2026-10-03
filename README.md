@@ -2,11 +2,15 @@
 
 発音記号蹴鞠「FIFTEENTH EVER GARDEN」の試作リポジトリです。
 
-## Three.js移行ブランチ（2026-10-04）
+## v0.31 Three.js 完成候補（2026-10-04）
 
-`migration/threejs-renderer` はv0.30保存点からの描画移行第1段階です。ローポリの外形・色・動作・試合ルールを保ち、描画をThree.jsへ置換しています。モデルやアニメーションの全面移行はまだです。保存点、検証範囲、再開事項は [PROJECT_HANDOFF](docs/PROJECT_HANDOFF.md) 冒頭を参照。下の公開URLはこの移行版ではありません。
+`migration/threejs-renderer` に保存した試遊候補です。七人の面付き造形、回し蹴りの腰と上体の反動、蹴りの引き戻し、鞠の曲面と縫い帯、接地影・輪郭の照明を調整しました。発音時にBGMが過剰に下がる問題を直し、自分と相手の蹴り音は旧電子音へ戻しました。教材・ラリー時間・判定・ダメージ・試合形式は維持しています。
 
-`npm ci` → `npm run build:renderer` → `python3 -m http.server 8765`。通常URLがThree.js、`?stage=jingu&renderer=garden` が旧描画の比較用です。
+[約19秒の変更前後比較（左が前、右が後／無音）](docs/evidence/three-polish-2026-10-04/comparison.mp4) · [七人の造形](docs/evidence/three-polish-2026-10-04/characters.png) · [引継ぎ・検証と未確認範囲](docs/PROJECT_HANDOFF.md)
+
+`npm ci` → `npm run build:renderer` → `python3 -m http.server 8765`。`http://127.0.0.1:8765/?stage=jingu` から一試合を試せます。通常URLは京都駅から。Three.js/WebGL2で動作します。旧描画は `renderer=garden`、照明追加前の投影比較は `look=baseline` を指定します。これはモデルを旧版へ戻す指定ではありません。
+
+Mac Chromeで検証済み。iPhone/iPad実機の音・操作感は未確認です。**下の公開サイトへv0.31はまだ反映していません。** 保存点と戻し方は引継ぎ冒頭に記載しています。
 
 ## iPad / Safari 試遊
 

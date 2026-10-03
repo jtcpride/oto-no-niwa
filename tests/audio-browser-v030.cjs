@@ -32,7 +32,8 @@ window.__audioQA={events:[],action:null,analysers:{},
  attach(){if(this.analysers.output)return;for(const [name,bus] of Object.entries({output:audio.limiterV030,music:audio.musicBus,fx:audio.fxBus})){const a=audio.ctx.createAnalyser();a.fftSize=4096;bus.connect(a);this.analysers[name]=a;}},
  sample(name='output'){const a=this.analysers[name],data=new Float32Array(a.fftSize);a.getFloatTimeDomainData(data);let peak=0,sum=0;for(const v of data){if(!Number.isFinite(v))throw Error('Nonfinite audio sample');peak=Math.max(peak,Math.abs(v));sum+=v*v;}return {peak,rms:Math.sqrt(sum/data.length),contextTime:audio.ctx.currentTime};},
  pump(){soundPumpV030()},success(){audio.hit(true,soundV030.successes+1,false)},
- effect(){audio.hit(false,0,false)},silence(){stopSourcesV030();state.mode='idle'},
+ effect(isPlayer=false){audio.hit(isPlayer,0,false)},silence(){stopSourcesV030();state.mode='idle'},
+ phase(value){duelV022.phase=value;audio.applyMix()},
  speech(text,id){const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.82;u.pitch=1;u.volume=audio.voiceVolume;
   const voices=speechSynthesis.getVoices();u.voice=voices.find(v=>/^en-US/i.test(v.lang)&&/Samantha|Ava/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang))||null;
   for(const type of ['start','end','error'])u.addEventListener(type,e=>this.events.push({id,type,error:e.error||null,at:performance.now(),text,voice:u.voice?.name||null,lang:u.lang}));
@@ -49,7 +50,7 @@ select(0);refreshHud();updateScene(0);
 async function gesture(page,action){await page.evaluate(a=>{window.__audioQA.action=a},action);await page.locator('#qaAudioGesture').click();}
 async function samples(page,name='output',count=10,interval=30){
  const values=[];for(let i=0;i<count;i++){await page.waitForTimeout(interval);values.push(await page.evaluate(n=>__audioQA.sample(n),name));}
- return {peak:Math.max(...values.map(v=>v.peak)),rms:Math.sqrt(values.reduce((s,v)=>s+v.rms*v.rms,0)/values.length),firstContextTime:values[0].contextTime,lastContextTime:values.at(-1).contextTime};
+ return {peak:Math.max(...values.map(v=>v.peak)),rms:Math.sqrt(values.reduce((s,v)=>s+v.rms*v.rms,0)/values.length),minimumRms:Math.min(...values.map(v=>v.rms)),firstContextTime:values[0].contextTime,lastContextTime:values.at(-1).contextTime};
 }
 async function volume(page,id,value){await page.locator('#'+id).evaluate((e,v)=>{e.value=String(v);e.dispatchEvent(new Event('input',{bubbles:true}));},value);}
 async function speechEvent(page,id,type,timeout=12000){
@@ -77,7 +78,8 @@ async function run(){
   await page.evaluate(()=>__audioQA.pump());assert.equal(await page.evaluate(()=>__audioQA.diagnostics.layer),0,'elapsed time cannot unlock music layers');
   for(let n=0;n<8;n++){await page.evaluate(()=>__audioQA.success());await page.waitForTimeout(110);}
   const layers=await page.evaluate(()=>__audioQA.diagnostics);assert.equal(layers.layer,3);assert(layers.counters.string&&layers.counters.flute&&layers.counters.taiko);pass('native success events add strings flute and taiko',{diagnostics:layers,output:await samples(page)});
-  await page.evaluate(()=>__audioQA.silence());await page.waitForTimeout(200);await page.evaluate(()=>__audioQA.effect());const fx=await samples(page,'fx',8,15);assert(fx.peak>1e-5,'hit SE must generate native PCM');pass('separate hit SE produces signal',fx);
+  await page.evaluate(()=>__audioQA.silence());await page.waitForTimeout(200);
+  for(const isPlayer of [false,true]){await page.evaluate(player=>__audioQA.effect(player),isPlayer);const fx=await samples(page,'fx',8,15);assert(fx.peak>1e-5,'hit SE must generate native PCM');pass((isPlayer?'player':'CPU')+' electronic kick produces signal',fx);await page.waitForTimeout(300);}
   await volume(page,'musicVolume',100);await page.evaluate(()=>__audioQA.resumeMusic());await page.waitForTimeout(1500);const full=await samples(page);
   await volume(page,'musicVolume',10);await page.waitForTimeout(1200);const quiet=await samples(page);assert(quiet.rms<full.rms*.25&&quiet.rms>0,'volume slider must attenuate native output');pass('BGM slider attenuates actual graph',{full,quiet,ratio:quiet.rms/full.rms});
   await volume(page,'musicVolume',0);await page.waitForTimeout(1400);const zero=await samples(page);assert(zero.peak<1e-5,'zero music gain must settle to silence');pass('zero BGM volume is silent',zero);
@@ -95,11 +97,27 @@ async function run(){
    try{
     await gesture(page,{kind:'speech',text:'think',id:'word'});const start=await speechEvent(page,'word','start');
     if(start.type==='error')blocked('native speech playback',start.error,{event:start});
-    else{const mix=await page.evaluate(()=>__audioQA.diagnostics);assert(mix.ducked);assert.equal(mix.musicTarget,.8*.28);const end=await speechEvent(page,'word','end');
+    else{const mix=await page.evaluate(()=>__audioQA.diagnostics);assert(mix.ducked);assert.equal(mix.musicTarget,.8*.60);const end=await speechEvent(page,'word','end');
      if(end.type==='error')blocked('native speech completion',end.error,{event:end});else{speechWorks=true;pass('native word starts and ends with accompaniment ducking',{start,end,duckedMix:mix.musicTarget});}}
    }catch(e){if(e.name==='TimeoutError')blocked('native speech playback','Native start/end events did not arrive within 12 seconds');else throw e;}
    if(speechWorks){
     const long='This pronunciation test keeps the native voice speaking until the next word replaces it.';
+    // Observe actual native PCM during sustained speech, including the quietest
+    // dramatic scene. The same sho sources and context must keep running.
+    const speechContinuity=[];
+    for(const [phase,factor] of [['front',1],['charge',.24]]){
+     await page.evaluate(value=>__audioQA.phase(value),phase);await page.waitForTimeout(1100);const before=await samples(page,'music',8,25);
+     const id='continuous-'+phase,prior=await page.evaluate(()=>__audioQA.diagnostics);
+     await gesture(page,{kind:'speech',text:long,id});assert.equal((await speechEvent(page,id,'start')).type,'start');
+     await page.waitForTimeout(350);const during=await samples(page,'music',12,25),mix=await page.evaluate(()=>__audioQA.diagnostics);
+     assert(mix.ducked,'measurement must overlap native speech');assert.equal(mix.musicTarget,.8*Math.min(factor,.60));
+     assert(during.minimumRms>1e-5,'no sampled speech window can silence BGM');
+     const ratio=during.rms/before.rms,expected=Math.min(factor,.60)/factor;
+     assert(Math.abs(ratio-expected)<.12,'native PCM follows one moderate gain reduction');
+     assert.equal(mix.counters.sho,prior.counters.sho,'speech must not restart sustained music');assert.equal(mix.contexts,prior.contexts);
+     assert.equal((await speechEvent(page,id,'end')).type,'end');speechContinuity.push({phase,before,during,ratio,expected,musicTarget:mix.musicTarget});
+    }
+    pass('native pronunciation preserves continuous BGM without stacked ducking',{phases:speechContinuity});await page.evaluate(()=>__audioQA.phase('front'));
     await gesture(page,{kind:'speech',text:long,id:'replaced'});const oldStart=await speechEvent(page,'replaced','start');assert.equal(oldStart.type,'start');
     await gesture(page,{kind:'speech',text:'ship',id:'replacement'});const newStart=await speechEvent(page,'replacement','start');assert.equal(newStart.type,'start');const newEnd=await speechEvent(page,'replacement','end');assert.equal(newEnd.type,'end');
     const cancellation=await page.evaluate(()=>__audioQA.events.find(e=>e.id==='replaced'&&e.type==='error'));
