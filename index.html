@@ -45,6 +45,8 @@
 <script src="scenery/kyoto-scenes.js?v=0300"></script>
 <script src="patch-campaign-v030.js?v=0300"></script>
 <script src="patch-sound-v030.js?v=0300"></script>
+<script src="rendering/three-runtime.js"></script>
+<script src="rendering/install-three.js"></script>
 </head>
 <body>
 <div class="loading"><div id="status">FIFTEENTH EVER GARDENを読み込み中…</div><small>v0.30.0</small></div>
@@ -88,6 +90,7 @@
   html=window.otoPatchSceneryV030(html);
   html=window.otoPatchCampaignV030(html);
   html=window.otoPatchSoundV030(html);
+  html=window.otoInstallThree(html);
   document.open();document.write(html);document.close();
  }catch(e){const el=document.getElementById('status');if(el)el.textContent='読み込みに失敗しました: '+e.message;console.error(e)}
 })();

@@ -2,6 +2,12 @@
 
 通常の保守は、このページと変更対象のファイルから始められます。過去の会話・構想資料・全パッチの通読は不要です。作品全体の条件を変えるときだけ [現在の引継ぎ](CODEX_START_HERE.md) と [希望全文](FEG_CREATIVE_BRIEF_2026-10-02.txt) を確認します。利用枠内の所要量は保証できませんが、変更領域と検証範囲を小さく保ちます。
 
+## 移行ブランチの描画（2026-10-04）
+
+`rendering/three-adapter.js` がThree.js描画の正本です。旧Nodeの形状と姿勢をThreeのGroup/Meshへ同期し、既存の接触座標とカメラ投影を保持します。変更後は `npm run build:renderer` で `rendering/three-runtime.js` を再生成し、両方を保存します。生成物の直接編集は禁止です。Three.js 0.186.1とesbuild 0.28.2をlockfileで固定し、CDNには依存しません。実行時はWebGL2が必要です。
+
+`npm run test:renderer` はMac Chromeで旧描画との固定条件比較。`npm run test:browser` は移行後の実ブラウザ進行試験です。既存VMは記録用Garden描画を明示選択するため、`npm test`だけでThree.js描画を検証したとは扱いません。旧描画はURLの `renderer=garden` で比較できます。
+
 ## 編集する正本
 
 | 変えたいもの | 正本と主な編集箇所 | 最初の確認 |

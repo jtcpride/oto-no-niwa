@@ -190,6 +190,8 @@ function vmFixture(original,{url=ORIGIN+'/?stage=jingu',width=1024,height=768,st
   const {JSDOM}=resolveOptional('jsdom',['/tmp/feg-test-deps/node_modules/jsdom',path.resolve(ROOT,'../optics/.sites-runtime/qa/node_modules/jsdom')]);
   const html=sourceSeam(original).replaceAll('window.location.assign(url.href)','window.__qaNavigate=url.href').replaceAll('window.location.assign(stageUrlV021(stagePickerV021.value))','window.__qaNavigate=stageUrlV021(stagePickerV021.value)');
   const dom=new JSDOM(html,{url,runScripts:'outside-only',pretendToBeVisual:true});const w=dom.window,gl=recordingGL(),errors=[];
+  // VM tests record the legacy draw commands, not Three/WebGL2. Browser tests use Three.
+  w.FEGRecordingRendererTest=true;
   let now=1000,nextTimer=0;const timers=new Map();
   w.requestAnimationFrame=()=>0;w.cancelAnimationFrame=()=>{};
   w.setTimeout=(fn,ms=0)=>{timers.set(++nextTimer,{fn,at:now+ms});return nextTimer};w.clearTimeout=id=>timers.delete(id);

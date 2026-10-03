@@ -1,3 +1,11 @@
+## Three.js移行・第1段階（2026-10-04 JST）
+
+- **目的と現在地**: v0.30 `0682a3482625c70e5b87ca6ed90015fe9c6cf52c` を基点に `migration/threejs-renderer` で描画基盤のみ移行。ローポリの見た目、教材、動作、試合進行、音の設定は維持。Three.jsのGroup/Mesh/BufferGeometry/OrthographicCameraで描画し、既存Node/姿勢契約をアダプターで受ける段階。GLB・骨格アニメーションへの全面移行ではない。
+- **保存点**: GitHubの注釈タグ `pre-threejs-v0.30.0-2026-10-04` → `0682a34`。旧手元版も `pre-threejs-v0.29.1` → `ecfa8a0` で保存済み。各タグを別ディレクトリへarchiveして合成構文試験を確認済み。安全に別フォルダーで戻すには `git worktree add --detach ../oto-no-niwa-before-threejs pre-threejs-v0.30.0-2026-10-04`。今回mainやPagesへの移行版反映はしない。
+- **変更箇所**: `rendering/three-adapter.js`、生成ランタイム、ローダー、ビルドスクリプト、固定依存。既存のshader色・霧・明暗、ZYX回転順、解像度上限、投影と描画後の姿勢復元を維持。削除ノードの材質・形状を破棄する。旧描画は `renderer=garden` の明示指定で比較可能。
+- **検証**: `npm test` の非ブラウザ集約成功（VMは旧記録用描画を明示使用）。実Mac Chrome/Apple M4で製品ローダー、練習・礼・一時停止、六舞台と祇園の前後半×縦横6サイズ、継承・神格化・影・終幕・再挑戦、敗北・演出OFFの通し検証成功。音声は模擬。神宮の前半・後半・近接・ラッシュ×縦横2サイズの8場面は固定出題/入力でcanvas画素差0、投影行列差1e-5未満、40回再描画のGPU形状/テクスチャ数が安定。これは全フレーム一致や実時間性能の保証ではない。描画比較の詳細は `../work/three-migration/comparison.json`、全進行は `../work/complete-browser/complete-browser-report.json`。
+- **未確認・次**: iPhone/iPad実機、Safari/WebGL2、実音、実機のフレームレートは未確認。Three.jsはWebGL2を必要としWebGL1専用機へ自動フォールバックしない。次は実機受入後、キャラ・姿勢処理を必要な単位で整理する。BGMの発音時の途切れと旧電子音への変更は今回触っていない。工房ノート追記なし（移行固有の記録）。
+
 > **2026-10-02 v0.30 作業ブランチの担当へ**：先に [CODEX_START_HERE.md](CODEX_START_HERE.md) と [最新希望全文](FEG_CREATIVE_BRIEF_2026-10-02.txt) を読む。以下はv0.29.1以前の設計・公開履歴として保存。現在は15石/七人/六舞台+GION/継承/終幕が実装済みで、Macの実WebGLによる通し検証は完了。実機受入と美術評価は [Mac検証記録](MAC_ACCEPTANCE_2026-10-02.md) を参照。旧8球の記述より最新7球を優先。
 
 # 発音記号蹴鞠「FIFTEENTH EVER GARDEN」— Project Handoff / Design Context

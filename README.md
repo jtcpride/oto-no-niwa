@@ -2,6 +2,12 @@
 
 発音記号蹴鞠「FIFTEENTH EVER GARDEN」の試作リポジトリです。
 
+## Three.js移行ブランチ（2026-10-04）
+
+`migration/threejs-renderer` はv0.30保存点からの描画移行第1段階です。ローポリの外形・色・動作・試合ルールを保ち、描画をThree.jsへ置換しています。モデルやアニメーションの全面移行はまだです。保存点、検証範囲、再開事項は [PROJECT_HANDOFF](docs/PROJECT_HANDOFF.md) 冒頭を参照。下の公開URLはこの移行版ではありません。
+
+`npm ci` → `npm run build:renderer` → `python3 -m http.server 8765`。通常URLがThree.js、`?stage=jingu&renderer=garden` が旧描画の比較用です。
+
 ## iPad / Safari 試遊
 
 https://jtcpride.github.io/oto-no-niwa/
@@ -11,7 +17,7 @@ https://jtcpride.github.io/oto-no-niwa/
 **次の担当は [CODEX_START_HERE](docs/CODEX_START_HERE.md) から始めてください。**
 ユーザーの希望全文と、京都駅の英語台詞・日本語字幕、守る試合形式、残る実ブラウザ/実機検証をまとめています。
 
-15石、七人の固有造形、京都六舞台＋GION、六デッキ84語、鞠の継承と保存、七球集結・影・散開まで実装した作業ブランチです。MacのChrome／Apple M4の実WebGLで、京都駅から終幕・再挑戦まで通過しました。**iPhone/iPad実機の音とタッチは未確認、main／Pagesは未更新**です。
+15石、七人の固有造形、京都六舞台＋GION、六デッキ84語、鞠の継承と保存、七球集結・影・散開まで実装した作業ブランチです。MacのChrome／Apple M4の実WebGLで、京都駅から終幕・再挑戦まで通過しました。**iPhone/iPad実機の音とタッチは未確認**です。2026-10-04にGitHubのmainが `0682a34` にあることを確認済みですが、下記はv0.30実装当時の検証記録です。
 
 さらに七人の顔・衣装接続、踏み替えの足滑り、追走カメラ、神宮と三条の接地・構図、会話・継承字幕、鞠の札、七球の見切れを実描画で磨きました。通し検証99項目とUI検証2050項目が合格。[修正前後と残る表現上の限界](docs/MAC_ACCEPTANCE_2026-10-02.md)も記録しています。
 
