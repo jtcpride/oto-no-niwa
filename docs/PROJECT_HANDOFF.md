@@ -2,7 +2,7 @@
 
 - ユーザーの「Macにつなげないから公開しちゃって」により、v0.31のmain反映とGitHub Pages公開を明示承認。以下の過去項目の公開承認待ちは解消。
 - 対象ゲームは `216f7ce1ef519d58678e1710baf0fd0eea4297b3`。公開前にorigin/main=`0682a34`をfetchで確認し、追加入力のない直系の更新であることと合成構文の成功を再確認。ゲームの追加修正なし。
-- 公開元はGitHub Pagesのmain `/`（legacy build）。URLは https://jtcpride.github.io/oto-no-niwa/ 。公開後にビルド成功、公開ファイルと手元のSHA256一致、実Chromeでv0.31の起動とSTARTからの練習開始を確認する。結果の詳細は `../work/publish-v031.json` に保存。
+- 公開元はGitHub Pagesのmain `/`（legacy build）。URLは https://jtcpride.github.io/oto-no-niwa/ 。2026-10-04 08:15 JSTにPages run `37161052907` の成功を確認。公開コミット `6e352063694d3ea8cc9239ea96cac8cf532d2c84`、公開ファイル7点と手元のSHA256一致、実Chromeでv0.31／Three r186の起動とSTART→京都駅の会話→練習開始を確認（実行エラーなし、TTS模擬）。結果の詳細は `../work/publish-v031.json` と `published-v031-practice.png`。この結果追記は制作ブランチに保存し、ゲームの再公開は行わない。
 - v0.30/v0.29.1の復元タグは保持。iPhone/iPad実機の聴感・操作感は今回の公開確認には含めない。工房ノート追記なし。
 
 ## v0.31 Three.js・造形／動作／音の完成候補（2026-10-04 JST）
