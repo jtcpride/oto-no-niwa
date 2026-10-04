@@ -5,9 +5,13 @@ const {create}=require('./scenery-v030.cjs');
 const scene=create('chion');
 const rgb=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255);
 const same=(a,b)=>a.every((v,i)=>Math.abs(v-b[i])<1e-6);
+// Scenery bakes neutral base/underside shading into vertex colors. Select the
+// bell material by chromaticity so its darker bottom vertices still participate
+// in the bounds/contact check; the geometry and tolerances remain unchanged.
+const sameMaterial=(a,b)=>{const ratio=a[0]/b[0];return ratio>=.75&&ratio<=1.01&&a.every((v,i)=>Math.abs(v-b[i]*ratio)<1e-6);};
 function records(node,parents=[],out=[]){out.push({node,parents});for(const child of node.children)records(child,[node,...parents],out);return out;}
 function transform(p,n){let[x,y,z]=p.map((v,i)=>v*n.scale[i]);let c=Math.cos(n.rot[0]),s=Math.sin(n.rot[0]);[y,z]=[y*c-z*s,y*s+z*c];c=Math.cos(n.rot[1]);s=Math.sin(n.rot[1]);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(n.rot[2]);s=Math.sin(n.rot[2]);return[x*c-y*s+n.pos[0],x*s+y*c+n.pos[1],z+n.pos[2]];}
-function points(record,tint){const n=record.node,g=n.geo,out=[];if(!g)return out;for(let i=0;i<g.p.length;i+=3){const color=g.c?Array.from(g.c.slice(i,i+3)):n.color;if(tint&&!same(color,rgb(tint)))continue;out.push([n,...record.parents].reduce((p,node)=>transform(p,node),Array.from(g.p.slice(i,i+3))));}return out;}
+function points(record,tint){const n=record.node,g=n.geo,out=[];if(!g)return out;for(let i=0;i<g.p.length;i+=3){const color=g.c?Array.from(g.c.slice(i,i+3)):n.color;if(tint&&!sameMaterial(color,rgb(tint)))continue;out.push([n,...record.parents].reduce((p,node)=>transform(p,node),Array.from(g.p.slice(i,i+3))));}return out;}
 function bounds(pts){assert(pts.length);return[0,1,2].map(i=>[Math.min(...pts.map(p=>p[i])),Math.max(...pts.map(p=>p[i]))]);}
 const all=records(scene.root),log=all.find(r=>r.node.geo&&same(r.node.color,rgb('#977251')));
 const bell=all.find(r=>points(r,'#445f5e').length),support=all.find(r=>points(r,'#594239').length);

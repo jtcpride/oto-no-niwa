@@ -415,7 +415,7 @@ async function browserGardenLayouts(page,label='garden') {
 async function runCompleteCampaign(browser) {
   const production=await productionLoader(browser);
   await production.page.waitForFunction(()=>!!window.kemari);
-  assert.equal(await production.page.evaluate(()=>kemari.version),'0.35.0-five-fighter-sculpt');
+  assert.equal(await production.page.evaluate(()=>kemari.version),'0.36.0-kyoto-depth');
   await production.page.locator('#start').click();await production.page.waitForFunction(()=>kemari.getCampaign().phase==='dialogue');
   await production.page.locator('#dialogueNext').click();await production.page.locator('#dialogueNext').click();
   await production.page.waitForFunction(()=>kemari.getState().mode==='ready'||kemari.getState().mode==='playing');

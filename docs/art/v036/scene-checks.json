@@ -1,0 +1,948 @@
+{
+  "passed": true,
+  "base": "229425e",
+  "frames": 78,
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+  "scenes": [
+    {
+      "file": "after-station-front-960x640.png",
+      "phase": "front",
+      "id": "station",
+      "side": "front",
+      "vertices": [
+        42300,
+        42300
+      ],
+      "batches": [
+        7,
+        7
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 120,
+        "after": 120
+      },
+      "triangles": {
+        "before": 11471,
+        "after": 19607
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-station-back-960x640.png",
+      "phase": "back",
+      "id": "station",
+      "side": "back",
+      "vertices": [
+        42300,
+        42300
+      ],
+      "batches": [
+        7,
+        7
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 120,
+        "after": 120
+      },
+      "triangles": {
+        "before": 11471,
+        "after": 19607
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-station-front-390x844.png",
+      "phase": "front",
+      "id": "station",
+      "side": "front",
+      "vertices": [
+        42300,
+        42300
+      ],
+      "batches": [
+        7,
+        7
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 120,
+        "after": 120
+      },
+      "triangles": {
+        "before": 11471,
+        "after": 19607
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-station-back-390x844.png",
+      "phase": "back",
+      "id": "station",
+      "side": "back",
+      "vertices": [
+        42300,
+        42300
+      ],
+      "batches": [
+        7,
+        7
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 120,
+        "after": 120
+      },
+      "triangles": {
+        "before": 11471,
+        "after": 19607
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-jingu-front-960x640.png",
+      "phase": "front",
+      "id": "jingu",
+      "side": "front",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "batches": [
+        10,
+        5
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 122,
+        "after": 123
+      },
+      "triangles": {
+        "before": 7639,
+        "after": 8115
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-jingu-back-960x640.png",
+      "phase": "back",
+      "id": "jingu",
+      "side": "back",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "batches": [
+        10,
+        5
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 117,
+        "after": 118
+      },
+      "triangles": {
+        "before": 6843,
+        "after": 7427
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-jingu-pursuit-960x640.png",
+      "phase": "break",
+      "id": "jingu",
+      "side": "back",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "batches": [
+        10,
+        5
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 113,
+        "after": 114
+      },
+      "triangles": {
+        "before": 6459,
+        "after": 7043
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-jingu-front-390x844.png",
+      "phase": "front",
+      "id": "jingu",
+      "side": "front",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "batches": [
+        10,
+        5
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 122,
+        "after": 123
+      },
+      "triangles": {
+        "before": 7639,
+        "after": 8115
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-jingu-back-390x844.png",
+      "phase": "back",
+      "id": "jingu",
+      "side": "back",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "batches": [
+        10,
+        5
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 117,
+        "after": 118
+      },
+      "triangles": {
+        "before": 6843,
+        "after": 7427
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gendo-front-960x640.png",
+      "phase": "front",
+      "id": "gendo",
+      "side": "front",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "batches": [
+        4,
+        8
+      ],
+      "dynamic": 1,
+      "drawCalls": {
+        "before": 134,
+        "after": 135
+      },
+      "triangles": {
+        "before": 8251,
+        "after": 10839
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gendo-back-960x640.png",
+      "phase": "back",
+      "id": "gendo",
+      "side": "back",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "batches": [
+        4,
+        8
+      ],
+      "dynamic": 1,
+      "drawCalls": {
+        "before": 139,
+        "after": 139
+      },
+      "triangles": {
+        "before": 33491,
+        "after": 34031
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gendo-pursuit-960x640.png",
+      "phase": "break",
+      "id": "gendo",
+      "side": "back",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "batches": [
+        4,
+        8
+      ],
+      "dynamic": 1,
+      "drawCalls": {
+        "before": 134,
+        "after": 134
+      },
+      "triangles": {
+        "before": 32831,
+        "after": 33371
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gendo-front-390x844.png",
+      "phase": "front",
+      "id": "gendo",
+      "side": "front",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "batches": [
+        4,
+        8
+      ],
+      "dynamic": 1,
+      "drawCalls": {
+        "before": 134,
+        "after": 135
+      },
+      "triangles": {
+        "before": 8251,
+        "after": 10839
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gendo-back-390x844.png",
+      "phase": "back",
+      "id": "gendo",
+      "side": "back",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "batches": [
+        4,
+        8
+      ],
+      "dynamic": 1,
+      "drawCalls": {
+        "before": 139,
+        "after": 139
+      },
+      "triangles": {
+        "before": 33491,
+        "after": 34031
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-chion-front-960x640.png",
+      "phase": "front",
+      "id": "chion",
+      "side": "front",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "batches": [
+        6,
+        5
+      ],
+      "dynamic": 33,
+      "drawCalls": {
+        "before": 139,
+        "after": 140
+      },
+      "triangles": {
+        "before": 9469,
+        "after": 10473
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-chion-back-960x640.png",
+      "phase": "back",
+      "id": "chion",
+      "side": "back",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "batches": [
+        6,
+        5
+      ],
+      "dynamic": 33,
+      "drawCalls": {
+        "before": 143,
+        "after": 144
+      },
+      "triangles": {
+        "before": 9449,
+        "after": 9769
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-chion-pursuit-960x640.png",
+      "phase": "break",
+      "id": "chion",
+      "side": "back",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "batches": [
+        6,
+        5
+      ],
+      "dynamic": 33,
+      "drawCalls": {
+        "before": 139,
+        "after": 140
+      },
+      "triangles": {
+        "before": 9065,
+        "after": 9385
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-chion-front-390x844.png",
+      "phase": "front",
+      "id": "chion",
+      "side": "front",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "batches": [
+        6,
+        5
+      ],
+      "dynamic": 33,
+      "drawCalls": {
+        "before": 139,
+        "after": 140
+      },
+      "triangles": {
+        "before": 9469,
+        "after": 10473
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-chion-back-390x844.png",
+      "phase": "back",
+      "id": "chion",
+      "side": "back",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "batches": [
+        6,
+        5
+      ],
+      "dynamic": 33,
+      "drawCalls": {
+        "before": 143,
+        "after": 144
+      },
+      "triangles": {
+        "before": 9449,
+        "after": 9769
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-sanjo-front-960x640.png",
+      "phase": "front",
+      "id": "sanjo",
+      "side": "front",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "batches": [
+        8,
+        7
+      ],
+      "dynamic": 24,
+      "drawCalls": {
+        "before": 130,
+        "after": 130
+      },
+      "triangles": {
+        "before": 8517,
+        "after": 13881
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-sanjo-back-960x640.png",
+      "phase": "back",
+      "id": "sanjo",
+      "side": "back",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "batches": [
+        8,
+        7
+      ],
+      "dynamic": 24,
+      "drawCalls": {
+        "before": 152,
+        "after": 153
+      },
+      "triangles": {
+        "before": 9189,
+        "after": 13461
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-sanjo-pursuit-960x640.png",
+      "phase": "break",
+      "id": "sanjo",
+      "side": "back",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "batches": [
+        8,
+        7
+      ],
+      "dynamic": 24,
+      "drawCalls": {
+        "before": 148,
+        "after": 149
+      },
+      "triangles": {
+        "before": 8805,
+        "after": 13077
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-sanjo-front-390x844.png",
+      "phase": "front",
+      "id": "sanjo",
+      "side": "front",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "batches": [
+        8,
+        7
+      ],
+      "dynamic": 24,
+      "drawCalls": {
+        "before": 130,
+        "after": 130
+      },
+      "triangles": {
+        "before": 8517,
+        "after": 13881
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-sanjo-back-390x844.png",
+      "phase": "back",
+      "id": "sanjo",
+      "side": "back",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "batches": [
+        8,
+        7
+      ],
+      "dynamic": 24,
+      "drawCalls": {
+        "before": 152,
+        "after": 153
+      },
+      "triangles": {
+        "before": 9189,
+        "after": 13461
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-shinkyogoku-front-960x640.png",
+      "phase": "front",
+      "id": "shinkyogoku",
+      "side": "front",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "batches": [
+        10,
+        8
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 130,
+        "after": 130
+      },
+      "triangles": {
+        "before": 10867,
+        "after": 11719
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-shinkyogoku-back-960x640.png",
+      "phase": "back",
+      "id": "shinkyogoku",
+      "side": "back",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "batches": [
+        10,
+        8
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 128,
+        "after": 128
+      },
+      "triangles": {
+        "before": 9467,
+        "after": 10871
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-shinkyogoku-pursuit-960x640.png",
+      "phase": "break",
+      "id": "shinkyogoku",
+      "side": "back",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "batches": [
+        10,
+        8
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 122,
+        "after": 122
+      },
+      "triangles": {
+        "before": 8651,
+        "after": 9875
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-shinkyogoku-front-390x844.png",
+      "phase": "front",
+      "id": "shinkyogoku",
+      "side": "front",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "batches": [
+        10,
+        8
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 130,
+        "after": 130
+      },
+      "triangles": {
+        "before": 10867,
+        "after": 11719
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-shinkyogoku-back-390x844.png",
+      "phase": "back",
+      "id": "shinkyogoku",
+      "side": "back",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "batches": [
+        10,
+        8
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 128,
+        "after": 128
+      },
+      "triangles": {
+        "before": 9467,
+        "after": 10871
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-million-front-960x640.png",
+      "phase": "front",
+      "id": "million",
+      "side": "front",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "batches": [
+        10,
+        6
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 127,
+        "after": 129
+      },
+      "triangles": {
+        "before": 9868,
+        "after": 10952
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-million-back-960x640.png",
+      "phase": "back",
+      "id": "million",
+      "side": "back",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "batches": [
+        10,
+        6
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 124,
+        "after": 125
+      },
+      "triangles": {
+        "before": 7500,
+        "after": 7812
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-million-pursuit-960x640.png",
+      "phase": "break",
+      "id": "million",
+      "side": "back",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "batches": [
+        10,
+        6
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 119,
+        "after": 120
+      },
+      "triangles": {
+        "before": 6936,
+        "after": 7248
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-million-front-390x844.png",
+      "phase": "front",
+      "id": "million",
+      "side": "front",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "batches": [
+        10,
+        6
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 127,
+        "after": 129
+      },
+      "triangles": {
+        "before": 9868,
+        "after": 10952
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-million-back-390x844.png",
+      "phase": "back",
+      "id": "million",
+      "side": "back",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "batches": [
+        10,
+        6
+      ],
+      "dynamic": 0,
+      "drawCalls": {
+        "before": 124,
+        "after": 125
+      },
+      "triangles": {
+        "before": 7500,
+        "after": 7812
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gion-front-960x640.png",
+      "phase": "front",
+      "id": "gion",
+      "side": "front",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "batches": [
+        14,
+        24
+      ],
+      "dynamic": 16,
+      "drawCalls": {
+        "before": 140,
+        "after": 142
+      },
+      "triangles": {
+        "before": 20050,
+        "after": 31074
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gion-back-960x640.png",
+      "phase": "back",
+      "id": "gion",
+      "side": "back",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "batches": [
+        14,
+        24
+      ],
+      "dynamic": 16,
+      "drawCalls": {
+        "before": 164,
+        "after": 164
+      },
+      "triangles": {
+        "before": 15042,
+        "after": 24838
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gion-pursuit-960x640.png",
+      "phase": "break",
+      "id": "gion",
+      "side": "back",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "batches": [
+        14,
+        24
+      ],
+      "dynamic": 16,
+      "drawCalls": {
+        "before": 158,
+        "after": 158
+      },
+      "triangles": {
+        "before": 14182,
+        "after": 23966
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gion-front-390x844.png",
+      "phase": "front",
+      "id": "gion",
+      "side": "front",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "batches": [
+        14,
+        24
+      ],
+      "dynamic": 16,
+      "drawCalls": {
+        "before": 140,
+        "after": 142
+      },
+      "triangles": {
+        "before": 20050,
+        "after": 31074
+      },
+      "gpuStable": true
+    },
+    {
+      "file": "after-gion-back-390x844.png",
+      "phase": "back",
+      "id": "gion",
+      "side": "back",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "batches": [
+        14,
+        24
+      ],
+      "dynamic": 16,
+      "drawCalls": {
+        "before": 164,
+        "after": 164
+      },
+      "triangles": {
+        "before": 15042,
+        "after": 24838
+      },
+      "gpuStable": true
+    }
+  ],
+  "limitations": [
+    "Deterministic scene presentation fixture, not play or FPS measurement.",
+    "Speech is mocked; no real-device validation."
+  ]
+}

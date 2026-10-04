@@ -1,0 +1,179 @@
+{
+  "passed": true,
+  "base": "229425e",
+  "unchangedRuntimeFiles": [
+    {
+      "file": "characters/garden-rig.js",
+      "sha256": "66ca360c4454146e40c6a11bac30bca30482ebf69a3770ab85398bb717cef8f4"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "5937a918b13c32ef38fcfb2f186aa8de4b0e80bebeb7ed0c536e4a7a20dad089"
+    },
+    {
+      "file": "content/campaign.js",
+      "sha256": "200e032aba31a1d56a821cc530319928f30065a6911dafeebc011072e52e2a18"
+    },
+    {
+      "file": "content/characters.js",
+      "sha256": "8483a54d0d194ae09ac97b48492a6beaab9dc57a2f3d32fe92604a065797bbf8"
+    },
+    {
+      "file": "content/decks.js",
+      "sha256": "a7c1b8a55fbffd9c9e61b3d7745a55f5d27a3338643907cb3dba9365edc092a4"
+    },
+    {
+      "file": "content/stages.js",
+      "sha256": "ddc093b4801ae7edb86559453f78a122b12fd92372c67c882c402da20f7019bb"
+    },
+    {
+      "file": "content/validate.js",
+      "sha256": "b4065af95919ee3aee1561e45c8e8e7d4e7bc2825f415ee2306f9537eaa15986"
+    },
+    {
+      "file": "content/voice-clips.js",
+      "sha256": "91fef292ddd1f748a478a9d6a31a5987d8951d16390dad61957d31df2d926645"
+    },
+    {
+      "file": "content/voice-config.js",
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "patch-audio-v019.js",
+      "sha256": "8bb5eda258bdfc9207542f3df659f2e9f8d6e3c9ef6d347258147a81347c293f"
+    },
+    {
+      "file": "patch-base.js",
+      "sha256": "b6245d57398c6f904ced378c0928642ea95a92d218b6c268c933fd604ac64e3b"
+    },
+    {
+      "file": "patch-battle-v016.js",
+      "sha256": "27eeac622327a598dc23d06d50b152717df068320ce009f728fd8f9573b13e47"
+    },
+    {
+      "file": "patch-bow-v0251.js",
+      "sha256": "cc2b9f1f307a756def084f63ac02b0a93f63cbbd3d6abec5292a088c3646425b"
+    },
+    {
+      "file": "patch-ceremony-v0104.js",
+      "sha256": "6f9d22455d10613c538e14abb6f93190a282bf32733f4a603dd8da97d37be14c"
+    },
+    {
+      "file": "patch-close-v027.js",
+      "sha256": "7a6483ef5a09092256d9fbfac25fba2013896c7ab722a53951ff9c518cdb2841"
+    },
+    {
+      "file": "patch-combat-v024.js",
+      "sha256": "3742e0b2853c52d3540538b4409609763723453df5533c1ef60e89930ff44a10"
+    },
+    {
+      "file": "patch-depth-v022.js",
+      "sha256": "5cd3720bf2beb018b33781bc7c718cddbd97bc60860c3bc6c9e4e9cbdea0e1e1"
+    },
+    {
+      "file": "patch-drama-v028.js",
+      "sha256": "93cd1d79224c744603560a3d585e5b17a1bb3ef8ce0f0c7ac55abaf1cd38c82e"
+    },
+    {
+      "file": "patch-fail-v0114.js",
+      "sha256": "51a92a8e8a0ef957cd621818e2f7739c4ab5d9155061d0e777ef3289857f84a0"
+    },
+    {
+      "file": "patch-fail-v0115.js",
+      "sha256": "fb84992136712f33c07fb8050951bf5d5b661b86feff552300de79a0bae1455a"
+    },
+    {
+      "file": "patch-fail-v0116.js",
+      "sha256": "321c5957af7c768a9dbbdb6c327d7b73e181513010eaad105a182fc8612f2e7b"
+    },
+    {
+      "file": "patch-feedback-v0261.js",
+      "sha256": "76a1aac4184f48dc2b2be68a368da6ce449ce8c6725fb59ee304fea1f7d56f37"
+    },
+    {
+      "file": "patch-feel-v023.js",
+      "sha256": "b987d83ce59d53276ec879112c7296e4748a89ace650fbfff9e05c9e30adaade"
+    },
+    {
+      "file": "patch-joints-v0291.js",
+      "sha256": "4a67ce1ad309bc52def3d2a97788031aea91392aba8fcfa7656e369c825b6afb"
+    },
+    {
+      "file": "patch-kicks-v011.js",
+      "sha256": "07b6667b1822f93e3c336a1bc9ad9ef5f8218bdf001513887e10ef6c035f6801"
+    },
+    {
+      "file": "patch-layout-v017.js",
+      "sha256": "28a029244e034eb93c0773c4f20cdd8641719369fa9814d6b44521efc0b9f453"
+    },
+    {
+      "file": "patch-motion-v029.js",
+      "sha256": "948d07f6deb69f8917ed4d61217edb2e76a62b7d59b6cbe738edc615d4ec4af4"
+    },
+    {
+      "file": "patch-pace-v013.js",
+      "sha256": "0397df3b83816f321a4e6a5e7ffde9c48e9407a9cdaeda525ad9f8ab5eb6fcb0"
+    },
+    {
+      "file": "patch-play-v012.js",
+      "sha256": "08ee36a6f1b5423e74a9672765a4cda4e1b2a3ea650b4c3f4ae579759a5f5b00"
+    },
+    {
+      "file": "patch-practice.js",
+      "sha256": "20c9336c9cf764888c178e6d68ab50c3c62cf1cf5cb4ffb68335339af4523a32"
+    },
+    {
+      "file": "patch-roll-v018.js",
+      "sha256": "d0983007865853b04b29ee4fa61265276c62193430da1dc5b81eeb5905503b9c"
+    },
+    {
+      "file": "patch-rush-v025.js",
+      "sha256": "721e4b89caebdd99deeeb61d18b9a57c4cef3d2d7e8286140409df8e33f8422f"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "da1c33ff6ab9a5f6c90e2e216f4cf7f4c744a79ba68f5e09ffe4e86200fbce4f"
+    },
+    {
+      "file": "patch-stages-v021.js",
+      "sha256": "1a63845033263330c247fa1c695e9c4e7cd451334e3af4c81d20a85d94198892"
+    },
+    {
+      "file": "patch-tempo-v026.js",
+      "sha256": "8c0de326ea9bec4f1161b462b245351adefaeccd145d3633e514b5543ca154ae"
+    },
+    {
+      "file": "patch-timing-v014.js",
+      "sha256": "af027d8d819ffda8ae51eb4f050b12a60c88e3525414021542793e930e1bd7ce"
+    },
+    {
+      "file": "patch-title-v020.js",
+      "sha256": "ec3062947a2888da3aeeeee51319bf5da8d4a8bb44d95192be9f04fbdf54469c"
+    },
+    {
+      "file": "patch-ui-v0102.js",
+      "sha256": "d4bceb0a314f4848ae016388dcb97ab74d69222eee8e7177b16c7ba1d1fd94fc"
+    },
+    {
+      "file": "patch-ui-v015.js",
+      "sha256": "450393ca9f2703eea2de2d2db2822979123e6f9e919856c16a759ba85593e926"
+    },
+    {
+      "file": "patch-v010.js",
+      "sha256": "bcbd000b0acca3407eb170cca6dcb9b7f090eec53bbd0cb8ebecf7eb3ba37af8"
+    },
+    {
+      "file": "rendering/install-three.js",
+      "sha256": "33719ff2d8759810d4d97a62b345501b6e12475bb4a134c90dc7a0318cf3e57d"
+    },
+    {
+      "file": "rendering/three-adapter.js",
+      "sha256": "0538737ff30bae26dfb0a6e5d20aa3c7285df85157489d3ecf2ff97789cf2e60"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    }
+  ],
+  "campaign": "only version strings changed"
+}

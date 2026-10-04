@@ -1,4 +1,4 @@
-> **2026-10-04の現在地**: `migration/threejs-renderer` のv0.35。同じ五人の顔・髪・帽子・衣装を参考画へさらに近づけ、実描画を5回比較。透・朔と関節・ルール・音声は維持。[造形比較](art/v035/index.html) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+> **2026-10-05の現在地**: `migration/threejs-renderer` のv0.36。京都駅と全7舞台の表／奥を3巡で調整。背景の静的な陰影・光、枝垂桜、連続する舗装、遠景を改善。キャラ・ゲームルール・カメラ・音声は維持。[背景比較](art/v036/index.html) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
 
 
 

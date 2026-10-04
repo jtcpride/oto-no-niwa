@@ -1,0 +1,181 @@
+{
+  "verifiedAt": "2026-10-04T15:27:59.495Z",
+  "version": "0.36.0-kyoto-depth",
+  "baseCommit": "229425e1125a826da021a81ba7a86b7b9ec72c55",
+  "status": "passed",
+  "sourceHashes": {
+    "scenery/kyoto-scenes.js": "99a613419f666cfa4d91986892a57104a1040c4d9e321a86f34a25a527dbf101",
+    "tests/scenery-art-v036.cjs": "bab9e5c150be1cfb9ff9036190e4f9cfca4123a7000ea32799476468e76c6541",
+    "tests/scenery-tour-v036.cjs": "f9cd9c470d9ad75092d90c880a1b11b8d09f9ca1d62f75979c6836452a15157a",
+    "tests/ui-polish-v030.cjs": "023236441a7a406354700c33a4b0de5d896b01a92da4bdb3685e1230eb00b758"
+  },
+  "aggregate": {
+    "command": "npm test",
+    "status": "passed",
+    "suites": [
+      "assemble.cjs",
+      "content-v021.cjs",
+      "decks-v030.cjs",
+      "voice-assets-v033.cjs",
+      "campaign-model-v030.cjs",
+      "navigation-v030.cjs",
+      "sound-v030.cjs",
+      "audio-campaign-v030.cjs",
+      "native-voice-v033.cjs",
+      "scenery-v030.cjs",
+      "scenery-polish-v030.cjs",
+      "chion-striker-v030.cjs",
+      "foreground-v030.cjs",
+      "characters-v030.cjs",
+      "motion-camera-v030.cjs",
+      "motion-step-v030.cjs",
+      "complete-browser-v030.cjs"
+    ],
+    "log": "../work/v036/aggregate.log"
+  },
+  "finalScenery": {
+    "command": "npm run test:scenery",
+    "status": "passed",
+    "suites": 4,
+    "matrixChecks": 152,
+    "log": "../work/v036/scenery-final.log"
+  },
+  "completeBrowser": {
+    "status": "passed",
+    "checks": 99,
+    "screenshots": 104,
+    "errors": 0,
+    "browser": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "requestedRenderer": "default hardware",
+      "softwareFallback": false,
+      "arguments": [],
+      "version": "154.0.8037.97",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    "finishedAt": "2026-10-04T15:00:16.491Z",
+    "report": "../work/v036/browser/complete-browser-report.json"
+  },
+  "ui": {
+    "status": "passed",
+    "checks": 2050,
+    "screenshots": 131,
+    "failures": 0,
+    "gpu": {
+      "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "width": 960,
+      "height": 583,
+      "sampledColors": 1364,
+      "error": 0
+    },
+    "finishedAt": "2026-10-04T15:22:05.726Z",
+    "report": "../work/v036/ui/ui-polish-report.json",
+    "fixture": "Every simulation step is preserved; driveUntil skips rendering intermediate frames. Explicit screenshot and continuous-flight pixel checks still draw. Recorded-voice prefetch is disabled in this HTML-only visual fixture, and the shared voice entry is mocked."
+  },
+  "art": {
+    "status": "passed",
+    "before": 39,
+    "after": 39,
+    "comparison": "scene-checks.json",
+    "gpuMemoryStable": true,
+    "maxFrameTriangles": 34031,
+    "report": "../work/v036/art/after-report.json"
+  },
+  "video": {
+    "status": "passed",
+    "recordings": 6,
+    "durationSeconds": 18.9,
+    "file": "comparison.mp4",
+    "wordHistories": [
+      {
+        "stage": "gion",
+        "words": [
+          "think",
+          "thank",
+          "this",
+          "decision",
+          "wash",
+          "those"
+        ],
+        "matched": true,
+        "from": "breakCharge",
+        "to": "back"
+      },
+      {
+        "stage": "chion",
+        "words": [
+          "key",
+          "car",
+          "go",
+          "June",
+          "chin",
+          "game"
+        ],
+        "matched": true,
+        "from": "breakCharge",
+        "to": "back"
+      },
+      {
+        "stage": "sanjo",
+        "words": [
+          "fan",
+          "food",
+          "van",
+          "buzz",
+          "rice",
+          "very"
+        ],
+        "matched": true,
+        "from": "breakCharge",
+        "to": "back"
+      }
+    ],
+    "nativeRAF": true,
+    "audio": "mocked and silent",
+    "report": "../work/v036/video/report.json"
+  },
+  "localReview": {
+    "status": "passed",
+    "checks": 12,
+    "errors": 0,
+    "browser": "154.0.8037.97",
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "imagesPerViewport": 78,
+    "productStages": [
+      "station",
+      "jingu",
+      "gendo",
+      "chion",
+      "sanjo",
+      "shinkyogoku",
+      "million",
+      "gion"
+    ],
+    "report": "../work/v036/review-local.json"
+  },
+  "scope": {
+    "runtimeFilesUnchanged": 43,
+    "campaign": "only version strings changed",
+    "report": "scope-check.json"
+  },
+  "limitations": [
+    "Mac Chrome / Apple M4 only; real iPhone/iPad Safari performance, touch and thin-line flicker are not verified.",
+    "Voice is mocked in the visual fixtures. No audible-output acceptance is claimed.",
+    "Fixed-frame and automated correct-input comparisons do not establish human playability or mobile frame rate.",
+    "Background vertex and triangle counts increased; dynamic node counts are unchanged."
+  ]
+}

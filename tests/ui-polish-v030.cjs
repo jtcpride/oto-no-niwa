@@ -10,7 +10,13 @@ fs.mkdirSync(OUT,{recursive:true});
 const report={scope:GATHER_ONLY?'gather-camera':'complete-ui',startedAt:new Date().toISOString(),checks:[],failures:[],screenshots:[],limitations:['Deterministic phase setup and mocked speech; no acoustic or physical-device acceptance.']};
 function check(ok,name,detail={}){report.checks.push({name,pass:!!ok,...detail});if(!ok)report.failures.push({name,...detail});}
 function overlap(a,b){return Math.max(0,Math.min(a.right,b.right)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y));}
-const html=sourceSeam(assemble()).replace('qaRender(scene);window.__qaFrame=',`qaRender(scene);
+const html=sourceSeam(assemble()).replace('select(0);refreshHud();qa.draw();',`
+// Phase arrival is the screenshot subject. Advance every real simulation step,
+// but avoid GPU/pixel probes for thousands of unused intermediate frames.
+// Continuous-flight probes below still draw every one of their sampled frames.
+const uiDriveUntil=qa.driveUntil;
+qa.driveUntil=function(...args){const draw=renderer.render;renderer.render=()=>{};try{return uiDriveUntil.apply(this,args);}finally{renderer.render=draw;this.draw();}};
+select(0);refreshHud();qa.draw();`).replace('qaRender(scene);window.__qaFrame=',`qaRender(scene);
  const bounds=(node,parents=[])=>{const points=[];function visit(n,chain){if(!n.visible)return;const next=[n,...chain];if(n.geo)for(let i=0;i<n.geo.p.length;i+=3){let p=Array.from(n.geo.p.slice(i,i+3));for(const q of next)p=qaTransform(p,q);points.push(renderer.project(p));}for(const c of n.children)visit(c,next);}visit(node,parents);const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);return {x:Math.min(...xs),y:Math.min(...ys),right:Math.max(...xs),bottom:Math.max(...ys)};};
  let ballPixels=null;
  if(window.__uiProbeBall&&ball.visible){
@@ -42,6 +48,9 @@ async function main(){
   page.on('pageerror',e=>report.failures.push({name:'pageerror',message:e.message}));
   await page.addInitScript(()=>{
    window.__qaNativeRAF=requestAnimationFrame.bind(window);window.requestAnimationFrame=()=>0;
+   // This visual fixture serves HTML only and mocks the shared voice entry.
+   // Do not prefetch that HTML as MP3; production audio has a separate suite.
+   window.fetch=undefined;
    Object.defineProperty(window,'speechSynthesis',{value:{getVoices:()=>[],cancel(){},resume(){},speak(u){u.onstart?.();setTimeout(()=>u.onend?.(),20)}}});
   });
   await page.route('http://feg-ui.test/**',r=>r.fulfill({contentType:'text/html',body:html}));

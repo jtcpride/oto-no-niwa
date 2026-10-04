@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
+<title>京都の背景 — FIFTEENTH EVER GARDEN v0.36</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101d20;color:#f4e8cf;font-family:system-ui,sans-serif;line-height:1.7}main{max-width:1160px;margin:auto;padding:24px 18px 40px}h1{font:500 clamp(25px,4vw,42px)/1.25 Georgia,serif;margin:6px 0 16px}p{max-width:70ch;color:#b8c9c2}a{color:#d5c29a;text-underline-offset:4px}.eyebrow{font-size:12px;letter-spacing:.16em}nav,.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.controls{margin:18px 0 10px}button,select{font:inherit;color:inherit;min-height:44px;border:1px solid #627970;border-radius:5px;background:#1d3334;padding:8px 14px;cursor:pointer}button[aria-pressed=true]{background:#b7d4c0;color:#122523;border-color:#b7d4c0}button:disabled{opacity:.4;cursor:default}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #f4ce80;outline-offset:3px}.separator{width:1px;height:30px;background:#48605a;margin:0 2px}figure{margin:16px 0 24px;background:#0c171a;border:1px solid #3e5550;border-radius:6px;overflow:hidden}figcaption{padding:9px 14px;font-size:14px;color:#d3d6bf}img{display:block;width:100%;height:auto;background:#102124}figure.portrait{max-width:390px;margin-inline:auto}#change{min-height:3.3em}video{display:block;width:100%;border:1px solid #3e5550;border-radius:6px;background:#0c171a}.note{font-size:13px;border-top:1px solid #354b47;padding-top:15px}.section{margin-top:34px}label{display:flex;gap:8px;align-items:center}@media(max-width:500px){main{padding:18px 12px}.controls{gap:6px}.separator{display:none}button,select{padding:8px 11px}#stage{width:100%}label{width:100%}#change{font-size:14px;min-height:5em}}
+</style>
+<main>
+<div class="eyebrow">FIFTEENTH EVER GARDEN · v0.36</div><h1>京都の背景を、もう一段。</h1>
+<p>建物の足元、遠景、灯りの届き方を調整。同じカメラと人物で撮った実ゲーム画面です。</p>
+<nav><a href="../../../index.html">ゲームを遊ぶ</a><span> / </span><a href="REVIEW.md">変更・検証の記録</a></nav>
+<div class="controls"><label>舞台 <select id="stage"><option value="station">京都駅</option><option value="jingu">平安神宮</option><option value="gendo">三十三間堂</option><option value="chion">知恩院</option><option value="sanjo">三条</option><option value="shinkyogoku">新京極</option><option value="million">百万遍</option><option value="gion" selected>祇園</option></select></label>
+<button data-phase="front" aria-pressed="true">表</button><button data-phase="back" aria-pressed="false">奥</button><button data-phase="pursuit" aria-pressed="false">追走</button></div>
+<p id="change"></p>
+<div class="controls"><button data-view="wide" aria-pressed="true">横画面</button><button data-view="phone" aria-pressed="false">縦画面</button><span class="separator"></span><button data-version="before" aria-pressed="false">変更前</button><button data-version="after" aria-pressed="true">今回</button></div>
+<figure id="figure"><figcaption id="caption"></figcaption><img id="frame" width="960" height="640" alt=""></figure>
+<div class="section"><h2>溜めから、奥舞台へ。</h2><p>祇園・知恩院・三条の追走。左が変更前、右が今回。音声を模擬した検証用プレイの無音映像です。</p><video controls playsinline preload="metadata" src="comparison.mp4"></video></div>
+<p class="note">Mac Chrome / Apple M4で撮影。静止画は出題・時刻・姿勢を固定し、背景だけ差し替えて比較しています。縦画面は390×844のブラウザ表示で、iPhone実機の撮影ではありません。実機の描画性能・音・操作感は未確認です。</p>
+</main>
+<script>
+const descriptions={station:'青いガラスの面と室内の暖色を分け、鉄骨・庇・塔の輪郭と連続する広場を整えました。',jingu:'鳥居の柱脚と横木の陰影、低い遠景を追加。奥の白砂は線を薄くし、静かな空間を保っています。',gendo:'外は深い軒下と木の格子。堂内は列ごとに観音の明るさを変え、金色の光を台座と木床へつなぎました。',chion:'鐘の青銅の帯と屋根の重なりを調整。奥の桜は幹・枝・花の塊を組み直し、枝垂れる輪郭にしました。',sanjo:'階段の踏面と段差を分け、川沿いの舗装を連続させました。水際には街灯を受ける短い反射を追加。',shinkyogoku:'黄色いひさしの下に暖かい光、ガラスや筐体には青い光を追加。奥のCRTに小さな画面の模様を入れました。',million:'看板の重なりと足元、校舎の窓、奥の黒板と木床を整理。講堂の灯りが講壇と床を柔らかく照らします。',gion:'山鉾を町家の重なりで囲み、幕・欄干・提灯を整えました。濡れた石畳へ暖色の光と途切れる反射を落としています。'};
+let phase='front',view='wide',version='after';const stage=document.querySelector('#stage'),frame=document.querySelector('#frame');
+function draw(){
+ if(stage.value==='station'&&phase==='pursuit')phase='front';if(phase==='pursuit')view='wide';
+ const size=view==='phone'?'390x844':'960x640';frame.src='frames/'+version+'-'+stage.value+'-'+phase+'-'+size+'.png';frame.width=view==='phone'?390:960;frame.height=view==='phone'?844:640;
+ const caption=stage.selectedOptions[0].textContent+' · '+({front:'表',back:'奥',pursuit:'追走'})[phase]+' · '+(version==='before'?'変更前 v0.35':'今回 v0.36');frame.alt=caption;document.querySelector('#caption').textContent=caption;document.querySelector('#change').textContent=descriptions[stage.value];document.querySelector('#figure').classList.toggle('portrait',view==='phone');
+ for(const [key,value] of [['phase',phase],['view',view],['version',version]])for(const button of document.querySelectorAll('[data-'+key+']'))button.setAttribute('aria-pressed',String(button.dataset[key]===value));
+ document.querySelector('[data-phase=pursuit]').disabled=stage.value==='station';document.querySelector('[data-view=phone]').disabled=phase==='pursuit';
+}
+stage.addEventListener('change',draw);for(const b of document.querySelectorAll('button'))b.addEventListener('click',()=>{if(b.dataset.phase)phase=b.dataset.phase;if(b.dataset.view)view=b.dataset.view;if(b.dataset.version)version=b.dataset.version;draw()});draw();
+</script></html>
