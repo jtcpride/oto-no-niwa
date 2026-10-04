@@ -1,0 +1,113 @@
+{
+  "startedAt": "2026-10-04T12:09:30.471Z",
+  "commit": "785824d030a33b4761ebe23093d627c020362cae",
+  "pagesRun": "37201073733",
+  "checks": [
+    "Five people / face and body / no overflow / 44px controls at 320x568",
+    "Five people / face and body / no overflow / 44px controls at 390x844",
+    "Five people / face and body / no overflow / 44px controls at 844x390",
+    {
+      "stage": "gendo",
+      "id": "sokichi",
+      "version": "0.34.0-five-fighters",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "chion",
+      "id": "sumi",
+      "version": "0.34.0-five-fighters",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "sanjo",
+      "id": "nagi",
+      "version": "0.34.0-five-fighters",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "shinkyogoku",
+      "id": "kota",
+      "version": "0.34.0-five-fighters",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "million",
+      "id": "luka",
+      "version": "0.34.0-five-fighters",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome only; no real iPhone/iPad performance, touch or audible acceptance."
+  ],
+  "base": "https://jtcpride.github.io/oto-no-niwa/",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "5330f21cb83d56dcaadba67efeed513c1ef35a529dea10ba97312a89f13557a2"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "440e102ebef03b378115b4e6c1157494754d3e7ebb7af84c373ac7b2a7ae004a"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "1f1e5236d53257d3a3a63a3b8d132b222543bc9e353d5c4959ce6331b5f5a606"
+    },
+    {
+      "file": "content/voice-config.js",
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "content/voice-clips.js",
+      "sha256": "91fef292ddd1f748a478a9d6a31a5987d8951d16390dad61957d31df2d926645"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "da1c33ff6ab9a5f6c90e2e216f4cf7f4c744a79ba68f5e09ffe4e86200fbce4f"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    },
+    {
+      "file": "docs/art/v034/index.html",
+      "sha256": "9c6e85baa61200c240b9018a24c9ba74e96d2bc37497a8032ccfa5fa54e751ea"
+    },
+    {
+      "file": "docs/art/v034/actual-gallery.png",
+      "sha256": "8621e471ba2bf26929f9edef25d8288a4a20e8faec0ca6c99625ae4a52ac461c"
+    },
+    {
+      "file": "docs/art/v034/before-gallery.png",
+      "sha256": "94445dfab6bb4c345da6d9fcc871db4be571ca6c393ae5aaececc82ffd2c1e28"
+    },
+    {
+      "file": "docs/art/v034/portraits.png",
+      "sha256": "42327bf715ab8a2e42abec8d20325cfda11adb6c20679f801c7586b62b427984"
+    },
+    {
+      "file": "docs/art/v034/REVIEW.md",
+      "sha256": "426240e141a4e45883094403a3d30892c372bfc32eda059c7cdc44875f896379"
+    }
+  ],
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "completedAt": "2026-10-04T12:09:42.703Z"
+}
