@@ -24,5 +24,15 @@
     "Audio tests measure decoded PCM and graph signals, not subjective pronunciation or speaker output",
     "Character artwork is design reference; actual low-poly models are separate"
   ],
-  "publication": "pending"
+  "publication": {
+    "status": "passed",
+    "commit": "e78b4ed773337391780647ae34703273df37ef50",
+    "pagesRun": 37183215695,
+    "completedAt": "2026-10-04T06:40:26.472Z",
+    "matchingFiles": 93,
+    "realBrowserChecks": 6,
+    "nativeSpeechCalls": 0,
+    "errors": 0,
+    "report": "publication.json"
+  }
 }

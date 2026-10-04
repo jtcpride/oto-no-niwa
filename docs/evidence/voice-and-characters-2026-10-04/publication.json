@@ -1,0 +1,772 @@
+{
+  "startedAt": "2026-10-04T06:40:12.751Z",
+  "commit": "e78b4ed773337391780647ae34703273df37ef50",
+  "pagesRun": 37183215695,
+  "status": "passed",
+  "files": [
+    {
+      "file": "audio/voice-v032/000-5e5ddd71f86e.mp3",
+      "sha256": "5e5ddd71f86e48cc39e1cecd7e316388c5712c36729209a0a5fc23d11fcfcf4c"
+    },
+    {
+      "file": "content/voice-clips.js",
+      "sha256": "84100154aa7031f6944983f8f4dc8a7df8ed5b17f73ce26d3ef726a23ec7b57b"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "57c86bc6c92c93f661f9eecb59f1b39357aa9e6f9cc21c4d4939537e38c7dac2"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "df7358972bea1b8e587d1e1b73503f85c3d85a7ab447d51f399be7e479e9b994"
+    },
+    {
+      "file": "index.html",
+      "sha256": "85f6d89e9fdb2e28e4dfa805e37c6000195a7c56020d8a9463743d7cbf15e43a"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "498970bcb16d33742cc5d2843e5602a8177f4699f48a09cf923b4afead29ccf0"
+    },
+    {
+      "file": "audio/voice-v032/005-bdc1ebbf42d6.mp3",
+      "sha256": "bdc1ebbf42d6454b211c62729051de5c0cef62bfc57e8d825e46c2e15c52659f"
+    },
+    {
+      "file": "audio/voice-v032/004-47759a7f526a.mp3",
+      "sha256": "47759a7f526aed297c7eea067204f3430f5a1668338adcc784cee9278cfc280c"
+    },
+    {
+      "file": "audio/voice-v032/003-29acf8afd25b.mp3",
+      "sha256": "29acf8afd25bf61c91230cf3bf8fe333b35830116e5d4e96a511752443a5a86f"
+    },
+    {
+      "file": "audio/voice-v032/006-2ab9d9c7679c.mp3",
+      "sha256": "2ab9d9c7679c0da7b4a1093d5dd734aa29847274c62e216c5475ba454d0aab6d"
+    },
+    {
+      "file": "audio/voice-v032/001-e30188f8d4fb.mp3",
+      "sha256": "e30188f8d4fbbb53d4576a4158258b14e46259acdfc88debb2d514e215d09213"
+    },
+    {
+      "file": "audio/voice-v032/002-f99da60e33e3.mp3",
+      "sha256": "f99da60e33e323bf067cdb0ee57f9d0da2d3123c7ce878554f34d7e07d0ed7c2"
+    },
+    {
+      "file": "audio/voice-v032/009-c8e4178abf34.mp3",
+      "sha256": "c8e4178abf346ef45c867d265d36645391bf9289686c548c347a98be55f37c1e"
+    },
+    {
+      "file": "audio/voice-v032/007-b340574716d7.mp3",
+      "sha256": "b340574716d70bce0b114ef18b74430c2d54547a02f81e8746e2bdc0edc9fb8a"
+    },
+    {
+      "file": "audio/voice-v032/011-56008c50ca74.mp3",
+      "sha256": "56008c50ca742b32b73cbb446aeac3743eb79bd8a50004f495a9558a2dc0c6dc"
+    },
+    {
+      "file": "audio/voice-v032/010-1831d9ba4a39.mp3",
+      "sha256": "1831d9ba4a3993e4e2c7259b2bb06f21d3a256b0d29817432d94353fa1381308"
+    },
+    {
+      "file": "audio/voice-v032/012-cea147b2abe5.mp3",
+      "sha256": "cea147b2abe594afed02486edabfdde6a56151c9b56aea721489e2909fba3a13"
+    },
+    {
+      "file": "audio/voice-v032/008-0ee58759caeb.mp3",
+      "sha256": "0ee58759caebfa59cdc2a91b3e9b5f2dc0afcfab88d1a41a4556f332b311325f"
+    },
+    {
+      "file": "audio/voice-v032/016-10a73d4886f1.mp3",
+      "sha256": "10a73d4886f1e50b19536caa3ad3fa37b4bdfba2bacc505d326e65f98dacac56"
+    },
+    {
+      "file": "audio/voice-v032/017-88e5c3a0e244.mp3",
+      "sha256": "88e5c3a0e24442522bf76d924a1f1214dfe844f80024b42bf5372c582d59c794"
+    },
+    {
+      "file": "audio/voice-v032/013-11a0df58fc5d.mp3",
+      "sha256": "11a0df58fc5dcfd0760530fdbac7fe8f97344c8a9cec07b7dd967a26df26c215"
+    },
+    {
+      "file": "audio/voice-v032/014-44fd0971b1aa.mp3",
+      "sha256": "44fd0971b1aac90911b4484de7373fdcc2b9a6c3844c5b7ef317b38253195992"
+    },
+    {
+      "file": "audio/voice-v032/018-dea461f781b5.mp3",
+      "sha256": "dea461f781b5bedc8cef70c7a950aa28f2eadb5ee33cfc00aafffaac51f7a101"
+    },
+    {
+      "file": "audio/voice-v032/015-8eebd8ab8daf.mp3",
+      "sha256": "8eebd8ab8dafba55887d1c0a72dbd761f403c1fb4878aa3765fd7263c7f4542c"
+    },
+    {
+      "file": "audio/voice-v032/023-273e23660999.mp3",
+      "sha256": "273e2366099930b7aa7c57360eba820d434f0efb091551976eac6d55253c74e6"
+    },
+    {
+      "file": "audio/voice-v032/024-d088e23a9649.mp3",
+      "sha256": "d088e23a96492af48f86de7a9b01c06021626f826c013fdaade7d6e459b60e50"
+    },
+    {
+      "file": "audio/voice-v032/020-f08e8c9491ac.mp3",
+      "sha256": "f08e8c9491acd1123278158d68d8d19a3d8d7ac5ed19a4e35e1c98cd1031dd08"
+    },
+    {
+      "file": "audio/voice-v032/019-8c6501712b33.mp3",
+      "sha256": "8c6501712b333e27bba73dbca568f80e643641ad36c011a4a01444fde9c92395"
+    },
+    {
+      "file": "audio/voice-v032/022-6e67035e3e7b.mp3",
+      "sha256": "6e67035e3e7bd385449ef1f59b9445f1c7edb750af451e0b8830ff7f2e7628a6"
+    },
+    {
+      "file": "audio/voice-v032/021-ed9e0bb7c21b.mp3",
+      "sha256": "ed9e0bb7c21b3233d1334db2a98b4470febd02fff9ea52336563edd6a74c3ede"
+    },
+    {
+      "file": "audio/voice-v032/025-e35ca036aa35.mp3",
+      "sha256": "e35ca036aa35972f1b330c982cd4ea40179fdc62747aceb447d23310058605dc"
+    },
+    {
+      "file": "audio/voice-v032/030-d1dbd7daccbc.mp3",
+      "sha256": "d1dbd7daccbc51c7e5aa96cd471a399924d3d3fd3d8142ecabfed601d44d3b43"
+    },
+    {
+      "file": "audio/voice-v032/029-7d3c0062504d.mp3",
+      "sha256": "7d3c0062504de365a8931efd52f979912a9bfb37f8a0c7f52346df8d2c64a492"
+    },
+    {
+      "file": "audio/voice-v032/028-fd853985a827.mp3",
+      "sha256": "fd853985a827b450faff2a9a9e99df69ee7c5145f020ac35123a615aad925570"
+    },
+    {
+      "file": "audio/voice-v032/026-969fc2a4e710.mp3",
+      "sha256": "969fc2a4e710574a37553f11b73e301a5a54973a471fe5810d1555b152a86e48"
+    },
+    {
+      "file": "audio/voice-v032/027-c375ad7f9002.mp3",
+      "sha256": "c375ad7f9002a6120b151e3267967bd85dd93619a454063e3b00e80a411e0bfd"
+    },
+    {
+      "file": "audio/voice-v032/032-628d76af2aad.mp3",
+      "sha256": "628d76af2aadde60bdd21ec8cc1ad9cdf931ac2357189a42656df3e69a53ad93"
+    },
+    {
+      "file": "audio/voice-v032/034-edcd5fe5ebc1.mp3",
+      "sha256": "edcd5fe5ebc165391e444f4ba56e27e8cd1b21eddee34e312e8462619d32808c"
+    },
+    {
+      "file": "audio/voice-v032/035-8944408f16e2.mp3",
+      "sha256": "8944408f16e2a6f6a7ad77011478f4e75d50a2b9bbc7a65ef336c41d40bebb1f"
+    },
+    {
+      "file": "audio/voice-v032/033-c42ce106e611.mp3",
+      "sha256": "c42ce106e611f056c2cb72f79dcebc721ed174768f7cca0391609e36ff171c36"
+    },
+    {
+      "file": "audio/voice-v032/031-f39d9d666db3.mp3",
+      "sha256": "f39d9d666db3d82faebbe03d3886df19cb8b62c57c6238996f4a3c58602ac6ef"
+    },
+    {
+      "file": "audio/voice-v032/036-74ff5301b2b8.mp3",
+      "sha256": "74ff5301b2b873ed66ff39b707dca7e2a2c5d3466172be48d77468247c7ef6e0"
+    },
+    {
+      "file": "audio/voice-v032/040-fc12f885840b.mp3",
+      "sha256": "fc12f885840b3494ae4ef5b42867f3f45b996676210441efb1825f2ffff9cc89"
+    },
+    {
+      "file": "audio/voice-v032/039-71568dca093e.mp3",
+      "sha256": "71568dca093e48fe35efea55c815f102c815dc3b58aa4c52cd7972d71c66d235"
+    },
+    {
+      "file": "audio/voice-v032/042-37aeee3d92bb.mp3",
+      "sha256": "37aeee3d92bb0d298aa961622af647e5d9832c9cfd912d141591b12665c0c7ca"
+    },
+    {
+      "file": "audio/voice-v032/041-63880694a646.mp3",
+      "sha256": "63880694a646c0690621839fe9b5c05c55416049ee62116329d6b08fd1baae36"
+    },
+    {
+      "file": "audio/voice-v032/037-bcfc0a3ce2cb.mp3",
+      "sha256": "bcfc0a3ce2cb18ab133799c4ea583120cdcbc3523500d165595507f65235e906"
+    },
+    {
+      "file": "audio/voice-v032/038-65648fcf8ae4.mp3",
+      "sha256": "65648fcf8ae4d1deec9544d2edd42ff66baea3a0b996478f580046d51e92a8dc"
+    },
+    {
+      "file": "audio/voice-v032/044-66c07f8186cb.mp3",
+      "sha256": "66c07f8186cb3ec930bb9fedc7d3c835e4cd847682f808a9cee36219b4e24e98"
+    },
+    {
+      "file": "audio/voice-v032/046-b8c3f9d23d6c.mp3",
+      "sha256": "b8c3f9d23d6c75113ef7b46248aa0ad616e7b722cfc54c9e0b2078fcc95abbbe"
+    },
+    {
+      "file": "audio/voice-v032/045-67e2138d18b5.mp3",
+      "sha256": "67e2138d18b55c60d069087571063956dc2df58ac630bda1791c829c51978083"
+    },
+    {
+      "file": "audio/voice-v032/047-da53062fdea2.mp3",
+      "sha256": "da53062fdea2371190440c2220e94207ffa424e4dd8233501c1be321d6420eb3"
+    },
+    {
+      "file": "audio/voice-v032/043-f8942ae4ffdf.mp3",
+      "sha256": "f8942ae4ffdf1265c30170d8d83ab2ad6abb00c4125bc32d03f6d4535592b94c"
+    },
+    {
+      "file": "audio/voice-v032/048-b51ce158c78e.mp3",
+      "sha256": "b51ce158c78e93150fb79fc98f3c957e6c09eaba57ed60ccf773e8bcb2b6b832"
+    },
+    {
+      "file": "audio/voice-v032/051-49aa9943de04.mp3",
+      "sha256": "49aa9943de04745d15671be3f57f315a0432e2b0127ffeaa72843f9bcf8a82da"
+    },
+    {
+      "file": "audio/voice-v032/050-30f44362fb59.mp3",
+      "sha256": "30f44362fb592db242619d6cd418a1c51a0b792890714523cb56f0ef769d8b7a"
+    },
+    {
+      "file": "audio/voice-v032/052-8221598a5feb.mp3",
+      "sha256": "8221598a5feb4b268a238217fe203477f1c8004644cac27d0ddce7e281813169"
+    },
+    {
+      "file": "audio/voice-v032/049-36b5141a9fa3.mp3",
+      "sha256": "36b5141a9fa362b1f7ab2fc014cf267d707641a3ddf1c260d518f037b36f7a7c"
+    },
+    {
+      "file": "audio/voice-v032/054-f8318d885ff9.mp3",
+      "sha256": "f8318d885ff9c4a10e4f93fec492109196a6235d35956bb319c4ba8d26b3b7c8"
+    },
+    {
+      "file": "audio/voice-v032/053-38629cd457fd.mp3",
+      "sha256": "38629cd457fd3a0404d981412f6706bba389fa67646f59fb92ef4b5307080fb4"
+    },
+    {
+      "file": "audio/voice-v032/058-1798af62affd.mp3",
+      "sha256": "1798af62affd81ee07fc81054cb5c127438198c28aee33980769d030be3b9edf"
+    },
+    {
+      "file": "audio/voice-v032/060-e7905ab1dfca.mp3",
+      "sha256": "e7905ab1dfca21ba5754ab06ab8aea375a320c8a30d94f9df204533b01faa704"
+    },
+    {
+      "file": "audio/voice-v032/056-0b6e26ab0e37.mp3",
+      "sha256": "0b6e26ab0e370be2c5d8ff25c0d1ef5ba7bec92b4fb771eb8d3d7c3ca2000660"
+    },
+    {
+      "file": "audio/voice-v032/057-3460bc340cf2.mp3",
+      "sha256": "3460bc340cf2132900af1d290af3f1941a66cdb46d2a9c43847b84b0f5347f41"
+    },
+    {
+      "file": "audio/voice-v032/059-c262a1406e7d.mp3",
+      "sha256": "c262a1406e7d5603d3fd56913e37bad6e0d7c66f5b1a7376bfad4fe61d7a88a7"
+    },
+    {
+      "file": "audio/voice-v032/055-bdaf78d2e702.mp3",
+      "sha256": "bdaf78d2e7022a1c2f86b54be9e5a929a406b33c8fcec4d1ca366abb2920e688"
+    },
+    {
+      "file": "audio/voice-v032/063-af8ec0b89dde.mp3",
+      "sha256": "af8ec0b89dde205b19cfc532f66465221931b728d5479441888bcdecff9e184e"
+    },
+    {
+      "file": "audio/voice-v032/066-0651d82e1b18.mp3",
+      "sha256": "0651d82e1b182e740d44c73f6c9d936fa33cb667aca999a43eef23f96e235163"
+    },
+    {
+      "file": "audio/voice-v032/064-a17cdd951ed7.mp3",
+      "sha256": "a17cdd951ed73945de0b0bc3ef8dc51d8c12d2edcaac1b1a0132a4a986536dc8"
+    },
+    {
+      "file": "audio/voice-v032/062-5bde727af74e.mp3",
+      "sha256": "5bde727af74eebb5396019cfc14812c8fd00985ae482e1a4a829c7d7140134c9"
+    },
+    {
+      "file": "audio/voice-v032/061-4fc5d997c85c.mp3",
+      "sha256": "4fc5d997c85c0303e71272c1eed38f3c267bfc2bd2a1eaf8d23f5a33d98e02c7"
+    },
+    {
+      "file": "audio/voice-v032/065-52b2ba8e5984.mp3",
+      "sha256": "52b2ba8e5984746597dbb3662cb2d837258702c603754ecb0280cfe6b2612b46"
+    },
+    {
+      "file": "audio/voice-v032/069-4500684d7b64.mp3",
+      "sha256": "4500684d7b6448439e02dda27fc7c1df92330cfc6ba5029a91aa1e7f0eeaca92"
+    },
+    {
+      "file": "audio/voice-v032/071-3a675eb4fedd.mp3",
+      "sha256": "3a675eb4fedda033689a2d9347974aaebcc5fed0bdeb8e891abdcde0b01eeb90"
+    },
+    {
+      "file": "audio/voice-v032/068-6e98a89bc914.mp3",
+      "sha256": "6e98a89bc9145d11e0c1ae55206e7895c5e442d0d4d872b096fa83cf993b3867"
+    },
+    {
+      "file": "audio/voice-v032/067-24154d942555.mp3",
+      "sha256": "24154d942555d2107b7cdd8fed80c564e855fcdbcd024266a6821056751599d0"
+    },
+    {
+      "file": "audio/voice-v032/072-b0c3a224828a.mp3",
+      "sha256": "b0c3a224828ad02ac5674f0921948ed55ad7aa18971d7bfe8fd1db86ad35860b"
+    },
+    {
+      "file": "audio/voice-v032/070-ffa85fa26ba4.mp3",
+      "sha256": "ffa85fa26ba4376427ef6fdb3c3fd739cefc22fe041ef9b4ec02acc4273a3317"
+    },
+    {
+      "file": "audio/voice-v032/074-8570185fae0d.mp3",
+      "sha256": "8570185fae0db45d8dcafda90992a1136496ed4578c11b103306b207df0692a8"
+    },
+    {
+      "file": "audio/voice-v032/076-e243147e3c8e.mp3",
+      "sha256": "e243147e3c8eb373ef66c723cd82d236ca84685eca5cd397dbaee370d9ad9026"
+    },
+    {
+      "file": "audio/voice-v032/075-e74bc7d6b9c8.mp3",
+      "sha256": "e74bc7d6b9c83f5b4e3f81babf34c36dd483f50a0b2c5146375fc7c9998aad3d"
+    },
+    {
+      "file": "audio/voice-v032/077-b854b5c4a4ba.mp3",
+      "sha256": "b854b5c4a4ba2159431e8e4af67d34366fa7cd3e98f7f5cb9d8661e682b12695"
+    },
+    {
+      "file": "audio/voice-v032/078-9b8c39c2dfc3.mp3",
+      "sha256": "9b8c39c2dfc30abe72400df5c2b0e6b6fc93d26b6106d14863a65224ed719bbb"
+    },
+    {
+      "file": "audio/voice-v032/073-1185b95d8b43.mp3",
+      "sha256": "1185b95d8b43bb1209453d1851678b30cdcfb3fa821b2e75996313d7582c4dd0"
+    },
+    {
+      "file": "audio/voice-v032/080-af1e8f3fa44b.mp3",
+      "sha256": "af1e8f3fa44bf9d907b93381fe9fad509a745ced6e35c45a874a48bdce5e5e2f"
+    },
+    {
+      "file": "audio/voice-v032/083-fc273a6e3dfe.mp3",
+      "sha256": "fc273a6e3dfe8b83f528a9a07cf1a30d760fd06aa15f34e1cf01e62fb032e313"
+    },
+    {
+      "file": "audio/voice-v032/084-d421ae0bf8e7.mp3",
+      "sha256": "d421ae0bf8e77a9ed4977425b2b223369ef7063d684c99dc7ae8b7ba6ad72007"
+    },
+    {
+      "file": "audio/voice-v032/082-6767a99dfc62.mp3",
+      "sha256": "6767a99dfc626274b964d6c5b0154a13ba7c16cc052f607c8f6d3bc97370c23d"
+    },
+    {
+      "file": "audio/voice-v032/081-feca988837b0.mp3",
+      "sha256": "feca988837b073cd5e0089faf435cd1f192ea0c263e67a66ffeb212c7bca79a6"
+    },
+    {
+      "file": "audio/voice-v032/079-4b281dcd51fb.mp3",
+      "sha256": "4b281dcd51fb0a18331f4793130b427431b5e1b0b3c3678ae2b796ea93d3df98"
+    },
+    {
+      "file": "audio/voice-v032/086-8d9dc96edacf.mp3",
+      "sha256": "8d9dc96edacf6706ff2ac4b0d7a4bb6758c4923f4f1e2a927db678e48c2d5946"
+    },
+    {
+      "file": "audio/voice-v032/085-3623a4c93f2b.mp3",
+      "sha256": "3623a4c93f2bf11e4e39cfbf2345f2d175e97b2ce64fa4de3f6b8517d3a17de8"
+    },
+    {
+      "file": "audio/voice-v032/087-f40b4aadda0e.mp3",
+      "sha256": "f40b4aadda0e677f9ff94c02f13ae5718b4ed399dd1db2c96f0a0f2a4f42c580"
+    }
+  ],
+  "checks": [
+    {
+      "name": "public index, four JS files and all 88 MP3 match committed bytes",
+      "evidence": {
+        "count": 93
+      }
+    },
+    {
+      "name": "direct intro first tap plays and completes the first Kyoto line",
+      "evidence": {
+        "version": "0.32-fixed-voice",
+        "voiceEngine": "decoded-clips",
+        "voiceStatus": "idle",
+        "lastVoiceText": "Yoh, kaette kiharimashita na.",
+        "lastVoiceError": "",
+        "decodedVoices": 31,
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 0,
+        "layer": 0,
+        "layerNames": [
+          "shō"
+        ],
+        "activeSources": 0,
+        "shoVoices": 0,
+        "voiceToken": 3,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 0,
+          "string": 0,
+          "flute": 0,
+          "taiko": 0,
+          "movement": 0,
+          "hit": 0,
+          "speech": 1,
+          "recoveries": 2
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    },
+    {
+      "name": "direct second line is replaced by practice voice; landscape button remains accessible",
+      "evidence": {
+        "campaign": {
+          "phase": "match",
+          "time": 0,
+          "intro": true,
+          "godmode": false,
+          "selected": "jingu",
+          "save": {
+            "version": 1,
+            "player": "toru",
+            "introComplete": false,
+            "acquired": [],
+            "completed": false,
+            "wins": {}
+          },
+          "orbs": 1,
+          "gionUnlocked": false,
+          "stones": [
+            {
+              "kind": "self",
+              "x": 4.35,
+              "z": 0.15
+            },
+            {
+              "stage": "jingu",
+              "x": -2.7,
+              "z": -2.55,
+              "kind": "opponent"
+            },
+            {
+              "stage": "gendo",
+              "x": 0.15,
+              "z": -2.8,
+              "kind": "opponent"
+            },
+            {
+              "stage": "chion",
+              "x": 2.9,
+              "z": -2.55,
+              "kind": "opponent"
+            },
+            {
+              "stage": "sanjo",
+              "x": -4,
+              "z": 1.35,
+              "kind": "opponent"
+            },
+            {
+              "stage": "shinkyogoku",
+              "x": -1.1,
+              "z": 1.1,
+              "kind": "opponent"
+            },
+            {
+              "stage": "million",
+              "x": 2.1,
+              "z": 1.25,
+              "kind": "opponent"
+            },
+            {
+              "kind": "ordinary",
+              "x": -4.1,
+              "z": -3
+            },
+            {
+              "kind": "ordinary",
+              "x": -1.3,
+              "z": -3.25
+            },
+            {
+              "kind": "ordinary",
+              "x": 3.9,
+              "z": -2.95
+            },
+            {
+              "kind": "ordinary",
+              "x": -3.2,
+              "z": -0.15
+            },
+            {
+              "kind": "ordinary",
+              "x": 2,
+              "z": -0.1
+            },
+            {
+              "kind": "ordinary",
+              "x": -4.2,
+              "z": 3.1
+            },
+            {
+              "kind": "ordinary",
+              "x": 0,
+              "z": 3.3
+            },
+            {
+              "kind": "ordinary",
+              "x": 4.3,
+              "z": 3.1
+            }
+          ],
+          "storageNotice": ""
+        },
+        "audio": {
+          "version": "0.32-fixed-voice",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "think",
+          "lastVoiceError": "",
+          "decodedVoices": 31,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "music": 0.8,
+          "voice": 0.85,
+          "ducked": true,
+          "musicTarget": 0.8,
+          "successes": 0,
+          "layer": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 9,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 3,
+            "recoveries": 7
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        }
+      }
+    },
+    {
+      "name": "normal START after title plays and completes the first Kyoto line",
+      "evidence": {
+        "version": "0.32-fixed-voice",
+        "voiceEngine": "decoded-clips",
+        "voiceStatus": "idle",
+        "lastVoiceText": "Yoh, kaette kiharimashita na.",
+        "lastVoiceError": "",
+        "decodedVoices": 31,
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "music": 0.8,
+        "voice": 0.85,
+        "ducked": false,
+        "musicTarget": 0.8,
+        "successes": 0,
+        "layer": 0,
+        "layerNames": [
+          "shō"
+        ],
+        "activeSources": 0,
+        "shoVoices": 0,
+        "voiceToken": 7,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 0,
+          "string": 0,
+          "flute": 0,
+          "taiko": 0,
+          "movement": 0,
+          "hit": 0,
+          "speech": 2,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    },
+    {
+      "name": "normal second line is replaced by practice voice; landscape button remains accessible",
+      "evidence": {
+        "campaign": {
+          "phase": "match",
+          "time": 0,
+          "intro": true,
+          "godmode": false,
+          "selected": "jingu",
+          "save": {
+            "version": 1,
+            "player": "toru",
+            "introComplete": false,
+            "acquired": [],
+            "completed": false,
+            "wins": {}
+          },
+          "orbs": 1,
+          "gionUnlocked": false,
+          "stones": [
+            {
+              "kind": "self",
+              "x": 4.35,
+              "z": 0.15
+            },
+            {
+              "stage": "jingu",
+              "x": -2.7,
+              "z": -2.55,
+              "kind": "opponent"
+            },
+            {
+              "stage": "gendo",
+              "x": 0.15,
+              "z": -2.8,
+              "kind": "opponent"
+            },
+            {
+              "stage": "chion",
+              "x": 2.9,
+              "z": -2.55,
+              "kind": "opponent"
+            },
+            {
+              "stage": "sanjo",
+              "x": -4,
+              "z": 1.35,
+              "kind": "opponent"
+            },
+            {
+              "stage": "shinkyogoku",
+              "x": -1.1,
+              "z": 1.1,
+              "kind": "opponent"
+            },
+            {
+              "stage": "million",
+              "x": 2.1,
+              "z": 1.25,
+              "kind": "opponent"
+            },
+            {
+              "kind": "ordinary",
+              "x": -4.1,
+              "z": -3
+            },
+            {
+              "kind": "ordinary",
+              "x": -1.3,
+              "z": -3.25
+            },
+            {
+              "kind": "ordinary",
+              "x": 3.9,
+              "z": -2.95
+            },
+            {
+              "kind": "ordinary",
+              "x": -3.2,
+              "z": -0.15
+            },
+            {
+              "kind": "ordinary",
+              "x": 2,
+              "z": -0.1
+            },
+            {
+              "kind": "ordinary",
+              "x": -4.2,
+              "z": 3.1
+            },
+            {
+              "kind": "ordinary",
+              "x": 0,
+              "z": 3.3
+            },
+            {
+              "kind": "ordinary",
+              "x": 4.3,
+              "z": 3.1
+            }
+          ],
+          "storageNotice": ""
+        },
+        "audio": {
+          "version": "0.32-fixed-voice",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "think",
+          "lastVoiceError": "",
+          "decodedVoices": 31,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "music": 0.8,
+          "voice": 0.85,
+          "ducked": true,
+          "musicTarget": 0.8,
+          "successes": 0,
+          "layer": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 13,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 4,
+            "recoveries": 6
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        }
+      }
+    },
+    {
+      "name": "zero page errors, audio HTTP errors and native speech calls"
+    }
+  ],
+  "errors": [],
+  "nativeSpeechCalls": [],
+  "limitations": [
+    "Actual Mac Chrome decoding and playback state; no physical iPhone/iPad speaker or subjective listening acceptance."
+  ],
+  "browser": "154.0.8037.97",
+  "completedAt": "2026-10-04T06:40:26.472Z"
+}
