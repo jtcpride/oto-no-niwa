@@ -1,0 +1,503 @@
+{
+  "startedAt": "2026-10-04T15:30:01.055Z",
+  "commit": "fba14e8123b0d69d578ecaac1f1322db682fb75f",
+  "pagesRun": "37213151731",
+  "checks": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "galleryImages": 78,
+      "controls": "44px, no overflow; all stage/phase/orientation/revision combinations decoded"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "galleryImages": 78,
+      "controls": "44px, no overflow; all stage/phase/orientation/revision combinations decoded"
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "galleryImages": 78,
+      "controls": "44px, no overflow; all stage/phase/orientation/revision combinations decoded"
+    },
+    {
+      "video": {
+        "time": 0.552706,
+        "duration": 18.9
+      }
+    },
+    {
+      "stage": "station",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        42300,
+        42300
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "jingu",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        7824,
+        5760
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "gendo",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        13380,
+        82860
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "chion",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        12156,
+        11484
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "sanjo",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        23532,
+        22272
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "shinkyogoku",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        17088,
+        14544
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "million",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        14676,
+        5256
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "gion",
+      "version": "0.36.0-kyoto-depth",
+      "vertices": [
+        75552,
+        59772
+      ],
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome / Apple M4 only. Real iPhone/iPad performance, touch and audible output are untested."
+  ],
+  "base": "https://jtcpride.github.io/oto-no-niwa/",
+  "files": [
+    {
+      "file": "content/voice-config.js",
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "index.html",
+      "sha256": "c7da424e5d132db2b9c23ccb663e3612e14f51143e5b03b0ebf95e69f961e7db"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "d80dfeb879a08001f7e443810a9a6b41d44d170345f850c50a797e8a13f5b0f1"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "5937a918b13c32ef38fcfb2f186aa8de4b0e80bebeb7ed0c536e4a7a20dad089"
+    },
+    {
+      "file": "scenery/kyoto-scenes.js",
+      "sha256": "99a613419f666cfa4d91986892a57104a1040c4d9e321a86f34a25a527dbf101"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "da1c33ff6ab9a5f6c90e2e216f4cf7f4c744a79ba68f5e09ffe4e86200fbce4f"
+    },
+    {
+      "file": "docs/art/v036/frames/after-chion-back-960x640.png",
+      "sha256": "dc150a5f30afa70645ee3b558d15bc3a5ac98b4ef6fc3581df7df37e8a7eaa7b"
+    },
+    {
+      "file": "docs/art/v036/index.html",
+      "sha256": "2d31b0927a0f3fde3dffe94fedc7afbffb9506c8d4a0da2233ac14bee2872da4"
+    },
+    {
+      "file": "docs/art/v036/REVIEW.md",
+      "sha256": "38356998532c9fd0e5c54270944ee7787eab46d4bc8d6b910d253add407b71ff"
+    },
+    {
+      "file": "docs/art/v036/frames/after-chion-back-390x844.png",
+      "sha256": "83b72ab5465a2530b0d1a3c37606b6dfdaa2f7e3a4f710f8d0e8805f6fb5d044"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    },
+    {
+      "file": "docs/art/v036/comparison.mp4",
+      "sha256": "653cb69b633494bdf08730027832084db13ee1fd9d0ccfdf2c6d4c816835a56a"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gendo-back-390x844.png",
+      "sha256": "063db33205dc8300a9b18f11889b1143041733c69d74775f08989d37385416ca"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gendo-back-960x640.png",
+      "sha256": "1b51c7506d282709b9333232ce4f88df94d9544e1a1421632a75401ef9db67a8"
+    },
+    {
+      "file": "docs/art/v036/frames/after-chion-front-390x844.png",
+      "sha256": "570a6f0bec506ffdc22ae1fa5f4f915d58286c23fea3e5d8208fcb5c29875225"
+    },
+    {
+      "file": "docs/art/v036/frames/after-chion-pursuit-960x640.png",
+      "sha256": "932a8a6f2b24ae8b1b90cb429280e3a91fb261d37bcc255a10faff5f02243ee9"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gendo-front-390x844.png",
+      "sha256": "3966876681de91850b53331a5deefe2ad7aea7d1dd4ff0929e88d44469ac8113"
+    },
+    {
+      "file": "docs/art/v036/frames/after-chion-front-960x640.png",
+      "sha256": "56e4b872b4d2425e7def8a3d86855d1767fbf88d69b6a863ba93a2a7767c8374"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gion-front-390x844.png",
+      "sha256": "6063d41615ec206a4577f78953acdac70b8744fcaad89b1611968ad74cdb1619"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gion-front-960x640.png",
+      "sha256": "863bf736fdb01d401827733fee89b9093702c89fcc967182b163599c228252b2"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gendo-front-960x640.png",
+      "sha256": "4e4de862905fd5fbd04cc767bac5406f314b1adab60d6e6b89de129f4d65a1a1"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gendo-pursuit-960x640.png",
+      "sha256": "8f6691ccb34f302bd1fb86b85414ded225159a377474d68248604c250b90496b"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gion-back-390x844.png",
+      "sha256": "26005256ca8878b3ac0bcb21768b67bbe5275a7d136185419717fdcf5b975d4a"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gion-back-960x640.png",
+      "sha256": "a543b6f644fefb20f035e1d3d6b716e9553ee89b2f5fd40dc9f17f8a7347b69b"
+    },
+    {
+      "file": "docs/art/v036/frames/after-jingu-front-390x844.png",
+      "sha256": "70d93398c7a7493efb7bc590a44b8aafda1efe80e42bbf64a3ba72885e417dc6"
+    },
+    {
+      "file": "docs/art/v036/frames/after-gion-pursuit-960x640.png",
+      "sha256": "f9b4867ad9f5f61ee1995646c416a8d65d3829088164a8784b6b70f21d0e9711"
+    },
+    {
+      "file": "docs/art/v036/frames/after-jingu-front-960x640.png",
+      "sha256": "9dcbdf84251b0cf1e2e509f1f55c1e4b2fadeffe96482aca6c015539d9d9fb99"
+    },
+    {
+      "file": "docs/art/v036/frames/after-jingu-back-390x844.png",
+      "sha256": "29e4aacd2bfd218e477b3b5b578d43752304e66bdb204ab202e73706016c4e1f"
+    },
+    {
+      "file": "docs/art/v036/frames/after-jingu-pursuit-960x640.png",
+      "sha256": "a2721e289a6c7a8ffd1b95e5d5d033e250df68648854e7425ef9ceacb264f61d"
+    },
+    {
+      "file": "docs/art/v036/frames/after-jingu-back-960x640.png",
+      "sha256": "7aebc1f21a4b3b0e32ce95465a1444b0996bf3e22ad1110f254026c473afc545"
+    },
+    {
+      "file": "docs/art/v036/frames/after-million-pursuit-960x640.png",
+      "sha256": "6d74973f2920773bf39eb31475ca520da1e75c3eebcf8f65f72cc7da222fd37e"
+    },
+    {
+      "file": "docs/art/v036/frames/after-million-back-960x640.png",
+      "sha256": "2b209d80bc940d4b6c4b3f233a879b02b183e073cb71252ce190809ff0729626"
+    },
+    {
+      "file": "docs/art/v036/frames/after-million-front-390x844.png",
+      "sha256": "cf193942dcf6c616c64c7fe3ae6cf0dd02cd1b18203cb9fadf9aa6b263988c4b"
+    },
+    {
+      "file": "docs/art/v036/frames/after-sanjo-back-390x844.png",
+      "sha256": "fe37066ec437f4d8ca77766faa6089c5599be3658420b397c579f661c56a9a75"
+    },
+    {
+      "file": "docs/art/v036/frames/after-million-back-390x844.png",
+      "sha256": "4d8e11a400df43ed15053104c87519d8d2e5f2109dcf1d30ef47b3d2a5c59c60"
+    },
+    {
+      "file": "docs/art/v036/frames/after-million-front-960x640.png",
+      "sha256": "e397d04bd115a5af6e4ef4ca2e92d6d23ae4024c3de015e14d62fd19c84a6c2e"
+    },
+    {
+      "file": "docs/art/v036/frames/after-shinkyogoku-back-390x844.png",
+      "sha256": "51b1dcd12cd1fcb33ff460fcd1860c685d5307fce102039969b460403a376703"
+    },
+    {
+      "file": "docs/art/v036/frames/after-sanjo-back-960x640.png",
+      "sha256": "7d930722b5e7078562f65e98535517ef71d3b73a04efa2c06b6d9239112bd1a9"
+    },
+    {
+      "file": "docs/art/v036/frames/after-sanjo-front-390x844.png",
+      "sha256": "06ee9c55b509f3e6b8f3151c0b2dd0ffd2f6d7835a26cd1f2331eec797e34533"
+    },
+    {
+      "file": "docs/art/v036/frames/after-sanjo-pursuit-960x640.png",
+      "sha256": "55462b399343c38188b78fd8c439dec062f76840d259c2e855c043b057b0735c"
+    },
+    {
+      "file": "docs/art/v036/frames/after-shinkyogoku-back-960x640.png",
+      "sha256": "41c014bd74d71c44acb3415a2cf85b9374c0ce1c6248311e6f7c5379e6cc9037"
+    },
+    {
+      "file": "docs/art/v036/frames/after-sanjo-front-960x640.png",
+      "sha256": "82b4d7cf98d97565121e04e9a0eb302897d106a6a1e0888994bce72f34459e78"
+    },
+    {
+      "file": "docs/art/v036/frames/after-shinkyogoku-pursuit-960x640.png",
+      "sha256": "cfc945e1f17b5e11a5ab690b656ce9ab0be355c655b21c9e0f5a9a8092b37ba7"
+    },
+    {
+      "file": "docs/art/v036/frames/after-station-back-960x640.png",
+      "sha256": "e972c9823a0db3ecab3e9aa0f207bdb36c9deaed6b9ea6974c54fb3491210fae"
+    },
+    {
+      "file": "docs/art/v036/frames/after-shinkyogoku-front-390x844.png",
+      "sha256": "47548c71f5a76aa59a40c37ddb20bb1f66057b8d3f783904686c2ed9789667b1"
+    },
+    {
+      "file": "docs/art/v036/frames/after-station-back-390x844.png",
+      "sha256": "2253f423cda013c479b0d8ba15537ca6c7d2e0114ed411029872a4eb62000bfc"
+    },
+    {
+      "file": "docs/art/v036/frames/after-station-front-390x844.png",
+      "sha256": "13292393921fbfa3fe5a53e7a05183195dc00e3ed9ca9b160e5740be34a8b14c"
+    },
+    {
+      "file": "docs/art/v036/frames/after-shinkyogoku-front-960x640.png",
+      "sha256": "827823d297f5555fbbe7b8b8c01ec15fd4206786ef2362fd197c4ee5a2d52a0e"
+    },
+    {
+      "file": "docs/art/v036/frames/before-chion-pursuit-960x640.png",
+      "sha256": "e81924302217171c02dd14122a234c686a4075da7a00e9c63613783821d78526"
+    },
+    {
+      "file": "docs/art/v036/frames/before-chion-front-960x640.png",
+      "sha256": "67513860534f81c0ca41537ccf689c47eaf940e3d52294f227f0421e8af8976a"
+    },
+    {
+      "file": "docs/art/v036/frames/after-station-front-960x640.png",
+      "sha256": "4646def3a4dcaef07d93d2d33a771020fc2f12e96636e674294b23f52ba64f61"
+    },
+    {
+      "file": "docs/art/v036/frames/before-chion-back-390x844.png",
+      "sha256": "2832981fcd58ffa886a436781ffa0a1dab63eedfa6713ef62fec2525bf10196e"
+    },
+    {
+      "file": "docs/art/v036/frames/before-chion-front-390x844.png",
+      "sha256": "289198a7fd44ca8a45d1c4e226487aa40203bbf649b4dd05e6be2137f114a0a8"
+    },
+    {
+      "file": "docs/art/v036/frames/before-chion-back-960x640.png",
+      "sha256": "1067652c274166b5bc901cc82a0e9bc0b570011275e07d86c1c38fc6270c5b04"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gendo-pursuit-960x640.png",
+      "sha256": "c77a36a45ec4a5e7f91e153e5892e6e9bebf2f38d7f0b3a97f9a9e4422472cfa"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gendo-back-390x844.png",
+      "sha256": "20d3cee85d27baeefbc1ad406a59e4fc5178354c37573627e7cda64aabeaf66b"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gendo-back-960x640.png",
+      "sha256": "1cdb8cc0032d52185553542468f540b186a82715ec1e2723fd9ac525954d0bf9"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gendo-front-390x844.png",
+      "sha256": "bd8b71774ea8b14602479207b94d80723df70636ec69ebacb807cc1bc586e5b2"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gion-back-390x844.png",
+      "sha256": "573e4358c31f432f01a0678d1846006dce304672a6500dae943ccbac00bda8cb"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gendo-front-960x640.png",
+      "sha256": "a45145f2fc3dc3e01031b6e3e35840f4d699b1f41d513443daa24a9aea5c8980"
+    },
+    {
+      "file": "docs/art/v036/frames/before-jingu-back-390x844.png",
+      "sha256": "1bb6f7a7c7d98ed28e36445ef6d997d579f45c9489d9f7b2cd5c14bd69a03bf7"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gion-front-960x640.png",
+      "sha256": "7489d67da7049b23b236d323194055c025c04d9b9388b0951537322a362e6ee1"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gion-front-390x844.png",
+      "sha256": "ff8b05fc3d4b409427e711c87dbd547cc6406cbcd571bb566dabbf8e6d3712d3"
+    },
+    {
+      "file": "docs/art/v036/frames/before-jingu-back-960x640.png",
+      "sha256": "d147099832399046356831c29527cf9b65537ef161af8aa5b64e1f6a7607a2c1"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gion-pursuit-960x640.png",
+      "sha256": "f95ba733202840a987e0007c16ff158490df83f7ab26852fdb2508410f611a23"
+    },
+    {
+      "file": "docs/art/v036/frames/before-gion-back-960x640.png",
+      "sha256": "ae514c93747de38f9d1692209e6d00fe6647af7a0666c57cdbbbbd47d3ba706a"
+    },
+    {
+      "file": "docs/art/v036/frames/before-jingu-front-960x640.png",
+      "sha256": "517b330237c443daee8512656b55f44110dca093ae516a160a8691bd3ae0fb4b"
+    },
+    {
+      "file": "docs/art/v036/frames/before-million-front-390x844.png",
+      "sha256": "04954d3d7b71879aca1d9289307e1464e00eabbe27a08d6cce5c74786724f8c7"
+    },
+    {
+      "file": "docs/art/v036/frames/before-jingu-front-390x844.png",
+      "sha256": "d631fc1034c22ff639d81b8a1b554f217ce9944583b1a81d6e26c7f946e52c29"
+    },
+    {
+      "file": "docs/art/v036/frames/before-million-back-390x844.png",
+      "sha256": "0e4356fbcab869b1a1056c807578d3ef143881f18011e5148ee4016a92fdbb13"
+    },
+    {
+      "file": "docs/art/v036/frames/before-million-back-960x640.png",
+      "sha256": "7e8dd1ed3aa1b95057fa84c0674d96c47f9c421d7f6692f6d9a07aab8256e960"
+    },
+    {
+      "file": "docs/art/v036/frames/before-jingu-pursuit-960x640.png",
+      "sha256": "890d9c36468a79a1058fdb82fa02f93bceee24a17b00aca28433c3dd08e73d7d"
+    },
+    {
+      "file": "docs/art/v036/frames/before-sanjo-back-960x640.png",
+      "sha256": "fad1719463ff2a1bf6e22c3efad0e053bb76f122b8d71a19de3ae1ce51b3300e"
+    },
+    {
+      "file": "docs/art/v036/frames/before-sanjo-back-390x844.png",
+      "sha256": "8a9d304b0bd6ba6739f2db0279f1cb96d5d37fcaf9cd850cbc3a63ec5381a4c9"
+    },
+    {
+      "file": "docs/art/v036/frames/before-million-front-960x640.png",
+      "sha256": "bded64d7f972d6ef1b99a67cb6bf73b1bd712d7722cc730cb7e286dc808d0e81"
+    },
+    {
+      "file": "docs/art/v036/frames/before-million-pursuit-960x640.png",
+      "sha256": "f5894ce0c945d9b0f43aecfc186b6f2895929a60351bdf96d252c384879f157e"
+    },
+    {
+      "file": "docs/art/v036/frames/before-sanjo-front-390x844.png",
+      "sha256": "3b6c01e36fc8100cb9b60f92f24afa1f8ddc74bb952f54b560e274469c870284"
+    },
+    {
+      "file": "docs/art/v036/frames/before-sanjo-front-960x640.png",
+      "sha256": "6cd50044df6eff7543113512cc2a9b006fac96600a7cbbc1cd1f3d407d2a32dd"
+    },
+    {
+      "file": "docs/art/v036/frames/before-shinkyogoku-front-390x844.png",
+      "sha256": "930b82f727b8bbf65462f5040b343f97f12d08db21c0f515e1bafa4d0b2dcc6b"
+    },
+    {
+      "file": "docs/art/v036/frames/before-shinkyogoku-front-960x640.png",
+      "sha256": "007efc83d3dd40cee83e286ac07a18c3167f73ebf4b694e023425d1a4e5ea93c"
+    },
+    {
+      "file": "docs/art/v036/frames/before-shinkyogoku-pursuit-960x640.png",
+      "sha256": "4c913c46cdb56b2eb2885a0c08dc1156fb0fb5b09433ff448dba51ceac1aed6c"
+    },
+    {
+      "file": "docs/art/v036/frames/before-shinkyogoku-back-960x640.png",
+      "sha256": "a5f9aa60f2ea761187c1e88ea9df03c807cecb2d0335a60209cd59b3f2b68b62"
+    },
+    {
+      "file": "docs/art/v036/frames/before-shinkyogoku-back-390x844.png",
+      "sha256": "1198f5879b6830f8b7cf4c06848c9c4ddf0aa994cac26512500de5037ab2338d"
+    },
+    {
+      "file": "docs/art/v036/frames/before-sanjo-pursuit-960x640.png",
+      "sha256": "b78c999b471a76c3a74d760457abda1ecdd4319c7fa3a1696c7957fe9d8b365d"
+    },
+    {
+      "file": "docs/art/v036/frames/before-station-back-390x844.png",
+      "sha256": "dbbf6cfb769aa291b05070b22f8f3706a7817a2d99ca7c509cc08ac9a3abf8dc"
+    },
+    {
+      "file": "docs/art/v036/frames/before-station-front-960x640.png",
+      "sha256": "1d7caa4a3d9d93cc860d558474368df88d9d1901447a978c85d10e492acc8374"
+    },
+    {
+      "file": "docs/art/v036/frames/before-station-front-390x844.png",
+      "sha256": "85b8a7afcd2a50ebbcb81bbbf718e49ae9118ce460c4ff54e7d44001b62c00bc"
+    },
+    {
+      "file": "docs/art/v036/frames/before-station-back-960x640.png",
+      "sha256": "e78c81498e61f2af6d0eb151f294a568d913bc5ccbf233c920358b7d937b2ae7"
+    }
+  ],
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "completedAt": "2026-10-04T15:30:32.869Z",
+  "pagesDeployment": {
+    "conclusion": "success",
+    "databaseId": 37213151731,
+    "headSha": "fba14e8123b0d69d578ecaac1f1322db682fb75f",
+    "status": "completed",
+    "updatedAt": "2026-10-04T15:29:33Z",
+    "url": "https://github.com/jtcpride/oto-no-niwa/actions/runs/37213151731"
+  }
+}
