@@ -1,0 +1,133 @@
+{
+  "verifiedAt": "2026-10-04T16:15:07.321Z",
+  "version": "0.37.0-impact-and-recovery",
+  "baseCommit": "797196d",
+  "baselineVersion": "0.36.1-nagi-posture",
+  "status": "passed",
+  "runtime": [
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "e9eb5cdfa222967c3ac8f7ec1af64f8ab7915e132b1e0e573a70362e094ba778"
+    },
+    {
+      "file": "patch-close-v027.js",
+      "sha256": "c0d21424171a6ac0d972c4f8870fe330b26166f10bbb2bf742d4ed228756b337"
+    },
+    {
+      "file": "patch-drama-v028.js",
+      "sha256": "bb2c83be6d6217d3574bccb8534bad5ea63d6526226049f6d44881b20971c0c8"
+    },
+    {
+      "file": "patch-joints-v0291.js",
+      "sha256": "b415ba259174ee1936ce723f1530ea519864c9b26fc836dc8fdded2f4324e9db"
+    },
+    {
+      "file": "patch-motion-v029.js",
+      "sha256": "ddc37eca5d49254d7793b9ab53cfdec4fa1dcc6071f8db604375639e047129d9"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "14d794897ab03b10b12d32ac349d487483dab79e7cd03b117a1d02c4a0288dca"
+    },
+    {
+      "file": "index.html",
+      "sha256": "b0b37cf4554f87cef77ff59e5b092255f87e0c1cfc5d5e424402ea6d401b5324"
+    }
+  ],
+  "tests": {
+    "aggregate": {
+      "command": "npm test",
+      "passed": true,
+      "suites": 18
+    },
+    "impact": {
+      "command": "npm run test:impact",
+      "passed": true,
+      "closeOutcomes": 8,
+      "holds": {
+        "hit": 0.48,
+        "guard": 0.38,
+        "effectsOff": 0
+      },
+      "poseRestore": true,
+      "pausedClock": true,
+      "questionWindow": 3.2
+    },
+    "browser": {
+      "command": "npm run test:browser",
+      "status": "passed",
+      "checks": 99,
+      "screenshots": 104,
+      "errors": [],
+      "browser": {
+        "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "requestedRenderer": "default hardware",
+        "softwareFallback": false,
+        "arguments": [],
+        "version": "154.0.8037.97",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    "art": {
+      "command": "node tests/impact-art-v037.cjs <saved-before.html>",
+      "frames": 50,
+      "errors": [],
+      "kind": "Fixed posed scenes; real hardware WebGL. Close frames are .32 seconds after answering."
+    },
+    "audio": {
+      "command": "node tests/audio-recorded-browser-v032.cjs",
+      "status": "passed",
+      "checks": [
+        "direct intro with delayed bytes keeps and plays the first Kyoto line",
+        "next interrupts first line and speaks second",
+        "practice replaces the dialogue with the first teaching word",
+        "music and voice produce concurrent PCM without ducking, restarting or compressor pumping",
+        "all manifested voice assets decode to nonempty PCM",
+        "rush keeps one latest voice without a queue",
+        "mute stops all recorded voices and music",
+        "native context suspend and gesture resume restore the existing music engine",
+        "normal START title completion automatically plays first Kyoto line",
+        "failed download displays retry and retries the same first line",
+        "zero SpeechSynthesis speak/cancel/resume calls across all navigations and zero browser errors"
+      ],
+      "errors": [],
+      "kind": "Real AudioContext analyser and real MP3 decode; no subjective/speaker claim."
+    }
+  },
+  "matches": [
+    {
+      "scenario": "success",
+      "beforeSeconds": 51.514700000000005,
+      "afterSeconds": 53.197900000000004,
+      "rallyQuestions": 7,
+      "closeQuestions": 4,
+      "identicalWordsAndFlightTimes": true,
+      "identicalCloseQuestions": true,
+      "closeAttempts": 1,
+      "finalMode": "finishing",
+      "finalDuel": "done",
+      "cpuHp": 0,
+      "misses": 0
+    },
+    {
+      "scenario": "pushback",
+      "beforeSeconds": 65.814,
+      "afterSeconds": 69.1639,
+      "rallyQuestions": 9,
+      "closeQuestions": 8,
+      "identicalWordsAndFlightTimes": true,
+      "identicalCloseQuestions": true,
+      "closeAttempts": 2,
+      "finalMode": "finishing",
+      "finalDuel": "done",
+      "cpuHp": 0,
+      "misses": 0
+    }
+  ],
+  "limitations": [
+    "Mac Chrome / Apple M4. No physical iPhone/iPad Safari or human timing/input acceptance.",
+    "Visual match recordings mock the shared voice entry and read answers in the test driver. They are not listening or difficulty tests.",
+    "Contact sound event timing is checked in VM. Web Audio output is measured; hit/guard sound quality is not subjectively auditioned.",
+    "Fixed art shots set each reaction and phase time; continuous matches are the separate native-RAF recordings."
+  ]
+}

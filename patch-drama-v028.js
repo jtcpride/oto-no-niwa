@@ -14,6 +14,7 @@ window.otoPatchDramaV028=function(html){
  #arena.close-exchange .close-point small{display:none}
  #arena.close-exchange .close-point.correct{background:#226344;border-color:#baf4cd}
  #arena.close-exchange .close-point.wrong{background:#793d30;border-color:#ffc7ac}
+ #arena.close-exchange .close-point.impact-muted{opacity:.22}
  #contactV028{position:absolute;z-index:6;width:38px;height:38px;border:4px double #ffd289;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 12px #ffd28988}
  #contactV028.guard{border-color:#a5e6ff;box-shadow:0 0 10px #a5e6ff88;border-radius:35%}
  </style>`);
@@ -53,9 +54,10 @@ updateGame=function(dt){
   }
  }
  const stage=closeV027.stage,age=closeV027.time,r=gameDramaV028(dt);
- if(inCloseV027()&&stage==='react'&&closeV027.stage==='react'&&age<.20&&closeV027.time>=.20){
+ if(inCloseV027()&&stage==='react'&&closeV027.stage==='react'&&age<CLOSE_CONTACT_V027&&closeV027.time>=CLOSE_CONTACT_V027){
   const guard=(closeV027.turn%2===0)===closeV027.correct;
-  audio.note(guard?520:88,guard?.07:.17,guard?.065:.10,guard?'triangle':'sine',0,guard?290:36);
+  audio.note(guard?520:88,guard?.075:.18,guard?.08:.12,guard?'triangle':'sine',0,guard?290:36);
+  audio.note(guard?1040:180,guard?.045:.055,guard?.025:.03,'triangle',.012,guard?720:65);
  }
  return r;
 };
@@ -71,24 +73,26 @@ function closePoseDramaV028(){
  const c=closeV027,t=c.time;if(c.stage!=='react')return;
  const defending=c.turn%2===0,attacker=defending?cpu:player,receiver=defending?player:cpu;
  const slot=defending?c.target:(c.picked<0?c.target:c.picked),guard=defending===c.correct;
- const power=heldV011(t,.18,.30,.68),chamber=Math.sin(Math.PI*clamp01V011(t/.18))*(t<.18?1:0),recoil=easeV023(t,.20,.29)*(1-easeV023(t,.39,.79)),strength=motion?1:.32;
+ const power=heldV011(t,.18,.30,.68),chamber=Math.sin(Math.PI*clamp01V011(t/.18))*(t<.18?1:0),recoil=easeV023(t,.18,CLOSE_CONTACT_V027)*(1-easeV023(t,.39,.79)),strength=motion?1:.32;
  for(const f of [attacker,receiver])for(const key of KICK_NODES_V011)saveDramaV028(f[key]);
  // Chamber, snap into the target, then withdraw. Upper attacks pivot; low attacks stay planted.
  const key=attacker===player?'leg':'back';
  legV024(attacker,key,[.35,1.35,attacker[key].pos[2]],chamber);
- attacker.body.rot[2]+=(slot===0?.22:-.16)*power*strength;
+ attacker.body.rot[2]+=(slot===0?.34:slot===3?-.12:.26)*power*strength;
  attacker.arm.rot[2]-=.85*power*strength;attacker.farArm.rot[2]+=.45*power*strength;
  if(guard){
   receiver.body.pos[1]-=.10*recoil;receiver.body.rot[2]+=.10*recoil;
   if(slot===3)legV024(receiver,receiver===player?'leg':'back',[.48,.92,.26],recoil);
-  else{receiver.arm.rot[2]=-(slot===0?2.25:1.25)*recoil;receiver.farArm.rot[2]=-1.35*recoil;receiver.body.rot[1]+=.25*recoil;}
+  else{receiver.body.rot[1]+=.12*recoil;}
   receiver.n.pos[0]+=(defending?-.10:.10)*recoil;
  }else{
   receiver.n.pos[0]+=(defending?-.50:.50)*recoil*strength;
-  receiver.body.rot[2]+=(slot<2?-.48:.52)*recoil*strength;
+  // Head/chest knock the torso back; abdomen folds it forward; low hits buckle.
+  receiver.body.rot[2]+=[.44,.28,-.48,-.14][slot]*recoil*strength;
   receiver.body.pos[1]-=(slot===3?.3:.12)*recoil*strength;
-  receiver.head.rot[2]-=(slot===0?.22:.08)*recoil*strength;
-  receiver.arm.rot[2]+=.8*recoil*strength;receiver.farArm.rot[2]-=.6*recoil*strength;
+  receiver.head.rot[2]+=(slot===0?.16:slot===2?.18:-.05)*recoil*strength;
+  receiver.arm.rot[2]+=(slot===2?.25:-.45)*recoil*strength;receiver.farArm.rot[2]+=(slot===2?.3:-.65)*recoil*strength;
+  receiver.arm.rot[0]+=.38*recoil*strength;receiver.farArm.rot[0]-=.46*recoil*strength;
   receiver.back.rot[2]-=.32*recoil*strength;receiver.backKnee.rot[2]-=.5*recoil*strength;
  }
  // Solve the foot to the same world point used by the IPA ring. The lunge and
@@ -102,7 +106,37 @@ function closePoseDramaV028(){
  const chain=key==='leg'?[attacker.shoe,attacker.knee,attacker.thigh,attacker.leg,attacker.n]:[attacker.backShoe,attacker.backKnee,attacker.backThigh,attacker.back,attacker.n];
  dramaV028.foot=chain.reduce((p,n)=>transformDramaV028(p,n),[0,0,0]);
  dramaV028.guard=guard;dramaV028.contact=markerDramaV028(receiver,slot);
- if(motion&&t>=.20&&t<.32&&state.mode!=='paused')renderer.shake=[Math.sin(t*160)*(guard?.008:.023),Math.cos(t*120)*.01];
+ if(motion&&t>=CLOSE_CONTACT_V027&&t<.32&&state.mode!=='paused'){
+  const snap=closeV027.hold>0?0:1-easeV023(t,.24,.32);
+  renderer.shake=[Math.sin(t*160)*(guard?.008:.023)*snap,Math.cos(t*120)*.01*snap];
+ }
+}
+function blowbackPoseV028(t){
+ // One non-cyclic reaction: chest takes the force, limbs lag, knees tuck, then
+ // the feet reach for the floor. Root travel and the pursuit camera stay shared.
+ const snap=easeV023(t,0,.10)*(1-easeV023(t,.18,.55));
+ const tuck=easeV023(t,.12,.46)*(1-easeV023(t,.76,1.16));
+ const brace=easeV023(t,.78,1.18)*(1-easeV023(t,1.40,2.10));
+ const land=easeV023(t,1.16,1.40)*(1-easeV023(t,1.55,2.25));
+ const pose=easeV023(t,0,.12)*(1-easeV023(t,2.12,2.75));
+ for(const key of KICK_NODES_V011)saveDramaV028(cpu[key]);
+ // Undo the older generic fall's torso drop before authoring the landing.
+ const legacyFall=easeV023(t,.12,.65)*(1-easeV023(t,1.4,2.2));
+ cpu.body.pos[1]+=legacyFall*.42;
+ const dip=.20*land;cpu.n.pos[1]-=dip;
+ cpu.body.rot[2]+=.28*snap-.34*tuck-.20*land;
+ cpu.head.rot[2]+=.18*snap+.16*tuck-.10*brace;
+ cpu.arm.rot[2]+=-.95*snap+.30*tuck+1.00*brace;
+ cpu.farArm.rot[2]+=-.55*snap+.62*tuck+.70*brace;
+ cpu.arm.rot[0]+=.72*snap+.32*tuck+.18*brace;
+ cpu.farArm.rot[0]-=.54*snap+.44*tuck+.26*brace;
+ for(const [key,near] of [['leg',true],['back',false]]){
+  const x=near?.10+.32*tuck+.27*brace:-.13-.25*tuck-.19*brace;
+  const y=.09+dip+(near?.72:.45)*tuck+(near?.13:0)*brace;
+  legV024(cpu,key,[x,y,near?.22:-.23],pose);
+ }
+ cpu.shoe.rot[2]+=.24*tuck-.10*brace;cpu.backShoe.rot[2]-=.20*snap+.12*tuck;
+ // Elbows are finalized in the joint layer, after the common ready pose.
 }
 const prepareDramaV028=prepareDepthRenderV022;
 prepareDepthRenderV022=function(){
@@ -117,6 +151,7 @@ prepareDepthRenderV022=function(){
   const fly=easeV023(t,0,1.25),run=easeV023(t,.3,2.8),recover=easeV023(t,1.4,2.6),orbit=easeV023(t,.25,1.1)*(1-easeV023(t,2.15,3.4));
   frontSceneryV022.visible=t<.16;backSceneryV022.visible=t>=.16;
   cpu.n.pos=[4.4+1.2*fly,.12+1.9*Math.sin(Math.PI*fly)*(1-recover),-8*fly];cpu.n.rot[0]=1.6*Math.sin(Math.PI*fly)*(1-recover);cpu.n.rot[2]=-.9*Math.sin(Math.PI*fly)*(1-recover);
+  blowbackPoseV028(t);
   player.n.pos=[-4.4+foot.x*(1-run)-1.2*run+3.2*Math.sin(run*Math.PI),.12,-8*run];
   player.n.rot[1]=.75*Math.sin(run*Math.PI);cpu.n.rot[1]=Math.PI;
   for(const key of ['body','leg','back','knee','backKnee','arm','farArm'])saveDramaV028(player[key]);
@@ -145,9 +180,10 @@ updateScene=function(dt){
   const size=Math.min(34,Math.max(22,Math.min(...gaps)-3));
   for(let i=0;i<4;i++){
    const [x,y]=points[i],e=closePointsV027[i];e.style.left=x+'px';e.style.top=y+'px';e.style.width=size+'px';e.style.height=size+'px';e.style.fontSize=(size<27?14:17)+'px';
+   e.classList.toggle('impact-muted',closeV027.stage==='react'&&i!==closeV027.target&&i!==closeV027.picked);
   }
-  contactV028.hidden=closeV027.stage!=='react'||closeV027.time<.20||closeV027.time>.43||!dramaV028.contact;
-  if(!contactV028.hidden){const p=renderer.project(dramaV028.contact);contactV028.style.left=p[0]+'px';contactV028.style.top=p[1]+'px';contactV028.classList.toggle('guard',dramaV028.guard);contactV028.style.opacity=String(1-(closeV027.time-.20)/.30);}
+  contactV028.hidden=closeV027.stage!=='react'||closeV027.time<CLOSE_CONTACT_V027||closeV027.time>.43||!dramaV028.contact;
+  if(!contactV028.hidden){const p=renderer.project(dramaV028.contact);contactV028.style.left=p[0]+'px';contactV028.style.top=p[1]+'px';contactV028.classList.toggle('guard',dramaV028.guard);contactV028.style.opacity=String(1-(closeV027.time-CLOSE_CONTACT_V027)/.30);}
  }
  if(['breakCharge','breakShot'].includes(duelV022.phase)&&state.mode==='playing'){wordV023.hidden=false;wordV023.textContent=duelV022.phase==='breakCharge'?'…':'突破';}
 };

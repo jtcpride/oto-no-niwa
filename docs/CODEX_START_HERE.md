@@ -1,4 +1,4 @@
-> **2026-10-05の現在地**: `migration/threejs-renderer` のv0.36.1。ナギの前傾・頭の角度・呼吸の沈みを調整。京都駅と全7舞台の表／奥を3巡で調整。背景の静的な陰影・光、枝垂桜、連続する舗装、遠景を改善。キャラ・ゲームルール・カメラ・音声は維持。[背景比較](art/v036/index.html) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+> **2026-10-05の現在地**: `migration/threejs-renderer` のv0.37。奥への吹き飛びに四肢の遅れ・膝のたたみ・着地を追加。近接の接触姿勢をヒット約0.48秒／ガード約0.38秒保ち、崩れ・防御・接触印・音を分けた。通常ラリーの時間／判定、回答期限、BGMと声の方式は維持。前回のナギの直立姿勢・京都背景も維持。[動作比較](evidence/impact-v037/comparison.mp4) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
 
 
 

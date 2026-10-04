@@ -15,14 +15,15 @@ window.otoPatchCloseV027=function(html){
  @media(max-height:450px){#closeCall{bottom:5px;font-size:14px;padding:3px 9px}#closeCall small{font-size:10px}.close-point{font-size:15px;padding:2px 5px}}
  </style>`);
  once("$('#start').addEventListener('click',start);",String.raw`
-const closeV027={stage:'idle',time:0,turn:0,score:0,target:0,word:'',picked:-1,correct:false,cooldown:0,attempts:0,saved:null,points:[],origin:[],message:''};
+const CLOSE_CONTACT_V027=.24;
+const closeV027={stage:'idle',time:0,turn:0,score:0,target:0,word:'',picked:-1,correct:false,cooldown:0,attempts:0,saved:null,points:[],origin:[],message:'',hold:0,contactHeld:false,poseStart:0};
 const closeCallV027=document.createElement('div');closeCallV027.id='closeCall';closeCallV027.hidden=true;closeCallV027.setAttribute('aria-live','polite');$('#arena').appendChild(closeCallV027);
 const closePointsV027=SOUNDS.map((s,i)=>{const e=document.createElement('div');e.className='close-point';e.hidden=true;e.innerHTML='<small>'+['頭','胸','腹','脚'][i]+'</small>/'+s.symbol+'/';$('#arena').appendChild(e);return e;});
 const inCloseV027=()=>feelEnabledV023&&duelV022.phase==='close';
 function closeCaptionV027(title,sub=''){closeCallV027.textContent=title;const small=document.createElement('small');small.textContent=sub;closeCallV027.appendChild(small);}
 function closeCleanupV027(){closeCallV027.hidden=true;closePointsV027.forEach(e=>e.hidden=true);$('#arena').classList.remove('close-exchange');document.body.classList.remove('close-input');all('[data-symbol]').forEach((b,i)=>{delete b.dataset.closePicked;b.setAttribute('aria-pressed',String(i===state.selected));});}
 const resetCloseV027=resetDuelV022;
-resetDuelV022=function(keep=false){closeCleanupV027();Object.assign(closeV027,{stage:'idle',time:0,turn:0,score:0,cooldown:0,attempts:0,saved:null,points:[],picked:-1});return resetCloseV027(keep);};
+resetDuelV022=function(keep=false){closeCleanupV027();Object.assign(closeV027,{stage:'idle',time:0,turn:0,score:0,cooldown:0,attempts:0,saved:null,points:[],picked:-1,hold:0,contactHeld:false,poseStart:0});return resetCloseV027(keep);};
 function beginCloseV027(){
  const c=closeV027;c.saved={};for(const k of ['word','target','selected','shot','flightStart','duration','arc','wobble','aimZ','pendingDamage'])c.saved[k]=Array.isArray(state[k])?[...state[k]]:state[k];
  c.origin=[strideV024.player.x,strideV024.cpu.x];c.stage='enter';c.time=0;c.turn=0;c.score=0;c.picked=-1;c.attempts++;
@@ -31,7 +32,7 @@ function beginCloseV027(){
  audio.stopVoice();audio.note(100,.18,.10,'triangle',0,45);closeCaptionV027('競り合い','音を聞いて、4音をタップ');audio.applyMix();
 }
 function askCloseV027(){
- const c=closeV027;c.stage='ask';c.time=0;c.picked=-1;c.correct=false;c.target=Math.floor(Math.random()*4);
+ const c=closeV027;c.stage='ask';c.time=0;c.picked=-1;c.correct=false;c.hold=0;c.contactHeld=false;c.target=Math.floor(Math.random()*4);
  const words=ACTIVE_DECK.sounds[c.target].words,other=words.filter(w=>w.text!==c.word),choices=other.length?other:words;c.word=choices[Math.floor(Math.random()*choices.length)].text;
  if(!duelV022.words.includes(c.word))duelV022.words.push(c.word);
  feelV023.recent=feelV023.recent.filter(w=>w!==c.word);feelV023.recent.push(c.word);feelV023.recent=feelV023.recent.slice(-8);
@@ -40,7 +41,7 @@ function askCloseV027(){
 }
 function answerCloseV027(index){
  const c=closeV027;if(!inCloseV027()||state.mode!=='playing'||c.stage!=='ask'||c.time<.25)return;
- c.picked=index;c.correct=index===c.target;c.score+=c.correct?1:0;c.stage='react';c.time=0;
+ c.picked=index;c.correct=index===c.target;c.score+=c.correct?1:0;c.stage='react';c.time=0;c.hold=0;c.contactHeld=false;c.poseStart=visualTime;
  const defending=c.turn%2===0;
  c.message=c.correct?(defending?'受けた！':'通った！'):(defending?'押された':'受け止められた');
  closeCaptionV027(c.message,c.word+' · /'+SOUNDS[c.target].symbol+'/');
@@ -79,13 +80,23 @@ function finishCloseV027(win){
   c.cooldown=2;state.pendingDamage=0;state.pendingMiss=null;state.streak=0;state.hitstop=0;state.rescueStart=null;duelV022.phase='back';duelV022.time=0;
   cpuV016();$('#kick').disabled=false;refreshHud();
  }
- c.stage='idle';c.saved=null;audio.applyMix();
+ c.stage='idle';c.saved=null;c.hold=0;c.contactHeld=false;audio.applyMix();
 }
 const gameCloseV027=updateGame;
 updateGame=function(dt){
  if(!inCloseV027())return gameCloseV027(dt);
  if(state.mode!=='playing')return;
- const c=closeV027;c.time+=dt;duelV022.time+=dt;audio.update(dt,3,1);
+ const c=closeV027;
+ // Stop only the reaction clock at contact. Question time and the audio clock
+ // retain their own cadence; a paused or restarted game cannot consume a hold.
+ if(c.stage==='react'){
+  if(!motion)c.hold=0;
+  if(!c.contactHeld&&c.time+dt>=CLOSE_CONTACT_V027){
+   const guard=(c.turn%2===0)===c.correct,span=motion?(guard?.38:.48):0,overflow=c.time+dt-CLOSE_CONTACT_V027;
+   c.contactHeld=true;c.hold=Math.max(0,span-overflow);c.time=CLOSE_CONTACT_V027+Math.max(0,overflow-span);
+  }else{const stopped=Math.min(c.hold,dt);c.hold-=stopped;c.time+=dt-stopped;}
+ }else c.time+=dt;
+ duelV022.time+=dt;audio.update(dt,3,1);
  if(c.stage==='enter'&&c.time>=.85)askCloseV027();
  else if(c.stage==='ask'&&c.time>=3.2)answerCloseV027(-1);
  else if(c.stage==='react'&&c.time>=.8){
@@ -117,7 +128,11 @@ prepareDepthRenderV022=function(){
 };
 const sceneCloseV027=updateScene;
 updateScene=function(dt){
- sceneCloseV027(dt);const active=inCloseV027(),c=closeV027,visible=active&&state.mode==='playing';
+ const active=inCloseV027(),c=closeV027,visible=active&&state.mode==='playing',clock=visualTime;
+ // Freeze breathing, clothing and both bodies together with the strike. Restore
+ // the global clock afterwards so music and normal rally timing are untouched.
+ if(active&&c.stage==='react')visualTime=c.poseStart+c.time;
+ try{sceneCloseV027(active&&c.hold>0?0:dt);}finally{visualTime=clock;}
  $('#arena').classList.toggle('close-exchange',active);document.body.classList.toggle('close-input',active);closeCallV027.hidden=!visible;if(active)closeCallV027.style.setProperty('--close-time',c.stage==='ask'?Math.max(0,100*(1-c.time/3.2))+'%':'0%');
  closePointsV027.forEach((e,i)=>{e.hidden=!visible||!['ask','react'].includes(c.stage);if(e.hidden)return;
   const p=c.points[i]||[renderer.width/2,100+i*28],height=renderer.height,gap=Math.min(30,(height-135)/3),start=Math.max(88,Math.min(height-45-3*gap,c.points[0]?.[1]||100));
@@ -128,7 +143,7 @@ updateScene=function(dt){
  all('[data-symbol]').forEach((b,i)=>{b.disabled=!visible||c.stage!=='ask';b.dataset.closePicked=String(c.stage==='react'&&i===c.picked);b.setAttribute('aria-pressed',b.dataset.closePicked);});}
 };
 $('#start').addEventListener('click',start);`);
- once('select(0);refreshHud();requestAnimationFrame(frame);',`window.kemari.getClose=()=>({stage:closeV027.stage,turn:closeV027.turn,score:closeV027.score,time:closeV027.time,cooldown:closeV027.cooldown,attempts:closeV027.attempts,role:closeV027.turn%2?'attack':'defend'});
+ once('select(0);refreshHud();requestAnimationFrame(frame);',`window.kemari.getClose=()=>({stage:closeV027.stage,turn:closeV027.turn,score:closeV027.score,time:closeV027.time,hold:closeV027.hold,cooldown:closeV027.cooldown,attempts:closeV027.attempts,role:closeV027.turn%2?'attack':'defend'});
 select(0);refreshHud();requestAnimationFrame(frame);`);
  return html;
 };

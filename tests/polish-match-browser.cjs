@@ -1,9 +1,9 @@
 // Current campaign real-time matches; completion is the terminal duel phase before inheritance. Only start skips practice; all later inputs use public DOM controls.
-// TTS is mocked; videos and assertions do not validate audible speech or audio mixing.
+// The shared voice entry is mocked; recordings do not validate audible speech or mixing.
 // Usage: node tests/polish-match-browser.cjs polish-before baseline
 //        node tests/polish-match-browser.cjs polish-after
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-const label=process.argv[2]||'close-v027',source=process.argv[3],out=path.resolve(__dirname,'../../work');
+const label=process.argv[2]||'close-v027',source=process.argv[3],out=path.resolve(process.env.FEG_MATCH_DIR||path.join(__dirname,'../../work'));
 if(!/^[a-z0-9-]+$/.test(label))throw Error('Use a lowercase output label');
 fs.mkdirSync(out,{recursive:true});
 const baseline=()=>require('./assemble.cjs')(file=>require('node:child_process').execFileSync('git',['show','bd4b4e4877f167dc7544b3ac57a6690f98e6d968:'+file],{cwd:path.resolve(__dirname,'..'),encoding:'utf8',maxBuffer:4*1024*1024}));
@@ -12,10 +12,13 @@ const anchor='select(0);refreshHud();requestAnimationFrame(frame);';
 assert.equal(original.split(anchor).length,2,'unique match-start seam');
 // Isolate question randomness from particle effects while preserving real question/retry logic.
 const html=original.replace(anchor,`let questionSeedComparison=42731;
-const questionComparison=newQuestion;
-newQuestion=function(){const previous=Math.random;Math.random=()=>{questionSeedComparison=(Math.imul(questionSeedComparison,1664525)+1013904223)>>>0;return questionSeedComparison/4294967296};try{return questionComparison();}finally{Math.random=previous;}};
+function withQuestionSeedComparison(fn){const previous=Math.random;Math.random=()=>{questionSeedComparison=(Math.imul(questionSeedComparison,1664525)+1013904223)>>>0;return questionSeedComparison/4294967296};try{return fn();}finally{Math.random=previous;}}
+const questionComparison=newQuestion,closeQuestionComparison=askCloseV027;
+newQuestion=function(){return withQuestionSeedComparison(questionComparison)};
+askCloseV027=function(){return withQuestionSeedComparison(closeQuestionComparison)};
+audio.speak=function(u,onDone){audio.stopVoice();window.__spoken.push(u.text);onDone?.();};audio.canPlayVoice=()=>true;
 window.closeQuestionTest=()=>({target:closeV027.target,word:closeV027.word});
-window.startComparisonMatch=()=>{state.mode='over';start();beginMatch();state.mode='playing';};`+anchor);
+window.startComparisonMatch=()=>{campaignV030.phase='match';campaignV030.intro=false;document.body.classList.remove('campaign-screen','campaign-cinematic');$('#campaignUI').hidden=true;state.mode='over';start();beginMatch();state.mode='playing';};`+anchor);
 (async()=>{
  const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
  try{
@@ -25,14 +28,14 @@ window.startComparisonMatch=()=>{state.mode='over';start();beginMatch();state.mo
    page.on('pageerror',e=>{errors.push(e.message);console.error(e.message)});
    await page.addInitScript(()=>{
     let seed=42731;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
-    let timer;window.__spoken=[];
+    let timer;window.__spoken=[];window.fetch=undefined;
     Object.defineProperty(window,'speechSynthesis',{value:{cancel(){clearTimeout(timer)},resume(){},getVoices(){return []},speak(u){__spoken.push(u.text);u.onstart?.();timer=setTimeout(()=>u.onend?.(),200)}}});
    });
    await page.route('http://match-feel.test/**',r=>r.fulfill({contentType:'text/html',body:html}));
    await page.goto('http://match-feel.test/?stage=first-court');
    await page.evaluate(scenario=>{
     startComparisonMatch();let started=null;
-    window.comparison={scenario,tts:'mocked; audio not verified',frames:0,inputs:[],phases:[],incoming:0,done:false,initial:kemari.getState()};
+    window.comparison={scenario,tts:'shared voice mocked; audio not verified',frames:0,inputs:[],closeInputs:[],phases:[],incoming:0,done:false,initial:kemari.getState()};
     let fired=false,lastPhase='',lastTap=-1,previousFlight=Infinity,previousDirection=0;
     const press=()=>document.querySelector('#kick').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,pointerType:'mouse'}));
     function drive(now){
@@ -45,7 +48,7 @@ window.startComparisonMatch=()=>{state.mode='over';start();beginMatch();state.mo
      previousFlight=s.flight;previousDirection=s.direction;
      if(s.mode==='playing'&&phase==='close'){
       const n=kemari.getClose();
-      if(n.stage==='ask'&&n.time>=.85){const q=closeQuestionTest(),wrong=scenario==='pushback'&&n.attempts===1;document.querySelector('[data-symbol="'+((q.target+(wrong?1:0))%4)+'"]').click();}
+      if(n.stage==='ask'&&n.time>=.85){const q=closeQuestionTest(),wrong=scenario==='pushback'&&n.attempts===1;c.closeInputs.push({elapsed:c.latest.elapsed,turn:n.turn,attempt:n.attempts,correct:!wrong,...q});document.querySelector('[data-symbol="'+((q.target+(wrong?1:0))%4)+'"]').click();}
      }else if(s.mode==='playing'&&phase==='rush'){
       if(now-lastTap>=100){press();lastTap=now;}
      }else if(s.mode==='playing'&&['front','back'].includes(phase)&&s.direction===-1&&!fired){

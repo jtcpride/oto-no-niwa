@@ -342,9 +342,9 @@ function characterPoseV030(f,key){
  const c=f.characterV030;if(!c)return;
  const p=c.profile,phase=duelV022.phase,age=feelEnabledV023&&duelV022.entered?strideV024[key].attack:motionV029[key].age;
  const bow=bowAmountV0104(),inClose=inCloseV027(),win=f===player&&state.cpuDefeated;
- const hurt=f===cpu?state.cpuHurt:Math.max(bodyHitV010,knockdownV010,state.hurt),chasing=phase==='break';
+ const hurt=f===cpu?state.cpuHurt:Math.max(bodyHitV010,knockdownV010,state.hurt),chasing=phase==='break'&&f===player,launched=phase==='break'&&f===cpu;
  const k=age<.72?1-easeV023(age,.12,.60):0,strength=motion?1:.3;
- c.pose=bow>0?'bow':win?'win':chasing?'pursuit':hurt>0?'stagger':k>0||inClose?'kick':'idle';
+ c.pose=bow>0?'bow':win?'win':chasing?'pursuit':launched||hurt>0?'stagger':k>0||inClose?'kick':'idle';
  const sway=motion?Math.sin(visualTime*(c.id==='kota'?5.8:2.1)+f.phase):0;
  for(const node of [f.body,f.head,f.arm,f.farArm,f.elbow,f.farElbow,f.wrist,f.farWrist])saveDramaV028(node);
  // Close-combat torso anchors are already used by the foot solver. Preserve them.
@@ -389,7 +389,7 @@ function characterPoseV030(f,key){
   if(hurt>0&&!win){f.head.rot[2]+=(c.id==='kota'?-.16:c.id==='sokichi'?.05:-.07)*Math.min(1,hurt)*strength;}
  }
  for(const cloth of c.cloth){
-  saveDramaV028(cloth.n);const speed=chasing?Math.sin(duelV022.time*14)*.11:0;
+  saveDramaV028(cloth.n);const speed=chasing?Math.sin(duelV022.time*14)*.11:launched?Math.sin(duelV022.time*9)*.13*(1-easeV023(duelV022.time,1,2.2)):0;
   const flutter=(.018*sway+.16*k+speed)*strength+(c.godMode?.11:0);
   cloth.n.rot[2]+=cloth.kind==='ponytail'?-flutter:flutter;
   if(cloth.kind==='hakama')cloth.n.rot[0]+=(cloth.n.pos[2]>0?1:-1)*.24*k*strength;

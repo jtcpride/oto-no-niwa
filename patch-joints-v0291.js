@@ -26,7 +26,16 @@ prepareDepthRenderV022=function(){
   f.elbow.rot[2]=.30+.65*power*s;f.farElbow.rot[2]=.42+.55*power*s;
   f.wrist.rot[2]=-.10-.13*power*s;f.farWrist.rot[2]=-.10+.15*power*s;
   f.wrist.rot[1]=.12*power*s;f.toe.rot[2]=.18*power*s;f.backToe.rot[2]=-.13*power*s;
-  if(feelEnabledV023&&p==='break'&&motion){f.elbow.rot[2]=.95;f.farElbow.rot[2]=1.05;}
+  if(feelEnabledV023&&p==='break'&&motion){
+   if(f===player){f.elbow.rot[2]=.95;f.farElbow.rot[2]=1.05;}
+   else{
+    const t=duelV022.time,snap=easeV023(t,0,.10)*(1-easeV023(t,.18,.55));
+    const tuck=easeV023(t,.12,.46)*(1-easeV023(t,.76,1.16)),brace=easeV023(t,.78,1.18)*(1-easeV023(t,1.40,2.10));
+    f.elbow.rot[2]+=-.18*snap+.85*tuck+.48*brace;f.farElbow.rot[2]+=.15*snap+.58*tuck+.72*brace;
+    f.wrist.rot[2]+=.24*snap-.15*brace;f.farWrist.rot[2]-=.18*snap+.10*brace;
+    f.toe.rot[2]+=.24*tuck-.16*brace;f.backToe.rot[2]-=.15*snap+.12*tuck;
+   }
+  }
  }
  if(inCloseV027()){
   const c=closeV027,defending=c.turn%2===0,receiver=defending?player:cpu,attacker=defending?cpu:player;
@@ -40,9 +49,10 @@ prepareDepthRenderV022=function(){
    receiver.elbow.rot[2]=.3+(guard?1.1:.12)*snap*s;receiver.farElbow.rot[2]=.4+(guard?1.25:.16)*snap*s;
    if(guard&&slot<3){
     saveDramaV028(receiver.arm);saveDramaV028(receiver.farArm);
-    const shoulder=[1.3,.75,.05][slot],elbow=[1.3,1.25,.40][slot];
-    receiver.arm.rot[2]=shoulder*snap*s;receiver.farArm.rot[2]=(shoulder+.12)*snap*s;
-    receiver.elbow.rot[2]=elbow*snap*s;receiver.farElbow.rot[2]=(elbow+.15)*snap*s;
+    const shoulder=[1.30,.65,.05][slot],elbow=[1.38,1.35,.40][slot];
+    receiver.arm.rot[2]=shoulder*snap*s;receiver.farArm.rot[2]=(shoulder-.15)*snap*s;
+    receiver.arm.rot[0]=.12*snap*s;receiver.farArm.rot[0]=-.28*snap*s;
+    receiver.elbow.rot[2]=elbow*snap*s;receiver.farElbow.rot[2]=(elbow+.27)*snap*s;
     receiver.wrist.rot[2]=-.22*snap*s;receiver.farWrist.rot[2]=-.20*snap*s;
    }
    receiver.toe.rot[2]=-.20*snap*s;receiver.backToe.rot[2]=-.15*snap*s;

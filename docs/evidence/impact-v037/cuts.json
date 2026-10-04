@@ -1,0 +1,27 @@
+{
+  "duration": 14,
+  "source": "Native RAF real matches, mock voice, silent, no speed changes",
+  "cuts": [
+    {
+      "id": "flight",
+      "scenario": "success",
+      "title": "BLOWBACK / RECOVERY",
+      "kind": "flight",
+      "duration": 5.2
+    },
+    {
+      "id": "success",
+      "scenario": "success",
+      "title": "BLOCK / COUNTER HIT",
+      "kind": "close",
+      "duration": 4.4
+    },
+    {
+      "id": "pushback",
+      "scenario": "pushback",
+      "title": "TAKE HIT / ATTACK BLOCKED",
+      "kind": "close",
+      "duration": 4.4
+    }
+  ]
+}
