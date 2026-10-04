@@ -47,5 +47,15 @@
     "No subjective pronunciation listening or physical iPhone/iPad audio/touch/performance acceptance.",
     "Reference resemblance is a proposed design, not an equivalence claim."
   ],
-  "publication": "Pending release verification; see publication.json after deployment."
+  "publication": {
+    "status": "passed",
+    "commit": "0f98affc93fbc0abfb6f3261213f73fe223ca36a",
+    "pagesRun": 37186751048,
+    "filesMatched": 112,
+    "records": [
+      "publication.json",
+      "native-publication.json",
+      "review-pages-publication.json"
+    ]
+  }
 }

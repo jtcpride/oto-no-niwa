@@ -1,0 +1,19 @@
+{
+  "startedAt": "2026-10-04T07:46:37.113Z",
+  "base": "https://jtcpride.github.io/oto-no-niwa/",
+  "status": "passed",
+  "checks": [
+    "Art comparison controls/images/no overflow at 320x568",
+    "Art comparison controls/images/no overflow at 390x844",
+    "Art comparison controls/images/no overflow at 844x390",
+    "she v0.32（変更前） recorded clip completed",
+    "she 新しい声（v0.33） recorded clip completed",
+    "mother v0.32（変更前） recorded clip completed",
+    "mother 新しい声（v0.33） recorded clip completed"
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome viewport and decoded playback; no physical iPhone/iPad touch or subjective listening."
+  ],
+  "completedAt": "2026-10-04T07:46:43.612Z"
+}
