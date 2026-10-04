@@ -1,6 +1,6 @@
 {
   "version": "0.33.0-clear-voice-sculpt",
-  "checkedAt": "2026-10-04T16:35:00+09:00",
+  "checkedAt": "2026-10-04T16:45:07.273364+09:00",
   "baseline": "e8b8c4e6b6e9b982b39aaa1ba97998458c52c990",
   "checks": {
     "aggregate": "npm test passed",
@@ -30,7 +30,18 @@
       "file": "review-pages.json",
       "checks": 7
     },
-    "characters": "../../art/v033/REVIEW.md"
+    "characters": "../../art/v033/REVIEW.md",
+    "rendererBaseline": {
+      "file": "renderer-comparison.json",
+      "cases": 8,
+      "passed": true,
+      "scope": "baseline look projection; not new lighting acceptance",
+      "fixtureRepairs": [
+        "Mock speech installed",
+        "HTML-only routing no longer used for voice clip requests",
+        "Only final scene rendered to GPU; rules and poses advance normally"
+      ]
+    }
   },
   "limitations": [
     "No subjective pronunciation listening or physical iPhone/iPad audio/touch/performance acceptance.",

@@ -13,10 +13,22 @@ const out=path.resolve(__dirname,'../../work/three-migration');fs.mkdirSync(out,
   for(const renderer of ['garden','three']){
    const page=await browser.newPage({viewport});
    page.on('pageerror',e=>report.errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())});
-   await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;Math.random=()=>.37;Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return []},speak(u){u.onstart?.();u.onend?.()}}});});
+   await page.addInitScript(()=>{
+    window.requestAnimationFrame=()=>0;Math.random=()=>.37;
+    // This fixture routes HTML only and mocks speech. Do not fetch/decode HTML
+    // as a voice clip; actual audio has a separate production-loader suite.
+    window.fetch=undefined;
+    Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return []},speak(u){u.onstart?.();u.onend?.()}}});
+   });
    await page.route('http://compare.test/**',r=>r.fulfill({contentType:'text/html',body:sourceSeam(assemble())}));
    await page.goto('http://compare.test/?stage=jingu&look=baseline&renderer='+renderer);
-   await page.evaluate(phase=>{qa.begin();if(phase!=='front')qa.driveUntil(phase);qa.tick(.15);qa.draw()},phase);
+   await page.evaluate(phase=>{
+    // Advance rules/poses without thousands of unused GPU frames. The final
+    // scene and resource-stability draws below still use the real renderer.
+    const render=qa.renderer.render;qa.renderer.render=()=>{};
+    try{qa.begin();if(phase!=='front')qa.driveUntil(phase);qa.tick(.15)}finally{qa.renderer.render=render}
+    qa.draw();
+   },phase);
    const info=await page.evaluate(()=>({revision:window.FEGThreeRevision,three:!!qa.renderer.engine?.isWebGLRenderer,vp:Array.from(qa.renderer.vp),stats:qa.renderStats()}));
    assert.equal(info.three,renderer==='three');assert.equal(info.stats.error,0);assert(info.stats.sampledColors>20);
    shots.push({info,png:PNG.sync.read(await page.locator('canvas').first().screenshot())});

@@ -1,0 +1,656 @@
+{
+  "checks": [
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "phase": "front",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.13798931241035461,
+            -0.004562058486044407,
+            -0.0014267616206780076,
+            0,
+            0,
+            0.2873895466327667,
+            -0.004257622640579939,
+            0,
+            -0.010091151110827923,
+            -0.06238290295004845,
+            -0.019509950652718544,
+            0,
+            -3.0721603755505205e-17,
+            -0.5460401773452759,
+            -0.6456044912338257,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 237,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.13798931241035461,
+            -0.004562058486044407,
+            -0.0014267617370933294,
+            0,
+            -2.400125293398844e-19,
+            0.2873895466327667,
+            -0.004257623106241226,
+            0,
+            -0.010091151110827923,
+            -0.06238289922475815,
+            -0.019509950652718544,
+            0,
+            3.2641701715477596e-17,
+            -0.5460401177406311,
+            -0.6456044316291809,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 237,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 87,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 87,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "phase": "back",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.1188494935631752,
+            -0.016797441989183426,
+            -0.005837019998580217,
+            0,
+            0,
+            0.25865060091018677,
+            -0.004257622640579939,
+            0,
+            -0.03715548664331436,
+            -0.053730081766843796,
+            -0.018670914694666862,
+            0,
+            -0.29677456617355347,
+            -0.9205729365348816,
+            -0.7950074672698975,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 322,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.1188494935631752,
+            -0.016797440126538277,
+            -0.005837020464241505,
+            0,
+            -2.5921352651719634e-18,
+            0.25865060091018677,
+            -0.004257623106241226,
+            0,
+            -0.03715548664331436,
+            -0.0537300780415535,
+            -0.018670914694666862,
+            0,
+            -0.29677459597587585,
+            -0.9205728769302368,
+            -0.7950074672698975,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 322,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 91,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 91,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "phase": "close",
+      "mae": 0.027104018912529552,
+      "changedRatio": 0.0006737588652482269,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.15106533467769623,
+            -0.01863659732043743,
+            -0.005869842134416103,
+            0,
+            0,
+            0.33061012625694275,
+            -0.0037164066452533007,
+            0,
+            -0.047227006405591965,
+            -0.059613004326820374,
+            -0.018775900825858116,
+            0,
+            -0.3778160512447357,
+            -1.1050633192062378,
+            -0.7987875938415527,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 317,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.15106533467769623,
+            -0.01863659732043743,
+            -0.005869842134416103,
+            0,
+            0,
+            0.33061012625694275,
+            -0.0037164068780839443,
+            0,
+            -0.04722701013088226,
+            -0.059613004326820374,
+            -0.018775900825858116,
+            0,
+            -0.3778160810470581,
+            -1.1050633192062378,
+            -0.798787534236908,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 317,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 89,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 89,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "phase": "rush",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.15318380296230316,
+            -0.018181363120675087,
+            -0.005877629853785038,
+            0,
+            0,
+            0.3356912434101105,
+            -0.0035754856653511524,
+            0,
+            -0.04788929224014282,
+            -0.05815684050321579,
+            -0.01880081184208393,
+            0,
+            -0.3823675811290741,
+            -1.1037365198135376,
+            -0.7997360229492188,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 324,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.15318380296230316,
+            -0.018181361258029938,
+            -0.005877630319446325,
+            0,
+            -1.1136580740985177e-18,
+            0.3356912434101105,
+            -0.0035754856653511524,
+            0,
+            -0.04788929596543312,
+            -0.05815684050321579,
+            -0.01880081370472908,
+            0,
+            -0.3823675811290741,
+            -1.1037365198135376,
+            -0.7997360229492188,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 599,
+            "height": 282,
+            "sampledColors": 324,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 89,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 89,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "phase": "front",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.16216856241226196,
+            -0.0017124313162639737,
+            -0.0014267616206780076,
+            0,
+            0,
+            0.10787561535835266,
+            -0.004257622640579939,
+            0,
+            -0.011859377846121788,
+            -0.02341627888381481,
+            -0.019509950652718544,
+            0,
+            0,
+            -0.20496366918087006,
+            -0.32347196340560913,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 197,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.16216856241226196,
+            -0.0017124313162639737,
+            -0.0014267617370933294,
+            0,
+            0,
+            0.10787561535835266,
+            -0.004257623106241226,
+            0,
+            -0.011859378777444363,
+            -0.02341627888381481,
+            -0.019509950652718544,
+            0,
+            -7.164548775011694e-17,
+            -0.20496366918087006,
+            -0.32347187399864197,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 197,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 87,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 87,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "phase": "back",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.13967497646808624,
+            -0.006305150222033262,
+            -0.005837019998580217,
+            0,
+            0,
+            0.09708806127309799,
+            -0.004257622640579939,
+            0,
+            -0.04366607591509819,
+            -0.020168324932456017,
+            -0.018670914694666862,
+            0,
+            -0.34877708554267883,
+            -0.34554970264434814,
+            -0.3800191879272461,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 339,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.13967497646808624,
+            -0.006305150222033262,
+            -0.005837020464241505,
+            0,
+            -3.0463436550424343e-18,
+            0.0970880538225174,
+            -0.004257623106241226,
+            0,
+            -0.04366607964038849,
+            -0.020168323069810867,
+            -0.018670914694666862,
+            0,
+            -0.34877708554267883,
+            -0.34554970264434814,
+            -0.3800191581249237,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 339,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 91,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 91,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "phase": "close",
+      "mae": 0.011101863736028665,
+      "changedRatio": 0.00029079095138777474,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.1850692480802536,
+            -0.007292344234883785,
+            -0.005869842134416103,
+            0,
+            0,
+            0.1293649673461914,
+            -0.0037164066452533007,
+            0,
+            -0.05785752832889557,
+            -0.023326069116592407,
+            -0.018775900825858116,
+            0,
+            -0.46286022663116455,
+            -0.43240198493003845,
+            -0.526945173740387,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 292,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.1850692480802536,
+            -0.007292344234883785,
+            -0.005869842134416103,
+            0,
+            -1.3454677893458376e-18,
+            0.1293649673461914,
+            -0.0037164068780839443,
+            0,
+            -0.05785752832889557,
+            -0.023326067253947258,
+            -0.018775900825858116,
+            0,
+            -0.46286022663116455,
+            -0.43240198493003845,
+            -0.526945173740387,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 292,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 89,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 89,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "phase": "rush",
+      "mae": 0,
+      "changedRatio": 0,
+      "renderers": [
+        {
+          "revision": "186",
+          "three": false,
+          "vp": [
+            0.18002551794052124,
+            -0.006824624724686146,
+            -0.005877629853785038,
+            0,
+            0,
+            0.1260063350200653,
+            -0.0035754856653511524,
+            0,
+            -0.056280724704265594,
+            -0.021829970180988312,
+            -0.01880081184208393,
+            0,
+            -0.4493681490421295,
+            -0.4143027067184448,
+            -0.478760302066803,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 322,
+            "error": 0
+          }
+        },
+        {
+          "revision": "186",
+          "three": true,
+          "vp": [
+            0.18002551794052124,
+            -0.0068246242590248585,
+            -0.005877630319446325,
+            0,
+            -1.3087994931768213e-18,
+            0.1260063201189041,
+            -0.0035754856653511524,
+            0,
+            -0.056280724704265594,
+            -0.021829970180988312,
+            -0.01880081370472908,
+            0,
+            -0.4493681490421295,
+            -0.41430267691612244,
+            -0.478760302066803,
+            1
+          ],
+          "stats": {
+            "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+            "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+            "width": 368,
+            "height": 542,
+            "sampledColors": 322,
+            "error": 0
+          },
+          "resources": {
+            "before": {
+              "geometries": 89,
+              "textures": 0
+            },
+            "after": {
+              "geometries": 89,
+              "textures": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "tts": "not tested",
+  "device": "Mac Chrome only",
+  "passed": true
+}
