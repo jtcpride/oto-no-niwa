@@ -1,0 +1,196 @@
+{
+  "version": "0.37.0-impact-and-recovery",
+  "commit": "128bf69608b3a2a4e2abdd7b30deae3c2868b4d3",
+  "pagesRun": "37216353493",
+  "startedAt": "2026-10-04T16:21:44.878Z",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "b0b37cf4554f87cef77ff59e5b092255f87e0c1cfc5d5e424402ea6d401b5324"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "e9eb5cdfa222967c3ac8f7ec1af64f8ab7915e132b1e0e573a70362e094ba778"
+    },
+    {
+      "file": "patch-close-v027.js",
+      "sha256": "c0d21424171a6ac0d972c4f8870fe330b26166f10bbb2bf742d4ed228756b337"
+    },
+    {
+      "file": "patch-drama-v028.js",
+      "sha256": "bb2c83be6d6217d3574bccb8534bad5ea63d6526226049f6d44881b20971c0c8"
+    },
+    {
+      "file": "patch-joints-v0291.js",
+      "sha256": "b415ba259174ee1936ce723f1530ea519864c9b26fc836dc8fdded2f4324e9db"
+    },
+    {
+      "file": "patch-motion-v029.js",
+      "sha256": "ddc37eca5d49254d7793b9ab53cfdec4fa1dcc6071f8db604375639e047129d9"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "14d794897ab03b10b12d32ac349d487483dab79e7cd03b117a1d02c4a0288dca"
+    },
+    {
+      "file": "scenery/kyoto-scenes.js",
+      "sha256": "99a613419f666cfa4d91986892a57104a1040c4d9e321a86f34a25a527dbf101"
+    },
+    {
+      "file": "content/voice-config.js",
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "da1c33ff6ab9a5f6c90e2e216f4cf7f4c744a79ba68f5e09ffe4e86200fbce4f"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    },
+    {
+      "file": "docs/evidence/impact-v037/comparison.mp4",
+      "sha256": "4f31163b2392ce9a667b6b4355ebd82f9fd53b023f50106ab863be96e8965776"
+    },
+    {
+      "file": "docs/evidence/impact-v037/verification.json",
+      "sha256": "b3bd51b868d584c2d99ef4b7188a7d16223539cf2577c4e6870a5f545ff454b6"
+    },
+    {
+      "file": "docs/evidence/impact-v037/guard-portrait.png",
+      "sha256": "7829f9d64c9c492e1ce92ad224a0685423e89cd76dc2747d1c93f88d1499bb66"
+    }
+  ],
+  "checks": [
+    {
+      "stage": "sanjo",
+      "viewport": [
+        390,
+        844
+      ],
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "nagi",
+          "name": "北山ナギ",
+          "model": "nagi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.86,
+          "chestHeight": 1.8900000000000001,
+          "signature": "short-jacket-slim-trousers-sneakers",
+          "meshCount": 60,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "scenery": "sanjo",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "error": 0,
+      "hold": 0,
+      "overflow": false,
+      "started": true
+    },
+    {
+      "stage": "jingu",
+      "viewport": [
+        844,
+        390
+      ],
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "saku",
+          "name": "烏丸朔",
+          "model": "saku",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 3.48,
+          "chestHeight": 2.0100000000000002,
+          "signature": "wide-court-sleeves-tall-cap",
+          "meshCount": 51,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "scenery": "jingu",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "error": 0,
+      "hold": 0,
+      "overflow": false,
+      "started": true
+    },
+    {
+      "comparisonVideo": {
+        "duration": 14,
+        "width": 1280,
+        "height": 522,
+        "playing": true,
+        "time": 0.30281
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome / Apple M4 only. No physical iPhone/iPad or subjective sound/playability claim."
+  ],
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "finishedAt": "2026-10-04T16:21:52.809Z"
+}
