@@ -1,4 +1,4 @@
-> **2026-10-04の現在地**: Three.js移行と造形・動作・音の調整は `migration/threejs-renderer` のv0.32です。固定音声の同梱再生と七人の追加造形を反映しました。まず [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+> **2026-10-04の現在地**: `migration/threejs-renderer` のv0.33。語頭を見直した音源と、`content/voice-config.js` 一か所で戻せる端末読み上げ方式を併存。七人の造形を複数方向から比較して調整し、試聴と造形の比較ページを追加。まず [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
 
 # Codexへ：FEGを最後まで完成させる
 

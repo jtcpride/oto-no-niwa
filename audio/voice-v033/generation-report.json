@@ -1,0 +1,4064 @@
+{
+  "generator": "scripts/generate-voices-v032.py",
+  "python": "3.13.11",
+  "generatedAt": "2026-10-04T07:01:50.078292+00:00",
+  "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "numpy": "2.5.3",
+    "phonemizer": "3.4.0",
+    "cloudpickle": "3.1.2",
+    "packaging": "26.3",
+    "joblib": "1.6.0",
+    "protobuf": "7.36.2",
+    "kokoro-onnx": "0.6.1",
+    "pip": "25.3",
+    "onnxruntime": "1.30.0",
+    "espeakng-loader": "0.2.4",
+    "flatbuffers": "25.12.19",
+    "attrs": "26.1.0",
+    "typing_extensions": "4.16.0",
+    "dlinfo": "2.0.0"
+  },
+  "model": {
+    "file": "kokoro-v1.0.fp16.onnx",
+    "sha256": "f3a290d384fbb27966d462905c71a46cef9e5fd00516b40df32a0b4afe77ac96"
+  },
+  "voices": {
+    "file": "voices-v1.0.bin",
+    "sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d"
+  },
+  "sourceDeckSha256": "a7c1b8a55fbffd9c9e61b3d7745a55f5d27a3338643907cb3dba9365edc092a4",
+  "deckRows": 84,
+  "uniqueWords": 81,
+  "clips": 88,
+  "generatedClips": 82,
+  "retainedClips": {
+    "Yoh, kaette kiharimashita na.": {
+      "file": "audio/voice-v032/082-6767a99dfc62.mp3",
+      "voice": "Kokoro-82M-v1.0/am_fenrir",
+      "kind": "call",
+      "duration": 2.115667,
+      "bytes": 17708,
+      "sha256": "6767a99dfc626274b964d6c5b0154a13ba7c16cc052f607c8f6d3bc97370c23d"
+    },
+    "Dorehodo oboete haru ka, misete moraimahyoka.": {
+      "file": "audio/voice-v032/083-fc273a6e3dfe.mp3",
+      "voice": "Kokoro-82M-v1.0/am_fenrir",
+      "kind": "call",
+      "duration": 3.865958,
+      "bytes": 31724,
+      "sha256": "fc273a6e3dfe8b83f528a9a07cf1a30d760fd06aa15f34e1cf01e62fb032e313"
+    },
+    "Time!": {
+      "file": "audio/voice-v032/084-d421ae0bf8e7.mp3",
+      "voice": "Kokoro-82M-v1.0/am_fenrir",
+      "kind": "call",
+      "duration": 0.74975,
+      "bytes": 6764,
+      "sha256": "d421ae0bf8e77a9ed4977425b2b223369ef7063d684c99dc7ae8b7ba6ad72007"
+    },
+    "Hajime!": {
+      "file": "audio/voice-v032/085-3623a4c93f2b.mp3",
+      "voice": "Kokoro-82M-v1.0/am_fenrir",
+      "kind": "call",
+      "duration": 0.9445,
+      "bytes": 8300,
+      "sha256": "3623a4c93f2bf11e4e39cfbf2345f2d175e97b2ce64fa4de3f6b8517d3a17de8"
+    },
+    "Shobu ari!": {
+      "file": "audio/voice-v032/086-8d9dc96edacf.mp3",
+      "voice": "Kokoro-82M-v1.0/am_fenrir",
+      "kind": "call",
+      "duration": 1.132208,
+      "bytes": 9836,
+      "sha256": "8d9dc96edacf6706ff2ac4b0d7a4bb6758c4923f4f1e2a927db678e48c2d5946"
+    },
+    "ひゃーん": {
+      "file": "audio/voice-v032/087-f40b4aadda0e.mp3",
+      "voice": "Kokoro-82M-v1.0/af_heart",
+      "kind": "ending",
+      "duration": 0.917,
+      "bytes": 8108,
+      "sha256": "f40b4aadda0e677f9ff94c02f13ae5718b4ed399dd1db2c96f0a0f2a4f42c580"
+    }
+  },
+  "totalBytes": 510368,
+  "sampleRate": 24000,
+  "channels": 1,
+  "codec": "MP3 libmp3lame 64 kbit/s",
+  "details": [
+    {
+      "text": "think",
+      "spoken": "think",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/θɪŋk/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "θˈɪŋk",
+      "synthesizedPhonemes": "θˈɪŋk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "θ",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ŋ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "k",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.208,
+      "trimmedTailSeconds": 0.25575,
+      "decodedSeconds": 0.51125,
+      "peakDbfs": -8.635,
+      "rmsDbfs": -18.84,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0149,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "thin",
+      "spoken": "thin",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/θɪn/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "θˈɪn",
+      "synthesizedPhonemes": "θˈɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "θ",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "n",
+          "start": 0.475,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.20842,
+      "trimmedTailSeconds": 0.23254,
+      "decodedSeconds": 0.459042,
+      "peakDbfs": -7.307,
+      "rmsDbfs": -18.83,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0133,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "thank",
+      "spoken": "thank",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/θæŋk/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "θˈæŋk",
+      "synthesizedPhonemes": "θˈæŋk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "θ",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ŋ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "k",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20842,
+      "trimmedTailSeconds": 0.25683,
+      "decodedSeconds": 0.50975,
+      "peakDbfs": -8.05,
+      "rmsDbfs": -18.851,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "three",
+      "spoken": "three",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/θriː/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "θɹˈiː",
+      "synthesizedPhonemes": "θɹˈiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "θ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ɹ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "i",
+          "start": 0.525,
+          "end": 0.675
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.675,
+          "end": 0.9
+        }
+      ],
+      "trimmedHeadSeconds": 0.23613,
+      "trimmedTailSeconds": 0.36112,
+      "decodedSeconds": 0.62775,
+      "peakDbfs": -6.548,
+      "rmsDbfs": -18.869,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0155,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "bath",
+      "spoken": "bath",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/bæθ/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "bˈæθ",
+      "synthesizedPhonemes": "bˈæθ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "θ",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20875,
+      "trimmedTailSeconds": 0.28517,
+      "decodedSeconds": 0.556083,
+      "peakDbfs": -6.545,
+      "rmsDbfs": -18.861,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0176,
+      "trailingSilenceSeconds": 0.0705
+    },
+    {
+      "text": "mouth",
+      "spoken": "mouth",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/maʊθ/",
+      "targets": [
+        "θ"
+      ],
+      "g2p": "mˈaʊθ",
+      "synthesizedPhonemes": "mˈaʊθ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "m",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "a",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.45,
+          "end": 0.55
+        },
+        {
+          "phoneme": "θ",
+          "start": 0.55,
+          "end": 0.75
+        }
+      ],
+      "trimmedHeadSeconds": 0.20192,
+      "trimmedTailSeconds": 0.29537,
+      "decodedSeconds": 0.553958,
+      "peakDbfs": -8.197,
+      "rmsDbfs": -18.841,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0712
+    },
+    {
+      "text": "this",
+      "spoken": "this",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ðɪs/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "ðˈɪs",
+      "synthesizedPhonemes": "ðˈɪs",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ð",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.4,
+          "end": 0.5
+        },
+        {
+          "phoneme": "s",
+          "start": 0.5,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20575,
+      "trimmedTailSeconds": 0.298,
+      "decodedSeconds": 0.52125,
+      "peakDbfs": -6.545,
+      "rmsDbfs": -18.861,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "that",
+      "spoken": "that",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ðæt/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "ðˈæt",
+      "synthesizedPhonemes": "ðˈæt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ð",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "t",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20504,
+      "trimmedTailSeconds": 0.27037,
+      "decodedSeconds": 0.499583,
+      "peakDbfs": -7.565,
+      "rmsDbfs": -18.831,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "these",
+      "spoken": "these",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ðiːz/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "ðˈiːz",
+      "synthesizedPhonemes": "ðˈiːz",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ð",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "i",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.575
+        },
+        {
+          "phoneme": "z",
+          "start": 0.575,
+          "end": 0.825
+        }
+      ],
+      "trimmedHeadSeconds": 0.21763,
+      "trimmedTailSeconds": 0.31946,
+      "decodedSeconds": 0.587917,
+      "peakDbfs": -7.116,
+      "rmsDbfs": -18.829,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0149,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "those",
+      "spoken": "those",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ðoʊz/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "ðˈoʊz",
+      "synthesizedPhonemes": "ðˈoʊz",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ð",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "o",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.525,
+          "end": 0.625
+        },
+        {
+          "phoneme": "z",
+          "start": 0.625,
+          "end": 0.875
+        }
+      ],
+      "trimmedHeadSeconds": 0.23262,
+      "trimmedTailSeconds": 0.34596,
+      "decodedSeconds": 0.621417,
+      "peakDbfs": -8.154,
+      "rmsDbfs": -18.829,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "mother",
+      "spoken": "mother",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈmʌðər/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "mˈʌðɚ",
+      "synthesizedPhonemes": "mˈʌðɚ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "m",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.35,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ð",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɚ",
+          "start": 0.475,
+          "end": 0.575
+        }
+      ],
+      "trimmedHeadSeconds": 0.19796,
+      "trimmedTailSeconds": 0.13512,
+      "decodedSeconds": 0.391917,
+      "peakDbfs": -7.275,
+      "rmsDbfs": -18.818,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0698
+    },
+    {
+      "text": "weather",
+      "spoken": "weather",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈwɛðər/",
+      "targets": [
+        "ð"
+      ],
+      "g2p": "wˈɛðɚ",
+      "synthesizedPhonemes": "wˈɛðɚ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "w",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.35,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ð",
+          "start": 0.4,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ɚ",
+          "start": 0.5,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.21075,
+      "trimmedTailSeconds": 0.31458,
+      "decodedSeconds": 0.625958,
+      "peakDbfs": -7.572,
+      "rmsDbfs": -18.859,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0713
+    },
+    {
+      "text": "ship",
+      "spoken": "ship",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ʃɪp/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "ʃˈɪp",
+      "synthesizedPhonemes": "ʃˈɪp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ʃ",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "p",
+          "start": 0.45,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.19221,
+      "trimmedTailSeconds": 0.23925,
+      "decodedSeconds": 0.443542,
+      "peakDbfs": -4.882,
+      "rmsDbfs": -18.854,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0126,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "shop",
+      "spoken": "shop",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ʃɑp/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "ʃˈɑːp",
+      "synthesizedPhonemes": "ʃˈɑːp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ʃ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.425,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.475,
+          "end": 0.55
+        },
+        {
+          "phoneme": "p",
+          "start": 0.55,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.19712,
+      "trimmedTailSeconds": 0.25454,
+      "decodedSeconds": 0.498333,
+      "peakDbfs": -5.335,
+      "rmsDbfs": -18.86,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "she",
+      "spoken": "she",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ʃiː/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "ʃiː",
+      "synthesizedPhonemes": "ʃiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ʃ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "i",
+          "start": 0.35,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.20688,
+      "trimmedTailSeconds": 0.29246,
+      "decodedSeconds": 0.475667,
+      "peakDbfs": -6.929,
+      "rmsDbfs": -18.818,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "shoe",
+      "spoken": "shoe",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ʃuː/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "ʃˈuː",
+      "synthesizedPhonemes": "ʃˈuː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ʃ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "u",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.20642,
+      "trimmedTailSeconds": 0.25654,
+      "decodedSeconds": 0.487042,
+      "peakDbfs": -6.425,
+      "rmsDbfs": -18.862,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "fish",
+      "spoken": "fish",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/fɪʃ/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "fˈɪʃ",
+      "synthesizedPhonemes": "fˈɪʃ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "f",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.5,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.20804,
+      "trimmedTailSeconds": 0.32312,
+      "decodedSeconds": 0.568833,
+      "peakDbfs": -5.769,
+      "rmsDbfs": -18.853,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "wash",
+      "spoken": "wash",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/wɑʃ/",
+      "targets": [
+        "ʃ"
+      ],
+      "g2p": "wˈɑːʃ",
+      "synthesizedPhonemes": "wˈɑːʃ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "w",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.5,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.19642,
+      "trimmedTailSeconds": 0.19579,
+      "decodedSeconds": 0.507792,
+      "peakDbfs": -4.853,
+      "rmsDbfs": -18.823,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "vision",
+      "spoken": "vision",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈvɪʒən/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "vˈɪʒən",
+      "synthesizedPhonemes": "vˈɪʒən",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "v",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.45,
+          "end": 0.55
+        },
+        {
+          "phoneme": "ə",
+          "start": 0.55,
+          "end": 0.65
+        },
+        {
+          "phoneme": "n",
+          "start": 0.65,
+          "end": 0.9
+        }
+      ],
+      "trimmedHeadSeconds": 0.218,
+      "trimmedTailSeconds": 0.34433,
+      "decodedSeconds": 0.662667,
+      "peakDbfs": -5.729,
+      "rmsDbfs": -18.855,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0185,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "measure",
+      "spoken": "measure",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈmɛʒər/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "mˈɛʒɚ",
+      "synthesizedPhonemes": "mˈɛʒɚ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "m",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.45,
+          "end": 0.575
+        },
+        {
+          "phoneme": "ɚ",
+          "start": 0.575,
+          "end": 0.85
+        }
+      ],
+      "trimmedHeadSeconds": 0.21092,
+      "trimmedTailSeconds": 0.323,
+      "decodedSeconds": 0.691083,
+      "peakDbfs": -6.418,
+      "rmsDbfs": -18.845,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "usual",
+      "spoken": "usual",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈjuːʒuəl/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "jˈuːʒuːəl",
+      "synthesizedPhonemes": "jˈuːʒuəl",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "j",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "u",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.5,
+          "end": 0.575
+        },
+        {
+          "phoneme": "u",
+          "start": 0.575,
+          "end": 0.65
+        },
+        {
+          "phoneme": "ə",
+          "start": 0.65,
+          "end": 0.75
+        },
+        {
+          "phoneme": "l",
+          "start": 0.75,
+          "end": 1.025
+        }
+      ],
+      "trimmedHeadSeconds": 0.22946,
+      "trimmedTailSeconds": 0.35921,
+      "decodedSeconds": 0.736333,
+      "peakDbfs": -7.483,
+      "rmsDbfs": -18.842,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "pleasure",
+      "spoken": "pleasure",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈplɛʒər/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "plˈɛʒɚ",
+      "synthesizedPhonemes": "plˈɛʒɚ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "p",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "l",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.5,
+          "end": 0.625
+        },
+        {
+          "phoneme": "ɚ",
+          "start": 0.625,
+          "end": 0.9
+        }
+      ],
+      "trimmedHeadSeconds": 0.22379,
+      "trimmedTailSeconds": 0.33487,
+      "decodedSeconds": 0.716333,
+      "peakDbfs": -7.861,
+      "rmsDbfs": -18.784,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "decision",
+      "spoken": "decision",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/dɪˈsɪʒən/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "dᵻsˈɪʒən",
+      "synthesizedPhonemes": "dɪsˈɪʒən",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "s",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.5,
+          "end": 0.575
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.575,
+          "end": 0.65
+        },
+        {
+          "phoneme": "ə",
+          "start": 0.65,
+          "end": 0.725
+        },
+        {
+          "phoneme": "n",
+          "start": 0.725,
+          "end": 0.925
+        }
+      ],
+      "trimmedHeadSeconds": 0.22033,
+      "trimmedTailSeconds": 0.28425,
+      "decodedSeconds": 0.745958,
+      "peakDbfs": -4.301,
+      "rmsDbfs": -18.861,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0707
+    },
+    {
+      "text": "television",
+      "spoken": "television",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈtɛləˌvɪʒən/",
+      "targets": [
+        "ʒ"
+      ],
+      "g2p": "tˈɛlᵻvˌɪʒən",
+      "synthesizedPhonemes": "tˈɛləvˌɪʒən",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.35,
+          "end": 0.4
+        },
+        {
+          "phoneme": "l",
+          "start": 0.4,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ə",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "v",
+          "start": 0.5,
+          "end": 0.55
+        },
+        {
+          "phoneme": "ˌ",
+          "start": 0.55,
+          "end": 0.6
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.6,
+          "end": 0.675
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.675,
+          "end": 0.75
+        },
+        {
+          "phoneme": "ə",
+          "start": 0.75,
+          "end": 0.85
+        },
+        {
+          "phoneme": "n",
+          "start": 0.85,
+          "end": 1.1
+        }
+      ],
+      "trimmedHeadSeconds": 0.21188,
+      "trimmedTailSeconds": 0.34779,
+      "decodedSeconds": 0.841958,
+      "peakDbfs": -5.045,
+      "rmsDbfs": -18.864,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0718
+    },
+    {
+      "text": "fan",
+      "spoken": "fan",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/fæn/",
+      "targets": [
+        "f"
+      ],
+      "g2p": "fˈæn",
+      "synthesizedPhonemes": "fˈæn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "f",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "n",
+          "start": 0.5,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20675,
+      "trimmedTailSeconds": 0.29246,
+      "decodedSeconds": 0.575792,
+      "peakDbfs": -8.031,
+      "rmsDbfs": -18.835,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0155,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "food",
+      "spoken": "food",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/fuːd/",
+      "targets": [
+        "f"
+      ],
+      "g2p": "fˈuːd",
+      "synthesizedPhonemes": "fˈuːd",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "f",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "u",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.475,
+          "end": 0.55
+        },
+        {
+          "phoneme": "d",
+          "start": 0.55,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.20675,
+      "trimmedTailSeconds": 0.31375,
+      "decodedSeconds": 0.5795,
+      "peakDbfs": -6.53,
+      "rmsDbfs": -18.821,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "leaf",
+      "spoken": "leaf",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/liːf/",
+      "targets": [
+        "f",
+        "l"
+      ],
+      "g2p": "lˈiːf",
+      "synthesizedPhonemes": "lˈiːf",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "l",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "i",
+          "start": 0.35,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.4,
+          "end": 0.45
+        },
+        {
+          "phoneme": "f",
+          "start": 0.45,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.18342,
+      "trimmedTailSeconds": 0.21513,
+      "decodedSeconds": 0.451458,
+      "peakDbfs": -6.437,
+      "rmsDbfs": -18.915,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0175,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "van",
+      "spoken": "van",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/væn/",
+      "targets": [
+        "v"
+      ],
+      "g2p": "vˈæn",
+      "synthesizedPhonemes": "vˈæn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "v",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.4
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "n",
+          "start": 0.475,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.20308,
+      "trimmedTailSeconds": 0.26392,
+      "decodedSeconds": 0.508,
+      "peakDbfs": -7.184,
+      "rmsDbfs": -18.871,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "very",
+      "spoken": "very",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/ˈvɛri/",
+      "targets": [
+        "v"
+      ],
+      "g2p": "vˈɛɹi",
+      "synthesizedPhonemes": "vˈɛɹi",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "v",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɹ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "i",
+          "start": 0.525,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.21471,
+      "trimmedTailSeconds": 0.33567,
+      "decodedSeconds": 0.625958,
+      "peakDbfs": -8.339,
+      "rmsDbfs": -18.851,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0156,
+      "trailingSilenceSeconds": 0.0715
+    },
+    {
+      "text": "move",
+      "spoken": "move",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/muːv/",
+      "targets": [
+        "v"
+      ],
+      "g2p": "mˈuːv",
+      "synthesizedPhonemes": "mˈuːv",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "m",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "u",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.425,
+          "end": 0.475
+        },
+        {
+          "phoneme": "v",
+          "start": 0.475,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.20704,
+      "trimmedTailSeconds": 0.22996,
+      "decodedSeconds": 0.488,
+      "peakDbfs": -6.416,
+      "rmsDbfs": -18.852,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "sun",
+      "spoken": "sun",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/sʌn/",
+      "targets": [
+        "s"
+      ],
+      "g2p": "sˈʌn",
+      "synthesizedPhonemes": "sˈʌn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "s",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "n",
+          "start": 0.525,
+          "end": 0.75
+        }
+      ],
+      "trimmedHeadSeconds": 0.20671,
+      "trimmedTailSeconds": 0.31446,
+      "decodedSeconds": 0.553958,
+      "peakDbfs": -7.413,
+      "rmsDbfs": -18.851,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "seat",
+      "spoken": "seat",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/siːt/",
+      "targets": [
+        "s"
+      ],
+      "g2p": "sˈiːt",
+      "synthesizedPhonemes": "sˈiːt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "s",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "i",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.575
+        },
+        {
+          "phoneme": "t",
+          "start": 0.575,
+          "end": 0.8
+        }
+      ],
+      "trimmedHeadSeconds": 0.20829,
+      "trimmedTailSeconds": 0.32946,
+      "decodedSeconds": 0.58725,
+      "peakDbfs": -6.874,
+      "rmsDbfs": -18.849,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0138,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "rice",
+      "spoken": "rice",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/raɪs/",
+      "targets": [
+        "s",
+        "r"
+      ],
+      "g2p": "ɹˈaɪs",
+      "synthesizedPhonemes": "ɹˈaɪs",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɹ",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "a",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.475,
+          "end": 0.575
+        },
+        {
+          "phoneme": "s",
+          "start": 0.575,
+          "end": 0.825
+        }
+      ],
+      "trimmedHeadSeconds": 0.21138,
+      "trimmedTailSeconds": 0.33125,
+      "decodedSeconds": 0.607375,
+      "peakDbfs": -7.379,
+      "rmsDbfs": -18.829,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "zoo",
+      "spoken": "zoo",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/zuː/",
+      "targets": [
+        "z"
+      ],
+      "g2p": "zˈuː",
+      "synthesizedPhonemes": "zˈuː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "z",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "u",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.20829,
+      "trimmedTailSeconds": 0.25496,
+      "decodedSeconds": 0.48675,
+      "peakDbfs": -6.441,
+      "rmsDbfs": -18.853,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "zip",
+      "spoken": "zip",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/zɪp/",
+      "targets": [
+        "z"
+      ],
+      "g2p": "zˈɪp",
+      "synthesizedPhonemes": "zˈɪp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "z",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "p",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20804,
+      "trimmedTailSeconds": 0.29483,
+      "decodedSeconds": 0.547125,
+      "peakDbfs": -5.111,
+      "rmsDbfs": -18.851,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "buzz",
+      "spoken": "buzz",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/bʌz/",
+      "targets": [
+        "z"
+      ],
+      "g2p": "bˈʌz",
+      "synthesizedPhonemes": "bˈʌz",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.55
+        },
+        {
+          "phoneme": "z",
+          "start": 0.55,
+          "end": 0.825
+        }
+      ],
+      "trimmedHeadSeconds": 0.22046,
+      "trimmedTailSeconds": 0.33037,
+      "decodedSeconds": 0.574167,
+      "peakDbfs": -8.834,
+      "rmsDbfs": -18.826,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "pea",
+      "spoken": "pea",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/piː/",
+      "targets": [
+        "p"
+      ],
+      "g2p": "pˈiː",
+      "synthesizedPhonemes": "pˈiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "p",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "i",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.525,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21638,
+      "trimmedTailSeconds": 0.24704,
+      "decodedSeconds": 0.536583,
+      "peakDbfs": -7.304,
+      "rmsDbfs": -18.856,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "pine",
+      "spoken": "pine",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/paɪn/",
+      "targets": [
+        "p"
+      ],
+      "g2p": "pˈaɪn",
+      "synthesizedPhonemes": "pˈaɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "p",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "a",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.475,
+          "end": 0.55
+        },
+        {
+          "phoneme": "n",
+          "start": 0.55,
+          "end": 0.75
+        }
+      ],
+      "trimmedHeadSeconds": 0.21175,
+      "trimmedTailSeconds": 0.28908,
+      "decodedSeconds": 0.549167,
+      "peakDbfs": -8.643,
+      "rmsDbfs": -18.829,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "push",
+      "spoken": "push",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/pʊʃ/",
+      "targets": [
+        "p"
+      ],
+      "g2p": "pˈʊʃ",
+      "synthesizedPhonemes": "pˈʊʃ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "p",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.475,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20875,
+      "trimmedTailSeconds": 0.24758,
+      "decodedSeconds": 0.543667,
+      "peakDbfs": -5.503,
+      "rmsDbfs": -18.849,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "bee",
+      "spoken": "bee",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/biː/",
+      "targets": [
+        "b"
+      ],
+      "g2p": "bˈiː",
+      "synthesizedPhonemes": "bˈiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "i",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.475,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.21163,
+      "trimmedTailSeconds": 0.23892,
+      "decodedSeconds": 0.499458,
+      "peakDbfs": -7.205,
+      "rmsDbfs": -18.863,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "bay",
+      "spoken": "bay",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/beɪ/",
+      "targets": [
+        "b"
+      ],
+      "g2p": "bˈeɪ",
+      "synthesizedPhonemes": "bˈeɪ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "e",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.475,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.21413,
+      "trimmedTailSeconds": 0.26371,
+      "decodedSeconds": 0.522167,
+      "peakDbfs": -8.047,
+      "rmsDbfs": -18.824,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "bun",
+      "spoken": "bun",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/bʌn/",
+      "targets": [
+        "b"
+      ],
+      "g2p": "bˈʌn",
+      "synthesizedPhonemes": "bˈʌn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "n",
+          "start": 0.45,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.21125,
+      "trimmedTailSeconds": 0.26454,
+      "decodedSeconds": 0.499208,
+      "peakDbfs": -5.764,
+      "rmsDbfs": -18.862,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "tea",
+      "spoken": "tea",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/tiː/",
+      "targets": [
+        "t"
+      ],
+      "g2p": "tˈiː",
+      "synthesizedPhonemes": "tˈiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "i",
+          "start": 0.425,
+          "end": 0.55
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.55,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.21483,
+      "trimmedTailSeconds": 0.273,
+      "decodedSeconds": 0.562167,
+      "peakDbfs": -8.004,
+      "rmsDbfs": -18.828,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.013,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "ten",
+      "spoken": "ten",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/tɛn/",
+      "targets": [
+        "t"
+      ],
+      "g2p": "tˈɛn",
+      "synthesizedPhonemes": "tˈɛn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "n",
+          "start": 0.475,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.21433,
+      "trimmedTailSeconds": 0.30517,
+      "decodedSeconds": 0.5305,
+      "peakDbfs": -9.258,
+      "rmsDbfs": -18.806,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0129,
+      "trailingSilenceSeconds": 0.0706
+    },
+    {
+      "text": "toe",
+      "spoken": "toe",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/toʊ/",
+      "targets": [
+        "t"
+      ],
+      "g2p": "tˈoʊ",
+      "synthesizedPhonemes": "tˈoʊ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "o",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.475,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.2115,
+      "trimmedTailSeconds": 0.29254,
+      "decodedSeconds": 0.545958,
+      "peakDbfs": -8.247,
+      "rmsDbfs": -18.825,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0126,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "day",
+      "spoken": "day",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/deɪ/",
+      "targets": [
+        "d"
+      ],
+      "g2p": "dˈeɪ",
+      "synthesizedPhonemes": "dˈeɪ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "e",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.475,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.21446,
+      "trimmedTailSeconds": 0.28558,
+      "decodedSeconds": 0.524958,
+      "peakDbfs": -8.555,
+      "rmsDbfs": -18.798,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "dough",
+      "spoken": "dough",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/doʊ/",
+      "targets": [
+        "d"
+      ],
+      "g2p": "dˈoʊ",
+      "synthesizedPhonemes": "dˈoʊ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "o",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.475,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21175,
+      "trimmedTailSeconds": 0.27167,
+      "decodedSeconds": 0.541583,
+      "peakDbfs": -7.64,
+      "rmsDbfs": -18.839,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0147,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "dawn",
+      "spoken": "dawn",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/dɑn/",
+      "targets": [
+        "d"
+      ],
+      "g2p": "dˈɔːn",
+      "synthesizedPhonemes": "dˈɑːn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "n",
+          "start": 0.5,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.21142,
+      "trimmedTailSeconds": 0.28163,
+      "decodedSeconds": 0.531958,
+      "peakDbfs": -6.463,
+      "rmsDbfs": -18.837,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0129,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "key",
+      "spoken": "key",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kiː/",
+      "targets": [
+        "k"
+      ],
+      "g2p": "kˈiː",
+      "synthesizedPhonemes": "kˈiː",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "i",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.525,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21408,
+      "trimmedTailSeconds": 0.26967,
+      "decodedSeconds": 0.51625,
+      "peakDbfs": -7.161,
+      "rmsDbfs": -18.754,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0135,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "car",
+      "spoken": "car",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kɑr/",
+      "targets": [
+        "k"
+      ],
+      "g2p": "kˈɑːɹ",
+      "synthesizedPhonemes": "kˈɑːɹ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.4,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ɹ",
+          "start": 0.5,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.21117,
+      "trimmedTailSeconds": 0.27996,
+      "decodedSeconds": 0.533875,
+      "peakDbfs": -9.492,
+      "rmsDbfs": -18.819,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.014,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "cow",
+      "spoken": "cow",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kaʊ/",
+      "targets": [
+        "k"
+      ],
+      "g2p": "kˈaʊ",
+      "synthesizedPhonemes": "kˈaʊ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "a",
+          "start": 0.4,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.5,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.21204,
+      "trimmedTailSeconds": 0.29654,
+      "decodedSeconds": 0.566417,
+      "peakDbfs": -8.218,
+      "rmsDbfs": -18.833,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "go",
+      "spoken": "go",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/goʊ/",
+      "targets": [
+        "g"
+      ],
+      "g2p": "ɡˈoʊ",
+      "synthesizedPhonemes": "ɡˈoʊ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɡ",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "o",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ʊ",
+          "start": 0.475,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21488,
+      "trimmedTailSeconds": 0.26746,
+      "decodedSeconds": 0.542667,
+      "peakDbfs": -7.45,
+      "rmsDbfs": -18.827,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "game",
+      "spoken": "game",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/geɪm/",
+      "targets": [
+        "g"
+      ],
+      "g2p": "ɡˈeɪm",
+      "synthesizedPhonemes": "ɡˈeɪm",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɡ",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "e",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "m",
+          "start": 0.525,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21354,
+      "trimmedTailSeconds": 0.26446,
+      "decodedSeconds": 0.547,
+      "peakDbfs": -7.588,
+      "rmsDbfs": -18.841,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.013,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "gum",
+      "spoken": "gum",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/gʌm/",
+      "targets": [
+        "g"
+      ],
+      "g2p": "ɡˈʌm",
+      "synthesizedPhonemes": "ɡˈʌm",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɡ",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.4,
+          "end": 0.5
+        },
+        {
+          "phoneme": "m",
+          "start": 0.5,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.21729,
+      "trimmedTailSeconds": 0.29542,
+      "decodedSeconds": 0.562292,
+      "peakDbfs": -7.271,
+      "rmsDbfs": -18.803,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0137,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "chain",
+      "spoken": "chain",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/tʃeɪn/",
+      "targets": [
+        "tʃ"
+      ],
+      "g2p": "tʃˈeɪn",
+      "synthesizedPhonemes": "tʃˈeɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "e",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.525,
+          "end": 0.6
+        },
+        {
+          "phoneme": "n",
+          "start": 0.6,
+          "end": 0.8
+        }
+      ],
+      "trimmedHeadSeconds": 0.213,
+      "trimmedTailSeconds": 0.28421,
+      "decodedSeconds": 0.627792,
+      "peakDbfs": -6.812,
+      "rmsDbfs": -18.838,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "chair",
+      "spoken": "chair",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/tʃɛr/",
+      "targets": [
+        "tʃ"
+      ],
+      "g2p": "tʃˈɛɹ",
+      "synthesizedPhonemes": "tʃˈɛɹ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ɹ",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.21275,
+      "trimmedTailSeconds": 0.30671,
+      "decodedSeconds": 0.580542,
+      "peakDbfs": -4.493,
+      "rmsDbfs": -18.853,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.0708
+    },
+    {
+      "text": "chin",
+      "spoken": "chin",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/tʃɪn/",
+      "targets": [
+        "tʃ"
+      ],
+      "g2p": "tʃˈɪn",
+      "synthesizedPhonemes": "tʃˈɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "t",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ʃ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "n",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.21338,
+      "trimmedTailSeconds": 0.26458,
+      "decodedSeconds": 0.547042,
+      "peakDbfs": -5.397,
+      "rmsDbfs": -18.868,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.0707
+    },
+    {
+      "text": "jam",
+      "spoken": "jam",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/dʒæm/",
+      "targets": [
+        "dʒ"
+      ],
+      "g2p": "dʒˈæm",
+      "synthesizedPhonemes": "dʒˈæm",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.4,
+          "end": 0.525
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.525,
+          "end": 0.625
+        },
+        {
+          "phoneme": "m",
+          "start": 0.625,
+          "end": 0.875
+        }
+      ],
+      "trimmedHeadSeconds": 0.21838,
+      "trimmedTailSeconds": 0.36825,
+      "decodedSeconds": 0.638375,
+      "peakDbfs": -3.841,
+      "rmsDbfs": -18.847,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "joy",
+      "spoken": "joy",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/dʒɔɪ/",
+      "targets": [
+        "dʒ"
+      ],
+      "g2p": "dʒˈɔɪ",
+      "synthesizedPhonemes": "dʒˈɔɪ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɔ",
+          "start": 0.45,
+          "end": 0.55
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.55,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.21488,
+      "trimmedTailSeconds": 0.29654,
+      "decodedSeconds": 0.613583,
+      "peakDbfs": -6.636,
+      "rmsDbfs": -18.855,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0147,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "June",
+      "spoken": "June",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/dʒuːn/",
+      "targets": [
+        "dʒ"
+      ],
+      "g2p": "dʒˈuːn",
+      "synthesizedPhonemes": "dʒˈuːn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "d",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ʒ",
+          "start": 0.3,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "u",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.55
+        },
+        {
+          "phoneme": "n",
+          "start": 0.55,
+          "end": 0.75
+        }
+      ],
+      "trimmedHeadSeconds": 0.21175,
+      "trimmedTailSeconds": 0.28913,
+      "decodedSeconds": 0.599125,
+      "peakDbfs": -6.1,
+      "rmsDbfs": -18.852,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "rain",
+      "spoken": "rain",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/reɪn/",
+      "targets": [
+        "r"
+      ],
+      "g2p": "ɹˈeɪn",
+      "synthesizedPhonemes": "ɹˈeɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɹ",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "e",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.475,
+          "end": 0.55
+        },
+        {
+          "phoneme": "n",
+          "start": 0.55,
+          "end": 0.75
+        }
+      ],
+      "trimmedHeadSeconds": 0.21163,
+      "trimmedTailSeconds": 0.2695,
+      "decodedSeconds": 0.568875,
+      "peakDbfs": -6.997,
+      "rmsDbfs": -18.784,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "run",
+      "spoken": "run",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/rʌn/",
+      "targets": [
+        "r"
+      ],
+      "g2p": "ɹˈʌn",
+      "synthesizedPhonemes": "ɹˈʌn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɹ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "n",
+          "start": 0.5,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20963,
+      "trimmedTailSeconds": 0.273,
+      "decodedSeconds": 0.567375,
+      "peakDbfs": -6.796,
+      "rmsDbfs": -18.834,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0149,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "lake",
+      "spoken": "lake",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/leɪk/",
+      "targets": [
+        "l"
+      ],
+      "g2p": "lˈeɪk",
+      "synthesizedPhonemes": "lˈeɪk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "l",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "e",
+          "start": 0.375,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "k",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20513,
+      "trimmedTailSeconds": 0.24333,
+      "decodedSeconds": 0.551542,
+      "peakDbfs": -6.395,
+      "rmsDbfs": -18.842,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "lip",
+      "spoken": "lip",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/lɪp/",
+      "targets": [
+        "l",
+        "ɪ"
+      ],
+      "g2p": "lˈɪp",
+      "synthesizedPhonemes": "lˈɪp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "l",
+          "start": 0.275,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "p",
+          "start": 0.475,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.20204,
+      "trimmedTailSeconds": 0.24696,
+      "decodedSeconds": 0.526,
+      "peakDbfs": -4.373,
+      "rmsDbfs": -18.878,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "wave",
+      "spoken": "wave",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/weɪv/",
+      "targets": [
+        "w"
+      ],
+      "g2p": "wˈeɪv",
+      "synthesizedPhonemes": "wˈeɪv",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "w",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "e",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "v",
+          "start": 0.525,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20713,
+      "trimmedTailSeconds": 0.22204,
+      "decodedSeconds": 0.545833,
+      "peakDbfs": -7.374,
+      "rmsDbfs": -18.843,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0158,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "wet",
+      "spoken": "wet",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/wɛt/",
+      "targets": [
+        "w"
+      ],
+      "g2p": "wˈɛt",
+      "synthesizedPhonemes": "wˈɛt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "w",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "t",
+          "start": 0.475,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.19575,
+      "trimmedTailSeconds": 0.26212,
+      "decodedSeconds": 0.492125,
+      "peakDbfs": -7.466,
+      "rmsDbfs": -18.83,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0695
+    },
+    {
+      "text": "win",
+      "spoken": "win",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/wɪn/",
+      "targets": [
+        "w"
+      ],
+      "g2p": "wˈɪn",
+      "synthesizedPhonemes": "wˈɪn",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "w",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "n",
+          "start": 0.45,
+          "end": 0.625
+        }
+      ],
+      "trimmedHeadSeconds": 0.20279,
+      "trimmedTailSeconds": 0.23642,
+      "decodedSeconds": 0.485792,
+      "peakDbfs": -6.781,
+      "rmsDbfs": -18.842,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.0715
+    },
+    {
+      "text": "yes",
+      "spoken": "yes",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/jɛs/",
+      "targets": [
+        "j"
+      ],
+      "g2p": "jˈɛs",
+      "synthesizedPhonemes": "jˈɛs",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "j",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.45,
+          "end": 0.55
+        },
+        {
+          "phoneme": "s",
+          "start": 0.55,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.21092,
+      "trimmedTailSeconds": 0.32171,
+      "decodedSeconds": 0.567375,
+      "peakDbfs": -4.092,
+      "rmsDbfs": -18.852,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0701
+    },
+    {
+      "text": "yet",
+      "spoken": "yet",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/jɛt/",
+      "targets": [
+        "j"
+      ],
+      "g2p": "jˈɛt",
+      "synthesizedPhonemes": "jˈɛt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "j",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "t",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20754,
+      "trimmedTailSeconds": 0.29275,
+      "decodedSeconds": 0.524708,
+      "peakDbfs": -4.57,
+      "rmsDbfs": -18.869,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "young",
+      "spoken": "young",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/jʌŋ/",
+      "targets": [
+        "j"
+      ],
+      "g2p": "jˈʌŋ",
+      "synthesizedPhonemes": "jˈʌŋ",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "j",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "ŋ",
+          "start": 0.525,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.22071,
+      "trimmedTailSeconds": 0.346,
+      "decodedSeconds": 0.558292,
+      "peakDbfs": -6.439,
+      "rmsDbfs": -18.862,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0703
+    },
+    {
+      "text": "cat",
+      "spoken": "cat",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kæt/",
+      "targets": [
+        "æ"
+      ],
+      "g2p": "kˈæt",
+      "synthesizedPhonemes": "kˈæt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "t",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20738,
+      "trimmedTailSeconds": 0.29004,
+      "decodedSeconds": 0.502583,
+      "peakDbfs": -8.543,
+      "rmsDbfs": -18.828,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "cap",
+      "spoken": "cap",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kæp/",
+      "targets": [
+        "æ"
+      ],
+      "g2p": "kˈæp",
+      "synthesizedPhonemes": "kˈæp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "p",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20721,
+      "trimmedTailSeconds": 0.28913,
+      "decodedSeconds": 0.553958,
+      "peakDbfs": -7.576,
+      "rmsDbfs": -18.827,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.0703
+    },
+    {
+      "text": "back",
+      "spoken": "back",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/bæk/",
+      "targets": [
+        "æ"
+      ],
+      "g2p": "bˈæk",
+      "synthesizedPhonemes": "bˈæk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "æ",
+          "start": 0.425,
+          "end": 0.5
+        },
+        {
+          "phoneme": "k",
+          "start": 0.5,
+          "end": 0.7
+        }
+      ],
+      "trimmedHeadSeconds": 0.20804,
+      "trimmedTailSeconds": 0.25933,
+      "decodedSeconds": 0.532625,
+      "peakDbfs": -6.456,
+      "rmsDbfs": -18.764,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "kit",
+      "spoken": "kit",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kɪt/",
+      "targets": [
+        "ɪ"
+      ],
+      "g2p": "kˈɪt",
+      "synthesizedPhonemes": "kˈɪt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "t",
+          "start": 0.475,
+          "end": 0.675
+        }
+      ],
+      "trimmedHeadSeconds": 0.20738,
+      "trimmedTailSeconds": 0.26675,
+      "decodedSeconds": 0.500875,
+      "peakDbfs": -5.444,
+      "rmsDbfs": -18.85,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0155,
+      "trailingSilenceSeconds": 0.0702
+    },
+    {
+      "text": "kick",
+      "spoken": "kick",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kɪk/",
+      "targets": [
+        "ɪ"
+      ],
+      "g2p": "kˈɪk",
+      "synthesizedPhonemes": "kˈɪk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.375
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.375,
+          "end": 0.475
+        },
+        {
+          "phoneme": "k",
+          "start": 0.475,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.20083,
+      "trimmedTailSeconds": 0.246,
+      "decodedSeconds": 0.478167,
+      "peakDbfs": -5.606,
+      "rmsDbfs": -18.753,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "cut",
+      "spoken": "cut",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kʌt/",
+      "targets": [
+        "ʌ"
+      ],
+      "g2p": "kˈʌt",
+      "synthesizedPhonemes": "kˈʌt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.55
+        },
+        {
+          "phoneme": "t",
+          "start": 0.55,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.20888,
+      "trimmedTailSeconds": 0.29587,
+      "decodedSeconds": 0.52025,
+      "peakDbfs": -8.116,
+      "rmsDbfs": -18.837,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0146,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "cup",
+      "spoken": "cup",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kʌp/",
+      "targets": [
+        "ʌ"
+      ],
+      "g2p": "kˈʌp",
+      "synthesizedPhonemes": "kˈʌp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.4,
+          "end": 0.475
+        },
+        {
+          "phoneme": "p",
+          "start": 0.475,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.20133,
+      "trimmedTailSeconds": 0.24263,
+      "decodedSeconds": 0.457958,
+      "peakDbfs": -5.988,
+      "rmsDbfs": -18.876,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.0719
+    },
+    {
+      "text": "bus",
+      "spoken": "bus",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/bʌs/",
+      "targets": [
+        "ʌ"
+      ],
+      "g2p": "bˈʌs",
+      "synthesizedPhonemes": "bˈʌs",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "b",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.425
+        },
+        {
+          "phoneme": "ʌ",
+          "start": 0.425,
+          "end": 0.525
+        },
+        {
+          "phoneme": "s",
+          "start": 0.525,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.21413,
+      "trimmedTailSeconds": 0.32175,
+      "decodedSeconds": 0.564125,
+      "peakDbfs": -6.848,
+      "rmsDbfs": -18.851,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0151,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "cot",
+      "spoken": "cot",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kɑt/",
+      "targets": [
+        "ɑ"
+      ],
+      "g2p": "kˈɑːt",
+      "synthesizedPhonemes": "kˈɑːt",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.4,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "t",
+          "start": 0.525,
+          "end": 0.725
+        }
+      ],
+      "trimmedHeadSeconds": 0.20963,
+      "trimmedTailSeconds": 0.27087,
+      "decodedSeconds": 0.5695,
+      "peakDbfs": -8.909,
+      "rmsDbfs": -18.822,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "cop",
+      "spoken": "cop",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/kɑp/",
+      "targets": [
+        "ɑ"
+      ],
+      "g2p": "kˈɑːp",
+      "synthesizedPhonemes": "kˈɑːp",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "k",
+          "start": 0.25,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.325,
+          "end": 0.4
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.4,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "p",
+          "start": 0.5,
+          "end": 0.65
+        }
+      ],
+      "trimmedHeadSeconds": 0.19908,
+      "trimmedTailSeconds": 0.18775,
+      "decodedSeconds": 0.413167,
+      "peakDbfs": -8.633,
+      "rmsDbfs": -18.818,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0152,
+      "trailingSilenceSeconds": 0.07
+    },
+    {
+      "text": "rock",
+      "spoken": "rock",
+      "voice": "af_kore",
+      "speed": 1.0,
+      "kind": "word",
+      "ipa": "/rɑk/",
+      "targets": [
+        "ɑ"
+      ],
+      "g2p": "ɹˈɑːk",
+      "synthesizedPhonemes": "ɹˈɑːk",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "ɹ",
+          "start": 0.275,
+          "end": 0.35
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.35,
+          "end": 0.45
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 0.45,
+          "end": 0.5
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.5,
+          "end": 0.575
+        },
+        {
+          "phoneme": "k",
+          "start": 0.575,
+          "end": 0.775
+        }
+      ],
+      "trimmedHeadSeconds": 0.20983,
+      "trimmedTailSeconds": 0.28904,
+      "decodedSeconds": 0.577958,
+      "peakDbfs": -6.813,
+      "rmsDbfs": -18.836,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.015,
+      "trailingSilenceSeconds": 0.0719
+    },
+    {
+      "text": "FIFTEENTH EVER GARDEN",
+      "spoken": "Fifteenth ever garden.",
+      "voice": "af_kore",
+      "speed": 0.95,
+      "kind": "title",
+      "g2p": "fˈɪftiːnθ ˈɛvɚ ɡˈɑːɹdən.",
+      "synthesizedPhonemes": "fˈɪftiːnθ ˈɛvɚ ɡˈɑːɹdən.",
+      "headGuardSeconds": 0.015,
+      "modelPhonemeTimings": [
+        {
+          "phoneme": "f",
+          "start": 0.275,
+          "end": 0.3
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.3,
+          "end": 0.325
+        },
+        {
+          "phoneme": "ɪ",
+          "start": 0.325,
+          "end": 0.375
+        },
+        {
+          "phoneme": "f",
+          "start": 0.375,
+          "end": 0.45
+        },
+        {
+          "phoneme": "t",
+          "start": 0.45,
+          "end": 0.525
+        },
+        {
+          "phoneme": "i",
+          "start": 0.525,
+          "end": 0.575
+        },
+        {
+          "phoneme": "ː",
+          "start": 0.575,
+          "end": 0.6
+        },
+        {
+          "phoneme": "n",
+          "start": 0.6,
+          "end": 0.65
+        },
+        {
+          "phoneme": "θ",
+          "start": 0.65,
+          "end": 0.675
+        },
+        {
+          "phoneme": " ",
+          "start": 0.675,
+          "end": 0.725
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 0.725,
+          "end": 0.775
+        },
+        {
+          "phoneme": "ɛ",
+          "start": 0.775,
+          "end": 0.825
+        },
+        {
+          "phoneme": "v",
+          "start": 0.825,
+          "end": 0.875
+        },
+        {
+          "phoneme": "ɚ",
+          "start": 0.875,
+          "end": 0.925
+        },
+        {
+          "phoneme": " ",
+          "start": 0.925,
+          "end": 0.975
+        },
+        {
+          "phoneme": "ɡ",
+          "start": 0.975,
+          "end": 1.025
+        },
+        {
+          "phoneme": "ˈ",
+          "start": 1.025,
+          "end": 1.075
+        },
+        {
+          "phoneme": "ɑ",
+          "start": 1.075,
+          "end": 1.125
+        },
+        {
+          "phoneme": "ː",
+          "start": 1.125,
+          "end": 1.175
+        },
+        {
+          "phoneme": "ɹ",
+          "start": 1.175,
+          "end": 1.225
+        },
+        {
+          "phoneme": "d",
+          "start": 1.225,
+          "end": 1.3
+        },
+        {
+          "phoneme": "ə",
+          "start": 1.3,
+          "end": 1.375
+        },
+        {
+          "phoneme": "n",
+          "start": 1.375,
+          "end": 1.8
+        },
+        {
+          "phoneme": ".",
+          "start": 1.8,
+          "end": 2.0
+        }
+      ],
+      "trimmedHeadSeconds": 0.2035,
+      "trimmedTailSeconds": 0.38471,
+      "decodedSeconds": 1.436792,
+      "peakDbfs": -3.988,
+      "rmsDbfs": -18.861,
+      "clippedSamples": 0,
+      "leadingSilenceSeconds": 0.0155,
+      "trailingSilenceSeconds": 0.071
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "rendererName": "Three.js",
+  "stats": [
+    {
+      "id": "toru",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "saku",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "kind": "full",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "toru",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "saku",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "kind": "face",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}

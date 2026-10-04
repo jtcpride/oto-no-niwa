@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>声の聴き比べ — FIFTEENTH EVER GARDEN</title>
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#20302c;background:#f8f5ed;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;padding:24px 18px 60px}main{max-width:860px;margin:auto}a{color:#286452}h1{font-size:clamp(25px,5vw,36px);line-height:1.25;margin:24px 0 12px}p{line-height:1.7}.lead{max-width:650px;color:#53615a}
+.statusbar{position:sticky;top:0;z-index:1;background:#f8f5edf5;padding:12px 0;display:flex;gap:12px;align-items:center;border-bottom:1px solid #cecfc3}.statusbar p{margin:0;flex:1;font-size:14px;min-height:24px}
+button{font:inherit;border:1px solid #afbdb3;border-radius:10px;padding:11px 12px;min-height:48px;cursor:pointer;background:#fff;color:#20302c;touch-action:manipulation}button:focus-visible{outline:3px solid #d08738;outline-offset:3px}button:disabled{opacity:.5;cursor:default}button.new{background:#245e4c;color:#fff;border-color:#245e4c}button[aria-pressed=true]{box-shadow:0 0 0 3px #e1ac55}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.card{background:#fff;border:1px solid #d4d7cd;border-radius:14px;padding:18px}.card h2{font-size:23px;margin:0 0 14px;overflow-wrap:anywhere}.choices{display:grid;gap:9px}.card button{text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px}.card small{font-size:11px;opacity:.8;white-space:nowrap}.notes{font-size:13px;color:#58665e}.legend{font-size:14px;margin-bottom:4px}
+@media(max-width:600px){body{padding:16px 14px 40px}.cards{grid-template-columns:1fr}.card{padding:16px}.card h2{font-size:22px}}
+</style>
+<main>
+<a href="../../../">← ゲームに戻る</a>
+<h1>声の聴き比べ</h1>
+<p class="lead">she と mother を先頭に、教材の声を聴き比べられます。このページでは声だけを再生します。</p>
+<p><a href="../../../?intro=1&amp;voice=recorded&amp;v=0330">新しい声でゲームを試す</a> · <a href="../../../?intro=1&amp;voice=native&amp;v=0330">以前の方式でゲームを試す</a></p>
+<p class="notes">方式の指定は保存されません。以前の方式では端末によってBGMの中断が再発する可能性があります。</p>
+<p class="legend">「以前の声」は、この端末の英語読み上げです。Samantha / Ava があれば優先します。</p>
+<p class="notes" id="nativeVoice">端末の音声を確認しています。</p>
+<div class="statusbar"><p role="status" aria-live="polite" id="status">聴きたい声を押してください。</p><button type="button" id="stop">停止</button></div>
+<div class="cards" id="cards"></div>
+<p class="notes">変更前は af_heart・速度0.90、新しい単語は af_kore・速度1.00です。タイトルの速度は0.88から0.95にしています。以前の端末音声は速度0.82・高さ1.00です。音量や声の種類は端末によって異なります。</p>
+<p class="notes">先頭の無音を35msから15msに短くしました。mother の /m/ や she の /ʃ/ は削っていません。聴こえ方の改善は、この聴き比べで確かめてください。</p>
+</main>
+<script src="comparison-data.js"></script>
+<script>
+'use strict';
+const status=document.getElementById('status'),cards=document.getElementById('cards'),nativeInfo=document.getElementById('nativeVoice');
+const cache=new Map();let context,source,token=0,utterance;
+function selectedVoice(){const voices=window.speechSynthesis?.getVoices()||[];return voices.find(v=>/^en-US/i.test(v.lang)&&/Samantha|Ava/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang)&&/Alex|Daniel/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));}
+function updateNative(){const voice=selectedVoice();nativeInfo.textContent=!('speechSynthesis'in window)?'このブラウザは端末の読み上げに対応していません。':voice?'この端末の声：'+voice.name+'（'+voice.lang+'）':'端末の英語音声がまだ見つかりません。以前の声を押すと標準音声を試します。';}
+function stop(){++token;if(source){source.onended=null;try{source.stop();source.disconnect()}catch(e){}source=null;}window.speechSynthesis?.cancel();utterance=null;document.querySelectorAll('[aria-pressed]').forEach(b=>b.setAttribute('aria-pressed','false'));}
+async function play(row,kind,button){stop();const activeToken=token;button.setAttribute('aria-pressed','true');const label={native:'以前の声',before:'v0.32（変更前）',after:'新しい声（v0.33）'}[kind];status.textContent=row.text+' — '+label+'を準備中…';
+ const finish=()=>{if(token!==activeToken)return;button.setAttribute('aria-pressed','false');status.textContent=row.text+' — '+label+'の再生が終わりました。';};
+ try{if(kind==='native'){const u=new SpeechSynthesisUtterance(row.text);utterance=u;u.lang='en-US';u.rate=.82;u.pitch=1;u.volume=.85;const voice=selectedVoice();if(voice)u.voice=voice;u.onstart=()=>{if(token===activeToken)status.textContent=row.text+' — '+label+'を再生中';};u.onend=finish;u.onerror=e=>{if(token===activeToken){button.setAttribute('aria-pressed','false');status.textContent='端末音声を再生できませんでした。もう一度お試しください。';}};window.speechSynthesis.resume();window.speechSynthesis.speak(u);updateNative();return;}
+  context??=new(window.AudioContext||window.webkitAudioContext)();await context.resume();const url='../../../'+row[kind].file;
+  if(!cache.has(url))cache.set(url,fetch(url).then(r=>{if(!r.ok)throw Error('Audio HTTP '+r.status);return r.arrayBuffer();}).then(bytes=>context.decodeAudioData(bytes)).catch(error=>{cache.delete(url);throw error;}));
+  const buffer=await cache.get(url);if(token!==activeToken)return;source=context.createBufferSource();source.buffer=buffer;source.connect(context.destination);source.onended=finish;source.start();status.textContent=row.text+' — '+label+'を再生中';
+ }catch(e){if(token===activeToken){button.setAttribute('aria-pressed','false');status.textContent='再生できませんでした。もう一度お試しください。';}}
+}
+for(const row of window.voiceComparison){const section=document.createElement('section');section.className='card';const heading=document.createElement('h2');heading.textContent=row.text;section.append(heading);const choices=document.createElement('div');choices.className='choices';
+ for(const[kind,label,detail]of[['native','以前の声（端末）','Samantha / Ava 優先'],['before','v0.32（変更前）','af_heart'],['after','新しい声（v0.33）','af_kore']]){const button=document.createElement('button');button.type='button';button.dataset.kind=kind;button.setAttribute('aria-label',row.text+'：'+label);button.setAttribute('aria-pressed','false');if(kind==='after')button.className='new';if(kind==='native')button.disabled=!('speechSynthesis'in window);const name=document.createElement('span');name.textContent='▶ '+label;const small=document.createElement('small');small.textContent=detail;button.append(name,small);button.onclick=()=>play(row,kind,button);choices.append(button);}section.append(choices);cards.append(section);
+}
+document.getElementById('stop').onclick=()=>{stop();status.textContent='停止しました。';};window.addEventListener('pagehide',stop);document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.speechSynthesis?.addEventListener('voiceschanged',updateNative);updateNative();
+</script>
+</html>

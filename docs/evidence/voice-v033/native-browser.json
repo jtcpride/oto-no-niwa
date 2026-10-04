@@ -1,0 +1,86 @@
+{
+  "startedAt": "2026-10-04T07:08:21.382Z",
+  "status": "passed",
+  "checks": [
+    "Native female title completes, native male Kyoto welcome completes, next line is interrupted and native female practice word completes",
+    "Native direct-intro first gesture retains first line",
+    "Removing URL override returns to recorded voice without native speech or stored engine preference"
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome native speech events and recorded decoding; not subjective listening, iPhone/iPad audio mixing or physical touch acceptance."
+  ],
+  "base": "http://127.0.0.1:53943/",
+  "nativeEvents": [
+    {
+      "text": "FIFTEENTH EVER GARDEN",
+      "voice": "Samantha",
+      "lang": "en-US",
+      "rate": 0.8199999928474426,
+      "pitch": 1,
+      "events": [
+        {
+          "type": "start",
+          "at": 1079.6999998092651
+        },
+        {
+          "type": "end",
+          "at": 2888.300000190735
+        }
+      ]
+    },
+    {
+      "text": "Yoh, kaette kiharimashita na.",
+      "voice": "Fred",
+      "lang": "en-US",
+      "rate": 0.7200000286102295,
+      "pitch": 0.8199999928474426,
+      "events": [
+        {
+          "type": "start",
+          "at": 2894.5
+        },
+        {
+          "type": "end",
+          "at": 6589.400000095367
+        }
+      ]
+    },
+    {
+      "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+      "voice": "Fred",
+      "lang": "en-US",
+      "rate": 0.7200000286102295,
+      "pitch": 0.8199999928474426,
+      "events": [
+        {
+          "type": "start",
+          "at": 6639.599999904633
+        },
+        {
+          "type": "error",
+          "error": "interrupted",
+          "at": 6927.900000095367
+        }
+      ]
+    },
+    {
+      "text": "think",
+      "voice": "Samantha",
+      "lang": "en-US",
+      "rate": 0.8199999928474426,
+      "pitch": 1,
+      "events": [
+        {
+          "type": "start",
+          "at": 6928.099999904633
+        },
+        {
+          "type": "end",
+          "at": 7432
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-10-04T07:08:30.497Z"
+}

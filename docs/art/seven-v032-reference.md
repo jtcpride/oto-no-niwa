@@ -1,5 +1,7 @@
 # Seven-character reference and model review
 
+**Correction, 2026-10-04 (v0.33 investigation):** the v0.32 standalone gallery loaded the bundled Three source string without executing it and silently used the Garden renderer. Its label and `rendererName` field incorrectly said Three.js. The displayed geometry was real WebGL, but was not the production Three lighting. The production game comparison and campaign browser tests used the actual Three loader and are unaffected. The gallery now executes and asserts the requested renderer; use the v0.33 comparison evidence for current art review.
+
 2026-10-04 / v0.32 working tree, based on `c1e89d90285f7c9c78209a627d0d39a61f13e9c1`.
 
 [Generated concept](seven-v032-concept.png) · [Exact prompt](seven-v032-prompt.txt) · [Previous models](seven-v032-before.png) · [Actual revised models](seven-v032-actual.png) · [Silhouettes](seven-v032-silhouettes.png)

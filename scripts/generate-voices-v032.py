@@ -5,6 +5,7 @@ Run in the isolated Kokoro environment. Downloads are deliberately separate.
 No operating-system voices, API keys, or network calls are used here.
 """
 import argparse
+from dataclasses import asdict
 from datetime import datetime, timezone
 import hashlib
 import importlib.metadata
@@ -75,7 +76,7 @@ def entries():
     return rows, result
 
 
-def finish_pcm(samples):
+def finish_pcm(samples, head_guard=.035):
     samples = np.asarray(samples, dtype=np.float32)
     assert np.isfinite(samples).all(), "Nonfinite synthesized PCM"
     peak = float(np.max(np.abs(samples)))
@@ -83,7 +84,7 @@ def finish_pcm(samples):
     original_length = len(samples)
     active = np.flatnonzero(np.abs(samples) > max(.0005, peak * .003))
     # Conservative guards retain quiet initial/final fricatives and releases.
-    start = max(0, int(active[0]) - int(.035 * RATE))
+    start = max(0, int(active[0]) - int(head_guard * RATE))
     end = min(original_length, int(active[-1]) + int(.07 * RATE) + 1)
     samples = samples[start:end].copy()
     rms = float(np.sqrt(np.mean(samples * samples)))
@@ -91,7 +92,7 @@ def finish_pcm(samples):
     # Normalize before the final boundary pass so very low model tail noise
     # cannot extend a short word by hundreds of milliseconds.
     active = np.flatnonzero(np.abs(samples) > .002)
-    final_start = max(0, int(active[0]) - int(.035 * RATE))
+    final_start = max(0, int(active[0]) - int(head_guard * RATE))
     final_end = min(len(samples), int(active[-1]) + int(.07 * RATE) + 1)
     end = start + final_end
     start += final_start
@@ -138,6 +139,8 @@ def main():
     parser.add_argument("--build-dir", type=Path, default=ROOT.parent/"work/voice-build")
     parser.add_argument("--ffmpeg", default="ffmpeg")
     parser.add_argument("--preview", action="store_true", help="Combined listening MP3 in build-dir")
+    parser.add_argument("--neutral-v033", action="store_true",
+                        help="Generate v0.33 neutral words and title; retain the v0.32 calls and ending")
     args = parser.parse_args()
     args.build_dir = args.build_dir.resolve()
     for name, expected in [(MODEL, MODEL_SHA), (VOICES, VOICES_SHA)]:
@@ -152,7 +155,19 @@ def main():
     session = ort.InferenceSession(str(args.build_dir/MODEL), opts, providers=["CPUExecutionProvider"])
     engine = Kokoro.from_session(session, str(args.build_dir/VOICES))
     rows, items = entries()
-    output = ROOT/"audio/voice-v032"
+    edition = "voice-v033" if args.neutral_v033 else "voice-v032"
+    retained = {}
+    if args.neutral_v033:
+        current = json.loads(subprocess.check_output(["node", "-e",
+            'global.window={};require("./content/voice-clips.js");console.log(JSON.stringify(window.FEGVoiceClips));'],
+            cwd=ROOT, text=True))
+        retained = {text: clip for text, clip in current.items() if clip["kind"] in ("call", "ending")}
+        assert len(retained) == 6, "Expected the existing five calls and ending"
+        for clip in retained.values():
+            assert sha(ROOT/clip["file"]) == clip["sha256"], "Changed retained nonword clip"
+        items = [dict(item, voice="af_kore", speed=1.0 if item["kind"] == "word" else .95)
+                 for item in items if item["kind"] in ("word", "title")]
+    output = ROOT/"audio"/edition
     output.mkdir(parents=True, exist_ok=True)
     manifest, audit, combined, cue_sheet = {}, [], [], []
     elapsed = 0.0
@@ -166,10 +181,11 @@ def main():
                 for target in item["targets"]:
                     assert normalized_ipa(target) in normalized_ipa(phonemes), (item, phonemes)
             assert engine.tokenizer.known(phonemes) == phonemes, (item, phonemes)
-            samples, rate = engine.create(phonemes, voice=item["voice"], speed=item["speed"],
+            samples, rate, timings = engine.create_timed(phonemes, voice=item["voice"], speed=item["speed"],
                                           is_phonemes=True, trim=False, sentence_pause=0, clause_pause=0)
             assert rate == RATE
-            samples, trimming = finish_pcm(samples)
+            head_guard = .015 if args.neutral_v033 else .035
+            samples, trimming = finish_pcm(samples, head_guard=head_guard)
             wav, mp3 = scratch/"clip.wav", scratch/"clip.mp3"
             write_wav(wav, samples)
             encode(args.ffmpeg, wav, mp3)
@@ -177,36 +193,49 @@ def main():
             digest = sha(mp3)
             filename = f"{i:03d}-{digest[:12]}.mp3"
             (scratch/filename).write_bytes(mp3.read_bytes())
-            manifest[item["text"]] = dict(file=f"audio/voice-v032/{filename}",
+            manifest[item["text"]] = dict(file=f"audio/{edition}/{filename}",
                 voice=f"Kokoro-82M-v1.0/{item['voice']}", kind=item["kind"],
                 duration=quality["decodedSeconds"], bytes=mp3.stat().st_size, sha256=digest)
-            audit.append(dict(**item, g2p=auto_phonemes, synthesizedPhonemes=phonemes, **trimming, **quality))
+            audit.append(dict(**item, g2p=auto_phonemes, synthesizedPhonemes=phonemes,
+                              headGuardSeconds=head_guard, modelPhonemeTimings=[asdict(t) for t in timings],
+                              **trimming, **quality))
             cue_sheet.append(f"{elapsed:07.2f}\t{item['kind']}\t{item['text']}")
             combined.extend([decoded, np.zeros(int(.40*RATE), dtype=np.float32)])
             elapsed += len(decoded)/RATE+.4
             print(f"{i+1:02d}/{len(items)} {item['text']}: {quality['decodedSeconds']:.3f}s", flush=True)
         if args.preview:
-            preview = args.build_dir/"voice-v032-listening.wav"
+            preview = args.build_dir/f"{edition}-listening.wav"
             write_wav(preview, np.concatenate(combined))
-            encode(args.ffmpeg, preview, args.build_dir/"voice-v032-listening.mp3")
+            encode(args.ffmpeg, preview, args.build_dir/f"{edition}-listening.mp3")
             preview.unlink()
-            (args.build_dir/"voice-v032-listening-cues.tsv").write_text("\n".join(cue_sheet)+"\n")
+            (args.build_dir/f"{edition}-listening-cues.tsv").write_text("\n".join(cue_sheet)+"\n")
         # Publish only after every clip passes; remove stale generated clips.
         for clip in output.glob("[0-9][0-9][0-9]-*.mp3"):
             clip.unlink()
         for clip in scratch.glob("[0-9][0-9][0-9]-*.mp3"):
             (output/clip.name).write_bytes(clip.read_bytes())
+    manifest.update(retained)
     (ROOT/"content/voice-clips.js").write_text(
-        "// Generated by scripts/generate-voices-v032.py. See audio/voice-v032/README.md.\n"
+        f"// Generated by scripts/generate-voices-v032.py{' --neutral-v033' if args.neutral_v033 else ''}. See audio/{edition}/README.md.\n"
         "window.FEGVoiceClips="+json.dumps(manifest, ensure_ascii=False, indent=2)+";\n")
+    comparison = ROOT/"docs/evidence/voice-v033/comparison-data.js"
+    if args.neutral_v033 and comparison.exists():
+        # Keep the original A/B assets pinned while refreshing the new side.
+        comparison_rows = json.loads(subprocess.check_output(["node", "-e",
+            'global.window={};require("./docs/evidence/voice-v033/comparison-data.js");console.log(JSON.stringify(window.voiceComparison));'],
+            cwd=ROOT, text=True))
+        for row in comparison_rows:
+            row["after"] = manifest[row["text"]]
+        comparison.write_text("window.voiceComparison="+json.dumps(comparison_rows, ensure_ascii=False, indent=2)+";\n")
     packages = {dist.metadata["Name"]: dist.version for dist in importlib.metadata.distributions()}
     report = dict(generator="scripts/generate-voices-v032.py", python=sys.version.split()[0],
         generatedAt=datetime.now(timezone.utc).isoformat(),
         ffmpeg=subprocess.check_output([args.ffmpeg, "-version"], text=True).splitlines()[0],
         platform=platform.platform(), packages=packages,
         model=dict(file=MODEL, sha256=MODEL_SHA), voices=dict(file=VOICES, sha256=VOICES_SHA),
-        sourceDeckSha256=sha(ROOT/"content/decks.js"), deckRows=len(rows), uniqueWords=len(items)-7,
-        clips=len(items), totalBytes=sum(v["bytes"] for v in manifest.values()),
+        sourceDeckSha256=sha(ROOT/"content/decks.js"), deckRows=len(rows), uniqueWords=sum(i["kind"] == "word" for i in items),
+        clips=len(manifest), generatedClips=len(items), retainedClips=retained,
+        totalBytes=sum(v["bytes"] for v in manifest.values()),
         sampleRate=RATE, channels=1, codec="MP3 libmp3lame 64 kbit/s", details=audit)
     (output/"generation-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n")
     print(json.dumps({k:report[k] for k in ("deckRows","uniqueWords","clips","totalBytes")}), flush=True)

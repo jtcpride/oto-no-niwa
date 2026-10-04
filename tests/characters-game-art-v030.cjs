@@ -17,7 +17,7 @@ fs.mkdirSync(OUT,{recursive:true});
  page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>{window.__artRAF=requestAnimationFrame.bind(window);window.requestAnimationFrame=()=>0;Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return[]},speak(u){u.onstart?.();u.onend?.()}}});});
  await page.route('http://character-game.test/**',route=>{
   const url=new URL(route.request().url());
-  if(/^\/audio\/voice-v032\/[0-9a-z-]+\.mp3$/.test(url.pathname))return route.fulfill({contentType:'audio/mpeg',body:fs.readFileSync(path.join(ROOT,url.pathname.slice(1)))});
+  if(/^\/audio\/voice-v03[23]\/[0-9a-z-]+\.mp3$/.test(url.pathname))return route.fulfill({contentType:'audio/mpeg',body:fs.readFileSync(path.join(ROOT,url.pathname.slice(1)))});
   return route.fulfill({contentType:'text/html',body:variants[url.searchParams.get('variant')]});
  });
  async function capture(variant,stage,pose,width,height){

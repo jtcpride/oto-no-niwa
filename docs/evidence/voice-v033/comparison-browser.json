@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "11 rows and 33 buttons at 320, 390, and 844 pixel widths",
+    "before/after MP3 real decode and completion for she/mother",
+    "native selection Samantha at .82 rate and 1 pitch with mocked speech; no listening claim"
+  ],
+  "errors": [],
+  "passed": true
+}

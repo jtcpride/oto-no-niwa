@@ -1,0 +1,40 @@
+{
+  "version": "0.33.0-clear-voice-sculpt",
+  "checkedAt": "2026-10-04T16:35:00+09:00",
+  "baseline": "e8b8c4e6b6e9b982b39aaa1ba97998458c52c990",
+  "checks": {
+    "aggregate": "npm test passed",
+    "gameBrowser": {
+      "file": "game-browser.json",
+      "checks": 99,
+      "voice": "mocked"
+    },
+    "rulesAndMotion": {
+      "command": "npm run test:polish",
+      "passed": true,
+      "file": "rules-comparison.json"
+    },
+    "audioBrowser": {
+      "file": "audio-browser.json",
+      "checks": 11,
+      "nativeSpeechCalls": 0
+    },
+    "nativeBackend": {
+      "file": "native-browser.json",
+      "actualVoices": [
+        "Samantha",
+        "Fred"
+      ]
+    },
+    "reviewPages": {
+      "file": "review-pages.json",
+      "checks": 7
+    },
+    "characters": "../../art/v033/REVIEW.md"
+  },
+  "limitations": [
+    "No subjective pronunciation listening or physical iPhone/iPad audio/touch/performance acceptance.",
+    "Reference resemblance is a proposed design, not an equivalence claim."
+  ],
+  "publication": "Pending release verification; see publication.json after deployment."
+}

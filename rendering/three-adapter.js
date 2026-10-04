@@ -53,11 +53,14 @@ class ThreeRenderer {
         vec3 c=uColor*vColor*mix(light,1.0,uUnlit);float fog=smoothstep(10.0,42.0,length(vec2(vWorld.x,vWorld.z-uFogCenter)))*uFogStrength;
         if(uPresentation>.5){
           if(uRole>.5&&uRole<1.5&&uUnlit<.5){
-            // Sculpted flat faces, with a restrained sky fill and edge light.
+            // Keep cheeks and eyes readable on both sides of the duel. A small
+            // camera-facing fill avoids lighting one fighter's face from behind.
             float key=max(dot(n,normalize(vec3(-.4,.8,.7))),0.0);
             float fill=max(dot(n,normalize(vec3(.6,.3,-.6))),0.0);
-            float rim=pow(1.0-max(dot(n,normalize(uEye-vWorld)),0.0),3.0);
-            c=uColor*vColor*(.48+.53*key+.12*fill)+vec3(.075,.09,.10)*rim;
+            float facing=max(dot(n,normalize(uEye-vWorld)),0.0);
+            float rim=pow(1.0-facing,3.0);
+            float clothLight=min(1.08,.58+.42*key+.12*fill+.16*facing);
+            c=uColor*vColor*clothLight+vec3(.055,.065,.075)*rim;
           }
           if(uRole<.5&&n.y>.7&&vWorld.y>-.16&&vWorld.y<.13){
             float shade=0.0;

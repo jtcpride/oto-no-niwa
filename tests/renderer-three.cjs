@@ -13,7 +13,7 @@ const out=path.resolve(__dirname,'../../work/three-migration');fs.mkdirSync(out,
   for(const renderer of ['garden','three']){
    const page=await browser.newPage({viewport});
    page.on('pageerror',e=>report.errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())});
-   await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;Math.random=()=>.37});
+   await page.addInitScript(()=>{window.requestAnimationFrame=()=>0;Math.random=()=>.37;Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return []},speak(u){u.onstart?.();u.onend?.()}}});});
    await page.route('http://compare.test/**',r=>r.fulfill({contentType:'text/html',body:sourceSeam(assemble())}));
    await page.goto('http://compare.test/?stage=jingu&look=baseline&renderer='+renderer);
    await page.evaluate(phase=>{qa.begin();if(phase!=='front')qa.driveUntil(phase);qa.tick(.15);qa.draw()},phase);

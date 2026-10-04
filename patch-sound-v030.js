@@ -1,6 +1,7 @@
-// Original gagaku-inspired score and fixed voice clips share one AudioContext.
+// Original gagaku-inspired score, with interchangeable recorded / native speech.
 // Apply last so lifecycle wrappers see the final campaign/combat implementation.
 window.otoPatchSoundV030=function(html){
+ if(!['recorded','native'].includes(window.FEGVoiceConfig?.engine))throw Error('Load content/voice-config.js before patch-sound-v030.js');
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 sound anchor: '+a.slice(0,75));html=html.replace(a,b);}
  // Keep the existing gameplay wrappers; replace their underlying dispatchers.
  const wordSpeaker=html.match(/function speakWord\(word=state.word,onDone\)\{[^\n]+\}/)?.[0];
@@ -8,7 +9,7 @@ window.otoPatchSoundV030=function(html){
  if(!wordSpeaker||!callSpeaker)throw Error('v0.32 fixed voice dispatch anchors missing');
  once(wordSpeaker,"function speakWord(word=state.word,onDone){if(!word){onDone?.();return;}audio.speak({text:word,kind:'word'},onDone);}");
  once(callSpeaker,"function speakCallV010(text){if(text)audio.speak({text,kind:'call'});}");
- html=html.replace("if(!('speechSynthesis' in window)){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは単語読み上げに未対応',1.6);}","if(!(window.AudioContext||window.webkitAudioContext)){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは音声再生に未対応',1.6);}");
+ html=html.replace("if(!('speechSynthesis' in window)){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは単語読み上げに未対応',1.6);}","if(!audio.voiceSupported()){$('#repeatWord').disabled=true;announce('音声を使えません','このブラウザでは選択中の音声方式に未対応',1.6);}");
  once('</style>',String.raw`
  #audioResumeV030{position:fixed;z-index:90;top:calc(env(safe-area-inset-top,0px) + 58px);right:12px;max-width:min(280px,85vw);padding:10px 14px;color:#fff5d1;background:#26392f;border:1px solid #dfc37d;border-radius:8px;font:600 13px/1.4 sans-serif;box-shadow:0 3px 18px #0008}
  #audioResumeV030[hidden]{display:none}
@@ -17,6 +18,9 @@ window.otoPatchSoundV030=function(html){
  once("if(key==='voiceVolume')audio.stopVoice();","if(key==='voiceVolume')audio.stopVoice(titlePendingV020);");
  once("$('#start').addEventListener('click',start);",String.raw`
 // Audio lifecycle has one frame-driven scheduler and no queued voice playback.
+const voiceConfigV033=__VOICE_CONFIG_V033__;
+const voiceModeV033=(()=>{try{const value=new URL(window.location.href).searchParams.get('voice');if(value==='recorded'||value==='native')return value;}catch(e){}return voiceConfigV033.engine;})();
+let nativeGestureV033=false;
 const voiceClipsV032=__VOICE_CLIPS_V032__;
 const voiceBytesV032=new Map(),voiceBuffersV032=new Map(),voiceLoadsV032=new Map();
 const soundV030={successes:0,level:0,active:new Set(),sho:[],nextPulse:0,breathAt:0,beat:0,
@@ -47,7 +51,7 @@ function trackSourceV030(source,gain,kind){
 }
 function soundContextStateV030(){
  if(!audio.ctx)return;
- if(audio.ctx.state!=='running'){abortTitleSoundV030();audio.stopVoice();stopSourcesV030();soundV030.needsGesture=audio.enabled;}
+ if(audio.ctx.state!=='running'){if(voiceModeV033==='recorded'){abortTitleSoundV030();audio.stopVoice();}stopSourcesV030();soundV030.needsGesture=audio.enabled;}
  else{soundV030.needsGesture=false;soundV030.resumePending=null;audio.applyMix();startVoiceV032();}
  soundUiV030();
 }
@@ -82,19 +86,21 @@ audio.ensure=function(){
 audio.resumeFromGesture=function(){
  if(soundV030.disposed||!this.enabled)return;
  // A previous pending Safari resume may remain unresolved after interruption.
- soundV030.resumePending=null;this.ensure();
+ soundV030.resumePending=null;nativeGestureV033=true;this.ensure();
  if(soundV030.speechBlocked&&this.voiceRequest){const {u,onDone}=this.voiceRequest;this.speak(u,onDone);}else startVoiceV032();
  soundV030.counters.recoveries++;soundUiV030();
 };
-audio.canPlayVoice=function(){return this.ctx?.state==='running';};
+audio.voiceSupported=function(){return voiceModeV033==='native'?!!(window.speechSynthesis&&window.SpeechSynthesisUtterance):!!(window.AudioContext||window.webkitAudioContext);};
+audio.canPlayVoice=function(){return voiceModeV033==='native'?nativeGestureV033&&this.voiceSupported():this.ctx?.state==='running';};
 audio.applyMix=function(){
  if(!this.ctx||!this.musicBus)return;
  const phase=typeof duelV022!=='undefined'?duelV022.phase:'front';
  const scene=['charge','breakCharge','settle'].includes(phase)?.24:phase==='break'?.5:phase==='close'?.58:1;
- // Fixed voices cannot seize the OS speech session. Leave the music level
- // unchanged during every word; only the existing scene dynamics lower it.
- soundV030.mixTarget=this.musicVolume*scene;
- soundTargetV030(this.musicBus.gain,soundV030.mixTarget,.18);
+ // Recorded voices share the score's context; native speech keeps its earlier
+ // 60% music bed. The OS may additionally interrupt native speech/music on iOS.
+ const nativeDuck=voiceModeV033==='native'&&this.ducked;
+ soundV030.mixTarget=this.musicVolume*Math.min(scene,nativeDuck?.60:1);
+ soundTargetV030(this.musicBus.gain,soundV030.mixTarget,nativeDuck?.06:.18);
  soundTargetV030(this.fxBus.gain,.8,.04);soundTargetV030(this.master.gain,this.enabled?.32:0,.025);
 };
 audio.set=function(on){
@@ -108,6 +114,7 @@ audio.releaseVoice=function(token,cancel=false){
 audio.stopVoice=function(complete=false){
  const done=complete?this.voiceDone:null;
  ++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceTimer=null;this.voiceDone=null;this.voiceRequest=null;this.ducked=false;
+ if(voiceModeV033==='native')try{window.speechSynthesis?.cancel();}catch(e){}
  stopSourcesV030('voice');soundV030.voiceStatus='idle';soundV030.speechBlocked=false;this.applyMix();soundUiV030();done?.();
 };
 function voiceBytesForV032(text){
@@ -126,36 +133,59 @@ function voiceBufferForV032(text){
  voiceLoadsV032.set(text,request);return request;
 }
 function voiceFailedV032(request,error){
- if(request.token!==audio.voiceToken)return;request.failed=true;clearTimeout(audio.voiceTimer);audio.voiceTimer=null;audio.ducked=false;stopSourcesV030('voice');
- voiceLoadsV032.delete(request.u.text);voiceBytesV032.delete(request.u.text);
- soundV030.voiceStatus='error';soundV030.lastVoiceError=String(error?.message||error);soundV030.speechBlocked=true;audio.applyMix();soundUiV030();
+ if(request.token!==audio.voiceToken||request.failed)return;request.failed=true;clearTimeout(audio.voiceTimer);audio.voiceTimer=null;audio.ducked=false;stopSourcesV030('voice');
+ if(voiceModeV033==='native'){try{window.speechSynthesis?.cancel();}catch(e){}}
+ else{voiceLoadsV032.delete(request.u.text);voiceBytesV032.delete(request.u.text);}
+ abortTitleSoundV030();
+ soundV030.voiceStatus='error';soundV030.lastVoiceError=String(error?.message||error?.error||error);soundV030.speechBlocked=true;audio.applyMix();soundUiV030();
 }
 function startVoiceV032(){
- const request=audio.voiceRequest;if(!request||request.failed||request.started||!request.buffer||request.token!==audio.voiceToken)return;
+ const request=audio.voiceRequest;if(!request||request.failed||request.started||request.token!==audio.voiceToken)return;
+ if(voiceModeV033==='native'){startNativeVoiceV033(request);return;}
+ if(!request.buffer)return;
  if(audio.ctx?.state!=='running'){soundV030.needsGesture=true;soundUiV030();return;}
  if(!audio.enabled||document.hidden||state.mode==='paused'||soundV030.disposed)return;
  try{const source=audio.ctx.createBufferSource(),gain=audio.ctx.createGain();source.buffer=request.buffer;gain.gain.value=audio.voiceVolume;
-  source.connect(gain);gain.connect(audio.voiceBus);const entry=trackSourceV030(source,gain,'voice');
-  source.onended=()=>{soundV030.active.delete(entry);try{source.disconnect();gain.disconnect();}catch(e){}request.u.onend?.();};
+  source.connect(gain);gain.connect(audio.voiceBus);const entry=trackSourceV030(source,gain,'voice'),onend=request.u.onend;
+  source.onended=()=>{soundV030.active.delete(entry);try{source.disconnect();gain.disconnect();}catch(e){}onend?.();};
   source.start();request.started=true;request.u.onstart?.();
   clearTimeout(audio.voiceTimer);audio.voiceTimer=setTimeout(()=>voiceFailedV032(request,Error('Voice playback stalled')),Math.ceil(request.buffer.duration*1000)+2000);
  }catch(e){stopSourcesV030('voice');voiceFailedV032(request,e);}
 }
+function startNativeVoiceV033(request){
+ if(request.submitted||!audio.enabled||document.hidden||state.mode==='paused'||soundV030.disposed)return;
+ if(!audio.voiceSupported()){voiceFailedV032(request,Error('Native speech unavailable'));return;}
+ try{
+  const u=request.u,ending=u.kind==='ending',call=u.kind==='call';
+  const utterance=new window.SpeechSynthesisUtterance(u.text);request.submitted=true;
+  utterance.lang=u.lang||(ending?'ja-JP':'en-US');utterance.rate=u.rate??(ending?1.2:call?.72:.82);utterance.pitch=u.pitch??(ending?1.6:call?.82:1);utterance.volume=audio.voiceVolume;
+  const voices=window.speechSynthesis.getVoices(),us=voices.filter(v=>/^en-US/i.test(v.lang));
+  const preferred=ending?voices.find(v=>/^ja/i.test(v.lang)):call?us.find(v=>/Daniel|Alex|Fred|Aaron/i.test(v.name)):us.find(v=>/Samantha|Ava/i.test(v.name))||us.find(v=>/Alex|Daniel/i.test(v.name));
+  const voice=u.voice||preferred||(!ending&&(us[0]||voices.find(v=>/^en/i.test(v.lang))));if(voice)utterance.voice=voice;
+  utterance.onstart=()=>{if(request.failed||request.token!==audio.voiceToken)return;request.started=true;u.onstart?.();};
+  utterance.onend=u.onend;utterance.onerror=u.onerror;
+  // Native engines occasionally omit all callbacks. Re-enable START and show
+  // retry on timeout, so neither unsupported speech nor a stalled title traps UI.
+  clearTimeout(audio.voiceTimer);audio.voiceTimer=setTimeout(()=>voiceFailedV032(request,Error('Native speech timed out')),Math.min(20000,Math.max(request.onDone?8000:2500,u.text.length*180)));
+  window.speechSynthesis.resume();window.speechSynthesis.speak(utterance);
+ }catch(e){voiceFailedV032(request,e);}
+}
 audio.speak=function(u,onDone){
- if(!this.enabled||!this.voiceVolume||soundV030.disposed||document.hidden){onDone?.();return;}
+ if(!this.enabled||!this.voiceVolume||soundV030.disposed||document.hidden||state.mode==='paused'){onDone?.();return;}
  this.stopVoice();this.ensure();const token=++this.voiceToken;this.voiceDone=onDone;
  const request={token,u,onDone,buffer:null,started:false};this.voiceRequest=request;soundV030.voiceStatus='loading';soundV030.lastVoiceText=u.text;soundV030.lastVoiceError='';
- u.onstart=()=>{if(token!==this.voiceToken)return;this.ducked=true;soundV030.voiceStatus='playing';soundV030.speechBlocked=false;soundV030.counters.speech++;this.applyMix();soundUiV030();};
- u.onend=()=>this.releaseVoice(token);
+ u.onstart=()=>{if(request.failed||token!==this.voiceToken)return;this.ducked=true;soundV030.voiceStatus='playing';soundV030.speechBlocked=false;soundV030.counters.speech++;this.applyMix();soundUiV030();};
+ u.onend=()=>{if(!request.failed)this.releaseVoice(token);};
  u.onerror=e=>voiceFailedV032(request,e);
+ if(voiceModeV033==='native'){startVoiceV032();return;}
  this.voiceTimer=setTimeout(()=>voiceFailedV032(request,Error('Voice preparation timed out')),15000);
  if(!this.ctx){voiceFailedV032(request,Error('Web Audio unavailable'));return;}
  voiceBufferForV032(u.text).then(buffer=>{if(token!==this.voiceToken)return;request.buffer=buffer;startVoiceV032();},e=>voiceFailedV032(request,e));
 };
 function currentVoiceTextsV032(){return [...new Set([...(typeof ACTIVE_DECK!=='undefined'?ACTIVE_DECK.sounds.flatMap(s=>s.words.map(w=>typeof w==='string'?w:w.text)):[]),...Object.keys(voiceClipsV032).filter(text=>voiceClipsV032[text].kind!=='word')])];}
-function preloadVoiceBuffersV032(){if(typeof fetch!=='function')return;for(const text of currentVoiceTextsV032())voiceBufferForV032(text).catch(()=>{});}
+function preloadVoiceBuffersV032(){if(voiceModeV033!=='recorded'||typeof fetch!=='function')return;for(const text of currentVoiceTextsV032())voiceBufferForV032(text).catch(()=>{});}
 // Fetch ahead without creating an autoplay context; decode after the first gesture.
-if(typeof fetch==='function')for(const text of currentVoiceTextsV032())voiceBytesForV032(text).catch(()=>{});
+if(voiceModeV033==='recorded'&&typeof fetch==='function')for(const text of currentVoiceTextsV032())voiceBytesForV032(text).catch(()=>{});
 function audibleV030(bus='fx'){return audio.enabled&&audio.ctx?.state==='running'&&!soundV030.disposed&&!document.hidden&&state.mode!=='paused'&&(bus!=='music'||audio.musicVolume>0);}
 audio.note=function(freq,dur,vol,type='sine',delay=0,slide=0,bus='fx'){
  if(!audibleV030(bus))return;const t=this.ctx.currentTime+Math.max(0,delay),o=this.ctx.createOscillator(),g=this.ctx.createGain();
@@ -229,7 +259,7 @@ try{const p=JSON.parse(localStorage.getItem(AUDIO_PREF_V030)||'null');if(p&&p.ve
  }}catch(e){}
 for(const [id,key,out] of [['musicVolume','musicVolume','musicValue'],['voiceVolume','voiceVolume','voiceValue']]){$('#'+id).value=String(Math.round(audio[key]*100));$('#'+out).value=$('#'+id).value;}
 soundUiV030();
-audioResumeV030.addEventListener('click',()=>{audio.resumeFromGesture();if(typeof campaignV030!=='undefined'&&campaignV030.phase==='dialogue')speakDialogueLineV030();else if(!audio.voiceRequest&&soundActiveV030()&&state.direction===-1)speakWord();soundPumpV030();});
+audioResumeV030.addEventListener('click',()=>{audio.resumeFromGesture();if(!audio.voiceRequest&&typeof campaignV030!=='undefined'&&campaignV030.phase==='dialogue')speakDialogueLineV030();else if(!audio.voiceRequest&&soundActiveV030()&&state.direction===-1)speakWord();soundPumpV030();});
 function gestureSoundV030(){if(audio.enabled&&(soundV030.needsGesture||audio.ctx?.state==='interrupted'||audio.ctx?.state==='suspended'))audio.resumeFromGesture();}
 document.addEventListener('pointerdown',gestureSoundV030,{passive:true});document.addEventListener('keydown',gestureSoundV030);
 document.addEventListener('visibilitychange',()=>{
@@ -243,12 +273,12 @@ window.addEventListener('pageshow',()=>{if(audio.enabled&&audio.ctx&&audio.ctx.s
 canvas.addEventListener('webglcontextlost',()=>{audio.stopVoice();stopSourcesV030();});
 $('#start').addEventListener('click',start);`);
  once('select(0);refreshHud();requestAnimationFrame(frame);',String.raw`
-window.kemari.getAudioDiagnostics=()=>({version:'0.32-fixed-voice',voiceEngine:'decoded-clips',voiceStatus:soundV030.voiceStatus,lastVoiceText:soundV030.lastVoiceText,lastVoiceError:soundV030.lastVoiceError,decodedVoices:voiceBuffersV032.size,contextState:audio.ctx?.state||'not-created',contexts:soundV030.contextCount,enabled:audio.enabled,
+window.kemari.getAudioDiagnostics=()=>({version:'0.33-reversible-voice',voiceMode:voiceModeV033,voiceEngine:voiceModeV033==='native'?'native':'decoded-clips',voiceStatus:soundV030.voiceStatus,lastVoiceText:soundV030.lastVoiceText,lastVoiceError:soundV030.lastVoiceError,decodedVoices:voiceBuffersV032.size,contextState:audio.ctx?.state||'not-created',contexts:soundV030.contextCount,enabled:audio.enabled,
  music:audio.musicVolume,voice:audio.voiceVolume,ducked:audio.ducked,musicTarget:soundV030.mixTarget,successes:soundV030.successes,layer:soundV030.level,
  layerNames:['shō',...(soundV030.level>=1?['plucked strings']:[]),...(soundV030.level>=2?['flute']:[]),...(soundV030.level>=3?['taiko']:[])],
  activeSources:soundV030.active.size,shoVoices:soundV030.sho.length,voiceToken:audio.voiceToken,voiceTimer:!!audio.voiceTimer,
  needsGesture:soundV030.needsGesture,speechBlocked:soundV030.speechBlocked,resumeVisible:!audioResumeV030.hidden,disposed:soundV030.disposed,
  counters:{...soundV030.counters},realDeviceAcceptance:'iPhone/iPad Safari: not yet tested'});
 select(0);refreshHud();requestAnimationFrame(frame);`);
- return html.replace('__VOICE_CLIPS_V032__',JSON.stringify(window.FEGVoiceClips||{}));
+ return html.replace('__VOICE_CLIPS_V032__',JSON.stringify(window.FEGVoiceClips||{})).replace('__VOICE_CONFIG_V033__',JSON.stringify(window.FEGVoiceConfig));
 };

@@ -42,7 +42,7 @@
 
 造形と表示用ポーズは既存の接触骨格を維持します。ルート高さ `.12`、股関節 `1.05`、脚各節 `.48`、つま先ピボット `.16`、返す関節名と親子関係を保ちます。衣装による輪郭の差は作れますが、接触時刻や判定猶予は変更しません。表示用変形は描画後に復元し、積み重ねません。影は `derivedFromPlayer` で現在の主人公から生成し、別の八人目を追加しません。
 
-顔の目・眉・口は `faceFeature` で実際の面へ密着させます。固定のXYZだけで浮かせないでください。`npm run review:characters` は実WebGLの七人一覧と単色の輪郭を `../work/characters-art/` に生成します。ゲーム内の小さな表示も比較する場合は `node tests/characters-game-art-v030.cjs <比較元のコミット>`。一覧の見栄えだけで、実プレイや実機の合格とは扱いません。
+顔の目・眉・口は `faceFeature` で実際の面へ密着させます。固定のXYZだけで浮かせないでください。`npm run review:characters` は実WebGLの七人一覧と単色の輪郭を `../work/characters-art/` に生成します。v0.33で、比較用ギャラリーがThreeのソース文字列を実行せず旧Gardenへフォールバックしていた問題を修正しました。GPU名だけでは描画経路を証明できないため、実際のrenderer型も検査します。ゲーム内の小さな表示も比較する場合は `node tests/characters-game-art-v030.cjs <比較元のコミット>`。一覧の見栄えだけで、実プレイや実機の合格とは扱いません。
 
 踏み替え補償は蹴りの接触後だけの表示処理です。根元の移動量・球の飛行・判定を変えず、支持足と重心の表示を合わせます。`test:motion` は接地の滑り、歩行前後と追走終了時の連続性、繰返し描画での非累積、演出OFFを検査します。
 
@@ -50,7 +50,9 @@
 
 **単語・IPA修正。** 1デッキ4音、`symbol` はスラッシュなし、`ipa` は `/…/`、`example/practice` は同じ音の `words` を参照します。生成されたIPA表を別に直す必要はありません。辞書の米音と、そのデッキに複数の正答候補がないことを確認します。`tests/decks-v030.cjs` は新規語の期待値・出典と既存36語のダイジェストを保持します。意図した教材修正なら根拠とともに期待値を更新し、失敗を消すためだけのダイジェスト更新は避けます。音源も `scripts/generate-voices-v032.py` で再生成して `content/voice-clips.js` とMP3を揃え、実際の聞こえ方は別途試聴します。
 
-**音調整。** `shoV030/pluckV030/fluteV030/taikoV030` が楽器、`successSoundV030` が成功による層追加、`soundPumpV030` が既に得た層の時間進行、`audio.hit/movement` が動作音です。`audio.applyMix` が音量・場面ごとの強弱（発音だけを理由に伴奏を下げない）、`audio.speak/stopVoice` が即時発音切替、`resumeFromGesture` と末尾イベント群が中断復帰を担当します。音色の調整で音声ライフサイクルを複製しません。成功なしで層を増やさず、ラッシュの発音待ち列も作りません。
+**音調整。** `shoV030/pluckV030/fluteV030/taikoV030` が楽器、`successSoundV030` が成功による層追加、`soundPumpV030` が既に得た層の時間進行、`audio.hit/movement` が動作音です。`audio.applyMix` が音量・場面ごとの強弱、`audio.speak/stopVoice` が即時発音切替、`resumeFromGesture` と末尾イベント群が中断復帰を担当します。音色の調整で音声ライフサイクルを複製しません。成功なしで層を増やさず、ラッシュの発音待ち列も作りません。
+
+**以前の声へ戻す。** `content/voice-config.js` の `engine:'recorded'` を `'native'` に変える一か所で既定方式を戻せます。ゲームの呼出側は共通のままです。試聴だけなら `?voice=native`、録音方式は `?voice=recorded`。URL指定は保存しません。nativeは元の声選択・速度・高さと60%の伴奏を維持しますが、iOSによるBGM中断までは保証しません。recordedは発音による伴奏減衰なし。`npm run test:sound` と `npm run test:audio-browser`、実機の聞き取り確認を分けて行います。旧v0.32の録音も比較用に保持し、`scripts/generate-voices-v032.py --neutral-v033` で現行音源を再生成できます。
 
 **進行修正。** データ操作は純粋な `content/campaign.js`、表示と遷移は `patch-campaign-v030.js` に置きます。通常勝利は獲得を保存してから吸収演出へ進み、再戦で球数を増やしません。保存キーは進行 `feg.campaign.v1`（一時保存 `feg.campaign.session.v1`）、音 `feg.audio.v1`。人物IDの変更は既存セーブへ影響するため移行を明示します。保存の `version` を上げるだけでは旧値が新規状態に戻るので、継続させる場合は `normalize` に移行を書きます。
 

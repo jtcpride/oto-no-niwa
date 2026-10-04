@@ -35,8 +35,8 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
  for(const key of ['n','body','head','arm','farArm','leg','back','thigh','knee','shoe','backThigh','backKnee','backShoe','elbow','wrist','farElbow','farWrist','toe','backToe'])assert(f[key]?.pos&&f[key]?.rot,c.id+' '+key);
  assert.equal(f.knee.pos[1],-.48);assert.equal(f.backKnee.pos[1],-.48);assert.equal(f.shoe.pos[1],-.48);assert.equal(f.toe.pos[0],.16);
  const metadata=f.characterV030;sigs.add(metadata.profile.signature);assert(metadata.meshCount>=35,c.id+' actual detail');
- assert(metadata.meshCount<=64,c.id+' bounded mesh budget');
- const triangleCount=metadata.parts.reduce((sum,n)=>sum+n.geo.count/3,0);assert(triangleCount<=2000,c.id+' bounded low-poly budget');
+ assert(metadata.meshCount<=76,c.id+' bounded mesh budget');
+ const triangleCount=metadata.parts.reduce((sum,n)=>sum+n.geo.count/3,0);assert(triangleCount<=5000,c.id+' bounded low-poly budget');
  for(const n of metadata.parts){
   assert.equal(n.geo.p.length,n.geo.n.length,c.id+' geometry has matching normals');assert.equal(n.geo.p.length,n.geo.count*3,c.id+' draw count matches geometry');
   assert(Array.from(n.geo.p).every(Number.isFinite),c.id+' finite sculpted positions');
@@ -44,9 +44,16 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
   if(!Object.values(geom).includes(n.geo))for(let i=0;i<n.geo.n.length;i+=3)assert(Math.abs(Math.hypot(...n.geo.n.slice(i,i+3))-1)<1e-5,c.id+' nondegenerate sculpted surface normals');
  }
  const face=metadata.parts.find(n=>n.fegPart==='face'),faceTriangles=triangles(face);
- for(const tag of ['eye','pupil','upper-eyelid','mouth',c.id==='sokichi'?'thick-white-brow':'brow']){
+ for(const tag of ['eye','pupil','upper-eyelid','mouth','eye-glint',c.id==='sokichi'?'thick-white-brow':'brow']){
   const features=metadata.parts.filter(n=>n.fegPart===tag);assert.equal(features.length,2,c.id+' '+tag+' pair');
-  for(const feature of features)assert(Math.min(...faceTriangles.map(t=>pointTriangleDistance(feature.pos,t.v)))<.02,c.id+' '+tag+' stays attached to the faceted face');
+  for(const feature of features){
+   assert(Math.min(...faceTriangles.map(t=>pointTriangleDistance(feature.pos,t.v)))<.02,c.id+' '+tag+' centre attached');
+   for(const t of triangles(feature)){
+    const p=t.v[0].map((_,i)=>t.v.reduce((s,v)=>s+v[i]/3,0));let front=-Infinity;
+    for(const {v:[a,b,d]} of faceTriangles){const den=(b[2]-d[2])*(a[1]-d[1])+(d[1]-b[1])*(a[2]-d[2]);if(Math.abs(den)<1e-9)continue;const u=((b[2]-d[2])*(p[1]-d[1])+(d[1]-b[1])*(p[2]-d[2]))/den,v=((d[2]-a[2])*(p[1]-d[1])+(a[1]-d[1])*(p[2]-d[2]))/den;if(u>=-1e-7&&v>=-1e-7&&u+v<=1.0000001)front=Math.max(front,u*a[0]+v*b[0]+(1-u-v)*d[0]);}
+    assert(p[0]-front>.0005&&p[0]-front<.007,c.id+' '+tag+' triangle interior neither clips into nor floats off face');
+   }
+  }
  }
  if(c.id==='luka'){
   assert.equal(metadata.parts.filter(n=>n.fegPart==='bare-upper-arm').length,2);assert.equal(metadata.parts.filter(n=>n.fegPart==='bare-forearm').length,2);

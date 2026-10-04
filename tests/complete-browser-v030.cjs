@@ -47,7 +47,7 @@ function speechMock() {
 function sourceSeam(html,{mockVoice=true}={}) {
   assert.equal(html.split(ANCHOR).length,2,'unique test-only runtime seam');
   return html.replace(ANCHOR,(mockVoice?String.raw`
-// Explicit presentation-only voice fixture. Production never uses Web Speech.
+// Explicit presentation-only voice fixture; production backend playback is tested separately.
 let qaVoiceGesture=false;audio.canPlayVoice=()=>qaVoiceGesture;
 audio.speak=function(u,onDone){if(!audio.enabled||!audio.voiceVolume){onDone?.();return;}qaVoiceGesture=true;
  audio.stopVoice();const token=++audio.voiceToken;audio.voiceDone=onDone;
@@ -415,7 +415,7 @@ async function browserGardenLayouts(page,label='garden') {
 async function runCompleteCampaign(browser) {
   const production=await productionLoader(browser);
   await production.page.waitForFunction(()=>!!window.kemari);
-  assert.equal(await production.page.evaluate(()=>kemari.version),'0.32.0-continuous-voice');
+  assert.equal(await production.page.evaluate(()=>kemari.version),'0.33.0-clear-voice-sculpt');
   await production.page.locator('#start').click();await production.page.waitForFunction(()=>kemari.getCampaign().phase==='dialogue');
   await production.page.locator('#dialogueNext').click();await production.page.locator('#dialogueNext').click();
   await production.page.waitForFunction(()=>kemari.getState().mode==='ready'||kemari.getState().mode==='playing');
