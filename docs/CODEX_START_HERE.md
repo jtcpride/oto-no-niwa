@@ -1,4 +1,5 @@
-> **2026-10-04の現在地**: `migration/threejs-renderer` のv0.34。ルカ・宗吉・澄・ナギ・コタの実モデルを3回比較・調整。透・朔は形状と色を維持。v0.33の戻せる音声方式も維持。[造形比較](art/v034/index.html) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+> **2026-10-04の現在地**: `migration/threejs-renderer` のv0.35。同じ五人の顔・髪・帽子・衣装を参考画へさらに近づけ、実描画を5回比較。透・朔と関節・ルール・音声は維持。[造形比較](art/v035/index.html) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+
 
 
 # Codexへ：FEGを最後まで完成させる

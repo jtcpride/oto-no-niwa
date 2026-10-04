@@ -1,0 +1,80 @@
+{
+  "version": "0.35.0-five-fighter-sculpt",
+  "baseline": "02f3a3a",
+  "verifiedAt": "2026-10-04T23:36:00+09:00",
+  "aggregate": "npm test: 17 suites passed",
+  "browser": {
+    "status": "passed",
+    "checks": 99,
+    "browser": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "requestedRenderer": "default hardware",
+      "softwareFallback": false,
+      "arguments": [],
+      "version": "154.0.8037.97",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    "errors": [],
+    "finishedAt": "2026-10-04T14:34:07.938Z"
+  },
+  "polish": "passed: 8 shot geometry/timing/window/damage equality; contact, pose restore, pause/restart, six layouts, effects OFF",
+  "geometry": {
+    "passed": true,
+    "models": [
+      {
+        "id": "toru",
+        "height": 2.8881643891334536,
+        "parts": 58,
+        "triangleCount": 2705
+      },
+      {
+        "id": "saku",
+        "height": 3.446381618015608,
+        "parts": 51,
+        "triangleCount": 2418
+      },
+      {
+        "id": "sokichi",
+        "height": 2.520363024475909,
+        "parts": 69,
+        "triangleCount": 3322
+      },
+      {
+        "id": "sumi",
+        "height": 2.8376997360910616,
+        "parts": 69,
+        "triangleCount": 3332
+      },
+      {
+        "id": "nagi",
+        "height": 2.743776551485062,
+        "parts": 60,
+        "triangleCount": 2948
+      },
+      {
+        "id": "kota",
+        "height": 2.2748100086744723,
+        "parts": 58,
+        "triangleCount": 2934
+      },
+      {
+        "id": "luka",
+        "height": 3.3225000011920933,
+        "parts": 57,
+        "triangleCount": 2971
+      }
+    ],
+    "uniqueSilhouettes": 7,
+    "contactChecks": 112,
+    "rendering": "VM WebGL command recorder; GPU and real-device audio not tested"
+  },
+  "scope": "scope-check.json",
+  "gallery": "round5/final-report.json",
+  "portraits": "round5/portraits.json",
+  "gameScreens": "game/game-comparison-report.json",
+  "comparisonPage": "review-local.json",
+  "limitations": [
+    "No physical iPhone/iPad performance, touch or audible acceptance.",
+    "Automated progression and deterministic images do not establish subjective appeal."
+  ]
+}

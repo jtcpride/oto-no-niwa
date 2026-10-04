@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-10-04T14:33:49.956Z",
+  "commit": null,
+  "pagesRun": null,
+  "checks": [
+    "Five people / face and body / no overflow / 44px controls at 320x568",
+    "Five people / face and body / no overflow / 44px controls at 390x844",
+    "Five people / face and body / no overflow / 44px controls at 844x390",
+    {
+      "stage": "gendo",
+      "id": "sokichi",
+      "version": "0.35.0-five-fighter-sculpt",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "chion",
+      "id": "sumi",
+      "version": "0.35.0-five-fighter-sculpt",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "sanjo",
+      "id": "nagi",
+      "version": "0.35.0-five-fighter-sculpt",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "shinkyogoku",
+      "id": "kota",
+      "version": "0.35.0-five-fighter-sculpt",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    {
+      "stage": "million",
+      "id": "luka",
+      "version": "0.35.0-five-fighter-sculpt",
+      "stats": {
+        "error": 0,
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome only; no real iPhone/iPad performance, touch or audible acceptance."
+  ],
+  "base": "http://127.0.0.1:52138/",
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "completedAt": "2026-10-04T14:33:56.681Z"
+}

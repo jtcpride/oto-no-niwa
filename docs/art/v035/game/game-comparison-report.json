@@ -1,0 +1,1536 @@
+{
+  "passed": true,
+  "base": "02f3a3a",
+  "checks": [
+    {
+      "file": "before-jingu-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "saku",
+          "name": "烏丸朔",
+          "model": "saku",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.48,
+          "chestHeight": 2.0100000000000002,
+          "signature": "wide-court-sleeves-tall-cap",
+          "meshCount": 51,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 225.16144115230264,
+          "maxY": 323.3158874001715,
+          "vertices": 7254
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 315,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-gendo-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "sokichi",
+          "name": "壬生宗吉",
+          "model": "sokichi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.58,
+          "chestHeight": 1.7200000000000002,
+          "signature": "hunched-vest-white-brows",
+          "meshCount": 63,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 255.99777005281786,
+          "maxY": 323.3158874001715,
+          "vertices": 9162
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 330,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-chion-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "sumi",
+          "name": "粟田澄",
+          "model": "sumi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.95,
+          "chestHeight": 1.98,
+          "signature": "triangle-hakama-ponytail-boots",
+          "meshCount": 64,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 242.60829812973404,
+          "maxY": 323.3158874001715,
+          "vertices": 8997
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 299,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-sanjo-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "nagi",
+          "name": "北山ナギ",
+          "model": "nagi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.86,
+          "chestHeight": 1.8900000000000001,
+          "signature": "short-jacket-slim-trousers-sneakers",
+          "meshCount": 56,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 247.49228500447515,
+          "maxY": 323.3158874001715,
+          "vertices": 8250
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 367,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-shinkyogoku-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "kota",
+          "name": "御池コタ",
+          "model": "kota",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.34,
+          "chestHeight": 1.4000000000000001,
+          "signature": "small-hoodie-cap-shorts",
+          "meshCount": 56,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 257.3416098719361,
+          "maxY": 323.3158874001715,
+          "vertices": 8604
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 283,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-million-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 54,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 228.3606662757918,
+          "maxY": 323.3158874001715,
+          "vertices": 8424
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 350,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-million-idle-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 54,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 95.14321295724966,
+          "maxX": 130.5078068432858,
+          "minY": 85.96152931789496,
+          "maxY": 207.81077892997268,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 457.86302303569516,
+          "maxX": 500.27654273379756,
+          "minY": 79.94160442213314,
+          "maxY": 219.4159927967255,
+          "vertices": 8424
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          436.22283802959134,
+          171.48807112472133
+        ],
+        "ballVisible": true,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 328,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-million-kick-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 54,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 95.14321295724966,
+          "maxX": 130.5078068432858,
+          "minY": 85.96152931789496,
+          "maxY": 207.81077892997268,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 427.66406278493724,
+          "maxX": 492.8314039546293,
+          "minY": 81.89721661262338,
+          "maxY": 213.5155394437337,
+          "vertices": 8424
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          436.22283802959134,
+          171.48807112472133
+        ],
+        "ballVisible": true,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 330,
+        "error": 0
+      }
+    },
+    {
+      "file": "before-million-close-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 54,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 209.3488422320965,
+          "maxX": 269.01869101670627,
+          "minY": 84.19212458179005,
+          "maxY": 233.10744526563286,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 220.10119614195912,
+          "maxX": 288.8961980620707,
+          "minY": 52.47585336339439,
+          "maxY": 218.3499038032479,
+          "vertices": 8424
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          463.2611827188171,
+          186.7355684062466
+        ],
+        "ballVisible": false,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "close",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 247,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-jingu-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "saku",
+          "name": "烏丸朔",
+          "model": "saku",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.48,
+          "chestHeight": 2.0100000000000002,
+          "signature": "wide-court-sleeves-tall-cap",
+          "meshCount": 51,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 225.16144115230264,
+          "maxY": 323.3158874001715,
+          "vertices": 7254
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 315,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-gendo-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "sokichi",
+          "name": "壬生宗吉",
+          "model": "sokichi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.58,
+          "chestHeight": 1.7200000000000002,
+          "signature": "hunched-vest-white-brows",
+          "meshCount": 69,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 255.73626898970903,
+          "maxY": 323.3158874001715,
+          "vertices": 9966
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 328,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-chion-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "sumi",
+          "name": "粟田澄",
+          "model": "sumi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.95,
+          "chestHeight": 1.98,
+          "signature": "triangle-hakama-ponytail-boots",
+          "meshCount": 69,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 242.19653486547477,
+          "maxY": 323.3158874001715,
+          "vertices": 9996
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 299,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-sanjo-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "nagi",
+          "name": "北山ナギ",
+          "model": "nagi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.86,
+          "chestHeight": 1.8900000000000001,
+          "signature": "short-jacket-slim-trousers-sneakers",
+          "meshCount": 60,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 247.49228500447515,
+          "maxY": 323.3158874001715,
+          "vertices": 8844
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 367,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-shinkyogoku-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "kota",
+          "name": "御池コタ",
+          "model": "kota",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.34,
+          "chestHeight": 1.4000000000000001,
+          "signature": "small-hoodie-cap-shorts",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 258.29449916279395,
+          "maxY": 323.3158874001715,
+          "vertices": 8802
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 282,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-million-kick-390x844.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 57,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 36.39898112551015,
+          "maxX": 61.91254705748568,
+          "minY": 231.29283937461702,
+          "maxY": 319.2002234066337,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 276.29407602103606,
+          "maxX": 323.30864823390834,
+          "minY": 228.02953123082062,
+          "maxY": 323.3158874001715,
+          "vertices": 8913
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          282.46875109672544,
+          292.99543155961436
+        ],
+        "ballVisible": true,
+        "size": [
+          368,
+          542
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 368,
+        "height": 542,
+        "sampledColors": 350,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-million-idle-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 57,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 95.14321295724966,
+          "maxX": 130.5078068432858,
+          "minY": 85.96152931789496,
+          "maxY": 207.81077892997268,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 457.86302303569516,
+          "maxX": 500.24657489688724,
+          "minY": 79.74884363838348,
+          "maxY": 219.4159927967255,
+          "vertices": 8913
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          436.22283802959134,
+          171.48807112472133
+        ],
+        "ballVisible": true,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 327,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-million-kick-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 57,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 95.14321295724966,
+          "maxX": 130.5078068432858,
+          "minY": 85.96152931789496,
+          "maxY": 207.81077892997268,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 427.66406278493724,
+          "maxX": 492.8314039546293,
+          "minY": 81.43822721934244,
+          "maxY": 213.5155394437337,
+          "vertices": 8913
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          436.22283802959134,
+          171.48807112472133
+        ],
+        "ballVisible": true,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "front",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 330,
+        "error": 0
+      }
+    },
+    {
+      "file": "after-million-close-844x390.png",
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "luka",
+          "name": "ルカ",
+          "model": "luka",
+          "shadow": false,
+          "godMode": false,
+          "pose": "kick",
+          "height": 3.43,
+          "chestHeight": 2.29,
+          "signature": "tall-split-longcoat",
+          "meshCount": 57,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "frame": {
+        "player": {
+          "minX": 209.3488422320965,
+          "maxX": 269.01869101670627,
+          "minY": 84.19212458179005,
+          "maxY": 233.10744526563286,
+          "vertices": 8115
+        },
+        "cpu": {
+          "minX": 220.10119614195912,
+          "maxX": 289.4124434094599,
+          "minY": 52.122596280823146,
+          "maxY": 218.3499038032479,
+          "vertices": 8913
+        },
+        "playerVisible": true,
+        "cpuVisible": true,
+        "sevenOrbs": 0,
+        "ball": [
+          463.2611827188171,
+          186.7355684062466
+        ],
+        "ballVisible": false,
+        "size": [
+          599.46875,
+          282
+        ],
+        "phase": "close",
+        "mode": "playing"
+      },
+      "stats": {
+        "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "width": 599,
+        "height": 282,
+        "sampledColors": 242,
+        "error": 0
+      }
+    }
+  ]
+}

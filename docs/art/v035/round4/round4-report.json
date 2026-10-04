@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "rendererName": "Three.js",
+  "stats": [
+    {
+      "id": "toru",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "saku",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "kind": "full",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "toru",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "saku",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "kind": "face",
+      "engine": "Three.js",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}
