@@ -8,7 +8,7 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
   saku:{head:1.45,shoulder:1.12,width:.39,headWidth:.219,headHeight:.60,height:3.48,stance:.018,signature:'wide-court-sleeves-tall-cap',bow:.31},
   sokichi:{head:1.07,shoulder:.83,width:.42,headWidth:.257,headHeight:.55,height:2.58,stance:-.21,signature:'hunched-vest-white-brows',bow:.46},
   sumi:{head:1.40,shoulder:1.09,width:.31,headWidth:.222,headHeight:.54,height:2.95,stance:.01,signature:'triangle-hakama-ponytail-boots',bow:.56},
-  nagi:{head:1.31,shoulder:1.0,width:.29,headWidth:.223,headHeight:.53,height:2.86,stance:-.14,signature:'short-jacket-slim-trousers-sneakers',bow:.48},
+  nagi:{head:1.31,shoulder:1.0,width:.29,headWidth:.223,headHeight:.53,height:2.86,stance:.015,signature:'short-jacket-slim-trousers-sneakers',bow:.48},
   kota:{head:.76,shoulder:.51,width:.32,headWidth:.284,headHeight:.52,height:2.34,stance:-.02,signature:'small-hoodie-cap-shorts',bow:.83},
   luka:{head:1.83,shoulder:1.40,width:.32,headWidth:.230,headHeight:.66,height:3.43,stance:.045,signature:'tall-split-longcoat',bow:.35}
  };
@@ -369,7 +369,8 @@ function characterPoseV030(f,key){
    if(win){f.arm.rot[2]-=.25;f.farArm.rot[2]-=.25;f.head.rot[2]+=.07;}
   }else if(c.id==='nagi'){
    f.arm.rot[2]+=.18+.20*k;f.farArm.rot[2]-=.16+.17*k;f.elbow.rot[2]+=.48;f.farElbow.rot[2]+=.35;
-   f.head.rot[2]+=.10;f.body.pos[1]-=.015*(sway+1)*strength;
+   // Keep the ready stance tall; the shared strike/hurt poses supply the lean.
+   f.head.rot[2]+=.015;f.body.pos[1]+=.006*sway*strength;
    if(win){f.arm.rot[2]+=1.03;f.elbow.rot[2]+=.53;f.body.rot[2]+=.12;}
   }else if(c.id==='kota'){
    f.body.pos[1]+=.018*Math.max(0,sway)*strength;f.arm.rot[0]-=.27+.58*k;f.farArm.rot[0]+=.27+.58*k;

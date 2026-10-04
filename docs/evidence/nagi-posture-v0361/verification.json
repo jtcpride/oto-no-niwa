@@ -1,0 +1,97 @@
+{
+  "verifiedAt": "2026-10-04T15:40:03.572Z",
+  "version": "0.36.1-nagi-posture",
+  "baseCommit": "f6ac5e8",
+  "status": "passed",
+  "characterSourceSHA256": "e527e28fd51bacf66e4b7862ace862353cdd7b651bed54a531d1c3fab278afec",
+  "aggregate": {
+    "command": "npm test",
+    "suites": [
+      "assemble.cjs",
+      "content-v021.cjs",
+      "decks-v030.cjs",
+      "voice-assets-v033.cjs",
+      "campaign-model-v030.cjs",
+      "navigation-v030.cjs",
+      "sound-v030.cjs",
+      "audio-campaign-v030.cjs",
+      "native-voice-v033.cjs",
+      "scenery-v030.cjs",
+      "scenery-polish-v030.cjs",
+      "chion-striker-v030.cjs",
+      "foreground-v030.cjs",
+      "characters-v030.cjs",
+      "motion-camera-v030.cjs",
+      "motion-step-v030.cjs",
+      "complete-browser-v030.cjs"
+    ],
+    "status": "passed"
+  },
+  "motion": {
+    "commands": [
+      "npm run test:characters",
+      "npm run test:motion"
+    ],
+    "contactChecks": 112,
+    "status": "passed"
+  },
+  "browser": {
+    "checks": 99,
+    "screenshots": 104,
+    "errors": 0,
+    "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "requestedRenderer": "default hardware",
+    "softwareFallback": false,
+    "arguments": [],
+    "version": "154.0.8037.97",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+  },
+  "poseComparison": {
+    "frames": 36,
+    "errors": 0,
+    "viewports": [
+      [
+        960,
+        640
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "poses": [
+      "idle",
+      "ready",
+      "kick0",
+      "kick1",
+      "kick2",
+      "kick3",
+      "back-idle",
+      "back-kick",
+      "close",
+      "bow",
+      "hurt",
+      "effects-off"
+    ],
+    "idleAngles": [
+      {
+        "variant": "before",
+        "bodyRadians": -0.14,
+        "headRelativeRadians": 0.1
+      },
+      {
+        "variant": "after",
+        "bodyRadians": 0.015,
+        "headRelativeRadians": 0.015
+      }
+    ],
+    "repeatedRestoreChecks": 3
+  },
+  "limitations": [
+    "Fixed poses and mocked audio on Mac Chrome, not physical-device or human playability acceptance."
+  ]
+}

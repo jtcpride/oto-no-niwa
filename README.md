@@ -1,3 +1,7 @@
+## v0.36.1 — ナギの立ち姿（2026-10-05）
+
+ナギの常時前傾と頭の補正角を弱め、背筋が伸びた構えに調整。待機・蹴り・近接・礼を実画面で比較しています。詳細は [引継ぎ](docs/PROJECT_HANDOFF.md)。
+
 # FIFTEENTH EVER GARDEN
 
 発音記号蹴鞠「FIFTEENTH EVER GARDEN」の試作リポジトリです。
