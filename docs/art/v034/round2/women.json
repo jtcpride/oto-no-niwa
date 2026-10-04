@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "stats": [
+    {
+      "id": "sumi",
+      "view": "front",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "view": "three-quarter",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sumi",
+      "view": "profile",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "view": "front",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "view": "three-quarter",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "nagi",
+      "view": "profile",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}

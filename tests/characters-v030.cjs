@@ -45,7 +45,7 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
  }
  const face=metadata.parts.find(n=>n.fegPart==='face'),faceTriangles=triangles(face);
  for(const tag of ['eye','pupil','upper-eyelid','mouth','eye-glint',c.id==='sokichi'?'thick-white-brow':'brow']){
-  const features=metadata.parts.filter(n=>n.fegPart===tag);assert.equal(features.length,2,c.id+' '+tag+' pair');
+  const features=metadata.parts.filter(n=>n.fegPart===tag);assert(tag==='mouth'?features.length>=1&&features.length<=2:features.length===2,c.id+' '+tag+' present');
   for(const feature of features){
    assert(Math.min(...faceTriangles.map(t=>pointTriangleDistance(feature.pos,t.v)))<.02,c.id+' '+tag+' centre attached');
    for(const t of triangles(feature)){

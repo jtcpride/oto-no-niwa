@@ -1,8 +1,8 @@
 // Complete campaign around the unchanged v0.29.1 rally / ceremony kernel.
 window.otoPatchCampaignV030=function(html){
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 campaign anchor: '+a.slice(0,80));html=html.replace(a,b);}
- once("version:'0.29.1-articulated-motion'","version:'0.33.0-clear-voice-sculpt'");
- once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.33.0');
+ once("version:'0.29.1-articulated-motion'","version:'0.34.0-five-fighters'");
+ once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.34.0');
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");

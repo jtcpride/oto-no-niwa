@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "stats": [
+    {
+      "id": "luka",
+      "view": "front",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "view": "three-quarter",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "luka",
+      "view": "profile",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "view": "front",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "view": "three-quarter",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "sokichi",
+      "view": "profile",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "view": "front",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "view": "three-quarter",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "id": "kota",
+      "view": "profile",
+      "error": 0,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}

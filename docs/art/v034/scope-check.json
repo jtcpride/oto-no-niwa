@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "baseline": "c7e8fed",
+  "before": {
+    "toru": "13fe29d2073213ad0b0c34d42bde8c10cebb28a75d74fe5e732644bff3a7331f",
+    "saku": "895cede007e9fbf90adc7f83316c6a3b3c76c27ca587bde89951ee9a2ad330f5",
+    "sokichi": "402e30685768946e8e254649d5d5cb7e8c1c0bfadf7640617402a3e7b2c9b1f1",
+    "sumi": "241e02f7d5d050a3b4cf9bd6fc2f370f1939aa5e82aab99e0db48f5c35b68ca5",
+    "nagi": "9e2207ef5332a941e4bcb647dbc3bd0f2272bbae45400bf03b5ac49412e6a3cc",
+    "kota": "f44cda41e0b71253d040edab0899eed53a09c6626d08825048c5cb2e233a406a",
+    "luka": "0f94f6003bfa1a3e41083406a940950d784027209539e38cf2375475c1b525a4"
+  },
+  "after": {
+    "toru": "13fe29d2073213ad0b0c34d42bde8c10cebb28a75d74fe5e732644bff3a7331f",
+    "saku": "895cede007e9fbf90adc7f83316c6a3b3c76c27ca587bde89951ee9a2ad330f5",
+    "sokichi": "4b6669b0a5af0b3c4009c0cd5021ff46c3b8248d5ee7d87ef1aa10fde33ff8a3",
+    "sumi": "a2921bd4f57f10fdee0926cfc5a854f639b4fc0a7bcd5a4301cafc1615f5791c",
+    "nagi": "e77819050c716f45002f00a9c3f6540bf8c4748b80dd3470f77acf627d5f0a73",
+    "kota": "d5008a1350f6757c26a6ca8655267a50cad81c27cb05088a0a4d5b3a9d411cf2",
+    "luka": "8ace598d9b4a22dd647318c1ccfe218c0a1103d94d1c5d8178d8a3de5cb17836"
+  },
+  "unchanged": [
+    "toru",
+    "saku"
+  ],
+  "refined": [
+    "sokichi",
+    "sumi",
+    "nagi",
+    "kota",
+    "luka"
+  ]
+}

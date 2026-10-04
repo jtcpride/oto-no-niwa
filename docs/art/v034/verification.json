@@ -1,0 +1,80 @@
+{
+  "version": "0.34.0-five-fighters",
+  "baseline": "c7e8fed",
+  "verifiedAt": "2026-10-04T21:05:00+09:00",
+  "aggregate": "npm test passed (17 suites)",
+  "browser": {
+    "status": "passed",
+    "checks": 99,
+    "browser": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "requestedRenderer": "default hardware",
+      "softwareFallback": false,
+      "arguments": [],
+      "version": "154.0.8037.97",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    "errors": [],
+    "finishedAt": "2026-10-04T12:02:06.077Z"
+  },
+  "polish": "test:polish passed: 8 shot geometries/timing/windows/damage equality, contact, pose restoration, pause/restart, six layouts, effects OFF",
+  "geometry": {
+    "passed": true,
+    "models": [
+      {
+        "id": "toru",
+        "height": 2.8881643891334536,
+        "parts": 58,
+        "triangleCount": 2705
+      },
+      {
+        "id": "saku",
+        "height": 3.446381618015608,
+        "parts": 51,
+        "triangleCount": 2418
+      },
+      {
+        "id": "sokichi",
+        "height": 2.512780845472921,
+        "parts": 63,
+        "triangleCount": 3054
+      },
+      {
+        "id": "sumi",
+        "height": 2.8376997360910616,
+        "parts": 64,
+        "triangleCount": 2999
+      },
+      {
+        "id": "nagi",
+        "height": 2.743776551485062,
+        "parts": 56,
+        "triangleCount": 2750
+      },
+      {
+        "id": "kota",
+        "height": 2.2995,
+        "parts": 56,
+        "triangleCount": 2868
+      },
+      {
+        "id": "luka",
+        "height": 3.318301132521201,
+        "parts": 54,
+        "triangleCount": 2808
+      }
+    ],
+    "uniqueSilhouettes": 7,
+    "contactChecks": 112,
+    "rendering": "VM WebGL command recorder; GPU and real-device audio not tested"
+  },
+  "gallery": "final-report.json",
+  "portraits": "round3/portraits.json",
+  "gameScreens": "game/game-comparison-report.json",
+  "scope": "scope-check.json",
+  "limitations": [
+    "No physical iPhone/iPad performance or touch acceptance.",
+    "Audio unchanged; audible device output not tested in this refinement.",
+    "Automated play and deterministic rendering do not establish subjective appeal."
+  ]
+}
