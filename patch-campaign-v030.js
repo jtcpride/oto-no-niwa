@@ -1,8 +1,8 @@
 // Complete campaign around the unchanged v0.29.1 rally / ceremony kernel.
 window.otoPatchCampaignV030=function(html){
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 campaign anchor: '+a.slice(0,80));html=html.replace(a,b);}
- once("version:'0.29.1-articulated-motion'","version:'0.31.0-three-polish'");
- once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.31.0');
+ once("version:'0.29.1-articulated-motion'","version:'0.31.1-station-voice'");
+ once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.31.1');
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");
@@ -103,9 +103,12 @@ function showGardenV030(){
 }
 function showDialogueV030(){
  campaignSetPhaseV030('dialogue');campaignScreenV030(true);state.mode='idle';
- const lines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。']],line=lines[campaignV030.dialogue];
+ // Romanized Japanese keeps the deliberate English-TTS accent without native
+ // engines switching to Japanese. Use exactly the SHOUBU ARI announcer voice.
+ const lines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。','Yoh, kaette kiharimashita na.'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。','Dorehodo oboete haru ka, misete moraimahyoka.']],line=lines[campaignV030.dialogue];
  campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">KYOTO STATION / 烏丸 朔</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><button id="dialogueNext" class="campaign-small">'+(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗</button></div>';
  campaignUIV030.querySelector('#dialogueNext').addEventListener('click',()=>{if(campaignV030.phase!=='dialogue')return;audio.ensure();if(!audio.userChoice)audio.set(true);if(campaignV030.dialogue++===0)showDialogueV030();else startCampaignMatchV030();});
+ speakCallV010(line[2]);
 }
 const campaignKernelStartV030=start;
 function startCampaignMatchV030(){
