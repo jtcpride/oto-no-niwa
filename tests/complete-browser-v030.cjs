@@ -44,9 +44,18 @@ function speechMock() {
     speak(u){window.__spoken.push({text:u.text,lang:u.lang,rate:u.rate,pitch:u.pitch,volume:u.volume,voice:u.voice?.name});u.onstart?.();current=setTimeout(()=>u.onend?.(),20)}
   }});
 }
-function sourceSeam(html) {
+function sourceSeam(html,{mockVoice=true}={}) {
   assert.equal(html.split(ANCHOR).length,2,'unique test-only runtime seam');
-  return html.replace(ANCHOR, String.raw`
+  return html.replace(ANCHOR,(mockVoice?String.raw`
+// Explicit presentation-only voice fixture. Production never uses Web Speech.
+let qaVoiceGesture=false;audio.canPlayVoice=()=>qaVoiceGesture;
+audio.speak=function(u,onDone){if(!audio.enabled||!audio.voiceVolume){onDone?.();return;}qaVoiceGesture=true;
+ audio.stopVoice();const token=++audio.voiceToken;audio.voiceDone=onDone;
+ u.onstart=()=>{if(token===audio.voiceToken){audio.ducked=true;audio.applyMix();}};
+ u.onend=u.onerror=()=>audio.releaseVoice(token);
+ audio.voiceTimer=setTimeout(()=>audio.releaseVoice(token),8000);window.speechSynthesis.speak(u);
+};
+`:'')+String.raw`
 const qaTransform=(p,n)=>{let [x,y,z]=p.map((v,i)=>v*n.scale[i]);const [a,b,c]=n.rot;[y,z]=[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];[x,z]=[x*Math.cos(b)+z*Math.sin(b),-x*Math.sin(b)+z*Math.cos(b)];[x,y]=[x*Math.cos(c)-y*Math.sin(c),x*Math.sin(c)+y*Math.cos(c)];return [x+n.pos[0],y+n.pos[1],z+n.pos[2]];};
 const qaBounds=f=>{const points=[];let vertices=0;function visit(n,parents){if(!n.visible)return;const chain=[n,...parents];if(n.geo)for(let i=0;i<n.geo.p.length;i+=3){let p=Array.from(n.geo.p.slice(i,i+3));for(const node of chain)p=qaTransform(p,node);points.push(renderer.project(p));vertices++;}for(const child of n.children)visit(child,chain);}visit(f.n,[]);return {minX:Math.min(...points.map(p=>p[0])),maxX:Math.max(...points.map(p=>p[0])),minY:Math.min(...points.map(p=>p[1])),maxY:Math.max(...points.map(p=>p[1])),vertices};};
 const qaRender=renderer.render.bind(renderer);
@@ -186,9 +195,9 @@ function resolveOptional(name,candidates=[]) {
   for(const candidate of [name,...candidates])try{return require(candidate)}catch(error){if(error.code!=='MODULE_NOT_FOUND')throw error}
   throw Error('Missing QA dependency '+name+'. Set NODE_PATH or install it in the QA environment.');
 }
-function vmFixture(original,{url=ORIGIN+'/?stage=jingu',width=1024,height=768,storage=new Map(),session=new Map(),storageBlocked=false}={}) {
+function vmFixture(original,{url=ORIGIN+'/?stage=jingu',width=1024,height=768,storage=new Map(),session=new Map(),storageBlocked=false,mockVoice=true,beforeScripts}={}) {
   const {JSDOM}=resolveOptional('jsdom',['/tmp/feg-test-deps/node_modules/jsdom',path.resolve(ROOT,'../optics/.sites-runtime/qa/node_modules/jsdom')]);
-  const html=sourceSeam(original).replaceAll('window.location.assign(url.href)','window.__qaNavigate=url.href').replaceAll('window.location.assign(stageUrlV021(stagePickerV021.value))','window.__qaNavigate=stageUrlV021(stagePickerV021.value)');
+  const html=sourceSeam(original,{mockVoice}).replaceAll('window.location.assign(url.href)','window.__qaNavigate=url.href').replaceAll('window.location.assign(stageUrlV021(stagePickerV021.value))','window.__qaNavigate=stageUrlV021(stagePickerV021.value)');
   const dom=new JSDOM(html,{url,runScripts:'outside-only',pretendToBeVisual:true});const w=dom.window,gl=recordingGL(),errors=[];
   // VM tests record the legacy draw commands, not Three/WebGL2. Browser tests use Three.
   w.FEGRecordingRendererTest=true;
@@ -206,6 +215,7 @@ function vmFixture(original,{url=ORIGIN+'/?stage=jingu',width=1024,height=768,st
   Object.defineProperty(w.HTMLCanvasElement.prototype,'clientWidth',{get:()=>size.width});Object.defineProperty(w.HTMLCanvasElement.prototype,'clientHeight',{get:()=>size.height});
   w.HTMLCanvasElement.prototype.getContext=function(type){if(type==='webgl')return gl;throw Error('Unexpected context '+type)};
   w.addEventListener('error',event=>errors.push(event.error?.stack||event.message));
+  beforeScripts?.(w);
   for(const script of w.document.querySelectorAll('script:not([src])'))w.eval(script.textContent);
   assert(w.qa,'VM seam initialized');
   function flush(ms){const until=now+ms;let iterations=0;while(true){const next=[...timers].filter(([,v])=>v.at<=until).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;if(iterations++>10000)throw Error('Timer loop');now=next[1].at;timers.delete(next[0]);next[1].fn()}now=until}
@@ -405,7 +415,7 @@ async function browserGardenLayouts(page,label='garden') {
 async function runCompleteCampaign(browser) {
   const production=await productionLoader(browser);
   await production.page.waitForFunction(()=>!!window.kemari);
-  assert.equal(await production.page.evaluate(()=>kemari.version),'0.31.1-station-voice');
+  assert.equal(await production.page.evaluate(()=>kemari.version),'0.32.0-continuous-voice');
   await production.page.locator('#start').click();await production.page.waitForFunction(()=>kemari.getCampaign().phase==='dialogue');
   await production.page.locator('#dialogueNext').click();await production.page.locator('#dialogueNext').click();
   await production.page.waitForFunction(()=>kemari.getState().mode==='ready'||kemari.getState().mode==='playing');

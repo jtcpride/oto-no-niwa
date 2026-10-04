@@ -1,6 +1,6 @@
 {
   "name": "fifteenth-ever-garden",
-  "version": "0.31.1",
+  "version": "0.32.0",
   "private": true,
   "description": "Low-poly phoneme kemari game; Three.js renderer migration",
   "scripts": {
@@ -16,7 +16,7 @@
     "test:browser": "node tests/complete-browser-v030.cjs",
     "test:ui-browser": "node tests/ui-polish-v030.cjs",
     "review:characters": "node tests/characters-art-v030.cjs current",
-    "test:audio-browser": "node tests/audio-browser-v030.cjs",
+    "test:audio-browser": "node tests/audio-recorded-browser-v032.cjs",
     "assemble": "node tests/assemble.cjs",
     "build:renderer": "node scripts/build-renderer.cjs",
     "test:renderer": "node tests/renderer-three.cjs",

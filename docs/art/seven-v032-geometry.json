@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "models": [
+    {
+      "id": "toru",
+      "height": 2.7881717530355066,
+      "parts": 54,
+      "triangleCount": 1864
+    },
+    {
+      "id": "saku",
+      "height": 3.45331573934599,
+      "parts": 47,
+      "triangleCount": 1224
+    },
+    {
+      "id": "sokichi",
+      "height": 2.4445181074036917,
+      "parts": 52,
+      "triangleCount": 1396
+    },
+    {
+      "id": "sumi",
+      "height": 2.8193214943480567,
+      "parts": 61,
+      "triangleCount": 1736
+    },
+    {
+      "id": "nagi",
+      "height": 2.6965431093382706,
+      "parts": 53,
+      "triangleCount": 1688
+    },
+    {
+      "id": "kota",
+      "height": 2.1975000000000002,
+      "parts": 49,
+      "triangleCount": 1104
+    },
+    {
+      "id": "luka",
+      "height": 3.2532498792446183,
+      "parts": 48,
+      "triangleCount": 1428
+    }
+  ],
+  "uniqueSilhouettes": 7,
+  "contactChecks": 112,
+  "rendering": "VM WebGL command recorder; GPU and real-device audio not tested"
+}

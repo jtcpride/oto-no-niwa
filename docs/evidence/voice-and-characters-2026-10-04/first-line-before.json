@@ -1,0 +1,44 @@
+{
+  "version": "0.31.1",
+  "path": "?intro=1 (京都駅へ)",
+  "before": [],
+  "button": "次へ ↗",
+  "afterFirstTap": [
+    "Dorehodo oboete haru ka, misete moraimahyoka."
+  ],
+  "diagnostics": {
+    "version": "0.30-gagaku",
+    "contextState": "not-created",
+    "contexts": 0,
+    "enabled": true,
+    "music": 0.8,
+    "voice": 0.85,
+    "ducked": false,
+    "musicTarget": 0,
+    "successes": 0,
+    "layer": 0,
+    "layerNames": [
+      "shō"
+    ],
+    "activeSources": 0,
+    "shoVoices": 0,
+    "voiceToken": 2,
+    "voiceTimer": false,
+    "needsGesture": false,
+    "speechBlocked": false,
+    "resumeVisible": false,
+    "disposed": false,
+    "counters": {
+      "sho": 0,
+      "string": 0,
+      "flute": 0,
+      "taiko": 0,
+      "movement": 0,
+      "hit": 0,
+      "speech": 1,
+      "recoveries": 1
+    },
+    "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+  },
+  "note": "VM reproduction; first line is skipped silently on this path"
+}

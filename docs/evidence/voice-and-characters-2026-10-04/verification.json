@@ -1,0 +1,28 @@
+{
+  "version": "0.32.0-continuous-voice",
+  "baseline": "c1e89d90285f7c9c78209a627d0d39a61f13e9c1",
+  "checks": {
+    "nonBrowserAggregate": "passed",
+    "soundLifecycleAndDialogue": "passed",
+    "realBrowserCampaign": 99,
+    "realBrowserAudio": 11,
+    "polish": "unchanged 8 shot rules/geometries, contacts, pause/restart, six layouts, close/rush effects",
+    "characterContacts": 112
+  },
+  "browser": {
+    "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "requestedRenderer": "default hardware",
+    "softwareFallback": false,
+    "arguments": [],
+    "version": "154.0.8037.97",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+  },
+  "audio": "Fixed Kokoro clips share Web Audio with music. No OS speech call. 88 MP3 = 579872 bytes.",
+  "characterReference": "../../art/seven-v032-reference.md",
+  "limitations": [
+    "iPhone/iPad Safari physical speakers and interaction unverified",
+    "Audio tests measure decoded PCM and graph signals, not subjective pronunciation or speaker output",
+    "Character artwork is design reference; actual low-poly models are separate"
+  ],
+  "publication": "pending"
+}

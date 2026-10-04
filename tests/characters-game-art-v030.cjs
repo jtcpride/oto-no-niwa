@@ -15,7 +15,11 @@ fs.mkdirSync(OUT,{recursive:true});
 (async()=>{
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'}),context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage(),errors=[],checks=[];
  page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>{window.__artRAF=requestAnimationFrame.bind(window);window.requestAnimationFrame=()=>0;Object.defineProperty(window,'speechSynthesis',{value:{cancel(){},resume(){},getVoices(){return[]},speak(u){u.onstart?.();u.onend?.()}}});});
- await page.route('http://character-game.test/**',route=>route.fulfill({contentType:'text/html',body:variants[new URL(route.request().url()).searchParams.get('variant')]}));
+ await page.route('http://character-game.test/**',route=>{
+  const url=new URL(route.request().url());
+  if(/^\/audio\/voice-v032\/[0-9a-z-]+\.mp3$/.test(url.pathname))return route.fulfill({contentType:'audio/mpeg',body:fs.readFileSync(path.join(ROOT,url.pathname.slice(1)))});
+  return route.fulfill({contentType:'text/html',body:variants[url.searchParams.get('variant')]});
+ });
  async function capture(variant,stage,pose,width,height){
   await page.setViewportSize({width,height});await page.goto('http://character-game.test/?stage='+stage+'&variant='+variant);await page.waitForFunction(()=>window.qa);
   const result=await page.evaluate(pose=>{

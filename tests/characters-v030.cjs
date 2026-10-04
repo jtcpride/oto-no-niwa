@@ -44,7 +44,7 @@ for(const c of rigCtx.window.FEGContent.characters.filter(c=>!c.derivedFromPlaye
   if(!Object.values(geom).includes(n.geo))for(let i=0;i<n.geo.n.length;i+=3)assert(Math.abs(Math.hypot(...n.geo.n.slice(i,i+3))-1)<1e-5,c.id+' nondegenerate sculpted surface normals');
  }
  const face=metadata.parts.find(n=>n.fegPart==='face'),faceTriangles=triangles(face);
- for(const tag of ['eye','mouth',c.id==='sokichi'?'thick-white-brow':'brow']){
+ for(const tag of ['eye','pupil','upper-eyelid','mouth',c.id==='sokichi'?'thick-white-brow':'brow']){
   const features=metadata.parts.filter(n=>n.fegPart===tag);assert.equal(features.length,2,c.id+' '+tag+' pair');
   for(const feature of features)assert(Math.min(...faceTriangles.map(t=>pointTriangleDistance(feature.pos,t.v)))<.02,c.id+' '+tag+' stays attached to the faceted face');
  }

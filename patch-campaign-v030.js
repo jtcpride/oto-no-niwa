@@ -1,8 +1,8 @@
 // Complete campaign around the unchanged v0.29.1 rally / ceremony kernel.
 window.otoPatchCampaignV030=function(html){
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 campaign anchor: '+a.slice(0,80));html=html.replace(a,b);}
- once("version:'0.29.1-articulated-motion'","version:'0.31.1-station-voice'");
- once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.31.1');
+ once("version:'0.29.1-articulated-motion'","version:'0.32.0-continuous-voice'");
+ once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.32.0');
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");
@@ -103,13 +103,18 @@ function showGardenV030(){
 }
 function showDialogueV030(){
  campaignSetPhaseV030('dialogue');campaignScreenV030(true);state.mode='idle';
- // Romanized Japanese keeps the deliberate English-TTS accent without native
- // engines switching to Japanese. Use exactly the SHOUBU ARI announcer voice.
+ // The fixed English male voice is shared with SHOUBU ARI. A direct intro URL
+ // must offer a gesture for this first line instead of silently skipping it.
  const lines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。','Yoh, kaette kiharimashita na.'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。','Dorehodo oboete haru ka, misete moraimahyoka.']],line=lines[campaignV030.dialogue];
  campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">KYOTO STATION / 烏丸 朔</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><button id="dialogueNext" class="campaign-small">'+(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗</button></div>';
- campaignUIV030.querySelector('#dialogueNext').addEventListener('click',()=>{if(campaignV030.phase!=='dialogue')return;audio.ensure();if(!audio.userChoice)audio.set(true);if(campaignV030.dialogue++===0)showDialogueV030();else startCampaignMatchV030();});
- speakCallV010(line[2]);
+ campaignV030.dialogueText=line[2];campaignV030.dialogueNeedsGesture=audio.voiceVolume>0&&!audio.canPlayVoice?.()&&(!audio.userChoice||audio.enabled);
+ const next=campaignUIV030.querySelector('#dialogueNext');if(campaignV030.dialogueNeedsGesture)next.textContent='台詞を聞く ↗';
+ next.addEventListener('click',()=>{if(campaignV030.phase!=='dialogue')return;if(!audio.userChoice)audio.set(true);audio.resumeFromGesture?.();
+  if(campaignV030.dialogueNeedsGesture){speakDialogueLineV030();return;}
+  if(campaignV030.dialogue++===0)showDialogueV030();else startCampaignMatchV030();});
+ if(!campaignV030.dialogueNeedsGesture)speakDialogueLineV030();
 }
+function speakDialogueLineV030(){if(campaignV030.phase!=='dialogue')return;campaignV030.dialogueNeedsGesture=false;const next=campaignUIV030.querySelector('#dialogueNext');if(next)next.textContent=(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗';speakCallV010(campaignV030.dialogueText);}
 const campaignKernelStartV030=start;
 function startCampaignMatchV030(){
  campaignSetPhaseV030('match');campaignScreenV030(false);campaignV030.committed=false;state.mode='over';campaignKernelStartV030();$('#stageName').textContent=campaignV030.intro?'KYOTO STATION / 帰郷':ACTIVE_STAGE.name;$('#pause').disabled=false;
@@ -153,7 +158,7 @@ updateGame=function(dt){
   if(phase==='intro-win'&&campaignV030.time>=1.25)showGardenV030();
   if(phase==='gather'&&campaignV030.time>=(motion?4.3:1.3))finishGatherV030();
   if(phase==='scatter'){
-   if(campaignV030.time-dt<.7&&campaignV030.time>=.7){audio.note(1200,.9,.22,'sine',0,160);if(audio.enabled&&audio.voiceVolume>0){const u=new SpeechSynthesisUtterance('ひゃーん');u.lang='ja-JP';u.pitch=1.6;u.rate=1.2;u.volume=audio.voiceVolume;audio.speak(u);}}
+   if(campaignV030.time-dt<.7&&campaignV030.time>=.7){audio.note(1200,.9,.22,'sine',0,160);if(audio.enabled&&audio.voiceVolume>0)audio.speak({text:'ひゃーん',kind:'ending'});}
    if(campaignV030.time>=(motion?2.8:1.5))showEndingV030();
   }
   audio.update(dt,phase==='gather'?3:1,1);return;

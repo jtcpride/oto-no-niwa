@@ -4,7 +4,7 @@ window.FEGCharacterRigs=window.FEGCharacterRigs||{};
 window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
  const a=appearance,id=a.model||'toru',isShadow=!!a.shadow;
  const profiles={
-  toru:{head:1.40,shoulder:1.08,width:.34,headWidth:.26,headHeight:.47,height:2.96,stance:-.045,signature:'angular-suit-tie',bow:.77},
+  toru:{head:1.40,shoulder:1.08,width:.34,headWidth:.285,headHeight:.46,height:2.96,stance:-.045,signature:'soft-office-suit-loose-tie',bow:.77},
   saku:{head:1.45,shoulder:1.12,width:.39,headWidth:.235,headHeight:.53,height:3.48,stance:.018,signature:'wide-court-sleeves-tall-cap',bow:.31},
   sokichi:{head:1.07,shoulder:.83,width:.42,headWidth:.28,headHeight:.43,height:2.58,stance:-.21,signature:'hunched-vest-white-brows',bow:.46},
   sumi:{head:1.40,shoulder:1.09,width:.31,headWidth:.238,headHeight:.48,height:2.95,stance:.01,signature:'triangle-hakama-ponytail-boots',bow:.56},
@@ -19,52 +19,58 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
   const o=mesh(parent,shape,isShadow?'#111018':color,pos,scale,rot);o.fegPart=tag;visible.push(o);return o;
  }
  function edge(parent,pos,scale,rot=[0,0,0]){const e=mesh(parent,'box','#ffe8a8',pos,scale,rot,1);e.visible=false;glow.push(e);return e;}
- function panel(parent,pos,scale,color,rot=[0,0,0],tag='cloth'){
-  const g=group(parent,pos);g.rot=rot;part(g,'box',color,[0,0,0],scale,[0,0,0],tag);cloth.push({n:g,rest:[...rot],kind:tag});return g;
+ function panel(parent,pos,scale,color,rot=[0,0,0],tag='cloth',shape='box'){
+  const g=group(parent,pos);g.rot=rot;part(g,shape,color,[0,0,0],scale,[0,0,0],tag);cloth.push({n:g,rest:[...rot],kind:tag});return g;
  }
  // Small sculpted solids: eight corners and a few authored cross-sections keep
  // broad, readable facets without increasing the number of moving scene nodes.
- function sculpt(rings){
-  const outline=[[1,.42],[.55,1],[-.55,1],[-1,.42],[-1,-.42],[-.55,-1],[.55,-1],[1,-.42]],positions=[],normals=[];
+ function sculpt(rings,outline=[[1,.42],[.55,1],[-.55,1],[-1,.42],[-1,-.42],[-.55,-1],[.55,-1],[1,-.42]]){
+  const positions=[],normals=[],sides=outline.length;
   const rows=rings.map(([y,x,z,cx=0,cz=0])=>outline.map(([u,v])=>[u*x+cx,y,v*z+cz]));
   function tri(a,b,c){const u=b.map((v,i)=>v-a[i]),v=c.map((v,i)=>v-a[i]),n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]],len=Math.hypot(...n)||1;for(const q of [a,b,c]){positions.push(...q);normals.push(...n.map(x=>x/len));}}
-  for(let j=1;j<rows.length;j++)for(let i=0;i<8;i++){const k=(i+1)%8;tri(rows[j-1][i],rows[j][i],rows[j][k]);tri(rows[j-1][i],rows[j][k],rows[j-1][k]);}
-  for(const [row,flip] of [[rows[0],false],[rows.at(-1),true]])for(let i=1;i<7;i++)flip?tri(row[0],row[i+1],row[i]):tri(row[0],row[i],row[i+1]);
+  for(let j=1;j<rows.length;j++)for(let i=0;i<sides;i++){const k=(i+1)%sides;tri(rows[j-1][i],rows[j][i],rows[j][k]);tri(rows[j-1][i],rows[j][k],rows[j-1][k]);}
+  for(const [row,flip] of [[rows[0],false],[rows.at(-1),true]])for(let i=1;i<sides-1;i++)flip?tri(row[0],row[i+1],row[i]):tri(row[0],row[i],row[i+1]);
   return {p:new Float32Array(positions),n:new Float32Array(normals),count:positions.length/3};
  }
  const tailored=sculpt([[-.5,.40,.43],[-.38,.5,.5],[.33,.5,.5],[.5,.40,.43]]);
  const feminine=id==='sumi'||id==='nagi';
- const faceShape=sculpt([[-.5,feminine?.52:.71,feminine?.58:.78,.025],[-.29,.87,.91],[.20,1,1],[.44,.88,.90,-.035],[.5,.65,.72,-.07]]);
+ const faceShape=sculpt([[-.5,feminine?.50:id==='toru'?.68:.65,feminine?.56:id==='toru'?.75:.73,.025],[-.29,id==='toru'?.88:.85,id==='toru'?.94:.88],[.09,1,1],[.33,.94,.96,-.015],[.5,.67,.74,-.07]],[[1,.22],[.92,.62],[.60,.90],[0,1],[-.65,.88],[-1,.40],[-1,-.40],[-.65,-.88],[0,-1],[.60,-.90],[.92,-.62],[1,-.22]]);
  const hairCrown=sculpt([[-.5,.45,.48],[.16,.52,.52],[.5,.32,.39,-.025]]);
+ // Flatten a small eight-sided solid onto the face; 28 triangles per eye layer.
+ const almond=(()=>{const g=sculpt([[-.5,.5,.5],[.5,.5,.5]],[[1,0],[.62,.74],[0,1],[-.62,.74],[-1,0],[-.62,-.74],[0,-1],[.62,-.74]]);for(const array of [g.p,g.n])for(let i=0;i<array.length;i+=3){const x=array[i];array[i]=array[i+1];array[i+1]=-x;}return g;})();
  // Put eyes and brows on the actual cheek facets. Fixed box coordinates made
  // them float outside the faceted head, especially in a three-quarter view.
  const faceMesh=part(head,id==='kota'?'ico':faceShape,a.skin,[0,0,0],[p.headWidth,id==='kota'?p.headHeight*.60:p.headHeight,p.headWidth],[0,.12,0],'face');
- function faceFeature(y,z,width,height,color,tag,tilt=0){
+ function faceFeature(y,z,width,height,color,tag,tilt=0,shape='box',lift=shape===almond?.004:.007){
   const geo=faceMesh.geo,verts=[];let hit=null;
   for(let i=0;i<geo.p.length;i+=3){const x=geo.p[i]*faceMesh.scale[0],zz=geo.p[i+2]*faceMesh.scale[2];verts.push([x*Math.cos(.12)+zz*Math.sin(.12),geo.p[i+1]*faceMesh.scale[1],-x*Math.sin(.12)+zz*Math.cos(.12)]);}
   for(let i=0;i<verts.length;i+=3){
    const [v,w,q]=verts.slice(i,i+3),den=(w[2]-q[2])*(v[1]-q[1])+(q[1]-w[1])*(v[2]-q[2]);if(Math.abs(den)<1e-8)continue;
    const u=((w[2]-q[2])*(y-q[1])+(q[1]-w[1])*(z-q[2]))/den,b=((q[2]-v[2])*(y-q[1])+(v[1]-q[1])*(z-q[2]))/den;
    if(u<0||b<0||u+b>1)continue;const x=u*v[0]+b*w[0]+(1-u-b)*q[0];if(hit&&hit.x>=x)continue;
-   const d=w.map((n,j)=>n-v[j]),e=q.map((n,j)=>n-v[j]),nx=d[1]*e[2]-d[2]*e[1],nz=d[0]*e[1]-d[1]*e[0],len=Math.hypot(nx,nz)||1;hit={x,nx:Math.abs(nx)/len,nz:(nx<0?-nz:nz)/len};
+   const d=w.map((n,j)=>n-v[j]),e=q.map((n,j)=>n-v[j]),nx=d[1]*e[2]-d[2]*e[1],ny=d[2]*e[0]-d[0]*e[2],nz=d[0]*e[1]-d[1]*e[0],len=Math.hypot(nx,ny,nz)||1,sign=nx<0?-1:1;hit={x,nx:nx*sign/len,ny:ny*sign/len,nz:nz*sign/len};
   }
   if(!hit)return;
-  part(head,'box',color,[hit.x+hit.nx*.009,y,z+hit.nz*.009],[.014,height,width],[tilt,Math.atan2(-hit.nz,hit.nx),0],tag);
+  return part(head,shape,color,[hit.x+hit.nx*lift,y+hit.ny*lift,z+hit.nz*lift],[shape===almond?.004:.012,height,width],[tilt,Math.atan2(-hit.nz,Math.hypot(hit.nx,hit.ny)),Math.atan2(hit.ny,hit.nx)],tag);
  }
- const expression={toru:[.040,.084,.030,.16,-.005],saku:[.028,.076,.023,.07,.0],sokichi:[.033,.090,.073,-.10,-.006],sumi:[.028,.068,.018,-.06,.005],nagi:[.031,.070,.021,-.14,.009],kota:[.045,.070,.027,.12,.012],luka:[.034,.081,.025,-.05,.0]}[id]||[.038,.080,.027,0,0];
+ // Small open eyes and soft smiles remain attached to the authored cheek planes.
+ // White/pupil shapes carry expression without textures or a new animation rig.
+ const expression={toru:[.052,.084,.025,-.12,-.003],saku:[.040,.078,.019,-.03,.0],sokichi:[.042,.083,.055,-.12,.003],sumi:[.056,.080,.016,-.08,.010],nagi:[.058,.083,.018,-.10,.014],kota:[.079,.090,.025,-.15,.017],luka:[.046,.080,.021,-.07,.008]}[id]||[.048,.080,.024,0,0];
  for(const z of [-1,1]){
-  faceFeature(.044,z*p.headWidth*.38,expression[1],expression[0],a.eyes,'eye');
+  faceFeature(.044,z*p.headWidth*.38,expression[1],expression[0],'#e7dfca','eye',z*-.06,almond);
+  faceFeature(.044,z*p.headWidth*.38-.006,expression[1]*.43,expression[0]*.81,a.eyes,'pupil',0,almond,.0085);
+  faceFeature(.061,z*p.headWidth*.38,expression[1]*.86,feminine?.014:.012,a.eyes,'upper-eyelid',z*-.07);
   faceFeature(.111,z*p.headWidth*.38,expression[1]*1.22,expression[2],a.hair,id==='sokichi'?'thick-white-brow':'brow',z*expression[3]);
-  faceFeature(-.133+expression[4],z*.028,.060,id==='kota'?.020:.014,a.nose,'mouth',z*(id==='kota'?.22:expression[4]*4));
+  faceFeature(-.123+expression[4],z*.025,.051,id==='kota'?.018:.010,id==='sokichi'?'#806143':'#956652','mouth',z*(id==='saku'?-.09:-.23));
   part(head,'ico',a.skin,[-.04,-.055,z*p.headWidth*.91],[feminine?.043:.055,feminine?.075:.087,.038],[0,0,0],'ear');
  }
- part(head,tailored,a.nose,[p.headWidth*.89,-.044,0],[id==='sokichi'?.11:feminine?.062:.081,id==='luka'?.12:feminine?.073:.09,feminine?.069:.095],[0,0,-.10],'nose');
+ part(head,id==='toru'||id==='sokichi'?'ico':tailored,a.nose,[p.headWidth*.91,-.049,0],[id==='sokichi'?.080:id==='toru'?.069:feminine?.058:.080,id==='luka'?.12:id==='toru'||id==='sokichi'?.065:feminine?.073:.09,id==='toru'||id==='sokichi'?.072:feminine?.069:.095],[0,0,-.10],'nose');
  const hairTop=p.headHeight*.45;
  part(head,hairCrown,a.hair,[-.04,hairTop,0],[p.headWidth*1.98,.17,p.headWidth*2.07],[0,0,-.045],'hair');
  part(head,tailored,a.hair,[-p.headWidth*.70,.066,0],[.135,.32,p.headWidth*1.73],[0,0,-.12],'back-hair');
  if(id==='toru'){
-  part(head,tailored,a.hair,[.055,hairTop+.04,.025],[.30,.08,.36],[0,0,.10],'parted-hair');
-  part(head,'cone',a.hair,[-.10,hairTop+.12,-.03],[.07,.21,.08],[0,0,-.65],'stray-lock');
+  part(head,sculpt([[-.5,.34,.44],[.05,.5,.5],[.5,.36,.40,-.02]]),a.hair,[.064,hairTop+.004,.074],[.32,.115,.36],[.13,.12,.13],'parted-hair');
+  part(head,tailored,a.hair,[.107,hairTop-.061,-.129],[.26,.103,.143],[-.12,.1,-.14],'combed-side-part');
  }else if(id==='saku'){
   part(head,'box',a.cap,[-.075,.43,0],[.38,.28,.40],[0,0,-.12],'cap-base');
   part(head,'box',a.cap,[-.13,.66,0],[.22,.48,.27],[0,0,-.18],'high-eboshi');
@@ -73,19 +79,19 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
   for(const z of [-.21,.21]){
    part(head,'box',a.hair,[.08,-.12,z],[.13,.05,.055],[0,0,.15],'white-sideburn');
   }
-  part(head,'box',a.hair,[.12,-.205,0],[.24,.08,.25],[0,0,0],'short-white-beard');
+  part(head,sculpt([[-.5,.24,.24],[.25,.5,.5],[.5,.36,.45]]),a.hair,[.14,-.203,0],[.24,.13,.30],[0,0,0],'short-white-beard');
  }else if(id==='sumi'){
-  part(head,tailored,a.hair,[-.09,.16,0],[.37,.25,.49],[0,0,.12],'swept-hair');
-  for(const z of [-1,1])part(head,tailored,a.hair,[.044,.11,z*.197],[.21,.25,.080],[z*.08,0,z<0?-.10:.19],'temple-lock');
+  part(head,sculpt([[-.5,.29,.33],[0,.5,.5],[.5,.38,.42]]),a.hair,[-.060,.186,-.02],[.37,.20,.49],[.18,0,.16],'swept-hair');
+  for(const z of [-1,1])part(head,sculpt([[-.5,.09,.24],[.05,.5,.5],[.5,.40,.40]]),a.hair,[.057,.068,z*.201],[.19,.28,.079],[z*.12,0,z<0?-.14:.12],'temple-lock');
   const pony=group(head,[-.245,.095,-.018]);pony.rot=[0,0,-.18];
   part(pony,sculpt([[-.69,.031,.045,.09],[-.48,.075,.080,.025],[-.12,.098,.092],[0,.065,.068]]),a.hair,[0,0,0],[1,1,1],[0,0,0],'ponytail');
   cloth.push({n:pony,rest:[...pony.rot],kind:'ponytail'});
   part(head,tailored,a.trim,[-.247,.048,-.02],[.15,.075,.20],[0,0,-.10],'hair-tie');
  }else if(id==='nagi'){
-  part(head,tailored,a.hair,[-.075,.08,.012],[.39,.36,.48],[0,0,.12],'short-slanted-hair');
-  part(head,tailored,a.hair,[.075,.18,.10],[.28,.13,.25],[.15,0,.27],'fringe');
-  part(head,tailored,a.hair,[.013,.015,.196],[.205,.28,.107],[0,0,-.10],'bob-tip');
-  part(head,tailored,a.hair,[-.14,-.09,-.19],[.18,.16,.09],[0,0,.22],'tucked-bob');
+  part(head,sculpt([[-.5,.29,.39],[-.18,.5,.5],[.25,.5,.5],[.5,.30,.36]]),a.hair,[-.085,.066,.005],[.37,.37,.49],[0,0,.12],'short-slanted-hair');
+  part(head,sculpt([[-.5,.10,.26],[0,.5,.5],[.5,.37,.42]]),a.hair,[.10,.163,.075],[.28,.20,.27],[.22,.08,.24],'fringe');
+  part(head,sculpt([[-.5,.10,.16],[.13,.5,.5],[.5,.35,.42]]),a.hair,[.021,-.008,.201],[.21,.30,.107],[0,0,-.10],'bob-tip');
+  part(head,tailored,a.hair,[-.15,-.077,-.188],[.16,.15,.09],[0,0,.22],'tucked-bob');
  }else if(id==='kota'){
   part(head,'head',a.cap,[-.025,.25,0],[.34,.20,.33],[0,0,0],'red-cap');
   part(head,'box',a.cap,[-.31,.235,0],[.36,.045,.48],[0,0,-.06],'backward-cap-brim');
@@ -96,31 +102,32 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
  }
  // Upper body design. All trims are actual low-poly geometry.
  if(id==='toru'){
-  part(body,'box',a.trousers,[0,.07,0],[.47,.27,.59],[0,0,0],'suit-waist');
-  part(body,sculpt([[-.5,.48,.49],[-.10,.42,.45],[.35,.5,.52],[.5,.36,.42]]),a.robe,[0,.65,0],[.53,1.08,.72],[0,0,0],'suit-jacket');
-  part(body,'box',a.shirt,[.285,.86,0],[.035,.60,.40],[0,0,0],'white-shirt');
+  part(body,tailored,a.trousers,[0,.07,0],[.53,.27,.66],[0,0,0],'suit-waist');
+  part(body,sculpt([[-.5,.48,.47],[-.22,.57,.53,.035],[.14,.51,.52],[.38,.48,.48],[.5,.33,.39]]),a.robe,[0,.65,0],[.56,1.08,.75],[0,0,0],'suit-jacket');
+  part(body,tailored,a.shirt,[.314,.82,0],[.047,.62,.40],[0,0,-.07],'white-shirt');
   for(const z of [-1,1]){
-   part(body,'box',a.robe,[.315,.84,z*.23],[.05,.62,.16],[z*.30,0,0],'jacket-lapel');
-   part(body,'box',a.shirt,[.325,1.08,z*.105],[.045,.19,.14],[z*.45,0,0],'shirt-collar');
+   part(body,tailored,a.robe,[.327,.84,z*.23],[.07,.62,.19],[z*.32,0,-.07],'jacket-lapel');
+   part(body,tailored,a.shirt,[.329,1.065,z*.105],[.055,.19,.17],[z*.43,0,0],'shirt-collar');
    edge(body,[.337,.84,z*.20],[.018,.60,.018],[z*.30,0,0]);
+   part(body,'box',a.trousers,[.291,.37,z*.267],[.017,.17,.019],[z*.18,0,-.31],'jacket-crease');
   }
-  const tie=panel(body,[.34,.74,0],[.035,.47,.105],a.trim,[.05,0,-.08],'tie');
-  part(body,'box',a.trim,[.325,1.015,0],[.065,.09,.115],[0,0,-.07],'loosened-tie-knot');
-  part(body,'box',a.accent,[.28,.56,.25],[.025,.028,.19],[0,0,0],'pocket');
-  for(const y of [.58,.39])part(body,'box',a.accent,[.282,y,-.035],[.025,.035,.035],[0,0,0],'button');
-  for(const z of [-1,1])panel(body,[-.06,.18,z*.24],[.44,.30,.22],a.robe,[0,0,-.035],'jacket-hem');
+  const tie=panel(body,[.359,.707,.016],[.044,.45,.119],a.trim,[.04,0,-.13],'tie',sculpt([[-.5,.3,.03],[-.37,.5,.5],[.5,.35,.31]]));
+  part(body,tailored,a.trim,[.34,.968,0],[.077,.10,.121],[0,0,-.07],'loosened-tie-knot');
+  part(body,'box',a.accent,[.304,.55,.275],[.025,.024,.15],[0,0,-.06],'pocket');
+  for(const y of [.58,.39])part(body,'box',a.accent,[.343,y,-.056],[.023,.026,.026],[0,0,0],'button');
+  for(const z of [-1,1])panel(body,[-.06,.18,z*.25],[.47,.30,.25],a.robe,[0,0,-.055],'jacket-hem',tailored);
  }else if(id==='saku'){
   part(body,'robe',a.robe,[0,.67,0],[.44,1.05,.44],[0,0,0],'court-robe');
-  part(body,'box',a.shirt,[.26,1.08,0],[.25,.23,.32],[0,0,-.22],'crossed-collar');
+  part(body,tailored,a.shirt,[.26,1.08,0],[.25,.23,.32],[.15,0,-.22],'crossed-collar');
   part(body,'box',a.trim,[.02,.32,0],[.69,.13,.81],[0,0,0],'court-belt');
   for(const z of [-1,1])panel(body,[.05,.12,z*.29],[.57,.65,.29],a.trousers,[z*.02,0,0],'court-hakama');
   part(body,'box',a.accent,[.38,.78,.23],[.035,.60,.06],[0,0,-.10],'robe-seam');
  }else if(id==='sokichi'){
   part(body,'robe',a.robe,[.03,.43,0],[.42,.85,.42],[0,0,0],'work-shirt');
-  part(body,'box',a.trim,[-.17,.55,0],[.32,.92,.79],[0,0,.10],'vest-back');
+  part(body,tailored,a.trim,[-.17,.55,0],[.32,.92,.79],[0,0,.10],'vest-back');
   for(const z of [-1,1]){
-   part(body,'box',a.trim,[.18,.50,z*.28],[.26,.79,.23],[0,0,-.06],'vest-front');
-   part(body,'box',a.accent,[.32,.26,z*.27],[.045,.18,.18],[0,0,0],'vest-pocket');
+   part(body,tailored,a.trim,[.18,.50,z*.28],[.26,.79,.23],[0,0,-.06],'vest-front');
+   part(body,tailored,a.accent,[.32,.26,z*.27],[.065,.18,.20],[0,0,0],'vest-pocket');
   }
   part(body,'box',a.shirt,[.23,.64,0],[.08,.52,.27],[0,0,-.17],'work-shirt-collar');
  }else if(id==='sumi'){
@@ -135,7 +142,7 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
    cloth.push({n:skirt,rest:[0,0,0],kind:'hakama'});
    for(const x of [-.20,.08,.30])part(skirt,'box',a.trim,[x,-.12,z*(.335-Math.abs(x)*.16)],[.018,.56,.025],[0,0,x*.12],'hakama-pleat');
   }
-  part(body,'box',a.trim,[.35,.32,.05],[.08,.20,.34],[0,0,-.15],'hakama-knot');
+  part(body,sculpt([[-.5,.33,.45],[0,.5,.31],[.5,.33,.5]]),a.trim,[.35,.32,.05],[.10,.19,.34],[0,0,-.15],'hakama-knot');
  }else if(id==='nagi'){
   part(body,tailored,a.trousers,[0,.04,0],[.40,.22,.52],[0,0,0],'sports-waist');
   part(body,sculpt([[-.5,.47,.5],[-.12,.39,.39],[.5,.5,.48]]),a.shirt,[.02,.49,0],[.43,.97,.56],[0,0,-.04],'sports-top');
@@ -155,28 +162,29 @@ window.FEGCharacterRigs.seven=function({root,group,mesh},x,appearance,face){
  }else{
   part(body,'cyl',a.skin,[0,1.53,0],[.12,.32,.12],[0,0,0],'neck');
   part(body,tailored,a.shirt,[0,.86,0],[.47,1.19,.62],[0,0,0],'rust-inner');
-  part(body,'box',a.robe,[-.24,.83,0],[.20,1.45,.77],[0,0,.035],'coat-back');
+  part(body,tailored,a.robe,[-.24,.83,0],[.20,1.45,.77],[0,0,.035],'coat-back');
   for(const z of [-1,1]){
-   part(body,'box',a.robe,[.13,.90,z*.29],[.37,1.16,.23],[0,0,0],'sleeveless-coat-front');
-   part(body,'box',a.accent,[.27,1.37,z*.22],[.10,.34,.18],[z*.18,0,-.15],'coat-lapel');
-   panel(body,[-.075,-.04,z*.28],[.60,.85,.28],a.robe,[z*.045,0,-.07],'longcoat-tail');
+   part(body,tailored,a.robe,[.13,.90,z*.29],[.37,1.16,.23],[0,0,0],'sleeveless-coat-front');
+   part(body,tailored,a.accent,[.27,1.37,z*.22],[.10,.34,.18],[z*.18,0,-.15],'coat-lapel');
+   panel(body,[-.075,-.04,z*.28],[.60,.85,.28],a.robe,[z*.045,0,-.07],'longcoat-tail',sculpt([[-.5,.48,.45],[-.33,.5,.5],[.5,.34,.39]]));
    part(body,'box',a.trim,[.34,.65,z*.29],[.035,.04,.20],[0,0,0],'coat-pocket');
   }
   part(body,'box',a.trim,[0,.41,0],[.61,.13,.72],[0,0,0],'travel-belt');
  }
  const shoulderWidth=feminine?.33:.40,arm=group(body,[.025,p.shoulder,shoulderWidth]),farArm=group(body,[.025,p.shoulder,-shoulderWidth]),arms=[];
+ const shoulderShape=sculpt([[-.5,.39,.41],[.16,.50,.5],[.5,.23,.31]]),sleeveShape=sculpt([[-.5,.34,.38],[.12,.48,.5],[.5,.40,.44]]);
  for(const [i,shoulder] of [arm,farArm].entries()){
   const elbow=group(shoulder,[.07,-.35,0]),wrist=group(elbow,[.05,-.35,0]);arms.push(elbow,wrist);
-  const clothColor=id==='luka'?a.shirt:a.robe,wide=id==='saku'?.43:id==='sumi'?.255:id==='nagi'?.165:id==='kota'?.29:.21;
+  const clothColor=id==='luka'?a.shirt:a.robe,wide=id==='saku'?.43:id==='sumi'?.255:id==='nagi'?.165:id==='kota'?.29:.21,upperWide=wide*(id==='saku'?.85:id==='sumi'?.83:1);
   if(id==='luka'){
    part(shoulder,'robe',a.skin,[.025,-.16,0],[.145,.38,.145],[0,0,.08],'bare-upper-arm');
    part(elbow,'robe',a.skin,[.025,-.16,0],[.125,.35,.125],[0,0,.08],'bare-forearm');
   }else{
-   part(shoulder,'robe',clothColor,[.015,-.16,0],[wide,.37,wide],[0,0,.08],id==='saku'?'court-upper-sleeve':'upper-sleeve');
-   part(elbow,'robe',clothColor,[.015,-.16,0],[wide*.88,.35,wide*.90],[0,0,.08],'fore-sleeve');
+   part(shoulder,shoulderShape,clothColor,[.015,-.183,0],[upperWide*1.83,.37,upperWide*1.85],[0,0,.08],id==='saku'?'court-upper-sleeve':'upper-sleeve');
+   part(elbow,sleeveShape,clothColor,[.015,-.16,0],[wide*1.62,.37,wide*1.64],[0,0,.08],'fore-sleeve');
   }
   if(id==='saku'){
-   const sleeve=panel(elbow,[-.14,-.11,0],[.50,.50,.68],a.robe,[0,0,-.15],'hanging-court-sleeve');
+   const sleeve=panel(elbow,[-.14,-.11,0],[.50,.50,.68],a.robe,[0,0,-.15],'hanging-court-sleeve',tailored);
    part(sleeve,'box',a.trim,[.25,-.23,0],[.025,.045,.69],[0,0,0],'sleeve-border');
   }
   if(id==='nagi')part(elbow,'box',a.trim,[.01,-.12,(i?-.131:.131)],[.21,.035,.022],[0,0,-.12],'sleeve-reflector');
