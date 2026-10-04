@@ -1,0 +1,56 @@
+{
+  "version": "0.37.1-feet-together-bow",
+  "base": "158cb31",
+  "verifiedAt": "2026-10-04T16:31:27.284Z",
+  "poseComparison": {
+    "status": "passed",
+    "screens": 18,
+    "stages": [
+      "jingu",
+      "gendo",
+      "chion",
+      "sanjo",
+      "shinkyogoku",
+      "million",
+      "gion"
+    ],
+    "characters": [
+      "toru",
+      "saku",
+      "sokichi",
+      "sumi",
+      "nagi",
+      "kota",
+      "luka",
+      "shadow"
+    ],
+    "alignedHeels": true,
+    "parallelToes": true,
+    "effectsOff": true,
+    "noAccumulation": true,
+    "beforeAndAfterBowMatchesBaseline": true
+  },
+  "browser": {
+    "status": "passed",
+    "checks": 99,
+    "screens": 104,
+    "errors": [],
+    "environment": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "requestedRenderer": "default hardware",
+      "softwareFallback": false,
+      "arguments": [],
+      "version": "154.0.8037.97",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  },
+  "limits": [
+    "Posed WebGL scenes on Mac Chrome, with mocked voice.",
+    "No physical iPhone/iPad or subjective input/audio acceptance."
+  ],
+  "aggregate": {
+    "command": "npm test",
+    "status": "passed",
+    "suites": 18
+  }
+}

@@ -336,7 +336,7 @@ window.otoPatchCharactersV030=function(html){
 const CPU_CHARACTER=CPU_SOURCE_CHARACTER.derivedFromPlayer?{...PLAYER_CHARACTER,id:'shadow',name:CPU_SOURCE_CHARACTER.name,derivedFromPlayer:true,appearance:{...PLAYER_CHARACTER.appearance,shadow:true}}:CPU_SOURCE_CHARACTER;`);
  once(' const actor=CHARACTER_RIGS[character.rig]({root,group,mesh},x,character.appearance,face);',' const actor=CHARACTER_RIGS[character.rig]({root,group,mesh},x,character.appearance,face);actor.characterId=character.id;actor.characterName=character.name;');
  once("$('#start').addEventListener('click',start);",String.raw`
-// Pose accents are render-only. The canonical two-link legs remain untouched.
+// Pose accents are render-only. Restore the canonical joints after drawing.
 // All saves participate in the existing reverse restore stack, including pauses.
 function characterPoseV030(f,key){
  const c=f.characterV030;if(!c)return;
@@ -347,6 +347,16 @@ function characterPoseV030(f,key){
  c.pose=bow>0?'bow':win?'win':chasing?'pursuit':launched||hurt>0?'stagger':k>0||inClose?'kick':'idle';
  const sway=motion?Math.sin(visualTime*(c.id==='kota'?5.8:2.1)+f.phase):0;
  for(const node of [f.body,f.head,f.arm,f.farArm,f.elbow,f.farElbow,f.wrist,f.farWrist])saveDramaV028(node);
+ if(bowAnim>0){
+  // Close the stance before the deep bow; reopen it only as the body rises.
+  const feet=heldV011(BOW_TOTAL_V0104-bowAnim,.18,1.62,BOW_TOTAL_V0104);
+  for(const name of ['leg','back','thigh','knee','shoe','backThigh','backKnee','backShoe','toe','backToe']){
+   const joint=f[name];saveDramaV028(joint);joint.rot=joint.rot.map(v=>v*(1-feet));
+  }
+  for(const [leg,z] of [[f.leg,.16],[f.back,-.16]]){
+   leg.pos[0]*=1-feet;leg.pos[2]+=(z-leg.pos[2])*feet;
+  }
+ }
  // Close-combat torso anchors are already used by the foot solver. Preserve them.
  if(!inClose){
   f.body.rot[2]+=p.stance*(bow>0?.25:1);

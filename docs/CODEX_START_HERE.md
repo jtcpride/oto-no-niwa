@@ -1,4 +1,4 @@
-> **2026-10-05の現在地**: `migration/threejs-renderer` のv0.37。奥への吹き飛びに四肢の遅れ・膝のたたみ・着地を追加。近接の接触姿勢をヒット約0.48秒／ガード約0.38秒保ち、崩れ・防御・接触印・音を分けた。通常ラリーの時間／判定、回答期限、BGMと声の方式は維持。前回のナギの直立姿勢・京都背景も維持。[動作比較](evidence/impact-v037/comparison.mp4) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
+> **2026-10-05の現在地**: `migration/threejs-renderer` のv0.37.1。全員と影が礼で両足をそろえるように調整。v0.37の吹き飛び・近接のヒット約0.48秒／ガード約0.38秒の静止を維持。通常ラリーの時間／判定、回答期限、BGMと声の方式、ナギの直立姿勢・京都背景も維持。[動作比較](evidence/impact-v037/comparison.mp4) と [PROJECT_HANDOFF冒頭](PROJECT_HANDOFF.md) を参照。以下のGardenGL固定・旧ブランチ名は過去の条件です。
 
 
 
