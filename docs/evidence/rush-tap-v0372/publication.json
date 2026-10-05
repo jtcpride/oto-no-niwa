@@ -1,0 +1,159 @@
+{
+  "version": "0.37.2-rush-tap-guard",
+  "commit": "02c070e1bc40020ad0fb99eabb8aaa98a81a80fd",
+  "pagesRun": "37322641533",
+  "startedAt": "2026-10-05T14:12:28.260Z",
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "7b7f670f79952b876c84d0c4ca4627bdf89fa8238746f1fd8a6c1bcbe63e0dd2"
+    },
+    {
+      "file": "characters/seven-rigs.js",
+      "sha256": "a840af5615a34da47fae0d3841837d7f3bc76c95f56ba5ecd617de77d3f3d35c"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "sha256": "afe17f297c4eb1e282e44009e37b289f0761db976ac12865ec31c3aec34ac238"
+    },
+    {
+      "file": "scenery/kyoto-scenes.js",
+      "sha256": "99a613419f666cfa4d91986892a57104a1040c4d9e321a86f34a25a527dbf101"
+    },
+    {
+      "file": "content/voice-config.js",
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "sha256": "da1c33ff6ab9a5f6c90e2e216f4cf7f4c744a79ba68f5e09ffe4e86200fbce4f"
+    },
+    {
+      "file": "patch-rush-v025.js",
+      "sha256": "d16eadceb82eaba6c447c8d78a52f53e688f1a013a77bbb84134c6a381c0373f"
+    },
+    {
+      "file": "docs/evidence/rush-tap-v0372/verification.json",
+      "sha256": "c3616968e3a909ca70d0eff384f9948dd8e0ea45bd337032dd50faa8f97efbe0"
+    }
+  ],
+  "checks": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "nagi",
+          "name": "北山ナギ",
+          "model": "nagi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.86,
+          "chestHeight": 1.8900000000000001,
+          "signature": "short-jacket-slim-trousers-sneakers",
+          "meshCount": 60,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "scenery": "sanjo",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "error": 0,
+      "overflow": false,
+      "started": true
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "characters": [
+        {
+          "id": "toru",
+          "name": "堀川透",
+          "model": "toru",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.96,
+          "chestHeight": 1.9700000000000002,
+          "signature": "soft-office-suit-loose-tie",
+          "meshCount": 58,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        },
+        {
+          "id": "nagi",
+          "name": "北山ナギ",
+          "model": "nagi",
+          "shadow": false,
+          "godMode": false,
+          "pose": "idle",
+          "height": 2.86,
+          "chestHeight": 1.8900000000000001,
+          "signature": "short-jacket-slim-trousers-sneakers",
+          "meshCount": 60,
+          "poses": [
+            "idle",
+            "bow",
+            "kick",
+            "stagger",
+            "pursuit",
+            "win"
+          ],
+          "contactContract": "garden-v0291:hip=1.05;segments=.48;toe=.16"
+        }
+      ],
+      "scenery": "sanjo",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "error": 0,
+      "overflow": false,
+      "started": true
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome / Apple M4 only. No iPhone/iPad, audible-output or human playability claim."
+  ],
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "finishedAt": "2026-10-05T14:12:34.241Z"
+}
