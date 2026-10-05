@@ -1,0 +1,251 @@
+{
+  "base": "70852e1",
+  "scope": "Ignore leftover return-button taps after Vocabulary Rush",
+  "checks": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "samples": {
+        "before": {
+          "style": {
+            "opacity": "0.5",
+            "cursor": "default",
+            "background": "rgb(243, 237, 220)",
+            "rect": [
+              285,
+              748,
+              84,
+              64
+            ]
+          },
+          "sink": {
+            "disabled": true,
+            "aria": null,
+            "tab": 0
+          },
+          "touches": [
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            }
+          ],
+          "scale": 1
+        },
+        "after": {
+          "style": {
+            "opacity": "0.5",
+            "cursor": "default",
+            "background": "rgb(243, 237, 220)",
+            "rect": [
+              285,
+              748,
+              84,
+              64
+            ]
+          },
+          "sink": {
+            "disabled": false,
+            "aria": "true",
+            "tab": -1
+          },
+          "touches": [
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            }
+          ],
+          "scale": 1
+        }
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "samples": {
+        "before": {
+          "style": {
+            "opacity": "0.5",
+            "cursor": "default",
+            "background": "rgb(243, 237, 220)",
+            "rect": [
+              732.734375,
+              308,
+              101.265625,
+              76
+            ]
+          },
+          "sink": {
+            "disabled": true,
+            "aria": null,
+            "tab": 0
+          },
+          "touches": [
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            },
+            {
+              "target": "kick",
+              "prevented": false
+            }
+          ],
+          "scale": 1
+        },
+        "after": {
+          "style": {
+            "opacity": "0.5",
+            "cursor": "default",
+            "background": "rgb(243, 237, 220)",
+            "rect": [
+              732.734375,
+              308,
+              101.265625,
+              76
+            ]
+          },
+          "sink": {
+            "disabled": false,
+            "aria": "true",
+            "tab": -1
+          },
+          "touches": [
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            },
+            {
+              "target": "kick",
+              "prevented": true
+            }
+          ],
+          "scale": 1
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome mobile touch emulation. Physical iPhone/iPad Safari double-tap zoom unverified. Voice mocked; audio unchanged."
+  ],
+  "browser": "154.0.8037.97",
+  "status": "passed",
+  "aggregate": {
+    "command": "npm test",
+    "status": "passed",
+    "suites": 18
+  },
+  "browserAcceptance": {
+    "command": "npm run test:browser",
+    "checks": 99,
+    "screenshots": 104,
+    "errors": []
+  }
+}

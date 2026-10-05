@@ -3,7 +3,14 @@ window.otoPatchRushV025=function(html){
  replaceOnce("version:'0.24.0-step-and-strike'","version:'0.25.0-vocabulary-barrage'");
  replaceOnce('FIFTEENTH EVER GARDEN — v0.24.0','FIFTEENTH EVER GARDEN — v0.25.0');
  replaceOnce('</style>',`.rush-word-v025{position:absolute;z-index:4;pointer-events:none;color:#fff1c5;text-shadow:2px 2px 0 #782f27,0 2px 7px #101b20;font:700 clamp(21px,3vw,34px)/1 Georgia,serif;white-space:nowrap;transform:translate(-50%,-50%)}.rush-word-v025[hidden]{display:none}.barrage-v025 #playerLabel,.barrage-v025 #cpuLabel{visibility:hidden}.barrage-v025 + .console .kick{padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.barrage-v025 + .console .kick span{white-space:nowrap;font-size:18px;line-height:1.15}.barrage-v025 + .console .kick small{font-size:10px;line-height:1;margin:0}</style>`);
+ replaceOnce('</style>','.kick.rush-ended-input{cursor:default;opacity:.5}</style>');
+ replaceOnce("$('#kick').addEventListener('pointerdown',e=>{e.preventDefault();kick()});$('#kick').addEventListener('click',e=>{if(e.detail===0)kick()});",String.raw`
+$('#kick').addEventListener('pointerdown',e=>{e.preventDefault();if(!rushEndedV025())kick()});
+$('#kick').addEventListener('click',e=>{if(rushEndedV025())e.preventDefault();else if(e.detail===0)kick()});
+$('#kick').addEventListener('touchstart',e=>{if(rushEndedV025())e.preventDefault()},{passive:false});`);
  replaceOnce("$('#start').addEventListener('click',start);",String.raw`
+// Keep an inert event surface after the rush: leftover taps must not zoom the page.
+const rushEndedV025=()=>['settle','done'].includes(duelV022.phase);
 const barrageV025={serial:0,technique:0,lastSwing:99};
 const wordsV025=feelEnabledV023?Array.from({length:12},()=>{const e=document.createElement('span');e.className='rush-word-v025';e.hidden=true;$('#arena').appendChild(e);return {e,age:99,index:0};}):[];
 const resetV025=resetDuelV022;
@@ -33,7 +40,15 @@ prepareDepthRenderV022=function(){prepareV025();if(!feelEnabledV023||!['rush','s
  if(motion&&duelV022.phase==='rush'){cpu.n.rot[0]+=.10*Math.sin(barrageV025.serial*1.7)*Math.min(1,feelV023.pulse*6);cpu.n.rot[2]+=.12*Math.cos(barrageV025.serial*2.3)*Math.min(1,feelV023.pulse*6);}
 };
 const sceneV025=updateScene;
-updateScene=function(dt){sceneV025(dt);if(!feelEnabledV023)return;
+updateScene=function(dt){sceneV025(dt);
+ const button=$('#kick');
+ if(rushEndedV025()){
+  button.disabled=false;button.classList.add('rush-ended-input');
+  button.setAttribute('aria-disabled','true');button.tabIndex=-1;
+ }else if(button.classList.contains('rush-ended-input')){
+  button.classList.remove('rush-ended-input');button.removeAttribute('aria-disabled');button.removeAttribute('tabindex');
+ }
+ if(!feelEnabledV023)return;
  const active=['rush','settle'].includes(duelV022.phase)&&['playing','paused'].includes(state.mode);
  $('#arena').classList.toggle('barrage-v025',active);
  if(active){wordV023.hidden=true;wordBallsV023.forEach(e=>e.hidden=true);}
