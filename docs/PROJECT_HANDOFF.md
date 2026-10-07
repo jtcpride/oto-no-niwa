@@ -1,18 +1,19 @@
 ## v0.37.4 旧読み上げのBGM中断対策（2026-10-07 JST）
 
-- **目的・現在地**: ユーザーが公開版 `?voice=native` をiPadで試し、発音のたびにBGMが途切れると報告。旧OS声の選択・rate/pitchを保つ対策候補を実装。版 `0.37.4-native-mix`、基点 `62538bd`、制作ブランチ `migration/threejs-renderer`。承認済みv0.37.3演出も含む。2026-10-07 JST、ユーザーの「公開して〜」でGitHub保存・main反映・Pages公開を承認。公開準備中。
+- **目的・現在地**: ユーザーが公開版 `?voice=native` をiPadで試し、発音のたびにBGMが途切れると報告。旧OS声の選択・rate/pitchを保つ対策候補を実装。版 `0.37.4-native-mix`、基点 `62538bd`、制作ブランチ `migration/threejs-renderer`。承認済みv0.37.3演出も含む。2026-10-07 JST、ユーザーの「公開して〜」でGitHub保存・main反映・Pages公開を承認。公開・配信確認済み。
 - **変更箇所**: `patch-sound-v030.js`。nativeのみ、対応ブラウザの `navigator.audioSession.type='ambient'` を一度指定して声と伴奏の混合を試みる（録音への自動切替、マイク取得はしない）。消音・一時停止・非表示・破棄で以前のtypeを復元。発音時の60%減衰を外す。native読み上げによるinterrupted/suspendedでは既存の笙・伴奏音源と拍時計を保ち、効果音だけを停止。読み終わり後に一度だけ復帰を試み、拒否時は既存のタップ再開に戻す。発音中のresume連打と自然終了後の不要なcancelはしない。新語が来た際の旧発音キャンセルは維持。診断にsession type・保持状態・中断数を追加。製品版・キャッシュURL更新。
 - **検証**: 合成・構文、`test:sound`3スイート成功。nativeの短いOS中断、同じ音源で復帰、復帰拒否、遅延callback、停止・消音・再開始・非表示・セッション復元、非対応APIを模擬確認。Mac Chrome実OS読み上げ／実Web Audio16項目成功。発音中/前のBGM RMS比は前半1.024、溜め1.000、測定窓に無音なし、笙とContextを再作成せず、旧声の置換・消音を確認。録音方式の実Web Audio回帰11項目も成功（88音源の復号、BGM同時出力、ラッシュ上書き、冒頭、再試行、native呼出0）。[集約](evidence/native-mix-v0374/verification.json)。詳細は `../work/native-mix-v0374/`。
 - **根拠・限界**: [Audio Session仕様](https://www.w3.org/TR/audio-session/)のambientと[WebKit実装](https://raw.githubusercontent.com/WebKit/WebKit/main/Source/WebCore/Modules/audiosession/DOMAudioSession.cpp)のAmbientSoundへの割当を確認。[SafariのspeechSynthesisが他メディアを中断する報告](https://bugs.webkit.org/show_bug.cgi?id=218815)もある。ただしユーザーのiPadでAudioContext状態・OS版は未取得。OSの出力中断自体をJSで必ず防げるとは断定しない。ambientは消音モードの影響も受け得る。実iPad/iPhoneの聴感、消音モード、イヤホン、Audio Session APIの効き方は未確認。
-- **次**: v0.37.4の公開ファイルと起動を確認し、`?voice=native` をiPadで再試用。まだ途切れるなら診断のsession type／context状態／nativeInterruptionsと端末OS版で切り分ける。今回も録音方式への既定値変更はしていない。工房ノート追記なし。
+- **公開**: ゲーム `14b47122c05742e9dbf5e09465390d2111c95728` をmain／制作ブランチへ保存。Pages実行 [37630979880](https://github.com/jtcpride/oto-no-niwa/actions/runs/37630979880) 成功。公開ファイル14件（音・動作・ローダー・設定・比較動画等）のSHA-256が手元と一致。Mac Chromeの公開版で、旧OS読み上げと既定の録音方式それぞれSTART→最初の京都台詞の発音・完了→次の台詞→練習のthinkまで確認。横表示へ変更後のボタンが画面内、はみ出しなし、AudioContext running、ページ／HTTPエラー0。旧方式は実speechイベント、既定方式はnative呼出0を確認。[公開記録](evidence/native-mix-v0374/publication.json)。この記録は後続コミットとして制作ブランチのみへ保存。
+- **次**: [公開版の旧音声](https://jtcpride.github.io/oto-no-niwa/?voice=native&v=0374) をiPadで再試用。まだ途切れるなら診断のsession type／context状態／nativeInterruptionsと端末OS版で切り分ける。今回も録音方式への既定値変更はしていない。工房ノート追記なし。
 
 ## v0.37.3 調整室の提案を本編へ採用（2026-10-06 JST）
 
-- **目的・現在地**: ユーザーが選んだ吹き飛び・着地・追走の提案を、本編の既定値に採用。版 `0.37.3-pursuit`、基点 `62538bd`、`migration/threejs-renderer` の未コミット作業。GitHub保存・公開は未実施。公開版は `02c070e` / v0.37.2。
+- **目的・現在地**: ユーザーが選んだ吹き飛び・着地・追走の提案を、本編の既定値に採用。版 `0.37.3-pursuit`、基点 `62538bd`。2026-10-07 JST、v0.37.4のゲーム `14b4712` にまとめてGitHub保存・公開済み。公開詳細は上項。
 - **変更箇所**: `patch-drama-v028.js` の表示用8項目を承認済みの値へ変更（手の遅れ0.06秒、膝1.15倍、着地0.29、脚復帰2.9秒、追走1.1倍、回り込み1.05倍、空中視線0.65、引き0.16）。関節・脚も同じ設定を参照。移動経路、着地イベント、各フェーズの長さ、通常ラリーの球道・猶予・判定、音声処理は維持。版と関連パッチのキャッシュURLを更新。
 - **比較・試用**: 調整室 `http://127.0.0.1:8770/` は採用値から開始。「変更前」で保存したv0.37.2の値へ切替、「採用版を試す」／リセットで本編既定値へ戻る。採用版は本編から読み、二重管理しない。本編は同サーバーの `/index.html?stage=first-court`。[変更前／採用版の約6秒比較動画](evidence/pursuit-adopted-v0373/comparison.mp4)（左BEFORE／右ADOPTED、無音）。以前の提案動画は比較の履歴として保持。
 - **検証**: `npm test`18スイート成功。Mac Chrome実GPUの `test:lab` 11項目成功（採用値の一致、旧値と保存ゲームの縦横各9時点のピクセル／カメラ一致、操作・保存・読込、5サイズの表示、通常速度で奥舞台まで到達）。`test:polish` で8球道・時間／判定・接触・姿勢復元・一時停止／再開始・6表示・演出OFFに回帰なし。実時間の本編DOM入力で、前半→奥舞台→近接→ラッシュ→決着を成功経路53.2秒、近接で競り負け→通常ラリー→再挑戦→決着を69.2秒で完走。双方ブラウザ例外0。[調整室の検証](evidence/pursuit-adopted-v0373/verification.json)、[成功経路](evidence/pursuit-adopted-v0373/match-success.json)、[押し戻し経路](evidence/pursuit-adopted-v0373/match-pushback.json)。通し動画と画像は `../work/pursuit-adopted-v0373/`。
-- **未確認・次**: 音は無音／模擬。iPhone・iPad実機Safariの操作・聴感・性能は未確認。主観的な良さを自動テストの結果としては扱わず、今回選ばれた案をそのまま反映した。公開は次の依頼時に既存手順で実施。プロジェクト固有の設定採用のため工房ノート追記なし。
+- **未確認・次**: 演出の比較・通し進行の音は無音／模擬。iPhone・iPad実機Safariの操作・聴感・性能は未確認。主観的な良さを自動テストの結果としては扱わず、今回選ばれた案をそのまま反映した。次は公開版を試用。プロジェクト固有の設定採用のため工房ノート追記なし。
 
 ## 奥舞台の調整室 v1（2026-10-06 JST）
 
