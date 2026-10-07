@@ -3,20 +3,21 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const assemble=require('./assemble.cjs'),{vmFixture}=require('./complete-browser-v030.cjs'),{Context}=require('./audio-fixture-v032.cjs');
 const root=path.resolve(__dirname,'..'),source=assemble();
-function instrument(html){return html.replace('select(0);refreshHud();requestAnimationFrame(frame);','window.__audio=audio;select(0);refreshHud();requestAnimationFrame(frame);');}
-function fixture({url='http://feg-qa.test/?voice=native',html=source,unavailable=false,noContext=false,delayed=false}={}){
- let nativeCalls=0,fetches=0,current=null;
+function instrument(html){return html.replace('select(0);refreshHud();requestAnimationFrame(frame);','window.__audio=audio;window.__musicPulse=()=>soundV030.nextPulse;select(0);refreshHud();requestAnimationFrame(frame);');}
+function fixture({url='http://feg-qa.test/?voice=native',html=source,unavailable=false,noContext=false,delayed=false,audioSession}={}){
+ let nativeCalls=0,cancelCalls=0,fetches=0,current=null;
  const voices=[{name:'Fred',lang:'en-US'},{name:'Samantha',lang:'en-US'},{name:'Kyoko',lang:'ja-JP'}];
  const f=vmFixture(instrument(html),{url,mockVoice:false,beforeScripts(w){
   if(!noContext)w.AudioContext=Context;
+  if(audioSession)Object.defineProperty(w.navigator,'audioSession',{value:audioSession});
   if(unavailable)w.SpeechSynthesisUtterance=undefined;
   w.fetch=()=>{fetches++;return Promise.resolve({ok:true,arrayBuffer:()=>Promise.resolve(new ArrayBuffer(4))});};
   w.speechSynthesis.getVoices=()=>{nativeCalls++;return voices};
   w.speechSynthesis.resume=()=>{nativeCalls++};
-  w.speechSynthesis.cancel=()=>{nativeCalls++;const old=current;current=null;old?.onerror?.({error:'canceled'});};
+  w.speechSynthesis.cancel=()=>{nativeCalls++;cancelCalls++;const old=current;current=null;old?.onerror?.({error:'canceled'});};
   w.speechSynthesis.speak=u=>{nativeCalls++;current=u;w.__spoken.push(u);if(!delayed)u.onstart?.();};
  }});
- return Object.assign(f,{audio:f.w.__audio,stats:()=>f.w.kemari.getAudioDiagnostics(),nativeCalls:()=>nativeCalls,fetches:()=>fetches,voices});
+ return Object.assign(f,{audio:f.w.__audio,stats:()=>f.w.kemari.getAudioDiagnostics(),nativeCalls:()=>nativeCalls,cancelCalls:()=>cancelCalls,fetches:()=>fetches,voices});
 }
 function destroy(f){f.audio.dispose();f.close();}
 const title=fixture();
@@ -83,4 +84,44 @@ for(const action of ['pause','restart','hide','dispose']){
  assert.deepEqual(f.errors,[]);destroy(f);
 }
 assert.deepEqual(title.errors,[]);destroy(title);
-console.log(JSON.stringify({passed:true,checks:['single default + visit-only overrides','zero native calls for recorded mode','native title/call/ending profiles','same-word replacement and stale callbacks','direct-intro first-line gesture','delayed native readiness','native-only without AudioContext','title mute/volume/timeout/unavailable/retry','native-driven AudioContext interruption','pause/restart/hide/dispose'],verification:'Production DOM with mocked native speech; real voice and iOS audio unverified'}));
+async function checkNativeMix(){
+ const writes=[],session={_type:'auto',get type(){return this._type},set type(v){writes.push(v);this._type=v}};
+ const f=fixture({audioSession:session});assert.deepEqual(writes,[],'no session change before a gesture');
+ f.click('#start');f.w.__spoken.at(-1).onend();f.click('#dialogueNext');f.click('#dialogueNext');f.w.qa.tick(.05);
+ assert.deepEqual(writes,['ambient'],'claim the mixable session once, not per word');
+ const ctx=f.audio.ctx,sho=ctx.created.filter(n=>n.wave&&!n.stopped);assert.equal(sho.length,5);
+ f.audio.speak({text:'ship',kind:'word'});const word=f.w.__spoken.at(-1),cancelBefore=f.cancelCalls(),resumes=ctx.resumeCalls;
+ assert.equal(f.stats().musicTarget,f.audio.musicVolume,'native words do not attenuate BGM');
+ const shoCountBefore=f.stats().counters.sho,pulseBefore=f.w.__musicPulse();
+ ctx.state='interrupted';ctx.emit('statechange');f.w.qa.tick(.05);
+ assert(f.stats().nativeMusicHeld);assert.equal(f.stats().nativeInterruptions,1);assert.equal(f.stats().voiceStatus,'playing');
+ assert(sho.every(n=>!n.stopped),'OS speech interruption retains the original shō nodes');
+ assert.equal(f.w.__musicPulse(),pulseBefore,'interruption does not reset the earned rhythm clock');
+ assert.equal(ctx.resumeCalls,resumes,'no resume loop competes with a speaking utterance');
+ ctx.emit('statechange');f.w.qa.tick(.05);assert.equal(f.stats().nativeInterruptions,1);
+ word.onend();await Promise.resolve();await Promise.resolve();f.w.qa.tick(.05);
+ assert.equal(ctx.resumeCalls,resumes+1,'one automatic recovery after speech ends');
+ assert.equal(f.cancelCalls(),cancelBefore,'natural end never calls OS cancel');
+ assert.equal(f.stats().contextState,'running');assert(!f.stats().nativeMusicHeld);
+ assert.equal(f.stats().counters.sho,shoCountBefore,'BGM resumes with its original chord');assert.equal(f.w.__musicPulse(),pulseBefore);assert(sho.every(n=>!n.stopped));
+ // If Safari refuses recovery, retain the music graph and expose the existing
+ // gesture button. A later gesture resumes the same sources; never busy-retry.
+ f.audio.speak({text:'think',kind:'word'});const blocked=f.w.__spoken.at(-1);ctx.state='interrupted';ctx.emit('statechange');ctx.blockResume=true;
+ blocked.onend();await Promise.resolve();await Promise.resolve();const blockedCalls=ctx.resumeCalls;f.w.qa.tick(.1);
+ assert.equal(ctx.resumeCalls,blockedCalls);assert(f.stats().resumeVisible);assert(sho.every(n=>!n.stopped));
+ ctx.blockResume=false;f.click('#audioResumeV030');await Promise.resolve();assert.equal(f.stats().contextState,'running');assert(sho.every(n=>!n.stopped));
+ f.click('#sound');assert.equal(session.type,'auto');assert(!f.stats().nativeMusicHeld);assert(sho.every(n=>n.stopped));
+ f.click('#sound');assert.equal(session.type,'ambient');destroy(f);assert.equal(session.type,'auto');
+ for(const action of ['pause','hide','pagehide','dispose']){
+  const owned={type:'playback'},g=fixture({audioSession:owned});g.click('#start');g.w.__spoken.at(-1).onend();g.click('#dialogueNext');g.click('#dialogueNext');assert.equal(owned.type,'ambient');
+  if(action==='pause')g.w.qa.pause();
+  if(action==='hide'){Object.defineProperty(g.w.document,'hidden',{value:true,configurable:true});g.w.document.dispatchEvent(new g.w.Event('visibilitychange'));}
+  if(action==='pagehide'){const event=new g.w.Event('pagehide');Object.defineProperty(event,'persisted',{value:true});g.w.dispatchEvent(event);}
+  if(action==='dispose')g.audio.dispose();
+  assert.equal(owned.type,'playback',action+' restores the page session');assert(!g.stats().nativeMusicHeld);destroy(g);
+ }
+ const recordedSession={type:'auto'},recorded=fixture({url:'http://feg-qa.test/?voice=recorded',audioSession:recordedSession});recorded.click('#start');assert.equal(recordedSession.type,'auto');destroy(recorded);
+ const denied=fixture({audioSession:{get type(){return 'auto'},set type(v){throw Error('session unavailable')}}});denied.click('#start');assert.equal(denied.stats().voiceStatus,'playing');assert.match(denied.stats().nativeMixError,/unavailable/);destroy(denied);
+ console.log(JSON.stringify({passed:true,checks:['single default + visit-only overrides','zero native calls for recorded mode','native title/call/ending profiles','same-word replacement and stale callbacks','direct-intro first-line gesture','delayed native readiness','native-only without AudioContext','title mute/volume/timeout/unavailable/retry','native-driven AudioContext interruption','pause/restart/hide/dispose','native ambient session ownership and restoration','steady BGM during native speech','retained music sources and bounded end recovery','blocked recovery keeps the gesture fallback','recorded and unsupported sessions remain usable'],verification:'Production DOM with mocked native speech and Audio Session; real voice and iOS audio unverified'}));
+}
+checkNativeMix().catch(e=>{console.error(e);process.exitCode=1});

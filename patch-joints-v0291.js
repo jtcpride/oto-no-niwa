@@ -29,8 +29,7 @@ prepareDepthRenderV022=function(){
   if(feelEnabledV023&&p==='break'&&motion){
    if(f===player){f.elbow.rot[2]=.95;f.farElbow.rot[2]=1.05;}
    else{
-    const t=duelV022.time,snap=easeV023(t,0,.10)*(1-easeV023(t,.18,.55));
-    const tuck=easeV023(t,.12,.46)*(1-easeV023(t,.76,1.16)),brace=easeV023(t,.78,1.18)*(1-easeV023(t,1.40,2.10));
+    const t=duelV022.time,{limbSnap:snap,tuck,brace}=pursuitSignalsV028(t);
     f.elbow.rot[2]+=-.18*snap+.85*tuck+.48*brace;f.farElbow.rot[2]+=.15*snap+.58*tuck+.72*brace;
     f.wrist.rot[2]+=.24*snap-.15*brace;f.farWrist.rot[2]-=.18*snap+.10*brace;
     f.toe.rot[2]+=.24*tuck-.16*brace;f.backToe.rot[2]-=.15*snap+.12*tuck;

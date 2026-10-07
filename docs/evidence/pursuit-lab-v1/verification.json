@@ -1,0 +1,317 @@
+{
+  "passed": true,
+  "date": "2026-10-06T13:49:27.704Z",
+  "base": "62538bd / game 02c070e",
+  "checks": [
+    {
+      "name": "defaults match saved v0.37.2 pixels and camera",
+      "width": 844,
+      "height": 390,
+      "frames": 9
+    },
+    {
+      "name": "defaults match saved v0.37.2 pixels and camera",
+      "width": 390,
+      "height": 844,
+      "frames": 9
+    },
+    {
+      "name": "play/pause/slow/seek/toggle/reset/export/import/storage isolation"
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "real-time scene completes",
+      "variant": "current",
+      "frame": {
+        "phase": "back",
+        "phaseTime": 0,
+        "player": [
+          -5.880000000000001,
+          0.12,
+          -8.7
+        ],
+        "cpu": [
+          5.397287764147395,
+          0.12,
+          -8.015627595268155
+        ],
+        "eye": [
+          5.072542993826116,
+          5.6,
+          8.225575724016252
+        ],
+        "target": [
+          0,
+          1.9,
+          -8
+        ],
+        "zoom": 0.9,
+        "joints": {
+          "body": {
+            "pos": [
+              0,
+              1.0608930391406126,
+              0
+            ],
+            "rot": [
+              0,
+              0.10370817115653261,
+              -0.09636397242187411
+            ]
+          },
+          "head": {
+            "pos": [
+              0.03,
+              1.45,
+              0
+            ],
+            "rot": [
+              0,
+              -0.029925101813617978,
+              -0.050414216093749804
+            ]
+          },
+          "arm": {
+            "pos": [
+              0.025,
+              1.12,
+              0.4
+            ],
+            "rot": [
+              -0.07980027150298127,
+              0,
+              -0.6008061830623358
+            ]
+          },
+          "farArm": {
+            "pos": [
+              0.025,
+              1.12,
+              -0.4
+            ],
+            "rot": [
+              0.10972537331659925,
+              0,
+              0.06497059312499764
+            ]
+          },
+          "leg": {
+            "pos": [
+              0.08,
+              1.05,
+              0.22
+            ],
+            "rot": [
+              0,
+              1.996027864421694,
+              0
+            ]
+          },
+          "back": {
+            "pos": [
+              -0.13,
+              1.05,
+              -0.23
+            ],
+            "rot": [
+              0,
+              -0.0572082495812614,
+              0
+            ]
+          },
+          "knee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.18357089180271313
+            ]
+          },
+          "backKnee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.7717571729658119
+            ]
+          }
+        },
+        "draws": 118,
+        "triangles": 7427,
+        "pixels": [
+          688,
+          592
+        ]
+      }
+    },
+    {
+      "name": "real-time scene completes",
+      "variant": "proposal",
+      "frame": {
+        "phase": "back",
+        "phaseTime": 0,
+        "player": [
+          -5.880000000000001,
+          0.12,
+          -8.7
+        ],
+        "cpu": [
+          5.397403435115557,
+          0.12,
+          -8.015618677902772
+        ],
+        "eye": [
+          5.072542993826116,
+          5.6,
+          8.225575724016252
+        ],
+        "target": [
+          0,
+          1.9,
+          -8
+        ],
+        "zoom": 0.9,
+        "joints": {
+          "body": {
+            "pos": [
+              0,
+              1.0609129790795186,
+              0
+            ],
+            "rot": [
+              0,
+              0.10362588668409303,
+              -0.09629871443999974
+            ]
+          },
+          "head": {
+            "pos": [
+              0.03,
+              1.45,
+              0
+            ],
+            "rot": [
+              0,
+              -0.029892383307324334,
+              -0.05039971431999994
+            ]
+          },
+          "arm": {
+            "pos": [
+              0.025,
+              1.12,
+              0.4
+            ],
+            "rot": [
+              -0.0797130221528649,
+              0,
+              -0.6006067836732752
+            ]
+          },
+          "farArm": {
+            "pos": [
+              0.025,
+              1.12,
+              -0.4
+            ],
+            "rot": [
+              0.10960540546018924,
+              0,
+              0.06479657183999932
+            ]
+          },
+          "leg": {
+            "pos": [
+              0.08,
+              1.05,
+              0.22
+            ],
+            "rot": [
+              0,
+              1.9948888977747798,
+              0
+            ]
+          },
+          "back": {
+            "pos": [
+              -0.13,
+              1.05,
+              -0.23
+            ],
+            "rot": [
+              0,
+              -0.05714270703091335,
+              0
+            ]
+          },
+          "knee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.18346614320334015
+            ]
+          },
+          "backKnee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.7721815883259839
+            ]
+          }
+        },
+        "draws": 118,
+        "triangles": 7427,
+        "pixels": [
+          688,
+          592
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Muted or mocked sound; Mac Chrome GPU, not physical iPhone/iPad; subjective preference requires user review."
+  ]
+}

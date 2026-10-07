@@ -34,10 +34,15 @@ window.__audioQA={events:[],action:null,analysers:{},
  pump(){soundPumpV030()},success(){audio.hit(true,soundV030.successes+1,false)},
  effect(isPlayer=false){audio.hit(isPlayer,0,false)},silence(){stopSourcesV030();state.mode='idle'},
  phase(value){duelV022.phase=value;audio.applyMix()},
- speech(text,id){const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.82;u.pitch=1;u.volume=audio.voiceVolume;
-  const voices=speechSynthesis.getVoices();u.voice=voices.find(v=>/^en-US/i.test(v.lang)&&/Samantha|Ava/i.test(v.name))||voices.find(v=>/^en-US/i.test(v.lang))||null;
-  for(const type of ['start','end','error'])u.addEventListener(type,e=>this.events.push({id,type,error:e.error||null,at:performance.now(),text,voice:u.voice?.name||null,lang:u.lang}));
-  this.lastUtterance=u;audio.speak(u,()=>this.events.push({id,type:'released',at:performance.now()}));
+ speech(text,id){
+  // Observe the utterance constructed by the production native dispatcher.
+  // The browser method still runs unchanged; no voice, event or PCM is mocked.
+  const speak=speechSynthesis.speak,qa=this;
+  speechSynthesis.speak=function(u){
+   for(const type of ['start','end','error'])u.addEventListener(type,e=>qa.events.push({id,type,error:e.error||null,at:performance.now(),text:u.text,voice:u.voice?.name||null,lang:u.lang}));
+   qa.lastUtterance=u;return speak.call(this,u);
+  };
+  try{audio.speak({text,kind:'word'},()=>this.events.push({id,type:'released',at:performance.now()}));}finally{speechSynthesis.speak=speak;}
  },
  activate(){audio.userChoice=true;audio.set(true);state.mode='playing';campaignV030.phase='match';},
  resumeMusic(){state.mode='playing';soundPumpV030()},
@@ -66,7 +71,8 @@ async function run(){
   const context=await browser.newContext({viewport:{width:1024,height:768}});page=await context.newPage();
   page.on('pageerror',e=>report.errors.push(e.message));
   const source=instrument(assemble());await page.route('http://feg-audio.test/**',route=>route.fulfill({contentType:'text/html',body:source}));
-  await page.goto('http://feg-audio.test/?stage=jingu');await page.waitForFunction(()=>!!window.__audioQA);
+  await page.goto('http://feg-audio.test/?stage=jingu&voice=native');await page.waitForFunction(()=>!!window.__audioQA);
+  assert.equal(await page.evaluate(()=>__audioQA.diagnostics.voiceMode),'native');
   const renderer=await page.evaluate(()=>__audioQA.renderer());assert.equal(renderer.error,0);assert(!/swiftshader|llvmpipe|software rasterizer/i.test(renderer.renderer),'hardware renderer required');
   report.browser.renderer=renderer.renderer;report.browser.userAgent=await page.evaluate(()=>navigator.userAgent);pass('system Chrome hardware WebGL fixture',renderer);
   assert.equal(await page.evaluate(()=>__audioQA.diagnostics.contextState),'not-created','load must not create an autoplay context');
@@ -97,8 +103,8 @@ async function run(){
    try{
     await gesture(page,{kind:'speech',text:'think',id:'word'});const start=await speechEvent(page,'word','start');
     if(start.type==='error')blocked('native speech playback',start.error,{event:start});
-    else{const mix=await page.evaluate(()=>__audioQA.diagnostics);assert(mix.ducked);assert.equal(mix.musicTarget,.8*.60);const end=await speechEvent(page,'word','end');
-     if(end.type==='error')blocked('native speech completion',end.error,{event:end});else{speechWorks=true;pass('native word starts and ends with accompaniment ducking',{start,end,duckedMix:mix.musicTarget});}}
+    else{const mix=await page.evaluate(()=>__audioQA.diagnostics);assert(mix.ducked);assert.equal(mix.musicTarget,.8);const end=await speechEvent(page,'word','end');
+     if(end.type==='error')blocked('native speech completion',end.error,{event:end});else{speechWorks=true;pass('native word starts and ends with unchanged accompaniment',{start,end,musicTarget:mix.musicTarget});}}
    }catch(e){if(e.name==='TimeoutError')blocked('native speech playback','Native start/end events did not arrive within 12 seconds');else throw e;}
    if(speechWorks){
     const long='This pronunciation test keeps the native voice speaking until the next word replaces it.';
@@ -110,14 +116,14 @@ async function run(){
      const id='continuous-'+phase,prior=await page.evaluate(()=>__audioQA.diagnostics);
      await gesture(page,{kind:'speech',text:long,id});assert.equal((await speechEvent(page,id,'start')).type,'start');
      await page.waitForTimeout(350);const during=await samples(page,'music',12,25),mix=await page.evaluate(()=>__audioQA.diagnostics);
-     assert(mix.ducked,'measurement must overlap native speech');assert.equal(mix.musicTarget,.8*Math.min(factor,.60));
+     assert(mix.ducked,'measurement must overlap native speech');assert.equal(mix.musicTarget,.8*factor);
      assert(during.minimumRms>1e-5,'no sampled speech window can silence BGM');
-     const ratio=during.rms/before.rms,expected=Math.min(factor,.60)/factor;
-     assert(Math.abs(ratio-expected)<.12,'native PCM follows one moderate gain reduction');
+     const ratio=during.rms/before.rms,expected=1;
+     assert(Math.abs(ratio-expected)<.12,'native pronunciation keeps the same BGM gain');
      assert.equal(mix.counters.sho,prior.counters.sho,'speech must not restart sustained music');assert.equal(mix.contexts,prior.contexts);
      assert.equal((await speechEvent(page,id,'end')).type,'end');speechContinuity.push({phase,before,during,ratio,expected,musicTarget:mix.musicTarget});
     }
-    pass('native pronunciation preserves continuous BGM without stacked ducking',{phases:speechContinuity});await page.evaluate(()=>__audioQA.phase('front'));
+    pass('native pronunciation preserves continuous BGM at the same level',{phases:speechContinuity});await page.evaluate(()=>__audioQA.phase('front'));
     await gesture(page,{kind:'speech',text:long,id:'replaced'});const oldStart=await speechEvent(page,'replaced','start');assert.equal(oldStart.type,'start');
     await gesture(page,{kind:'speech',text:'ship',id:'replacement'});const newStart=await speechEvent(page,'replacement','start');assert.equal(newStart.type,'start');const newEnd=await speechEvent(page,'replacement','end');assert.equal(newEnd.type,'end');
     const cancellation=await page.evaluate(()=>__audioQA.events.find(e=>e.id==='replaced'&&e.type==='error'));

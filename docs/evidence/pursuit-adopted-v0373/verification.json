@@ -1,0 +1,355 @@
+{
+  "passed": true,
+  "date": "2026-10-06T14:12:03.181Z",
+  "base": "62538bd / game 02c070e",
+  "version": "0.37.3-pursuit",
+  "approvedSettings": {
+    "limbDelay": 0.06,
+    "kneeTuck": 1.15,
+    "landingDepth": 0.29,
+    "recoveryEnd": 2.9,
+    "runStride": 1.1,
+    "cameraOrbit": 1.05,
+    "cameraAir": 0.65,
+    "cameraPullback": 0.16
+  },
+  "checks": [
+    {
+      "name": "historical preset matches saved v0.37.2 pixels and camera",
+      "width": 844,
+      "height": 390,
+      "frames": 9
+    },
+    {
+      "name": "historical preset matches saved v0.37.2 pixels and camera",
+      "width": 390,
+      "height": 844,
+      "frames": 9
+    },
+    {
+      "name": "v0.37.3 production defaults equal the user-approved eight values"
+    },
+    {
+      "name": "play/pause/slow/seek/toggle/reset/export/import/storage isolation"
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "responsive controls and actual preview",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "real-time scene completes",
+      "variant": "before",
+      "frame": {
+        "phase": "back",
+        "phaseTime": 0,
+        "player": [
+          -5.880000000000001,
+          0.12,
+          -8.7
+        ],
+        "cpu": [
+          5.397403435115555,
+          0.12,
+          -8.015618677902772
+        ],
+        "eye": [
+          5.072542993826116,
+          5.6,
+          8.225575724016252
+        ],
+        "target": [
+          0,
+          1.9,
+          -8
+        ],
+        "zoom": 0.9,
+        "joints": {
+          "body": {
+            "pos": [
+              0,
+              1.0609129790795182,
+              0
+            ],
+            "rot": [
+              0,
+              0.10362588668409467,
+              -0.09629871444000102
+            ]
+          },
+          "head": {
+            "pos": [
+              0.03,
+              1.45,
+              0
+            ],
+            "rot": [
+              0,
+              -0.029892383307324983,
+              -0.05039971432000023
+            ]
+          },
+          "arm": {
+            "pos": [
+              0.025,
+              1.12,
+              0.4
+            ],
+            "rot": [
+              -0.07971302215286663,
+              0,
+              -0.6006067836732791
+            ]
+          },
+          "farArm": {
+            "pos": [
+              0.025,
+              1.12,
+              -0.4
+            ],
+            "rot": [
+              0.10960540546019161,
+              0,
+              0.06479657184000276
+            ]
+          },
+          "leg": {
+            "pos": [
+              0.08,
+              1.05,
+              0.22
+            ],
+            "rot": [
+              0,
+              1.994888897774803,
+              0
+            ]
+          },
+          "back": {
+            "pos": [
+              -0.13,
+              1.05,
+              -0.23
+            ],
+            "rot": [
+              0,
+              -0.05714270703091453,
+              0
+            ]
+          },
+          "knee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.1834661432033422
+            ]
+          },
+          "backKnee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.7721815883259748
+            ]
+          }
+        },
+        "draws": 118,
+        "triangles": 7427,
+        "pixels": [
+          688,
+          592
+        ]
+      }
+    },
+    {
+      "name": "real-time scene completes",
+      "variant": "adopted",
+      "frame": {
+        "phase": "back",
+        "phaseTime": 0,
+        "player": [
+          -5.880000000000001,
+          0.12,
+          -8.7
+        ],
+        "cpu": [
+          5.397287764147394,
+          0.12,
+          -8.015627595268153
+        ],
+        "eye": [
+          5.072542993826116,
+          5.6,
+          8.225575724016252
+        ],
+        "target": [
+          0,
+          1.9,
+          -8
+        ],
+        "zoom": 0.9,
+        "joints": {
+          "body": {
+            "pos": [
+              0,
+              1.0608930391406126,
+              0
+            ],
+            "rot": [
+              0,
+              0.10370817115653322,
+              -0.09636397242187457
+            ]
+          },
+          "head": {
+            "pos": [
+              0.03,
+              1.45,
+              0
+            ],
+            "rot": [
+              0,
+              -0.029925101813618227,
+              -0.05041421609374991
+            ]
+          },
+          "arm": {
+            "pos": [
+              0.025,
+              1.12,
+              0.4
+            ],
+            "rot": [
+              -0.07980027150298194,
+              0,
+              -0.6008061830623368
+            ]
+          },
+          "farArm": {
+            "pos": [
+              0.025,
+              1.12,
+              -0.4
+            ],
+            "rot": [
+              0.10972537331660016,
+              0,
+              0.06497059312499887
+            ]
+          },
+          "leg": {
+            "pos": [
+              0.08,
+              1.05,
+              0.22
+            ],
+            "rot": [
+              0,
+              -1.9960278644217029,
+              0
+            ]
+          },
+          "back": {
+            "pos": [
+              -0.13,
+              1.05,
+              -0.23
+            ],
+            "rot": [
+              0,
+              -0.057208249581263054,
+              0
+            ]
+          },
+          "knee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.18357089180271388
+            ]
+          },
+          "backKnee": {
+            "pos": [
+              0,
+              -0.48,
+              0
+            ],
+            "rot": [
+              0,
+              0,
+              -0.7717571729658083
+            ]
+          }
+        },
+        "draws": 118,
+        "triangles": 7427,
+        "pixels": [
+          688,
+          592
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Muted or mocked sound; Mac Chrome GPU, not physical iPhone/iPad."
+  ],
+  "additionalChecks": {
+    "npmTest": "18 non-browser suites passed",
+    "testPolish": "Mac Chrome passed: 8 trajectories, rules, contact, pose restoration, pause/reset, six layouts, effects OFF",
+    "realTimeMatches": [
+      {
+        "scenario": "success",
+        "version": "0.37.3-pursuit",
+        "seconds": 53.2145,
+        "closeAttempts": 1,
+        "finalPhase": "done",
+        "cpuHp": 0,
+        "errors": 0
+      },
+      {
+        "scenario": "pushback",
+        "version": "0.37.3-pursuit",
+        "seconds": 69.18060000000001,
+        "closeAttempts": 2,
+        "finalPhase": "done",
+        "cpuHp": 0,
+        "errors": 0
+      }
+    ]
+  }
+}

@@ -172,7 +172,7 @@ prepareDepthRenderV022=function(){
   for(const [key,f] of [['player',player],['cpu',cpu]]){const a=motionV029[key];if(f.shot!=='rescue'||f===cpu)kickMotionV029(f,a.slot,a.age,a.point,save);}
  }
  if(feelEnabledV023&&phase==='break'&&motion){
-  const run=easeV023(duelV022.time,.3,2.8),stride=Math.sin(run*Math.PI*12)*Math.sin(run*Math.PI);
+  const run=easeV023(duelV022.time,.3,2.8),stride=Math.sin(run*Math.PI*12)*Math.sin(run*Math.PI)*pursuitTuneV028.runStride;
   for(const key of ['leg','thigh','knee','back','backThigh','backKnee'])save(player[key]);
   legV024(player,'leg',[.08,.09+.24*Math.max(0,stride),.22-.46*stride],1);
   legV024(player,'back',[-.13,.09+.24*Math.max(0,-stride),-.23+.46*stride],1);

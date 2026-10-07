@@ -20,6 +20,21 @@ window.otoPatchDramaV028=function(html){
  </style>`);
  once("$('#start').addEventListener('click',start);",String.raw`
 const dramaV028={targets:[],contact:null,guard:false};
+// Reviewed pursuit proposal, adopted in v0.37.3. Presentation only: the
+// question, flight and phase clocks retain their existing timings.
+const PURSUIT_DEFAULTS_V028=Object.freeze({limbDelay:.06,kneeTuck:1.15,landingDepth:.29,recoveryEnd:2.9,runStride:1.1,cameraOrbit:1.05,cameraAir:.65,cameraPullback:.16});
+const pursuitTuneV028={...PURSUIT_DEFAULTS_V028};
+function pursuitSignalsV028(t){
+ const delayed=Math.max(0,t-pursuitTuneV028.limbDelay);
+ return {
+  snap:easeV023(t,0,.10)*(1-easeV023(t,.18,.55)),
+  limbSnap:easeV023(delayed,0,.10)*(1-easeV023(delayed,.18,.55)),
+  tuck:easeV023(t,.12,.46)*(1-easeV023(t,.76,1.16)),
+  brace:easeV023(t,.78,1.18)*(1-easeV023(t,1.40,2.10)),
+  land:easeV023(t,1.16,1.40)*(1-easeV023(t,1.55,2.25)),
+  pose:easeV023(t,0,.12)*(1-easeV023(t,2.12,pursuitTuneV028.recoveryEnd))
+ };
+}
 closePointsV027.forEach((e,i)=>{e.textContent=SOUNDS[i].symbol;e.setAttribute('aria-label',['頭','胸','腹','脚'][i]+' /'+SOUNDS[i].symbol+'/');});
 const contactV028=document.createElement('i');contactV028.id='contactV028';contactV028.hidden=true;$('#arena').appendChild(contactV028);
 function clearDramaV028(){contactV028.hidden=true;dramaV028.targets=[];dramaV028.contact=null;}
@@ -114,25 +129,21 @@ function closePoseDramaV028(){
 function blowbackPoseV028(t){
  // One non-cyclic reaction: chest takes the force, limbs lag, knees tuck, then
  // the feet reach for the floor. Root travel and the pursuit camera stay shared.
- const snap=easeV023(t,0,.10)*(1-easeV023(t,.18,.55));
- const tuck=easeV023(t,.12,.46)*(1-easeV023(t,.76,1.16));
- const brace=easeV023(t,.78,1.18)*(1-easeV023(t,1.40,2.10));
- const land=easeV023(t,1.16,1.40)*(1-easeV023(t,1.55,2.25));
- const pose=easeV023(t,0,.12)*(1-easeV023(t,2.12,2.75));
+ const {snap,limbSnap,tuck,brace,land,pose}=pursuitSignalsV028(t);
  for(const key of KICK_NODES_V011)saveDramaV028(cpu[key]);
  // Undo the older generic fall's torso drop before authoring the landing.
  const legacyFall=easeV023(t,.12,.65)*(1-easeV023(t,1.4,2.2));
  cpu.body.pos[1]+=legacyFall*.42;
- const dip=.20*land;cpu.n.pos[1]-=dip;
+ const dip=pursuitTuneV028.landingDepth*land;cpu.n.pos[1]-=dip;
  cpu.body.rot[2]+=.28*snap-.34*tuck-.20*land;
  cpu.head.rot[2]+=.18*snap+.16*tuck-.10*brace;
- cpu.arm.rot[2]+=-.95*snap+.30*tuck+1.00*brace;
- cpu.farArm.rot[2]+=-.55*snap+.62*tuck+.70*brace;
- cpu.arm.rot[0]+=.72*snap+.32*tuck+.18*brace;
- cpu.farArm.rot[0]-=.54*snap+.44*tuck+.26*brace;
+ cpu.arm.rot[2]+=-.95*limbSnap+.30*tuck+1.00*brace;
+ cpu.farArm.rot[2]+=-.55*limbSnap+.62*tuck+.70*brace;
+ cpu.arm.rot[0]+=.72*limbSnap+.32*tuck+.18*brace;
+ cpu.farArm.rot[0]-=.54*limbSnap+.44*tuck+.26*brace;
  for(const [key,near] of [['leg',true],['back',false]]){
   const x=near?.10+.32*tuck+.27*brace:-.13-.25*tuck-.19*brace;
-  const y=.09+dip+(near?.72:.45)*tuck+(near?.13:0)*brace;
+  const y=.09+dip+(near?.72:.45)*tuck*pursuitTuneV028.kneeTuck+(near?.13:0)*brace;
   legV024(cpu,key,[x,y,near?.22:-.23],pose);
  }
  cpu.shoe.rot[2]+=.24*tuck-.10*brace;cpu.backShoe.rot[2]-=.20*snap+.12*tuck;
@@ -148,18 +159,18 @@ prepareDepthRenderV022=function(){
  }
  if(p==='breakShot'){for(const key of KICK_NODES_V011)saveDramaV028(player[key]);strikePoseV024(player,{attack:.18+t*.8,age:99,slot:0},saveDramaV028);}
  if(p==='break'&&motion){
-  const fly=easeV023(t,0,1.25),run=easeV023(t,.3,2.8),recover=easeV023(t,1.4,2.6),orbit=easeV023(t,.25,1.1)*(1-easeV023(t,2.15,3.4));
+  const fly=easeV023(t,0,1.25),run=easeV023(t,.3,2.8),recover=easeV023(t,1.4,2.6),orbit=easeV023(t,.25,1.1)*(1-easeV023(t,2.15,3.4))*pursuitTuneV028.cameraOrbit;
   frontSceneryV022.visible=t<.16;backSceneryV022.visible=t>=.16;
   cpu.n.pos=[4.4+1.2*fly,.12+1.9*Math.sin(Math.PI*fly)*(1-recover),-8*fly];cpu.n.rot[0]=1.6*Math.sin(Math.PI*fly)*(1-recover);cpu.n.rot[2]=-.9*Math.sin(Math.PI*fly)*(1-recover);
   blowbackPoseV028(t);
   player.n.pos=[-4.4+foot.x*(1-run)-1.2*run+3.2*Math.sin(run*Math.PI),.12,-8*run];
   player.n.rot[1]=.75*Math.sin(run*Math.PI);cpu.n.rot[1]=Math.PI;
   for(const key of ['body','leg','back','knee','backKnee','arm','farArm'])saveDramaV028(player[key]);
-  const stride=Math.sin(run*Math.PI*12)*Math.sin(run*Math.PI);
+  const stride=Math.sin(run*Math.PI*12)*Math.sin(run*Math.PI)*pursuitTuneV028.runStride;
   player.leg.rot[2]=.68*stride;player.back.rot[2]=-.68*stride;player.knee.rot[2]=-Math.max(0,-stride)*.9;player.backKnee.rot[2]=-Math.max(0,stride)*.9;
   player.arm.rot[2]=-.7*stride;player.farArm.rot[2]=.7*stride;player.body.rot[2]=-.15*Math.sin(run*Math.PI);player.body.pos[1]+=.08*Math.abs(stride);
   // Settle onto the back-court lens before control returns; its starting zoom is .90.
-  const yaw=.073+.23*run-1.42*orbit,z=-8*run;renderer.eye=[Math.sin(yaw)*17,5.6-orbit*.8,z+Math.cos(yaw)*17];const air=Math.sin(Math.PI*fly);renderer.target=[0,1.9+.9*air,z];renderer.zoom=1-.15*orbit-.10*air-.10*easeV023(t,2.6,3.4);
+  const yaw=.073+.23*run-1.42*orbit,z=-8*run;renderer.eye=[Math.sin(yaw)*17,5.6-orbit*.8,z+Math.cos(yaw)*17];const air=Math.sin(Math.PI*fly);renderer.target=[0,1.9+pursuitTuneV028.cameraAir*air,z];renderer.zoom=1-pursuitTuneV028.cameraPullback*orbit-.10*air-.10*easeV023(t,2.6,3.4);
   ball.visible=false;shadow.visible=false;
  }
  if(inCloseV027()){

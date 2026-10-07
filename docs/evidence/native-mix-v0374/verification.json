@@ -1,0 +1,73 @@
+{
+  "version": "0.37.4-native-mix",
+  "verifiedDateJST": "2026-10-07",
+  "baseCommit": "62538bd",
+  "gitState": "migration/threejs-renderer, uncommitted; includes approved v0.37.3 pursuit changes",
+  "userDeviceReport": "User reports BGM cuts during native speech on iPad using published v0.37.2; OS/browser version and device traces were not collected.",
+  "vm": {
+    "command": "npm run test:sound",
+    "passed": true,
+    "suites": 3,
+    "nativeCases": [
+      "ambient session ownership and lifecycle restoration",
+      "no per-word category changes",
+      "native speech profile unchanged",
+      "no BGM gain reduction",
+      "OS interruption retains original music nodes and beat clock",
+      "one recovery after natural speech end",
+      "no cancel at natural end",
+      "blocked recovery retains explicit gesture retry",
+      "latest word replaces older voice",
+      "recorded and unsupported sessions remain usable"
+    ]
+  },
+  "nativeMacChrome": {
+    "status": "passed",
+    "checks": 16,
+    "blocked": [],
+    "errors": [],
+    "browser": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "headed": false,
+      "profile": "Playwright isolated temporary profile",
+      "autoplayOverride": false,
+      "defaultAudioMuteRemoved": true,
+      "softwareGLFallbackRemoved": true,
+      "version": "154.0.8037.98",
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36"
+    },
+    "measurements": [
+      {
+        "phase": "front",
+        "duringBeforeRmsRatio": 1.0238542025259219,
+        "minimumDuringRms": 0.02706301657360749,
+        "musicTarget": 0.8
+      },
+      {
+        "phase": "charge",
+        "duringBeforeRmsRatio": 0.9999915796368856,
+        "minimumDuringRms": 0.00657283336767388,
+        "musicTarget": 0.192
+      }
+    ]
+  },
+  "recordedMacChrome": {
+    "status": "passed",
+    "checks": 11,
+    "errors": [],
+    "nativeSpeechCalls": []
+  },
+  "sources": [
+    "https://www.w3.org/TR/audio-session/",
+    "https://raw.githubusercontent.com/WebKit/WebKit/main/Source/WebCore/Modules/audiosession/DOMAudioSession.cpp",
+    "https://bugs.webkit.org/show_bug.cgi?id=218815"
+  ],
+  "limitations": [
+    "Physical iPad/iPhone Safari remains unverified for this patch.",
+    "Mac native speech events and Web Audio graph signal are not physical speaker or subjective pronunciation evidence.",
+    "Ambient Audio Session support is optional and can respect silent mode; iPad sound mode/headphones need real-device verification.",
+    "OS/browser may still mute or interrupt output outside JavaScript control. No claim of guaranteed continuous iPad audio.",
+    "Release/publication not performed."
+  ]
+}

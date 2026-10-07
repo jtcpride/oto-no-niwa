@@ -12,6 +12,10 @@
 
 ## 編集する正本
 
+**吹き飛び・着地・追走の比較。** `npm run lab:pursuit` → `http://127.0.0.1:8770/`。開発用の調整室で変更前（v0.37.2）／採用版（v0.37.3）を同じ時点・同じ一ノ庭で比較できる。起動時とリセット時は本編の採用値を使う。「変更前」は保存した旧値で再生する。表示用8項目の正本は `patch-drama-v028.js` の `PURSUIT_DEFAULTS_V028`。調整室は `tools/pursuit-*`、起動は `scripts/serve-pursuit-lab.cjs`。追加依存なし、通常ローダーへUIを追加しない。音は無音で、通常のセーブへ書き込まない。書き出したJSONは候補の記録で、本番へは自動適用されない。
+
+サーバー起動中の `npm run test:lab` は保存ゲーム `02c070e` と旧値での実画像一致、採用した既定値8項目の一致、操作・設定の往復、縦横比、通常速度の到達を検証し、`../work/pursuit-lab/` に画像と無音動画を残す。`FEG_LAB_PORT` で起動ポート、`FEG_LAB_URL` で試験先を変えられる。採用値をさらに変える場合は、承認した値を検証する期待値を更新し、通常進行・接触・読み取りやすさを確認する。旧値と保存ゲームの比較は残す。
+
 | 変えたいもの | 正本と主な編集箇所 | 最初の確認 |
 | --- | --- | --- |
 | キャラ名・色・舞台への割当 | `content/characters.js` の `id/name/appearance`、`content/stages.js` の `player/opponent` | `npm run test:content` |
@@ -56,7 +60,7 @@
 
 **音調整。** `shoV030/pluckV030/fluteV030/taikoV030` が楽器、`successSoundV030` が成功による層追加、`soundPumpV030` が既に得た層の時間進行、`audio.hit/movement` が動作音です。`audio.applyMix` が音量・場面ごとの強弱、`audio.speak/stopVoice` が即時発音切替、`resumeFromGesture` と末尾イベント群が中断復帰を担当します。音色の調整で音声ライフサイクルを複製しません。成功なしで層を増やさず、ラッシュの発音待ち列も作りません。
 
-**以前の声へ戻す。** `content/voice-config.js` の `engine:'recorded'` を `'native'` に変える一か所で既定方式を戻せます。ゲームの呼出側は共通のままです。試聴だけなら `?voice=native`、録音方式は `?voice=recorded`。URL指定は保存しません。nativeは元の声選択・速度・高さと60%の伴奏を維持しますが、iOSによるBGM中断までは保証しません。recordedは発音による伴奏減衰なし。`npm run test:sound` と `npm run test:audio-browser`、実機の聞き取り確認を分けて行います。旧v0.32の録音も比較用に保持し、`scripts/generate-voices-v032.py --neutral-v033` で現行音源を再生成できます。
+**以前の声へ戻す。** `content/voice-config.js` の `engine:'recorded'` を `'native'` に変える一か所で既定方式を戻せます。ゲームの呼出側は共通のままです。試聴だけなら `?voice=native`、録音方式は `?voice=recorded`。URL指定は保存しません。nativeは元の声選択・速度・高さを維持し、発音時の伴奏減衰をしません。v0.37.4では対応ブラウザにmixableな `audioSession.type=ambient` を指定し、nativeの短い中断で笙・伴奏音源を捨てず、読み終わり後に一度だけ復帰します。typeは消音・停止・非表示・破棄で復元。OS中断の完全回避と消音モードでの挙動はiPad実機の再確認が必要です。recordedは発音による伴奏減衰なし。`npm run test:sound` と `npm run test:audio-browser`、実機の聞き取り確認を分けて行います。旧v0.32の録音も比較用に保持し、`scripts/generate-voices-v032.py --neutral-v033` で現行音源を再生成できます。
 
 **進行修正。** データ操作は純粋な `content/campaign.js`、表示と遷移は `patch-campaign-v030.js` に置きます。通常勝利は獲得を保存してから吸収演出へ進み、再戦で球数を増やしません。保存キーは進行 `feg.campaign.v1`（一時保存 `feg.campaign.session.v1`）、音 `feg.audio.v1`。人物IDの変更は既存セーブへ影響するため移行を明示します。保存の `version` を上げるだけでは旧値が新規状態に戻るので、継続させる場合は `normalize` に移行を書きます。
 
