@@ -1,0 +1,576 @@
+{
+  "version": "0.37.6-garden-ux",
+  "commit": "83d5b5fb9c5222b26a0eac164d521f9f8c242913",
+  "pagesRun": "37771147006",
+  "runUrl": "https://github.com/jtcpride/oto-no-niwa/actions/runs/37771147006",
+  "url": "https://jtcpride.github.io/oto-no-niwa/",
+  "checkedAt": "2026-10-08T11:42:31.596Z",
+  "status": "passed",
+  "files": [
+    {
+      "file": "patch-roll-v018.js",
+      "bytes": 3607,
+      "sha256": "f53f5b3b84fd0ec370674db5410dbc9edbc7d2cd1a0db7c229c9ee66b3d2679c"
+    },
+    {
+      "file": "patch-close-v027.js",
+      "bytes": 13765,
+      "sha256": "461501533b312180f6f334a14dcee8895b2394ce69d9809ab37ac6fd39448a91"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "bytes": 32257,
+      "sha256": "8a9ac7af9bfe24e031e15ff9d0600f724487920cabc826751d9ceb57d0f3c4b6"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "bytes": 40627,
+      "sha256": "95f31022d370467d6bc38875cb5df639cccbf34e9aaa98b9c06be0c905f492c2"
+    },
+    {
+      "file": "index.html",
+      "bytes": 4877,
+      "sha256": "80d2394e14fec0fda3dcef7fba98cdc3b859838578e106234843dc7d667f1635"
+    },
+    {
+      "file": "content/voice-config.js",
+      "bytes": 143,
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "patch-joints-v0291.js",
+      "bytes": 4911,
+      "sha256": "cc0a75354da7d2a09743afb135ffe1041b6964a872d03d489f63d3743cfd3948"
+    },
+    {
+      "file": "content/stages.js",
+      "bytes": 2617,
+      "sha256": "e3dd65c6f225ffc92795f2a88d5748bbc0505dee6f7eb073b44e545792fdcf10"
+    },
+    {
+      "file": "patch-motion-v029.js",
+      "bytes": 16729,
+      "sha256": "ecbdc39fba2e9525eb5af656d54a3769897a560531679b7238c8cf4b25f0f376"
+    },
+    {
+      "file": "content/voice-clips.js",
+      "bytes": 26729,
+      "sha256": "7ae99b3152d4c5b782d6392d91d3292a0a507fd99b8c1135b871486330a7bcf3"
+    },
+    {
+      "file": "docs/evidence/match-v0375/index.html",
+      "bytes": 3986,
+      "sha256": "f8c7dc8fcec84ce52eeaf28b00baebc268a485539584d6d0d8a9edf5758329c8"
+    },
+    {
+      "file": "docs/evidence/garden-v0376/index.html",
+      "bytes": 2750,
+      "sha256": "7d2204213dbaada7463697bfc6dc0ce769c9f4547823a6f557675c25db27db8d"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "bytes": 547819,
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    },
+    {
+      "file": "docs/evidence/garden-v0376/choice.png",
+      "bytes": 47301,
+      "sha256": "94908a2273a6ff51771d1ad7c400cd463ba2cf6c7c3e93b6d1f6c4043d75703b"
+    },
+    {
+      "file": "docs/evidence/match-v0375/score-after.mp3",
+      "bytes": 247340,
+      "sha256": "d4fe6b522f89bfbe85a23bc31cd81850de561527dfd78976914fa346b29c7238"
+    },
+    {
+      "file": "audio/voice-v0375/001-df99f7ec691a.mp3",
+      "bytes": 18668,
+      "sha256": "df99f7ec691aaeee1d9eeae518a4d00e18e621e0bc3580446ed59444c3c8526f"
+    },
+    {
+      "file": "audio/voice-v0375/000-3112202f8c1e.mp3",
+      "bytes": 20204,
+      "sha256": "3112202f8c1ee1846c9a502150917b5bf274ae6a791b705599835984ba3f4587"
+    },
+    {
+      "file": "audio/voice-v0375/003-f1e0a6218727.mp3",
+      "bytes": 26924,
+      "sha256": "f1e0a62187277a75e2b1b9dd3a2361f03b83b377691212636816c04095e6ace8"
+    },
+    {
+      "file": "audio/voice-v0375/002-d0e54dfce6bd.mp3",
+      "bytes": 17708,
+      "sha256": "d0e54dfce6bdcd89980ae8848f84ba07df5be69e8c3992ab8fb9dad386c31253"
+    },
+    {
+      "file": "docs/evidence/match-v0375/time-contact-before-after.mp4",
+      "bytes": 373860,
+      "sha256": "03327bd348cc383611c8e8e0c7bb1e20892fe20a6eb2b8ec770b717f8b4cacc3"
+    },
+    {
+      "file": "audio/voice-v0375/005-e32e065a77bd.mp3",
+      "bytes": 21548,
+      "sha256": "e32e065a77bdf8138fd26d7f3805334948af4f25cf3139af2bcc1fb648db7610"
+    },
+    {
+      "file": "audio/voice-v0375/004-23230af9a8f1.mp3",
+      "bytes": 17516,
+      "sha256": "23230af9a8f1473bdfb8bb76729d2ce502e94261c1a3009065cc0b30d964417a"
+    },
+    {
+      "file": "audio/voice-v0375/007-fe5599e1728d.mp3",
+      "bytes": 21740,
+      "sha256": "fe5599e1728d2f6eef8b2d877b45ec145c936eca91288c1e99b487a08974955e"
+    },
+    {
+      "file": "audio/voice-v0375/006-d1ba4e9f6209.mp3",
+      "bytes": 10604,
+      "sha256": "d1ba4e9f6209104fe669d8219eef75ba4782370cd80477812c3c09810e9c209f"
+    },
+    {
+      "file": "audio/voice-v0375/008-9558b398b15f.mp3",
+      "bytes": 20012,
+      "sha256": "9558b398b15f5e55888cb8bb8d6a7facf412c29dc9b7b1a8257928ed3224fc38"
+    },
+    {
+      "file": "audio/voice-v0375/013-76f7fc2cc383.mp3",
+      "bytes": 18476,
+      "sha256": "76f7fc2cc383bb18b286a455c663cd8794d5bec21317e4e6244a25d269d12b4a"
+    },
+    {
+      "file": "audio/voice-v0375/011-2e12fbf3c747.mp3",
+      "bytes": 23084,
+      "sha256": "2e12fbf3c74773ed87858eb7a58eaad56b81bbe38bd4da4ad98cfbf69d92f305"
+    },
+    {
+      "file": "audio/voice-v0375/010-8cdbc451a6b5.mp3",
+      "bytes": 19244,
+      "sha256": "8cdbc451a6b5638c0322461aaed239484925ec5a234c284514b8147db6578ca4"
+    },
+    {
+      "file": "audio/voice-v0375/012-92b15415e375.mp3",
+      "bytes": 18668,
+      "sha256": "92b15415e375816baab6823acc9b739fb4916a81443ea28c1a8feb52a87223c6"
+    },
+    {
+      "file": "audio/voice-v0375/009-6db4f635e7cd.mp3",
+      "bytes": 19244,
+      "sha256": "6db4f635e7cd859ade270aed6c4f2f75b651265dfc6a0bea359b3c81c948415c"
+    }
+  ],
+  "checks": [
+    {
+      "name": "public files equal the approved release",
+      "evidence": {
+        "count": 30
+      }
+    },
+    {
+      "name": "native START reaches the first spoken Kyoto line",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "native",
+          "voiceEngine": "native",
+          "voiceStatus": "playing",
+          "lastVoiceText": "Yoh, kaette kiharimashita na.",
+          "lastVoiceError": "",
+          "decodedVoices": 0,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 5,
+          "shoVoices": 5,
+          "voiceToken": 6,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 2,
+            "recoveries": 1
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": [
+          {
+            "type": "start",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          }
+        ]
+      }
+    },
+    {
+      "name": "native second Kyoto line and practice word play; landscape fits",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "mode": "ready",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "native",
+          "voiceEngine": "native",
+          "voiceStatus": "playing",
+          "lastVoiceText": "think",
+          "lastVoiceError": "",
+          "decodedVoices": 0,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 5,
+          "shoVoices": 5,
+          "voiceToken": 13,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 4,
+            "recoveries": 6
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "overflow": false,
+        "speech": [
+          {
+            "type": "start",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "end",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "start",
+            "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "error",
+            "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+            "error": "interrupted",
+            "voice": "Fred"
+          },
+          {
+            "type": "start",
+            "text": "think",
+            "error": null,
+            "voice": "Samantha"
+          }
+        ]
+      }
+    },
+    {
+      "name": "default START reaches the first spoken Kyoto line",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "recorded",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "Yoh, kaette kiharimashita na.",
+          "lastVoiceError": "",
+          "decodedVoices": 45,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 6,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 2,
+            "recoveries": 1
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": []
+      }
+    },
+    {
+      "name": "default second Kyoto line and practice word play; landscape fits",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "mode": "ready",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "recorded",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "think",
+          "lastVoiceError": "",
+          "decodedVoices": 45,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 13,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 4,
+            "recoveries": 6
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "overflow": false,
+        "speech": []
+      }
+    },
+    {
+      "name": "garden-native stone, popup, rotation, cancel, confirm, two opponent lines and practice",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "phase": "match",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "native",
+          "voiceEngine": "native",
+          "voiceStatus": "playing",
+          "lastVoiceText": "fan",
+          "lastVoiceError": "",
+          "decodedVoices": 0,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 5,
+          "shoVoices": 5,
+          "voiceToken": 9,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 3,
+            "recoveries": 7
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "name": "garden-default stone, popup, rotation, cancel, confirm, two opponent lines and practice",
+      "evidence": {
+        "version": "0.37.6-garden-ux",
+        "phase": "match",
+        "audio": {
+          "version": "0.37.5-match-score",
+          "voiceMode": "recorded",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "fan",
+          "lastVoiceError": "",
+          "decodedVoices": 33,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 9,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 3,
+            "recoveries": 7
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "overflow": false
+      }
+    },
+    {
+      "name": "public game has zero page or HTTP errors"
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Actual Mac Chrome native speech lifecycle and recorded decoding; no physical iPad/iPhone or acoustic acceptance.",
+    "No Web Audio analyser instrumentation is added to the public game; detailed audio graph measurements are the prior local verification.",
+    "One public native garden run did not reach idle within 15 seconds after the new Nagi line started. Natural completion of that specific line is unverified; Next cancellation is tested. Raw attempted run is retained in work/garden-ux-v0376/public/attempt-native-completion.json."
+  ],
+  "priorVoiceChecksAt": "2026-10-08T11:40:42.498Z",
+  "testRepair": "Use window.kemari guard during navigation; garden checks use Next to cancel each opponent line. Previous successful Kyoto voice checks retained for the same unchanged release.",
+  "browser": "154.0.8037.98",
+  "finishedAt": "2026-10-08T11:42:40.066Z",
+  "publicVoiceSelection": "?voice=native selects the original device voice; default recorded engine unchanged",
+  "metadataNote": "Release application commit is 83d5b5fb9c5222b26a0eac164d521f9f8c242913; documentation publication records are saved in a subsequent commit."
+}
