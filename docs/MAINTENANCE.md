@@ -24,7 +24,7 @@
 | 舞台名・使うデッキ | `content/stages.js` の `name/deck` | `npm run test:content` |
 | 背景・表と奥・環境色 | `scenery/kyoto-scenes.js` の `stages` と舞台別関数（`jingu`、`gendo` など） | `npm run test:scenery` |
 | 単語・IPA・コツ・練習語 | `content/decks.js` の `sounds[].words/tip/example/practice` | `npm run test:content` と `npm run test:decks` |
-| 雅楽の音色・層・動作音・発音復帰 | `patch-sound-v030.js` の下記関数 | `npm run test:sound` |
+| 鼓・蹴りの琴／笛・笙・ラッシュ・発音復帰 | `patch-sound-v030.js` の下記関数 | `npm run test:sound` |
 | 獲得・七球・祇園解放・セーブ正規化 | `content/campaign.js` の `fresh/normalize/award` | `npm run test:campaign` |
 | 京都駅台詞・15石・勝利演出・終幕・画面配置 | `patch-campaign-v030.js` の CSS と `*V030` 関数 | `npm run assemble`、続いて `npm run test:flow` |
 
@@ -58,9 +58,11 @@
 
 **単語・IPA修正。** 1デッキ4音、`symbol` はスラッシュなし、`ipa` は `/…/`、`example/practice` は同じ音の `words` を参照します。生成されたIPA表を別に直す必要はありません。辞書の米音と、そのデッキに複数の正答候補がないことを確認します。`tests/decks-v030.cjs` は新規語の期待値・出典と既存36語のダイジェストを保持します。意図した教材修正なら根拠とともに期待値を更新し、失敗を消すためだけのダイジェスト更新は避けます。音源も `scripts/generate-voices-v032.py` で再生成して `content/voice-clips.js` とMP3を揃え、実際の聞こえ方は別途試聴します。
 
-**音調整。** `shoV030/pluckV030/fluteV030/taikoV030` が楽器、`successSoundV030` が成功による層追加、`soundPumpV030` が既に得た層の時間進行、`audio.hit/movement` が動作音です。`audio.applyMix` が音量・場面ごとの強弱、`audio.speak/stopVoice` が即時発音切替、`resumeFromGesture` と末尾イベント群が中断復帰を担当します。音色の調整で音声ライフサイクルを複製しません。成功なしで層を増やさず、ラッシュの発音待ち列も作りません。
+**音調整（v0.37.5）。** `scoreSectionV0375` が通常試合／ラッシュ／試合外を選び、`tsuzumiV0375` が通常試合の短い拍、`strikeSoundV0375` が蹴りの琴／笛と成功で上がる音域を担当します。`shoV030/pluckV030/fluteV030/taikoV030` は従来の楽器で、ラッシュの層構成を保っています。`soundPumpV030` は唯一の時計、`successSoundV030` は成功の数と層、`audio.hit/movement` は動作音です。初回BGM .82・発音 .72、既存の保存値を優先。音量欄の「おすすめ」だけが保存音量を82/72へそろえ、ミュートは変えません。`audio.applyMix` が音量・場面ごとの強弱、`audio.speak/stopVoice` が即時発音切替、`resumeFromGesture` と末尾イベント群が中断復帰を担当します。音色の調整で音声ライフサイクルを複製しません。成功なしで層を増やさず、ラッシュの発音待ち列も作りません。
 
 **以前の声へ戻す。** `content/voice-config.js` の `engine:'recorded'` を `'native'` に変える一か所で既定方式を戻せます。ゲームの呼出側は共通のままです。試聴だけなら `?voice=native`、録音方式は `?voice=recorded`。URL指定は保存しません。nativeは元の声選択・速度・高さを維持し、発音時の伴奏減衰をしません。v0.37.4では対応ブラウザにmixableな `audioSession.type=ambient` を指定し、nativeの短い中断で笙・伴奏音源を捨てず、読み終わり後に一度だけ復帰します。typeは消音・停止・非表示・破棄で復元。OS中断の完全回避と消音モードでの挙動はiPad実機の再確認が必要です。recordedは発音による伴奏減衰なし。`npm run test:sound` と `npm run test:audio-browser`、実機の聞き取り確認を分けて行います。旧v0.32の録音も比較用に保持し、`scripts/generate-voices-v032.py --neutral-v033` で現行音源を再生成できます。
+
+**各相手の開戦前台詞。** `content/stages.js` の `dialogue:[{en,ja,spoken},…]` が二言の正本です。英語は意訳、読み上げは男性英語声でローマ字日本語。京都駅の二言は `patch-campaign-v030.js` に保持。録音方式の新しい台詞だけ生成するには `scripts/generate-voices-v032.py --dialogue-v0375`（モデル・環境は [音源README](../audio/voice-v0375/README.md)）。既存88音は再生成しません。`node tests/dialogue-v0375.cjs` は進行、`--browser-only` は小さい縦横の会話表示を確認します。
 
 **進行修正。** データ操作は純粋な `content/campaign.js`、表示と遷移は `patch-campaign-v030.js` に置きます。通常勝利は獲得を保存してから吸収演出へ進み、再戦で球数を増やしません。保存キーは進行 `feg.campaign.v1`（一時保存 `feg.campaign.session.v1`）、音 `feg.audio.v1`。人物IDの変更は既存セーブへ影響するため移行を明示します。保存の `version` を上げるだけでは旧値が新規状態に戻るので、継続させる場合は `normalize` に移行を書きます。
 
@@ -99,5 +101,7 @@ npm run test:flow
 5. **最後にiPhoneとiPadの実機Safari**で、開始タップ、BGM／SE／単語音声、音量・消音保持、ラッシュ、アプリ切替、画面ロック復帰を確認します。`/ʒ/` と母音を実際に聞きます。ブラウザ自動試験の発音は模擬なので実機試聴を代替しません。
 
 音を変えた場合は `node tests/audio-recorded-browser-v032.cjs` でMacの実AudioContext、同梱MP3の復号、BGMと声の同時出力、開始・中断・復帰を確認します。OS読み上げAPIを使わないことも検査します。スピーカーの聴感・実機試遊の合格とは別です。旧 `tests/audio-browser-v030.cjs` はネイティブTTS時代の比較用です。
+
+石庭の選択変更は `npm run test:garden-browser` で、実Chromeのnative dialog、石タップ・対戦確認・キャンセル・背景タップ・Escape・フォーカス復帰・6サイズ・開いたままの縦横切替・京都駅の初戦導線を確認します。`tests/garden-ux-v0376.cjs` のVM側は `npm test` に含みます。JSDOMのdialog shimは遷移検査専用で、モーダルの表示・タッチ・フォーカスの証拠は実ブラウザ側です。選び直すだけで継承・音声の破棄・ステージ移動を行わないことも確認します。
 
 報告にはコミット、実行コマンド、画面証拠、未確認の端末・音声条件を残します。作業ブランチへの保存と、mainへのマージ・Pages公開の承認は別です。

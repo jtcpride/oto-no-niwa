@@ -58,7 +58,7 @@ async function main(){
   await go('');report.gpu=await page.evaluate(()=>{qa.draw();return qa.renderStats()});check(!/swiftshader|llvmpipe|software rasterizer/i.test(report.gpu.renderer)&&report.gpu.sampledColors>8,'actual hardware WebGL scene',report.gpu);
   if(!GATHER_ONLY){
   const title=await info(page);await shot(page,'title-1101x719');
-  const phrases=await page.locator('#intro p .campaign-phrase').count();check(phrases===3,'title wraps at complete Japanese phrases',{phrases});
+  const entry=await page.locator('#intro p').innerText();check(entry.includes('京都駅')&&(await page.locator('#start').innerText()).includes('京都駅から始める'),'fresh title identifies Kyoto Station as the first match',{entry});
   await page.locator('#start').click();await page.waitForFunction(()=>qa.campaign.phase==='dialogue',null,{polling:50});const dialogue=await info(page);
   check(Math.abs(title.arena.w-dialogue.arena.w)<2&&Math.abs(title.arena.h-dialogue.arena.h)<2,'title to dialogue preserves stage dimensions',{title:title.arena,dialogue:dialogue.arena});
   for(const [width,height] of [...VIEWPORTS,[1101,719]]){
@@ -71,7 +71,7 @@ async function main(){
   let reduced=await page.locator('.campaign-dialogue').evaluate(e=>({animation:getComputedStyle(e).animationName,transition:getComputedStyle(e).transitionDuration}));
   check(reduced.animation==='none'&&reduced.transition.split(',').every(s=>parseFloat(s)===0),'effects OFF removes dialogue animation/transition',reduced);
   await page.evaluate(()=>localStorage.setItem('feg.campaign.v1',JSON.stringify({version:1,introComplete:true,acquired:['saku','sokichi','sumi','nagi','kota','luka'],wins:{},completed:false})));
-  await go('?stage=jingu');await page.evaluate(()=>{qa.start();qa.state.mode='playing';qa.beginTimePass();qa.draw()});
+  await go('?stage=jingu');await page.evaluate(()=>{qa.enterPractice();qa.state.mode='playing';qa.beginTimePass();qa.draw()});
   for(const ceremony of ['time','choice','bow-wait','hajime']){
    if(ceremony==='choice')await page.evaluate(()=>{for(let t=0;t<10&&qa.ceremony!=='choice';t+=.1)qa.tick(.1)});
    if(ceremony==='bow-wait')await page.locator('#bowBtn').click();
@@ -80,7 +80,7 @@ async function main(){
    check(d.ceremony===ceremony&&d.visibility==='hidden',ceremony+' has no empty prompt',d);
   }
   for(const stage of STAGES){
-   await go('?stage='+stage);await page.evaluate(()=>{qa.setMotion(true);qa.start();if(qa.campaign.phase==='gather')qa.tick(4.4);qa.draw()});
+   await go('?stage='+stage);await page.evaluate(()=>{qa.setMotion(true);qa.enterPractice();qa.draw()});
    check(await page.evaluate(()=>qa.campaign.phase==='match'&&qa.ceremony==='practice'),stage+' real PRACTICE fixture reached');
    for(const [width,height] of VIEWPORTS){
     await page.setViewportSize({width,height});await page.evaluate(()=>{qa.state.flight=qa.state.duration*.5;qa.draw()});
@@ -149,7 +149,10 @@ async function main(){
    }
    const before=(await info(page)).camera;await page.evaluate(()=>qa.tick(.1));const after=(await info(page)).camera;
    const delta=Math.max(...before.eye.map((v,i)=>Math.abs(v-after.eye[i])),...before.target.map((v,i)=>Math.abs(v-after.target[i])),Math.abs(before.zoom-after.zoom));
-   check(delta<.15,'GION gathering to PRACTICE settles camera '+width+'x'+height,{delta,before,after});
+   check(delta<.15,'GION gathering to dialogue settles camera '+width+'x'+height,{delta,before,after});
+   check(await page.evaluate(()=>qa.campaign.phase)==='dialogue','GION dialogue follows gathering '+width+'x'+height);
+   await page.evaluate(()=>qa.enterPractice());
+   check(await page.evaluate(()=>qa.campaign.phase==='match'&&qa.ceremony==='practice'),'GION dialogue leads to PRACTICE '+width+'x'+height);
   }
   await page.evaluate(()=>{qa.beginMatch();qa.state.mode='playing';qa.driveUntil('done');qa.tick(.85)});
   check(await page.evaluate(()=>qa.campaign.phase==='scatter'),'GION scattering fixture reached');

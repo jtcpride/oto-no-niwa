@@ -7,6 +7,10 @@ window.otoPatchCloseV027=function(html){
  #closeCall{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:6;padding:6px 12px;background:#102322ed;border:1px solid #cbb27b;border-radius:4px;text-align:center;color:#fff0ce;pointer-events:none;white-space:nowrap;font-size:18px}
  #closeCall::after{content:"";display:block;height:2px;background:#e6c987;width:var(--close-time,0%);margin-top:4px}
  #closeCall small{display:block;font-size:11px;color:#c7d9cd;margin-top:3px}
+ #closeCall[data-outcome=player-guard]{border-color:#a5e6ff;color:#c6f1ff}
+ #closeCall[data-outcome=enemy-hit]{border-color:#ffd289;color:#ffe3a5}
+ #closeCall[data-outcome=player-hit]{border-color:#ffb49d;color:#ffd4c6}
+ #closeCall[data-outcome=enemy-guard]{border-color:#b8ccd2;color:#dce7e9}
  .close-point{position:absolute;z-index:5;transform:translate(-50%,-50%);border:1px solid #b6c9be;background:#122727ed;color:#fff2d2;border-radius:6px;padding:3px 7px;font:600 18px/1.1 Georgia,serif;pointer-events:none;white-space:nowrap}
  .close-point small{font:9px sans-serif;margin-right:5px;color:#bacdc5}.close-point.correct{background:#226344;border-color:#c9f8d9}.close-point.wrong{background:#793d30}
  body.close-input [data-symbol]{border-color:#68857a;background:#17302e;color:#f3eddc;box-shadow:none}
@@ -21,7 +25,7 @@ const closeCallV027=document.createElement('div');closeCallV027.id='closeCall';c
 const closePointsV027=SOUNDS.map((s,i)=>{const e=document.createElement('div');e.className='close-point';e.hidden=true;e.innerHTML='<small>'+['頭','胸','腹','脚'][i]+'</small>/'+s.symbol+'/';$('#arena').appendChild(e);return e;});
 const inCloseV027=()=>feelEnabledV023&&duelV022.phase==='close';
 function closeCaptionV027(title,sub=''){closeCallV027.textContent=title;const small=document.createElement('small');small.textContent=sub;closeCallV027.appendChild(small);}
-function closeCleanupV027(){closeCallV027.hidden=true;closePointsV027.forEach(e=>e.hidden=true);$('#arena').classList.remove('close-exchange');document.body.classList.remove('close-input');all('[data-symbol]').forEach((b,i)=>{delete b.dataset.closePicked;b.setAttribute('aria-pressed',String(i===state.selected));});}
+function closeCleanupV027(){closeCallV027.hidden=true;delete closeCallV027.dataset.outcome;closePointsV027.forEach(e=>e.hidden=true);$('#arena').classList.remove('close-exchange');document.body.classList.remove('close-input');all('[data-symbol]').forEach((b,i)=>{delete b.dataset.closePicked;b.setAttribute('aria-pressed',String(i===state.selected));});}
 const resetCloseV027=resetDuelV022;
 resetDuelV022=function(keep=false){closeCleanupV027();Object.assign(closeV027,{stage:'idle',time:0,turn:0,score:0,cooldown:0,attempts:0,saved:null,points:[],picked:-1,hold:0,contactHeld:false,poseStart:0});return resetCloseV027(keep);};
 function beginCloseV027(){
@@ -33,6 +37,7 @@ function beginCloseV027(){
 }
 function askCloseV027(){
  const c=closeV027;c.stage='ask';c.time=0;c.picked=-1;c.correct=false;c.hold=0;c.contactHeld=false;c.target=Math.floor(Math.random()*4);
+ delete closeCallV027.dataset.outcome;
  const words=ACTIVE_DECK.sounds[c.target].words,other=words.filter(w=>w.text!==c.word),choices=other.length?other:words;c.word=choices[Math.floor(Math.random()*choices.length)].text;
  if(!duelV022.words.includes(c.word))duelV022.words.push(c.word);
  feelV023.recent=feelV023.recent.filter(w=>w!==c.word);feelV023.recent.push(c.word);feelV023.recent=feelV023.recent.slice(-8);
@@ -43,8 +48,8 @@ function answerCloseV027(index){
  const c=closeV027;if(!inCloseV027()||state.mode!=='playing'||c.stage!=='ask'||c.time<.25)return;
  c.picked=index;c.correct=index===c.target;c.score+=c.correct?1:0;c.stage='react';c.time=0;c.hold=0;c.contactHeld=false;c.poseStart=visualTime;
  const defending=c.turn%2===0;
- c.message=c.correct?(defending?'受けた！':'通った！'):(defending?'押された':'受け止められた');
- closeCaptionV027(c.message,c.word+' · /'+SOUNDS[c.target].symbol+'/');
+ c.message=c.correct?(defending?'GUARD · 防いだ':'HIT · 命中'):(defending?'TAKEN · 被弾':'GUARD · 相手が防いだ');
+ closeCaptionV027(defending?'受ける':'返す',c.word+' · /'+SOUNDS[c.target].symbol+'/');
  audio.note(c.correct?(defending?440:110):75,.14,.075,defending?'triangle':'sine',0,c.correct?180:42);
 }
 const selectCloseV027=select;
@@ -94,13 +99,15 @@ updateGame=function(dt){
   if(!c.contactHeld&&c.time+dt>=CLOSE_CONTACT_V027){
    const guard=(c.turn%2===0)===c.correct,span=motion?(guard?.38:.48):0,overflow=c.time+dt-CLOSE_CONTACT_V027;
    c.contactHeld=true;c.hold=Math.max(0,span-overflow);c.time=CLOSE_CONTACT_V027+Math.max(0,overflow-span);
+   closeCallV027.dataset.outcome=c.turn%2?(guard?'enemy-guard':'enemy-hit'):(guard?'player-guard':'player-hit');
+   closeCaptionV027(c.message,c.word+' · /'+SOUNDS[c.target].symbol+'/');
   }else{const stopped=Math.min(c.hold,dt);c.hold-=stopped;c.time+=dt-stopped;}
  }else c.time+=dt;
  duelV022.time+=dt;audio.update(dt,3,1);
  if(c.stage==='enter'&&c.time>=.85)askCloseV027();
  else if(c.stage==='ask'&&c.time>=3.2)answerCloseV027(-1);
  else if(c.stage==='react'&&c.time>=.8){
-  c.turn++;if(c.turn<4)askCloseV027();else{c.stage=c.score>=3?'win':'lose';c.time=0;audio.stopVoice();closeCaptionV027(c.score>=3?'崩した！':'押し戻された',c.score+' / 4');audio.note(c.score>=3?80:65,.28,.1,'sine',0,30);}
+  c.turn++;if(c.turn<4)askCloseV027();else{c.stage=c.score>=3?'win':'lose';c.time=0;delete closeCallV027.dataset.outcome;audio.stopVoice();closeCaptionV027(c.score>=3?'崩した！':'押し戻された',c.score+' / 4');audio.note(c.score>=3?80:65,.28,.1,'sine',0,30);}
  }else if((c.stage==='win'||c.stage==='lose')&&c.time>=.85)finishCloseV027(c.stage==='win');
 };
 const mixCloseV027=audio.applyMix.bind(audio);

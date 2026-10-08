@@ -1,0 +1,453 @@
+{
+  "version": "0.37.4-native-mix",
+  "commit": "14b47122c05742e9dbf5e09465390d2111c95728",
+  "checkedDateJST": "2026-10-07",
+  "startedAt": "2026-10-07T14:22:17.131Z",
+  "finishedAt": "2026-10-07T14:23:04.700Z",
+  "status": "passed",
+  "inputs": 8,
+  "turns": [
+    {
+      "turn": 1,
+      "word": "think",
+      "voice": {
+        "count": 15,
+        "minGain": 0.800382673740387,
+        "maxGain": 0.8233456015586853,
+        "minRms": 0.0038390476991659885,
+        "rms": 0.02435315981541763,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 96,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.01927487642716195,
+        "rms": 0.0314547325269526,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 2,
+      "word": "this",
+      "voice": {
+        "count": 9,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.01858299652936931,
+        "rms": 0.01987752573800664,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 83,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.019050057712839262,
+        "rms": 0.02727629163361565,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 3,
+      "word": "ship",
+      "voice": {
+        "count": 9,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.03246042114601669,
+        "rms": 0.03370408406938833,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 84,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.01633575729944719,
+        "rms": 0.02433004298542408,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 4,
+      "word": "vision",
+      "voice": {
+        "count": 11,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.017335431073326912,
+        "rms": 0.018128840421175033,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 83,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.01925570118259472,
+        "rms": 0.029079595023365403,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 5,
+      "word": "think",
+      "voice": {
+        "count": 10,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.028937865385640516,
+        "rms": 0.03139819889746045,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 82,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.014814288609818815,
+        "rms": 0.02155116186676947,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 6,
+      "word": "this",
+      "voice": {
+        "count": 9,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.018179352341946654,
+        "rms": 0.019899062490913437,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 85,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.020897927320306195,
+        "rms": 0.027507125635058423,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 7,
+      "word": "ship",
+      "voice": {
+        "count": 9,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.02266407988920082,
+        "rms": 0.024815930773620883,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 81,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.014477926032121608,
+        "rms": 0.019195693860628558,
+        "states": [
+          "running"
+        ]
+      }
+    },
+    {
+      "turn": 8,
+      "word": "vision",
+      "voice": {
+        "count": 11,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.021985544565341273,
+        "rms": 0.023902695936183396,
+        "states": [
+          "running"
+        ]
+      },
+      "between": {
+        "count": 83,
+        "minGain": 0.8002575039863586,
+        "maxGain": 0.8002575039863586,
+        "minRms": 0.018892306476930656,
+        "rms": 0.027332563964258764,
+        "states": [
+          "running"
+        ]
+      }
+    }
+  ],
+  "speechEvents": [
+    {
+      "type": "start",
+      "error": null,
+      "text": "Yoh, kaette kiharimashita na.",
+      "turn": 0,
+      "gain": 0.8535127639770508,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "error",
+      "error": "interrupted",
+      "text": "Yoh, kaette kiharimashita na.",
+      "turn": 0,
+      "gain": 0.8375054001808167,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+      "turn": 0,
+      "gain": 0.8375054001808167,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "error",
+      "error": "interrupted",
+      "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+      "turn": 0,
+      "gain": 0.8304803967475891,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "think",
+      "turn": 0,
+      "gain": 0.8304803967475891,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "think",
+      "turn": 0,
+      "gain": 0.8002758622169495,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "this",
+      "turn": 1,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "this",
+      "turn": 1,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "ship",
+      "turn": 2,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "ship",
+      "turn": 2,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "vision",
+      "turn": 3,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "vision",
+      "turn": 3,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "think",
+      "turn": 4,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "think",
+      "turn": 4,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "this",
+      "turn": 5,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "this",
+      "turn": 5,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "ship",
+      "turn": 6,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "ship",
+      "turn": 6,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "vision",
+      "turn": 7,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "vision",
+      "turn": 7,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "start",
+      "error": null,
+      "text": "Time!",
+      "turn": 8,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    },
+    {
+      "type": "end",
+      "error": null,
+      "text": "Time!",
+      "turn": 8,
+      "gain": 0.8002575039863586,
+      "musicTarget": 0.8,
+      "contextState": "running",
+      "voiceMode": "native",
+      "nativeMixType": "unsupported-or-unclaimed"
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Mac Chrome actual native speech and Web Audio graph, no physical iPad/iPhone output acceptance.",
+    "QA analyser observes the music bus before the OS speaker mixer; cannot detect OS output ducking.",
+    "Real frame clock and normal practice inputs; intro advances early by user gestures."
+  ]
+}

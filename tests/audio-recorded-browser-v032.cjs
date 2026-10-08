@@ -11,7 +11,7 @@ window.qaAudio={audio,state,campaign:campaignV030,sound:soundV030,clips:voiceCli
  sample(name){const a=this.analysers[name],values=new Float32Array(a.fftSize);a.getFloatTimeDomainData(values);let sum=0,peak=0;for(const n of values){if(!Number.isFinite(n))throw Error('nonfinite PCM');sum+=n*n;peak=Math.max(peak,Math.abs(n));}return {rms:Math.sqrt(sum/values.length),peak,reduction:audio.limiterV030.reduction};},
  speak(text){audio.speak({text},()=>this.events.push({text,event:'end'}));},
  activate(){audio.set(true);state.mode='playing';campaignV030.phase='match';soundPumpV030();this.attach();},
- phase(value){duelV022.phase=value;audio.applyMix();},
+ phase(value){duelV022.phase=value;ceremony=value==='air'?'choice':'match';audio.applyMix();},
 };
 const qButton=document.createElement('button');qButton.id='qaAudioGesture';qButton.textContent='QA gesture';qButton.style.cssText='position:fixed;top:0;left:0;z-index:9999';document.body.appendChild(qButton);qButton.onclick=()=>qaAudio.activate();
 select(0);refreshHud();updateScene(0);`);
@@ -35,17 +35,27 @@ async function run(){const browser=await chromium.launch({executablePath:process
   await page.locator('#dialogueNext').click();await wait(t=>kemari.getAudioDiagnostics().voiceStatus==='playing'&&kemari.getAudioDiagnostics().lastVoiceText===t,second);assert.equal(await page.evaluate(()=>qaAudio.campaign.dialogue),1);record('next interrupts first line and speaks second');
   await page.locator('#dialogueNext').click();await wait(()=>qaAudio.state.mode==='ready');await wait(()=>kemari.getAudioDiagnostics().voiceStatus==='playing');assert.equal(await page.evaluate(()=>kemari.getAudioDiagnostics().lastVoiceText),'think');record('practice replaces the dialogue with the first teaching word');
   await page.locator('#qaAudioGesture').click();await page.evaluate(()=>qaAudio.audio.stopVoice());await page.waitForTimeout(800);
-  const continuity=[];for(const phase of ['front','charge','rush']){
+  const continuity=[];for(const phase of ['air','rush']){
    await page.evaluate(p=>{qaAudio.phase(p);qaAudio.pump();window.__shoBefore=qaAudio.sound.sho.map(e=>e.source);},phase);await page.waitForTimeout(1200);const before=await collect(page,'music',8);
    await page.evaluate(t=>qaAudio.speak(t),second);await wait(()=>kemari.getAudioDiagnostics().voiceStatus==='playing');
    const [during,voice,output]=await Promise.all([collect(page,'music',12),collect(page,'voice',12),collect(page,'output',12)]);
    assert(during.rms>1e-5);assert(during.rms/before.rms>.85&&during.rms/before.rms<1.15,'voice does not duck score');assert(voice.peak>1e-4);assert(output.peak<1);assert(output.maxReduction>-.5,'voice does not compress the score');
    assert(await page.evaluate(()=>__shoBefore.every((s,i)=>qaAudio.sound.sho[i].source===s)));continuity.push({phase,before,during,voice,output,ratio:during.rms/before.rms});await page.evaluate(()=>qaAudio.audio.stopVoice());
-  }record('music and voice produce concurrent PCM without ducking, restarting or compressor pumping',{continuity});
+  }record('non-match and preserved Rush music produce concurrent PCM without ducking, restarting or compressor pumping',{continuity});
+  // The short match beat needs a running scheduler, unlike sustained shō.
+  await page.evaluate(()=>{qaAudio.audio.stopVoice();qaAudio.phase('front');qaAudio.pump();window.__qaPump=setInterval(()=>qaAudio.pump(),50);});
+  await page.waitForTimeout(650);assert.equal(await page.evaluate(()=>kemari.getAudioDiagnostics().shoVoices),0);
+  const drum=await collect(page,'music',40);assert(drum.peak>1e-4);const beforeBeat=await page.evaluate(()=>kemari.getAudioDiagnostics());
+  await page.evaluate(t=>qaAudio.speak(t),second);await wait(()=>kemari.getAudioDiagnostics().voiceStatus==='playing');
+  const matchMix=await collect(page,'output',35),afterBeat=await page.evaluate(()=>kemari.getAudioDiagnostics());assert(afterBeat.counters.tsuzumi>beforeBeat.counters.tsuzumi);assert.equal(afterBeat.musicTarget,beforeBeat.musicTarget);assert(matchMix.peak<1);assert(matchMix.maxReduction>-.5);
+  await page.evaluate(()=>qaAudio.audio.stopVoice());const pitches=[];for(let i=0;i<8;i++){await page.evaluate(()=>qaAudio.audio.hit(true,1,false));pitches.push(await page.evaluate(()=>kemari.getAudioDiagnostics().strikePitch));await page.waitForTimeout(130);}assert(pitches.at(-1)>pitches[0]);assert(pitches.every((f,i)=>!i||f>=pitches[i-1]));
+  const strings=await collect(page,'music',8);await page.evaluate(()=>qaAudio.audio.hit(false,0,false));const flute=await collect(page,'music',6);
+  record('regular match uses a short tsuzumi beat and rising kick replies, while words retain the same mix',{drum,matchMix,pitches,strings,flute,diagnostics:afterBeat});
+  await page.evaluate(()=>{clearInterval(__qaPump);qaAudio.phase('rush');qaAudio.pump();});
   // Asset coverage/decode check includes every current word, title and call.
   const decoded=await page.evaluate(async()=>{const result=[];for(const [text,clip] of Object.entries(qaAudio.clips)){const bytes=await fetch(clip.file).then(r=>r.arrayBuffer()),b=await qaAudio.audio.ctx.decodeAudioData(bytes);let peak=0;for(const n of b.getChannelData(0))peak=Math.max(peak,Math.abs(n));result.push({text,duration:b.duration,peak,voice:clip.voice});}return result;});
   assert(decoded.length>=88);assert(decoded.every(c=>c.duration>.1&&c.peak>1e-3));record('all manifested voice assets decode to nonempty PCM',{decoded});
-  await page.evaluate(()=>{qaAudio.speak('think');qaAudio.speak('ship');qaAudio.speak('vision')});await wait(()=>kemari.getAudioDiagnostics().voiceStatus==='playing');assert.equal(await page.evaluate(()=>qaAudio.sound.active.size-qaAudio.sound.sho.length),1);assert.equal(await page.evaluate(()=>kemari.getAudioDiagnostics().lastVoiceText),'vision');record('rush keeps one latest voice without a queue');
+  await page.evaluate(()=>{qaAudio.speak('think');qaAudio.speak('ship');qaAudio.speak('vision')});await wait(()=>kemari.getAudioDiagnostics().voiceStatus==='playing');assert.equal(await page.evaluate(()=>[...qaAudio.sound.active].filter(e=>e.kind==='voice').length),1);assert.equal(await page.evaluate(()=>kemari.getAudioDiagnostics().lastVoiceText),'vision');record('rush keeps one latest voice without a queue');
   await page.locator('#sound').click();assert.equal(await page.evaluate(()=>qaAudio.sound.active.size),0);await page.waitForTimeout(250);assert((await collect(page,'output',4)).peak<1e-6);record('mute stops all recorded voices and music');
   await page.locator('#sound').click();await page.evaluate(()=>qaAudio.pump());await page.evaluate(()=>qaAudio.audio.ctx.suspend());await wait(()=>kemari.getAudioDiagnostics().needsGesture);
   await page.locator('#audioResumeV030').click();await wait(()=>qaAudio.audio.ctx.state==='running');await page.evaluate(()=>qaAudio.pump());assert.equal(await page.evaluate(()=>kemari.getAudioDiagnostics().contexts),1);await page.waitForTimeout(700);assert((await collect(page,'music',4)).peak>1e-5);record('native context suspend and gesture resume restore the existing music engine');

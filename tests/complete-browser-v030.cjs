@@ -64,7 +64,8 @@ window.qa={state,player,cpu,ball,renderer,root,CONFIG,launchShot,sampleBall,rese
  get ceremony(){return ceremony},get campaign(){return typeof campaignV030==='undefined'?null:campaignV030},
  draw(){updateScene(0);updateScene(0)},
  tick(seconds){const saved=renderer.render;renderer.render=()=>{};try{for(let t=0;t<seconds-1e-7;t+=1/60){const dt=Math.min(1/60,seconds-t);if(state.mode!=='paused')visualTime+=dt;updateGame(dt);updateScene(dt)}}finally{renderer.render=saved}this.draw()},
- begin(){state.mode='over';start();beginMatch();state.mode='playing';this.draw()},
+ enterPractice(){start();if(typeof campaignV030!=='undefined'&&campaignV030.phase==='gather')this.tick(4.4);for(let i=0;i<4&&typeof campaignV030!=='undefined'&&campaignV030.phase==='dialogue';i++)document.querySelector('#dialogueNext').click();this.draw()},
+ begin(){state.mode='over';this.enterPractice();beginMatch();state.mode='playing';this.draw()},
  input(ok=true){const slot=(state.target+(ok?0:1))%4;document.querySelector('[data-symbol="'+slot+'"]').click();document.querySelector('#kick').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}))},
  answer(ok=true){document.querySelector('[data-symbol="'+((closeV027.target+(ok?0:1))%4)+'"]').click()},
  driveUntil(target,maxSeconds=300){const phases=[],seen=new Set();let elapsed=0;for(;elapsed<maxSeconds;elapsed+=1/60){const phase=duelV022.phase;if(!seen.has(phase)){seen.add(phase);phases.push(phase)}if(target===phase||target===state.mode)return {elapsed,phases};if(state.mode==='over')break;if(state.mode==='playing'){if(phase==='close'){if(closeV027.stage==='ask'&&closeV027.time>=.3)this.answer(true)}else if(phase==='rush'){if(Math.round(elapsed*60)%6===0)document.querySelector('#kick').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}))}else if(['front','back'].includes(phase)&&state.direction===-1&&state.flight>=state.duration-.01)this.input(true)}this.tick(1/60)}throw Error('Did not reach '+target+': '+JSON.stringify({mode:state.mode,phase:duelV022.phase,hp:state.hp,cpu:state.cpuHp,ceremony,elapsed}))},
@@ -203,6 +204,10 @@ function vmFixture(original,{url=ORIGIN+'/?stage=jingu',width=1024,height=768,st
   w.FEGRecordingRendererTest=true;
   let now=1000,nextTimer=0;const timers=new Map();
   w.requestAnimationFrame=()=>0;w.cancelAnimationFrame=()=>{};
+  // JSDOM has no native dialog top layer. This shim only covers VM navigation;
+  // real modal focus, dismissal and responsive sizing are checked in Chrome.
+  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;this.querySelector('[autofocus]')?.focus()};
+  w.HTMLDialogElement.prototype.close=function(){if(!this.open)return;this.open=false;this.dispatchEvent(new w.Event('close'))};
   w.setTimeout=(fn,ms=0)=>{timers.set(++nextTimer,{fn,at:now+ms});return nextTimer};w.clearTimeout=id=>timers.delete(id);
   w.matchMedia=()=>({matches:false,addListener(){},removeListener(){},addEventListener(){},removeEventListener(){}});
   w.SpeechSynthesisUtterance=class{constructor(text){this.text=text}};w.PointerEvent=w.MouseEvent;
@@ -300,6 +305,17 @@ function vmPracticeAndBow(f,{repeatBow=false}={}) {
   assert(f.w.__spoken.some(u=>u.text.toLowerCase().includes('hajime')),'HAJIME spoken');
   return {practice:initial,ceremony};
 }
+function vmReadOpponentDialogue(f){
+  assert.equal(f.snapshot().campaign.phase,'dialogue','stage arrival presents opponent dialogue');
+  const data={window:{}};require('node:vm').runInNewContext(fs.readFileSync(path.join(ROOT,'content/stages.js'),'utf8'),data);
+  const lines=data.window.FEGContent.stages.find(s=>s.id===f.w.kemari.getStage().id).dialogue;
+  if(f.w.qa.campaign.dialogueNeedsGesture){f.click('#dialogueNext');assert.equal(f.w.qa.campaign.dialogue,0,'first gesture retains line one');}
+  for(const [index,line] of lines.entries()){
+    assert.equal(f.w.qa.campaign.dialogue,index);assert.equal(f.w.document.querySelector('.en').textContent,line.en);assert.equal(f.w.document.querySelector('.ja').textContent,line.ja);
+    assert.equal(f.w.__spoken.at(-1).text,line.spoken,'romanized Japanese uses the shared call voice');f.click('#dialogueNext');
+  }
+  assert.equal(f.snapshot().campaign.phase,'match');record('two opponent lines → PRACTICE '+f.w.kemari.getStage().id);
+}
 async function runVmCampaign() {
   const original=assemble(),storage=new Map(),session=new Map();let f;
   const open=(url,extra={})=>{if(f)f.close();f=vmFixture(original,{url:ORIGIN+url,storage,session,...extra});return f};
@@ -318,7 +334,7 @@ async function runVmCampaign() {
   const order=['million','chion','jingu','shinkyogoku','gendo','sanjo'];
   for(const [index,stage] of order.entries()){
     f.click('[data-stage="'+stage+'"]');assert.equal(campaign().selected,stage);f.click('#gardenGo');assert.equal(new URL(f.w.__qaNavigate).searchParams.get('stage'),stage,'actual navigation URL');
-    open('/?stage='+stage);assert.equal(campaign().phase,'stage-card');f.click('#start');f.flush(1000);vmPracticeAndBow(f);
+    open('/?stage='+stage);assert.equal(campaign().phase,'stage-card');f.click('#start');vmReadOpponentDialogue(f);f.flush(1000);vmPracticeAndBow(f);
     saveSoftwareScene(f,'complete-software-'+stage+'-front');
     const back=vmDrive(f,()=>f.w.qa.duel.phase==='back');saveSoftwareScene(f,'complete-software-'+stage+'-back');
     const win=vmDrive(f,()=>campaign().phase==='inheritance');assert.equal(campaign().orbs,index+2);assert.equal(campaign().save.acquired.length,index+1);assert.equal(new Set(campaign().save.acquired).size,index+1);assert.equal(campaign().save.wins[f.w.kemari.getStage().opponent],1);
@@ -328,12 +344,12 @@ async function runVmCampaign() {
   assert.equal(campaign().gionUnlocked,true);assert(f.w.document.querySelector('#gardenFinal'));assert.equal(campaign().orbs,7);
   const persisted=[...campaign().save.acquired];open('/?view=garden');assert.deepEqual([...campaign().save.acquired],persisted);assert.equal(campaign().orbs,7);record('all six orbs persist after page reload');
   // Replay an acquired opponent. Replay raises the win count but never duplicates an orb.
-  open('/?stage=chion');f.click('#start');f.flush(1000);vmPracticeAndBow(f);vmDrive(f,()=>campaign().phase==='inheritance');assert.equal(campaign().orbs,7);assert.equal(campaign().save.wins.sumi,2);f.click('#cinemaSkip');record('replayed opponent cannot duplicate orb');
-  f.click('#gardenFinal');assert.equal(new URL(f.w.__qaNavigate).searchParams.get('stage'),'gion');open('/?stage=gion');f.click('#start');assert.equal(campaign().phase,'gather');saveSoftwareScene(f,'complete-software-gion-gather');vmAdvance(f,3);assert.equal(campaign().godmode,true);vmAdvance(f,1.4);assert.equal(campaign().phase,'match');assert.equal(campaign().godmode,true);f.flush(1000);vmPracticeAndBow(f);
+  open('/?stage=chion');f.click('#start');vmReadOpponentDialogue(f);f.flush(1000);vmPracticeAndBow(f);vmDrive(f,()=>campaign().phase==='inheritance');assert.equal(campaign().orbs,7);assert.equal(campaign().save.wins.sumi,2);f.click('#cinemaSkip');record('replayed opponent cannot duplicate orb');
+  f.click('#gardenFinal');f.click('#gardenGo');assert.equal(new URL(f.w.__qaNavigate).searchParams.get('stage'),'gion');open('/?stage=gion');f.click('#start');assert.equal(campaign().phase,'gather');saveSoftwareScene(f,'complete-software-gion-gather');vmAdvance(f,3);assert.equal(campaign().godmode,true);vmAdvance(f,1.4);assert.equal(campaign().phase,'dialogue');vmReadOpponentDialogue(f);assert.equal(campaign().phase,'match');assert.equal(campaign().godmode,true);f.flush(1000);vmPracticeAndBow(f);
   assert.equal(f.w.kemari.getStage().opponent,'shadow');saveSoftwareScene(f,'complete-software-gion-front');vmDrive(f,()=>f.w.qa.duel.phase==='back');saveSoftwareScene(f,'complete-software-gion-back');
   vmDrive(f,()=>campaign().phase==='scatter');assert.equal(campaign().save.completed,true);vmAdvance(f,.8);assert(f.w.__spoken.some(u=>u.text==='ひゃーん'));saveSoftwareScene(f,'complete-software-gion-scatter');vmAdvance(f,2.1);assert.equal(campaign().phase,'ending');assert.equal(f.w.document.querySelector('.campaign-end h2').textContent,'THE END');f.click('#endingGarden');assert.equal(campaign().phase,'garden');assert.equal(campaign().orbs,7);record('GION gather → godmode → shadow → scatter/ひゃーん → abrupt ending → replay');
   // Loss, retry, effects-off, and garden navigation must not award anything early.
-  open('/?stage=jingu');f.click('#start');f.flush(1000);vmPracticeAndBow(f);const beforeLoss=JSON.stringify(campaign().save);vmDrive(f,()=>f.w.qa.state.mode==='over',{wrong:true});assert.equal(f.w.document.querySelector('#resultTitle').textContent,'敗北');assert.equal(JSON.stringify(campaign().save),beforeLoss);f.click('#restart');f.flush(1000);assert.equal(campaign().phase,'match');assert.equal(f.w.qa.state.hp,100);assert.equal(f.w.qa.state.cpuHp,100);f.click('#motion');assert.equal(f.w.document.body.classList.contains('reduced-motion'),true);vmPracticeAndBow(f);vmDrive(f,()=>campaign().phase==='inheritance');f.click('#cinemaSkip');assert.equal(campaign().phase,'garden');record('loss does not award; retry resets; effects OFF completes');
+  open('/?stage=jingu');f.click('#start');vmReadOpponentDialogue(f);f.flush(1000);vmPracticeAndBow(f);const beforeLoss=JSON.stringify(campaign().save);vmDrive(f,()=>f.w.qa.state.mode==='over',{wrong:true});assert.equal(f.w.document.querySelector('#resultTitle').textContent,'敗北');assert.equal(JSON.stringify(campaign().save),beforeLoss);f.click('#restart');f.flush(1000);assert.equal(campaign().phase,'match');assert.equal(f.w.qa.state.hp,100);assert.equal(f.w.qa.state.cpuHp,100);f.click('#motion');assert.equal(f.w.document.body.classList.contains('reduced-motion'),true);vmPracticeAndBow(f);vmDrive(f,()=>campaign().phase==='inheritance');f.click('#cinemaSkip');assert.equal(campaign().phase,'garden');record('loss does not award; retry resets; effects OFF completes');
   const stale=new Map([['feg.campaign.v1',JSON.stringify({version:0,acquired:['saku','bad'],introComplete:true,completed:true})]]);let bad=vmFixture(original,{storage:stale,url:ORIGIN+'/'});assert.equal(bad.w.kemari.getCampaign().orbs,1);assert.equal(bad.w.kemari.getCampaign().save.introComplete,false);bad.close();
   bad=vmFixture(original,{storage:new Map([['feg.campaign.v1','{broken']]),url:ORIGIN+'/'});assert.equal(bad.w.kemari.getCampaign().orbs,1);bad.close();
   bad=vmFixture(original,{storage:new Map([['feg.campaign.v1',JSON.stringify({version:1,acquired:['saku','saku','bad'],wins:{saku:Infinity,bad:999},completed:true,introComplete:true})]]),url:ORIGIN+'/?view=garden'});assert.equal(bad.w.kemari.getCampaign().orbs,2);assert.equal(bad.w.kemari.getCampaign().save.completed,false);bad.close();
@@ -374,7 +390,7 @@ async function browserGardenLayouts(page,label='garden') {
     await screenshot(page,'complete-'+label+'-'+width+'x'+height);
     const data=await page.evaluate(()=>{
       const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
-      const panels=['.campaign-top small','.campaign-top h2','#stationAgain','.campaign-orbs','.campaign-detail'].map(selector=>({selector,...rect(document.querySelector(selector))}));
+      const panels=['.campaign-top small','.campaign-top h2','#stationAgain','.campaign-orbs','.garden-hint'].map(selector=>({selector,...rect(document.querySelector(selector))}));
       const labelRect=e=>{
         if(!e.dataset.label)return null;
         const css=getComputedStyle(e,'::after'),probe=document.createElement('span');
@@ -415,7 +431,7 @@ async function browserGardenLayouts(page,label='garden') {
 async function runCompleteCampaign(browser) {
   const production=await productionLoader(browser);
   await production.page.waitForFunction(()=>!!window.kemari);
-  assert.equal(await production.page.evaluate(()=>kemari.version),'0.37.2-rush-tap-guard');
+  assert((await production.page.evaluate(()=>kemari.version)).startsWith(require('../package.json').version+'-'),'production runtime matches the package version');
   await production.page.locator('#start').click();await production.page.waitForFunction(()=>kemari.getCampaign().phase==='dialogue');
   await production.page.locator('#dialogueNext').click();await production.page.locator('#dialogueNext').click();
   await production.page.waitForFunction(()=>kemari.getState().mode==='ready'||kemari.getState().mode==='playing');
@@ -426,7 +442,12 @@ async function runCompleteCampaign(browser) {
   await routeFiles(page,sourceSeam(assemble()));
   const go=async query=>{await page.goto(ORIGIN+'/__fixture.html'+query);await page.waitForFunction(()=>!!window.qa,null,{polling:50})};
   const c=()=>page.evaluate(()=>kemari.getCampaign());
-  const begin=async()=>{await page.locator('#start').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50})};
+  const readDialogue=async()=>{
+    assert.equal((await c()).phase,'dialogue');
+    for(let i=0;i<4&&(await c()).phase==='dialogue';i++)await page.locator('#dialogueNext').click();
+    assert.equal((await c()).phase,'match');
+  };
+  const begin=async()=>{await page.locator('#start').click();await readDialogue();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50})};
   await go('');await assertRendered(page,'complete title');
   await page.locator('#start').dblclick();await page.waitForFunction(()=>qa.campaign.phase==='dialogue',null,{polling:50});
   assert.equal(await page.evaluate(()=>__spoken.filter(u=>u.text==='FIFTEENTH EVER GARDEN').length),1);
@@ -447,12 +468,12 @@ async function runCompleteCampaign(browser) {
     await browserDrive(page,'campaign','inheritance');assert.equal((await c()).orbs,i+2);await page.locator('#cinemaSkip').click();assert.equal((await c()).phase,'garden');record('browser free-order win '+stage);
   }
   await page.reload();await page.waitForFunction(()=>!!window.qa,null,{polling:50});assert.equal((await c()).orbs,7);assert.equal((await c()).gionUnlocked,true);await browserGardenLayouts(page,'garden-unlocked');
-  await page.locator('#gardenFinal').click();await page.waitForURL('**stage=gion');await page.waitForFunction(()=>!!window.qa,null,{polling:50});
+  await page.locator('#gardenFinal').click();await page.locator('#gardenGo').click();await page.waitForURL('**stage=gion');await page.waitForFunction(()=>!!window.qa,null,{polling:50});
   await page.evaluate(()=>qa.draw());assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'shadow remains hidden on GION stage card');
   await page.locator('#start').click();await page.evaluate(()=>qa.draw());assert.equal((await c()).phase,'gather');assert.equal((await c()).godmode,false);assert.equal(await page.evaluate(()=>__qaFrame.sevenOrbs),7,'exactly seven visible gathering orbs');assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'seven gather before shadow reveal');await screenshot(page,'complete-gion-gather-start');
   await page.evaluate(()=>qa.tick(3));assert.equal((await c()).godmode,true);assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),false,'godmode transformation precedes shadow');await screenshot(page,'complete-gion-gather');
   await page.evaluate(()=>qa.tick(.5));assert.equal(await page.evaluate(()=>__qaFrame.cpuVisible),true,'shadow appears after transformation');await screenshot(page,'complete-gion-shadow-reveal');
-  await page.evaluate(()=>qa.tick(.9));await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});await browserPractice(page);record('seven orbs → godmode → shadow rendered in order');
+  await page.evaluate(()=>qa.tick(.9));await readDialogue();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});await browserPractice(page);record('seven orbs → godmode → shadow → dialogue rendered in order');
   assert.equal(await page.evaluate(()=>kemari.getStage().opponent),'shadow');await browserLayouts(page,'gion','front');await browserDrive(page,'duel','back');await browserLayouts(page,'gion','back');await browserDrive(page,'campaign','scatter');await page.evaluate(()=>qa.tick(.8));assert(await page.evaluate(()=>__spoken.some(u=>u.text==='ひゃーん')));await screenshot(page,'complete-gion-scatter');await page.evaluate(()=>qa.tick(2.1));assert.equal((await c()).phase,'ending');await screenshot(page,'complete-ending');await page.locator('#endingGarden').click();assert.equal((await c()).phase,'garden');record('browser GION, godmode, shadow, seven scatter, end and replay');
   await go('?stage=jingu');await begin();await browserPractice(page);const saveBefore=(await c()).save;await browserDrive(page,'mode','over',{wrong:true});assert.equal(await page.locator('#resultTitle').innerText(),'敗北');assert.deepEqual((await c()).save,saveBefore);await page.locator('#restart').click();await page.waitForFunction(()=>qa.state.mode==='ready'||qa.state.mode==='playing',null,{polling:50});assert.equal(await page.evaluate(()=>qa.state.hp),100);await page.locator('#motion').click();await browserPractice(page);await browserDrive(page,'campaign','inheritance');assert.equal((await c()).orbs,7);record('browser loss/retry/effects-off and no duplicate award');
   await context.close();

@@ -96,6 +96,8 @@ function noAnswerReveal(f,label){
    assert.equal(q.close.score,0,label+' early input cannot score');
    p.step(.001);q.answer(correct);p.draw();
    assert.equal(q.close.stage,'react',label+' input at .25 accepted');
+   const caption=f.w.document.querySelector('#closeCall');
+   assert.equal(caption.dataset.outcome,undefined,label+' outcome caption waits for contact');
    assert.equal(q.close.score,correct?1:0,label+' answer scored once');
    const committed=copy(p.close());
    for(let n=0;n<5;n++)q.select((q.close.target+n)%4);
@@ -108,6 +110,9 @@ function noAnswerReveal(f,label){
    assert.equal(p.events.effects.length,0,label+' no effect before contact');
    p.step(.001);
    near(q.close.time,.24,label+' contact time');near(q.close.hold,expectedHold,label+' complete hold starts at contact');
+   assert.equal(caption.dataset.outcome,turn?(guard?'enemy-guard':'enemy-hit'):(guard?'player-guard':'player-hit'),label+' distinguishes the receiver and result');
+   const expectedCaption=turn?(guard?'GUARD · 相手が防いだ':'HIT · 命中'):(guard?'GUARD · 防いだ':'TAKEN · 被弾');
+   assert(caption.textContent.startsWith(expectedCaption),label+' readable contact caption');
    assert.equal(q.close.contactHeld,true,label+' contact latch set');
    assert.equal(p.events.sounds.length,1,label+' contact sound once');near(p.events.sounds[0].time,.24,label+' sound at contact');
    assert.equal(p.events.sounds[0].args[0],guard?520:88,label+' primary cue matches hit or guard');

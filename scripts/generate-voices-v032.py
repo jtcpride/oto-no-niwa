@@ -76,6 +76,29 @@ def entries():
     return rows, result
 
 
+def dialogue_entries():
+    code = ('global.window={}; require("./content/stages.js"); '
+            'console.log(JSON.stringify(window.FEGContent.stages));')
+    stages = json.loads(subprocess.check_output(["node", "-e", code], cwd=ROOT, text=True))
+    result = []
+    for stage in stages:
+        assert len(stage["dialogue"]) == 2, f"Expected two lines for {stage['id']}"
+        for index, line in enumerate(stage["dialogue"]):
+            assert all(isinstance(line.get(key), str) and line[key].strip()
+                       for key in ("en", "ja", "spoken")), (stage["id"], line)
+            result.append(dict(text=line["spoken"], spoken=line["spoken"],
+                               voice="am_fenrir", speed=.8, kind="call",
+                               stageId=stage["id"], lineIndex=index))
+    assert len(result) == 14 and len({item["text"] for item in result}) == 14
+    return result
+
+
+def current_manifest():
+    code = ('global.window={};require("./content/voice-clips.js");'
+            'console.log(JSON.stringify(window.FEGVoiceClips));')
+    return json.loads(subprocess.check_output(["node", "-e", code], cwd=ROOT, text=True))
+
+
 def finish_pcm(samples, head_guard=.035):
     samples = np.asarray(samples, dtype=np.float32)
     assert np.isfinite(samples).all(), "Nonfinite synthesized PCM"
@@ -139,8 +162,11 @@ def main():
     parser.add_argument("--build-dir", type=Path, default=ROOT.parent/"work/voice-build")
     parser.add_argument("--ffmpeg", default="ffmpeg")
     parser.add_argument("--preview", action="store_true", help="Combined listening MP3 in build-dir")
-    parser.add_argument("--neutral-v033", action="store_true",
-                        help="Generate v0.33 neutral words and title; retain the v0.32 calls and ending")
+    edition_flags = parser.add_mutually_exclusive_group()
+    edition_flags.add_argument("--neutral-v033", action="store_true",
+                               help="Generate v0.33 neutral words and title; retain the v0.32 calls and ending")
+    edition_flags.add_argument("--dialogue-v0375", action="store_true",
+                               help="Add missing stage dialogue clips; retain all existing word, title, call and ending bytes")
     args = parser.parse_args()
     args.build_dir = args.build_dir.resolve()
     for name, expected in [(MODEL, MODEL_SHA), (VOICES, VOICES_SHA)]:
@@ -156,13 +182,36 @@ def main():
     engine = Kokoro.from_session(session, str(args.build_dir/VOICES))
     rows, items = entries()
     edition = "voice-v033" if args.neutral_v033 else "voice-v032"
-    retained = {}
+    retained, reused, previous_details = {}, {}, {}
+    if args.dialogue_v0375:
+        edition = "voice-v0375"
+        items = dialogue_entries()
+        current = current_manifest()
+        for clip in current.values():
+            assert sha(ROOT/clip["file"]) == clip["sha256"], "Changed existing voice clip"
+            assert (ROOT/clip["file"]).stat().st_size == clip["bytes"], "Changed existing voice size"
+        retained = {text: clip for text, clip in current.items()
+                    if not clip["file"].startswith(f"audio/{edition}/")}
+        assert len(retained) == 88, "Expected the existing 88 word/title/call/ending clips"
+        assert not set(retained).intersection(item["text"] for item in items), "Dialogue collides with existing text"
+        previous_report = ROOT/"audio"/edition/"generation-report.json"
+        if previous_report.exists():
+            raw_report = ROOT.parent/"work/match-polish-v0375-voices/generation-report-full.json"
+            if raw_report.exists():
+                previous_report = raw_report
+            previous_details = {item["text"]: item for item in json.loads(previous_report.read_text())["details"]}
+        for item in items:
+            clip, detail = current.get(item["text"]), previous_details.get(item["text"])
+            if (clip and detail and clip["file"].startswith(f"audio/{edition}/")
+                    and clip["kind"] == "call" and clip["voice"] == "Kokoro-82M-v1.0/am_fenrir"
+                    and detail["voice"] == item["voice"] and detail["speed"] == item["speed"]
+                    and detail["spoken"] == item["spoken"] and detail["headGuardSeconds"] == .035):
+                reused[item["text"]] = clip
     if args.neutral_v033:
-        current = json.loads(subprocess.check_output(["node", "-e",
-            'global.window={};require("./content/voice-clips.js");console.log(JSON.stringify(window.FEGVoiceClips));'],
-            cwd=ROOT, text=True))
+        current = current_manifest()
         retained = {text: clip for text, clip in current.items() if clip["kind"] in ("call", "ending")}
-        assert len(retained) == 6, "Expected the existing five calls and ending"
+        assert sum(not clip["file"].startswith("audio/voice-v0375/") for clip in retained.values()) == 6, \
+            "Expected the existing five calls and ending"
         for clip in retained.values():
             assert sha(ROOT/clip["file"]) == clip["sha256"], "Changed retained nonword clip"
         items = [dict(item, voice="af_kore", speed=1.0 if item["kind"] == "word" else .95)
@@ -174,6 +223,15 @@ def main():
     with tempfile.TemporaryDirectory(prefix="feg-voices-", dir=args.build_dir) as scratch:
         scratch = Path(scratch)
         for i, item in enumerate(items):
+            if item["text"] in reused:
+                manifest[item["text"]] = reused[item["text"]]
+                decoded, quality = inspect_audio(args.ffmpeg, ROOT/reused[item["text"]]["file"])
+                audit.append(dict(previous_details[item["text"]], **item, **quality))
+                cue_sheet.append(f"{elapsed:07.2f}\t{item['kind']}\t{item['text']}")
+                combined.extend([decoded, np.zeros(int(.40*RATE), dtype=np.float32)])
+                elapsed += len(decoded)/RATE+.4
+                print(f"{i+1:02d}/{len(items)} retained {item['text']}: {quality['decodedSeconds']:.3f}s", flush=True)
+                continue
             auto_phonemes = engine.tokenizer.phonemize(item["spoken"], "en-us")
             phonemes = item.get("phonemes", WORD_PHONEMES.get(item["text"], auto_phonemes))
             if item["kind"] == "word":
@@ -203,21 +261,28 @@ def main():
             combined.extend([decoded, np.zeros(int(.40*RATE), dtype=np.float32)])
             elapsed += len(decoded)/RATE+.4
             print(f"{i+1:02d}/{len(items)} {item['text']}: {quality['decodedSeconds']:.3f}s", flush=True)
+        if args.dialogue_v0375:
+            assert all(item["leadingSilenceSeconds"] < .05 and item["trailingSilenceSeconds"] < .10
+                       for item in audit), "Excess dialogue boundary silence"
         if args.preview:
             preview = args.build_dir/f"{edition}-listening.wav"
             write_wav(preview, np.concatenate(combined))
             encode(args.ffmpeg, preview, args.build_dir/f"{edition}-listening.mp3")
             preview.unlink()
             (args.build_dir/f"{edition}-listening-cues.tsv").write_text("\n".join(cue_sheet)+"\n")
-        # Publish only after every clip passes; remove stale generated clips.
+        # Publish only after every clip passes; retain reused dialogue bytes.
+        kept_files = {Path(clip["file"]).name for clip in manifest.values()}
         for clip in output.glob("[0-9][0-9][0-9]-*.mp3"):
-            clip.unlink()
+            if not args.dialogue_v0375 or clip.name not in kept_files:
+                clip.unlink()
         for clip in scratch.glob("[0-9][0-9][0-9]-*.mp3"):
             (output/clip.name).write_bytes(clip.read_bytes())
-    manifest.update(retained)
+    manifest = dict(retained, **manifest) if args.dialogue_v0375 else dict(manifest, **retained)
     (ROOT/"content/voice-clips.js").write_text(
-        f"// Generated by scripts/generate-voices-v032.py{' --neutral-v033' if args.neutral_v033 else ''}. See audio/{edition}/README.md.\n"
-        "window.FEGVoiceClips="+json.dumps(manifest, ensure_ascii=False, indent=2)+";\n")
+        ("// Existing v0.33 clips retained; extended by scripts/generate-voices-v032.py --dialogue-v0375. See audio/voice-v0375/README.md.\n"
+         if args.dialogue_v0375 else
+         f"// Generated by scripts/generate-voices-v032.py{' --neutral-v033' if args.neutral_v033 else ''}. See audio/{edition}/README.md.\n")
+        + "window.FEGVoiceClips="+json.dumps(manifest, ensure_ascii=False, indent=2)+";\n")
     comparison = ROOT/"docs/evidence/voice-v033/comparison-data.js"
     if args.neutral_v033 and comparison.exists():
         # Keep the original A/B assets pinned while refreshing the new side.
@@ -234,11 +299,27 @@ def main():
         platform=platform.platform(), packages=packages,
         model=dict(file=MODEL, sha256=MODEL_SHA), voices=dict(file=VOICES, sha256=VOICES_SHA),
         sourceDeckSha256=sha(ROOT/"content/decks.js"), deckRows=len(rows), uniqueWords=sum(i["kind"] == "word" for i in items),
-        clips=len(manifest), generatedClips=len(items), retainedClips=retained,
+        clips=len(manifest), generatedClips=len(items)-len(reused), retainedClips=retained,
         totalBytes=sum(v["bytes"] for v in manifest.values()),
         sampleRate=RATE, channels=1, codec="MP3 libmp3lame 64 kbit/s", details=audit)
+    if args.dialogue_v0375:
+        diagnostics = ROOT.parent/"work/match-polish-v0375-voices"
+        diagnostics.mkdir(parents=True, exist_ok=True)
+        report.update(mode="dialogue-v0375", sourceStageSha256=sha(ROOT/"content/stages.js"),
+                      dialogueClips=len(items), reusedDialogueClips=len(reused),
+                      preservedExistingClips=len(retained))
+        (diagnostics/"generation-report-full.json").write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n")
+        # Keep the distributed report compact; raw timing/environment diagnostics stay outside the repository.
+        report = {key: value for key, value in report.items()
+                  if key not in ("retainedClips", "packages", "sourceDeckSha256", "deckRows", "uniqueWords")}
+        report["packages"] = {key: importlib.metadata.version(key)
+                              for key in ("kokoro-onnx", "numpy", "onnxruntime", "phonemizer", "espeakng-loader")}
+        report["details"] = [{key: value for key, value in item.items() if key != "modelPhonemeTimings"}
+                             for item in audit]
     (output/"generation-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n")
-    print(json.dumps({k:report[k] for k in ("deckRows","uniqueWords","clips","totalBytes")}), flush=True)
+    summary_keys = ("clips", "generatedClips", "totalBytes") if args.dialogue_v0375 else \
+                   ("deckRows", "uniqueWords", "clips", "totalBytes")
+    print(json.dumps({k:report[k] for k in summary_keys}), flush=True)
 
 
 if __name__ == "__main__":

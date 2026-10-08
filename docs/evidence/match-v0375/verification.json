@@ -1,0 +1,156 @@
+{
+  "version": "0.37.5-match-score",
+  "when": "2026-10-07T15:24:25.760Z",
+  "branch": "migration/threejs-renderer",
+  "headBeforeChanges": "5b23522",
+  "gitState": "local working changes; not committed or published",
+  "baseline": {
+    "version": "0.37.4-native-mix",
+    "gameCommit": "14b47122c05742e9dbf5e09465390d2111c95728",
+    "assembledSha256": "ca48f59decb6aeb9a0c7ad2e3cb660688481a2c7b10b53dd6220af01a0aeaf51"
+  },
+  "assembledSha256": "12fd2313356bbcbda33cbeacf4957bbdf3b1a00a71faaead33c833be16b4eb1f",
+  "status": "passed within the tested Mac environments; device listening pending",
+  "changes": [
+    "regular match tsuzumi rhythm; koto/flute at kicks; success raises register",
+    "previous Rush instrumentation retained; sustained sho moved to non-match scenes",
+    "new visit default and intentional recommended preset: music82 voice72; saved mix/mute retained",
+    "two suggestive pre-match lines for six opponents and shadow, original Kyoto Station intact",
+    "TIME preserves endpoint/tangent into landing, bounce and damped rolling",
+    "brief player defeat crouch with immediate retry",
+    "4 close outcomes labeled and colored at actual contact"
+  ],
+  "preserved": [
+    "old native voice choice/rate/pitch and reversible URL selection",
+    "all88 prior audio clips and metadata byte-identical;14 new calls",
+    "learning input, four sounds, normal ball samples/duration and timing rules",
+    "close questions/cooldown/scoring/HP, Rush cancel-previous voice rule",
+    "PRACTICE/TIME/bow/pause/restart/effectsOFF and campaign saves",
+    "renderer, characters and scenery geometry"
+  ],
+  "verification": {
+    "aggregate": {
+      "status": "passed",
+      "suites": 20,
+      "scope": "assembled syntax, content, assets, campaign, native/recorded mocked lifecycle, motion/impact and all VM progress"
+    },
+    "completeBrowser": {
+      "status": "passed",
+      "checks": 99,
+      "failures": [],
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    "ui": {
+      "status": "passed",
+      "checks": 2062,
+      "screenshots": 131,
+      "failures": []
+    },
+    "dialogue": {
+      "status": "passed",
+      "checks": 32,
+      "screenshots": 32
+    },
+    "integrated": {
+      "status": "passed",
+      "checks": 16,
+      "assemblySha256": "12fd2313356bbcbda33cbeacf4957bbdf3b1a00a71faaead33c833be16b4eb1f",
+      "scope": "ordinary RAF successful close→rush→award, close failure→rally→retry, player loss→DOM restart; dialogue/practice/TIME/bow; word speech mocked"
+    },
+    "recordedAudio": {
+      "status": "passed",
+      "checks": 12,
+      "nativeCalls": 0,
+      "errors": [],
+      "scope": "real decode102clips and graph signal; rhythm/ascending register/voices/no compressor pumping"
+    },
+    "nativeAudio": {
+      "status": "passed",
+      "checks": 16,
+      "blocked": [],
+      "errors": [],
+      "scope": "actual Mac native speech start/end/replacement with continuous music graph"
+    },
+    "polish": {
+      "status": "passed",
+      "scope": "8 normal shot geometries/rules equal historical baseline; launch contact, restore, pause/restart, six layouts, close/rush endpoints and effectsOFF"
+    },
+    "localReview": {
+      "when": "2026-10-07T15:20:55.218Z",
+      "checks": [
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "noOverflow": true,
+          "preset": true,
+          "saved": true,
+          "enabled": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "noOverflow": true,
+          "preset": true,
+          "saved": true,
+          "enabled": false
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "noOverflow": true,
+          "preset": true,
+          "saved": true,
+          "enabled": false
+        }
+      ],
+      "errors": [],
+      "media": [
+        {
+          "src": "score-before.mp3",
+          "duration": 15.402667,
+          "ready": 1
+        },
+        {
+          "src": "score-after.mp3",
+          "duration": 15.402667,
+          "ready": 1
+        },
+        {
+          "src": "time-contact-before-after.mp4",
+          "duration": 10.52,
+          "ready": 4
+        },
+        {
+          "src": "success.mp4",
+          "duration": 18.92,
+          "ready": 4
+        },
+        {
+          "src": "pushback.mp4",
+          "duration": 11.72,
+          "ready": 4
+        }
+      ],
+      "passed": true
+    }
+  },
+  "evidence": {
+    "score": "15.4sec same-kick-schedule capture, real WebAudio graph, music82/voice72; no speech or physical audio capture",
+    "motion": "before/after natural RAF at seeded fixed poses; videos silent",
+    "progression": "success and pushback production RAF videos; tests supply correct/wrong input and mock word speech"
+  },
+  "limitations": [
+    "No physical iPhone/iPad Safari listening or touch/performance acceptance.",
+    "Native OS speaker ducking cannot be measured by the Web Audio analyser; the new composition does not prove that OS attenuation disappeared.",
+    "No subjective claim that the mix is balanced or the match is more enjoyable; user play/listening is needed.",
+    "No GitHub publication in this task."
+  ],
+  "next": "Try native voice with recommended mix on iPad/iPhone; judge recognition, beats and close outcomes. Publish only after approval.",
+  "workshopNotes": "No update: current tuning results are project-specific."
+}

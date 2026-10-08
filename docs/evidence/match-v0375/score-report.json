@@ -1,0 +1,381 @@
+{
+  "when": "2026-10-07T15:12:20.298Z",
+  "method": "Actual Web Audio limiter output, same synthetic kick schedule, BGM82 voice72; no microphone or physical speakers. Music/effect-only, no word voices.",
+  "cases": [
+    {
+      "name": "before",
+      "duration": 15.402666666666667,
+      "rms": 0.015688092596178583,
+      "peak": 0.1916947364807129,
+      "diagnostics": {
+        "version": "0.37.4-native-mix",
+        "voiceMode": "native",
+        "voiceEngine": "native",
+        "voiceStatus": "idle",
+        "lastVoiceText": "",
+        "lastVoiceError": "",
+        "decodedVoices": 0,
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "nativeMixType": "unsupported-or-unclaimed",
+        "nativeMixError": "",
+        "nativeMusicHeld": false,
+        "nativeInterruptions": 0,
+        "music": 0.82,
+        "voice": 0.72,
+        "ducked": false,
+        "musicTarget": 0.82,
+        "successes": 17,
+        "layer": 3,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 6,
+        "shoVoices": 5,
+        "voiceToken": 0,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 1,
+          "string": 22,
+          "flute": 9,
+          "taiko": 13,
+          "movement": 0,
+          "hit": 26,
+          "speech": 0,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      },
+      "pitch": [
+        {
+          "player": false,
+          "successes": 0,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 1,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 1,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 2,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 2,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 3,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 3,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 4,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 4,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 5,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 5,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 6,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 6,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 7,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 7,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 8,
+          "pitch": null
+        },
+        {
+          "player": false,
+          "successes": 8,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 9,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 10,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 11,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 12,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 13,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 14,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 15,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 16,
+          "pitch": null
+        },
+        {
+          "player": true,
+          "successes": 17,
+          "pitch": null
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "after",
+      "duration": 15.402666666666667,
+      "rms": 0.010833076405914853,
+      "peak": 0.18705344200134277,
+      "diagnostics": {
+        "version": "0.37.5-match-score",
+        "voiceMode": "native",
+        "voiceEngine": "native",
+        "voiceStatus": "idle",
+        "lastVoiceText": "",
+        "lastVoiceError": "",
+        "decodedVoices": 0,
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "nativeMixType": "unsupported-or-unclaimed",
+        "nativeMixError": "",
+        "nativeMusicHeld": false,
+        "nativeInterruptions": 0,
+        "music": 0.82,
+        "voice": 0.72,
+        "ducked": false,
+        "musicTarget": 0.82,
+        "successes": 17,
+        "layer": 3,
+        "scoreSection": "rush",
+        "strikePitch": 587.33,
+        "layerNames": [
+          "shō",
+          "plucked strings",
+          "flute",
+          "taiko"
+        ],
+        "activeSources": 5,
+        "shoVoices": 5,
+        "voiceToken": 0,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 1,
+          "string": 18,
+          "flute": 14,
+          "taiko": 9,
+          "tsuzumi": 16,
+          "movement": 0,
+          "hit": 26,
+          "speech": 0,
+          "recoveries": 1
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      },
+      "pitch": [
+        {
+          "player": false,
+          "successes": 0,
+          "pitch": 293.66
+        },
+        {
+          "player": true,
+          "successes": 1,
+          "pitch": 293.66
+        },
+        {
+          "player": false,
+          "successes": 1,
+          "pitch": 293.66
+        },
+        {
+          "player": true,
+          "successes": 2,
+          "pitch": 329.63
+        },
+        {
+          "player": false,
+          "successes": 2,
+          "pitch": 293.66
+        },
+        {
+          "player": true,
+          "successes": 3,
+          "pitch": 329.63
+        },
+        {
+          "player": false,
+          "successes": 3,
+          "pitch": 293.66
+        },
+        {
+          "player": true,
+          "successes": 4,
+          "pitch": 440
+        },
+        {
+          "player": false,
+          "successes": 4,
+          "pitch": 329.63
+        },
+        {
+          "player": true,
+          "successes": 5,
+          "pitch": 440
+        },
+        {
+          "player": false,
+          "successes": 5,
+          "pitch": 329.63
+        },
+        {
+          "player": true,
+          "successes": 6,
+          "pitch": 493.88
+        },
+        {
+          "player": false,
+          "successes": 6,
+          "pitch": 440
+        },
+        {
+          "player": true,
+          "successes": 7,
+          "pitch": 493.88
+        },
+        {
+          "player": false,
+          "successes": 7,
+          "pitch": 440
+        },
+        {
+          "player": true,
+          "successes": 8,
+          "pitch": 587.33
+        },
+        {
+          "player": false,
+          "successes": 8,
+          "pitch": 493.88
+        },
+        {
+          "player": true,
+          "successes": 9,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 10,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 11,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 12,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 13,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 14,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 15,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 16,
+          "pitch": 587.33
+        },
+        {
+          "player": true,
+          "successes": 17,
+          "pitch": 587.33
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

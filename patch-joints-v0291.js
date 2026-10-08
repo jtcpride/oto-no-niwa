@@ -26,6 +26,11 @@ prepareDepthRenderV022=function(){
   f.elbow.rot[2]=.30+.65*power*s;f.farElbow.rot[2]=.42+.55*power*s;
   f.wrist.rot[2]=-.10-.13*power*s;f.farWrist.rot[2]=-.10+.15*power*s;
   f.wrist.rot[1]=.12*power*s;f.toe.rot[2]=.18*power*s;f.backToe.rot[2]=-.13*power*s;
+  if(f===player&&state.mode==='over'&&motionV029.defeatAge<99){
+   const down=motion?easeV023(motionV029.defeatAge,0,.58):1;
+   f.elbow.rot[2]=.30+.35*down;f.farElbow.rot[2]=.42+.28*down;
+   f.wrist.rot[2]=-.10-.10*down;f.farWrist.rot[2]=-.10-.08*down;
+  }
   if(feelEnabledV023&&p==='break'&&motion){
    if(f===player){f.elbow.rot[2]=.95;f.farElbow.rot[2]=1.05;}
    else{

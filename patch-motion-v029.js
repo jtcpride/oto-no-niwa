@@ -35,7 +35,7 @@ const kemariShapes=kemariShapesV031();
 for(const n of [ball,...rushBallsV022.map(b=>b.n)]){
  n.renderRole='ball';n.children.forEach((piece,i)=>{piece.geo=kemariShapes[i===0?0:1];if(i===0&&n!==ball)piece.unlit=.18;piece.scale=[.24,.24,.24];piece.rot=i===2?[Math.PI/2,0,.28]:[0,0,.16];});
 }
-const motionV029={player:{age:99,slot:0,point:null},cpu:{age:99,slot:0,point:null},spin:0,serial:0,closeCue:false,land:[],rushImpact:99};
+const motionV029={player:{age:99,slot:0,point:null},cpu:{age:99,slot:0,point:null},spin:0,serial:0,closeCue:false,land:[],rushImpact:99,defeatAge:99};
 const impactsV029=Array.from({length:10},()=>{const e=document.createElement('div');e.className='motion-impact-v029';e.hidden=true;
  const ring=document.createElement('i');ring.className='ring';e.appendChild(ring);
  const rays=[];for(let i=0;i<4;i++){const ray=document.createElement('i');ray.className='ray';e.appendChild(ray);rays.push(ray);}
@@ -47,7 +47,12 @@ function impactMotionV029(point,kind='kick',strength=1){
  return p;
 }
 const resetMotionV029=resetDuelV022;
-resetDuelV022=function(keep=false){resetMotionV029(keep);for(const key of ['player','cpu'])Object.assign(motionV029[key],{age:99,slot:0,point:null});Object.assign(motionV029,{spin:0,serial:0,closeCue:false,land:[],rushImpact:99});impactsV029.forEach(p=>{p.age=99;p.e.hidden=true;});};
+resetDuelV022=function(keep=false){resetMotionV029(keep);for(const key of ['player','cpu'])Object.assign(motionV029[key],{age:99,slot:0,point:null});Object.assign(motionV029,{spin:0,serial:0,closeCue:false,land:[],rushImpact:99,defeatAge:99});impactsV029.forEach(p=>{p.age=99;p.e.hidden=true;});};
+const endMotionV029=end;
+end=function(kind){const before=state.mode,r=endMotionV029(kind);
+ if(before!=='over'&&state.mode==='over'&&kind!=='win'){motionV029.defeatAge=0;motionV029.player.age=99;player.kick=0;}
+ return r;
+};
 function layeredMotionV029(){
  return (feelEnabledV023&&duelV022.entered&&ceremony==='match')||motionV029.player.age<.72;
 }
@@ -73,6 +78,7 @@ updateGame=function(dt){
  for(const p of impactsV029)p.age+=dt;
  for(const key of ['player','cpu'])motionV029[key].age+=dt;
  motionV029.rushImpact+=dt;
+ if(state.mode==='over'&&motionV029.defeatAge<99)motionV029.defeatAge=Math.min(.8,motionV029.defeatAge+dt);
  const before=state.mode,phase=duelV022.phase,phaseAge=duelV022.time,stage=closeV027.stage,closeAge=closeV027.time;
  const balls=['rush','settle'].includes(phase)?rushBallsV022.filter(b=>b.volley&&b.age<.3).map(b=>[b,b.age]):[];
  const steps=feelEnabledV023?['player','cpu'].map(key=>({key,age:strideV024[key].age})):[];
@@ -192,6 +198,15 @@ prepareDepthRenderV022=function(){
  }
  if(feelEnabledV023&&phase==='rush'&&motion){
   save(cpu.body);save(cpu.head);const snap=(1-easeV023(motionV029.rushImpact,0,.22));cpu.body.rot[0]+=.10*snap;cpu.head.rot[2]-=.10*snap;
+ }
+ if(state.mode==='over'&&motionV029.defeatAge<99){
+  // A brief loss of stance settles into one crouch; keep the existing result
+  // controls immediate and never turn defeat into another gameplay phase.
+  const sink=motion?easeV023(motionV029.defeatAge,0,.58):1,drop=.24*sink;
+  for(const key of KICK_NODES_V011)save(player[key]);
+  player.n.pos[1]-=drop;player.body.rot[2]-=.30*sink;player.head.rot[2]+=.13*sink;
+  player.arm.rot[2]=-.18*sink;player.farArm.rot[2]=-.12*sink;
+  legV024(player,'leg',[.08,.09+drop,.22],sink);legV024(player,'back',[-.13,.09+drop,-.23],sink);
  }
  for(const key of motionV029.land){const f=key==='player'?player:cpu;impactMotionV029([f.n.pos[0],.08,f.n.pos[2]],'dust',.6);}motionV029.land=[];
  if(ball.visible){

@@ -1,8 +1,8 @@
 // Complete campaign around the unchanged v0.29.1 rally / ceremony kernel.
 window.otoPatchCampaignV030=function(html){
  function once(a,b){if(html.split(a).length!==2)throw Error('v0.30 campaign anchor: '+a.slice(0,80));html=html.replace(a,b);}
- once("version:'0.29.1-articulated-motion'","version:'0.37.4-native-mix'");
- once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.37.4');
+ once("version:'0.29.1-articulated-motion'","version:'0.37.6-garden-ux'");
+ once('FIFTEENTH EVER GARDEN — v0.29.1','FIFTEENTH EVER GARDEN — v0.37.6');
  once("const requestedStage=window.location?new URLSearchParams(window.location.search).get('stage'):null;", "const stageParamsV030=new URLSearchParams(window.location?.search||'');\nconst requestedStage=({'first-court':'jingu','second-court':'sanjo'})[stageParamsV030.get('stage')]||stageParamsV030.get('stage');");
  once("const feelEnabledV023=ACTIVE_STAGE.id==='first-court';","const feelEnabledV023=true;");
  once("$('#stageMenu').addEventListener('click',()=>{audio.stopVoice();window.location.assign(stageUrlV021(ACTIVE_STAGE.id));});","$('#stageMenu').addEventListener('click',()=>showGardenV030());");
@@ -46,6 +46,27 @@ body.campaign-cinematic #arena :is(.ball-label,.fighter-label,.practice-card,.ce
 @media(max-width:680px){.campaign-top{gap:8px}.campaign-top:before{inset:-14px -14px -9px}.campaign-top h2{font-size:clamp(15px,4.5vw,20px)}.campaign-orbs{font-size:10px;min-width:54px}.campaign-orbs span{font-size:22px}.campaign-cinema p{font-size:11px}}
 @media(orientation:landscape) and (min-width:560px) and (min-height:601px){body.campaign-screen #arena{grid-column:1/-1;grid-row:2/4;height:100%;min-height:0;max-height:none}}
 @media(orientation:landscape) and (max-height:600px){.campaign-top:before{inset:-11px -16px -6px}.campaign-top h2{font-size:16px}.campaign-cinema{padding-top:18px}.campaign-cinema h2{font-size:30px}.campaign-cinema p{margin-top:5px}.campaign-orbs span{font-size:17px}.campaign-dialogue{padding:12px 18px;display:grid;grid-template-columns:1fr auto;column-gap:16px}.campaign-dialogue .speaker,.campaign-dialogue .en{grid-column:1/-1}.campaign-dialogue .en{font-size:24px;margin:6px 0}.campaign-dialogue .ja{margin:0;align-self:center}.campaign-dialogue button{float:none;grid-column:2;grid-row:3}.campaign-dialogue:after{display:none}}
+.campaign-dialogue .dialogue-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.campaign-dialogue .dialogue-actions button{float:none}
+@media(orientation:landscape) and (max-height:600px){.campaign-dialogue .dialogue-actions{grid-column:2;grid-row:3}}
+/* A choice is confirmed at the tapped stone, rather than an automatic footer. */
+dialog.campaign-detail{position:fixed;inset:50% auto auto 50%;transform:translate(-50%,-50%);margin:0;box-sizing:border-box;width:min(440px,calc(100vw - 32px));max-height:calc(100svh - 24px);overflow:auto;display:block;padding:24px;border:1px solid #d3bc88;border-radius:8px;background:#152b28;color:#f5edda;pointer-events:auto;text-align:left;box-shadow:0 16px 60px #0008}
+dialog.campaign-detail:not([open]){display:none}
+dialog.campaign-detail::backdrop{background:#061715b8}
+.campaign-detail .garden-choice-kind{margin:0 48px 12px 0;font-size:11px;color:#ccb886;letter-spacing:.1em}
+.campaign-detail h3{margin:0 48px 8px 0;font-size:28px;line-height:1.3}
+.campaign-detail #gardenPlace{font-size:19px;color:#f0dbab;line-height:1.4}
+.campaign-detail #gardenDescription{margin-top:10px;font:18px/1.4 Georgia,serif;color:#c0d2ca}
+.campaign-detail #gardenPrerequisite{margin-top:12px;font-size:12px;color:#e9ca98}
+.campaign-detail #gardenPrerequisite[hidden]{display:none}
+.campaign-detail .campaign-actions{margin-top:20px;display:flex;flex-wrap:nowrap}
+.campaign-detail .campaign-actions button{flex:1;min-height:44px;padding:10px 8px;font-size:13px}
+.campaign-detail .garden-close{position:absolute;right:12px;top:10px;width:44px;height:44px;min-height:44px;padding:0;background:transparent;color:#c8d7cb;border-color:#a4b49b55;font-size:22px}
+.campaign-detail #gardenCancel{background:transparent;color:#d7e0d4;border-color:#a4b49b55}
+.garden-hint{position:absolute;left:14px;right:14px;bottom:16px;text-align:center;color:#dce5d1;font-size:12px;pointer-events:none}
+.garden-hint button{pointer-events:auto;min-height:44px;margin-top:8px}
+#stationAgain[data-first=true]{background:#e8d8ac;color:#192d26;border-color:#e8d8ac}
+@media(max-width:400px){dialog.campaign-detail{padding:20px}.campaign-detail h3{font-size:25px}.campaign-detail #gardenPlace{font-size:18px}}
+@media(orientation:landscape) and (max-height:450px){dialog.campaign-detail{padding:16px 20px}.campaign-detail .garden-choice-kind{margin-bottom:4px}.campaign-detail h3{font-size:25px;margin-bottom:4px}.campaign-detail #gardenPlace{font-size:17px}.campaign-detail #gardenDescription{font-size:16px;margin-top:6px}.campaign-detail .campaign-actions{margin-top:14px}.garden-hint{bottom:10px;font-size:11px}.garden-hint button{margin-top:3px}}
 body.reduced-motion .campaign-dialogue,body.reduced-motion .campaign-cinema>div{animation:none;transition:none}
 @media(prefers-reduced-motion:reduce){.campaign-dialogue,.campaign-cinema>div{animation:none;transition:none}}
 </style>`);
@@ -83,38 +104,55 @@ function campaignNavV030(stage,intro=false){
  const url=new URL(window.location.href);url.searchParams.delete('view');url.searchParams.delete('intro');url.searchParams.set('stage',stage);if(intro)url.searchParams.set('intro','1');window.location.assign(url.href);
 }
 function campaignSetPhaseV030(phase){campaignV030.phase=phase;campaignV030.time=0;document.body.classList.toggle('campaign-cinematic',['inheritance','gather','scatter'].includes(phase));}
-function gardenDetailV030(){
- const stage=STAGE_CONTENT.stages.find(s=>s.id===campaignV030.selected),character=STAGE_CONTENT.characters.find(c=>c.id===stage.opponent),deck=STAGE_CONTENT.decks.find(d=>d.id===stage.deck),owned=campaignSaveV030.acquired.includes(stage.opponent);
- const title=campaignUIV030.querySelector('#gardenName'),description=campaignUIV030.querySelector('#gardenDescription'),go=campaignUIV030.querySelector('#gardenGo');if(!title)return;
- title.textContent=character.name;description.textContent=stage.name+' · '+deck.sounds.map(s=>'/'+s.symbol+'/').join(' ')+' · '+(owned?'継承済み / 再戦できます':'未継承');go.textContent=owned?'再び勝負':'ここで勝負';
- campaignUIV030.querySelectorAll('[data-kind=opponent]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.stage===stage.id)));
+let gardenTriggerV030=null;
+function closeGardenChoiceV030(){const dialog=campaignUIV030.querySelector('#gardenChoice');if(dialog?.open)dialog.close();}
+function gardenDetailV030(id=campaignV030.selected,trigger=null){
+ const station=id==='station',stage=STAGE_CONTENT.stages.find(s=>s.id===(station?'jingu':id)),character=STAGE_CONTENT.characters.find(c=>c.id===stage.opponent),deck=STAGE_CONTENT.decks.find(d=>d.id===stage.deck),owned=campaignSaveV030.acquired.includes(stage.opponent),first=!campaignSaveV030.introComplete;
+ const dialog=campaignUIV030.querySelector('#gardenChoice');if(!dialog||campaignV030.phase!=='garden')return;
+ campaignV030.selected=id;gardenTriggerV030=trigger;
+ $('#gardenName').textContent=character.name;$('#gardenPlace').textContent=station?'京都駅':({jingu:'平安神宮',gendo:'三十三間堂',chion:'知恩院',sanjo:'三条',shinkyogoku:'新京極',million:'百万遍',gion:'祇園'})[stage.id];
+ $('#gardenDescription').textContent=deck.sounds.map(s=>'/'+s.symbol+'/').join('  ');
+ $('#gardenStatus').textContent=station?(first?'最初の対戦':'京都駅で再戦'):stage.id==='gion'?'最後の対戦':owned?'鞠を継承済み · 再戦':'対戦相手';
+ $('#gardenPrerequisite').hidden=station||!first;$('#gardenPrerequisite').textContent='最初は京都駅。そのあと、この相手に挑戦できます。';
+ $('#gardenGo').textContent=first||station?'京都駅で勝負':stage.id==='gion'?'最後の勝負へ':owned?'もう一度勝負':'この相手と勝負';
+ campaignUIV030.querySelectorAll('[data-kind=opponent]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.stage===id)));
+ if(!dialog.open)dialog.showModal();
 }
 function showGardenV030(){
+ closeGardenChoiceV030();gardenTriggerV030=null;
  audio.stopVoice();state.mode='idle';state.pendingDamage=0;campaignV030.committed=false;campaignV030.godmode=false;window.kemari?.setGodMode?.(false);campaignSetPhaseV030('garden');campaignScreenV030(true);persistCampaignV030();
  const url=new URL(window.location.href);url.searchParams.delete('stage');url.searchParams.delete('intro');url.searchParams.set('view','garden');history.replaceState(null,'',url.href);
- campaignUIV030.innerHTML='<header class="campaign-top"><div><small>相手を選ぶ</small><h2>十五の石、七つの鞠。</h2><button class="campaign-small" id="stationAgain">京都駅へ</button></div><div class="campaign-orbs">受け継いだ鞠<span>'+CampaignModelV030.orbCount(campaignSaveV030)+' / 7</span></div></header><div id="gardenStones"></div><div class="campaign-detail"><div><h3 id="gardenName"></h3><p id="gardenDescription"></p></div><div class="campaign-actions"><button id="gardenGo">ここで勝負</button>'+(CampaignModelV030.unlocked(campaignSaveV030)?'<button id="gardenFinal" class="campaign-gion">祇園へ ↗</button>':'')+'</div></div><span class="campaign-note">'+saveNoticeV030+'</span>';
+ const first=!campaignSaveV030.introComplete;
+ campaignUIV030.innerHTML='<header class="campaign-top"><div><small>'+(first?'最初の対戦':'対戦相手を選ぶ')+'</small><h2>'+(first?'まずは、京都駅。':'石をタップして選ぶ')+'</h2><button class="campaign-small" id="stationAgain" data-first="'+first+'">'+(first?'京都駅から始める':'京都駅で再戦')+'</button></div><div class="campaign-orbs">受け継いだ鞠<span>'+CampaignModelV030.orbCount(campaignSaveV030)+' / 7</span></div></header><div id="gardenStones"></div><div class="garden-hint">'+(CampaignModelV030.unlocked(campaignSaveV030)?'<button id="gardenFinal" class="campaign-small campaign-gion">最後の対戦 · 祇園</button>':first?'京都駅の初戦 → 石庭で相手を選ぶ':'名前のある石をタップ')+'</div><dialog id="gardenChoice" class="campaign-detail" aria-labelledby="gardenName" aria-describedby="gardenPlace gardenPrerequisite"><button type="button" id="gardenClose" class="garden-close" aria-label="相手選びに戻る">×</button><p class="garden-choice-kind" id="gardenStatus"></p><h3 id="gardenName"></h3><p id="gardenPlace"></p><p id="gardenDescription"></p><p id="gardenPrerequisite" hidden></p><div class="campaign-actions"><button type="button" id="gardenCancel">選び直す</button><button type="button" id="gardenGo" autofocus>この相手と勝負</button></div></dialog><span class="campaign-note">'+saveNoticeV030+'</span>';
  const host=campaignUIV030.querySelector('#gardenStones');
  for(const [i,s] of stoneLayoutV030.entries()){
   const b=document.createElement(s.kind==='ordinary'?'span':'button');b.className='campaign-stone';b.dataset.kind=s.kind;b.dataset.index=i;b.dataset.label=s.kind==='self'?'YOU':s.kind==='ordinary'?'':STAGE_CONTENT.characters.find(c=>c.id===STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent).name;b.setAttribute('aria-label',s.kind==='ordinary'?'石':s.kind==='self'?PLAYER_CHARACTER.name+' / 自分の石':b.dataset.label+'を選ぶ');
-  if(s.kind==='opponent'){b.dataset.stage=s.stage;b.dataset.acquired=String(campaignSaveV030.acquired.includes(STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent));b.addEventListener('click',()=>{campaignV030.selected=s.stage;audio.note(330,.1,.04,'sine');gardenDetailV030();});}else if(s.kind==='self')b.setAttribute('aria-disabled','true');host.appendChild(b);
+  if(s.kind==='opponent'){b.dataset.stage=s.stage;b.dataset.acquired=String(campaignSaveV030.acquired.includes(STAGE_CONTENT.stages.find(t=>t.id===s.stage).opponent));b.setAttribute('aria-haspopup','dialog');b.setAttribute('aria-controls','gardenChoice');b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>{audio.note(330,.1,.04,'sine');gardenDetailV030(s.stage,b);});}else if(s.kind==='self')b.setAttribute('aria-disabled','true');host.appendChild(b);
  }
- campaignUIV030.querySelector('#gardenGo').addEventListener('click',()=>campaignNavV030(campaignV030.selected));campaignUIV030.querySelector('#stationAgain').addEventListener('click',()=>campaignNavV030('jingu',true));campaignUIV030.querySelector('#gardenFinal')?.addEventListener('click',()=>campaignNavV030('gion'));
- gardenDetailV030();
+ const dialog=$('#gardenChoice');$('#gardenGo').addEventListener('click',()=>{if(!dialog.open)return;const station=campaignV030.selected==='station'||!campaignSaveV030.introComplete;closeGardenChoiceV030();campaignNavV030(station?'jingu':campaignV030.selected,station);});
+ for(const id of ['gardenClose','gardenCancel'])$('#'+id).addEventListener('click',closeGardenChoiceV030);
+ dialog.addEventListener('close',()=>{gardenTriggerV030?.focus();campaignUIV030.querySelectorAll('[data-kind=opponent]').forEach(b=>b.setAttribute('aria-pressed','false'));});
+ dialog.addEventListener('click',e=>{const r=dialog.getBoundingClientRect();if(e.target===dialog&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))closeGardenChoiceV030();});
+ $('#stationAgain').addEventListener('click',e=>gardenDetailV030('station',e.currentTarget));$('#gardenFinal')?.addEventListener('click',e=>gardenDetailV030('gion',e.currentTarget));
 }
 function showDialogueV030(){
  campaignSetPhaseV030('dialogue');campaignScreenV030(true);state.mode='idle';
  // The fixed English male voice is shared with SHOUBU ARI. A direct intro URL
  // must offer a gesture for this first line instead of silently skipping it.
- const lines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。','Yoh, kaette kiharimashita na.'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。','Dorehodo oboete haru ka, misete moraimahyoka.']],line=lines[campaignV030.dialogue];
- campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">KYOTO STATION / 烏丸 朔</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><button id="dialogueNext" class="campaign-small">'+(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗</button></div>';
+ const stationLines=[['Welcome back to Kyoto.','よう帰ってきはりましたな。','Yoh, kaette kiharimashita na.'],['Shall we see what you remember?','どれほど覚えてはるか、見せてもらいまひょか。','Dorehodo oboete haru ka, misete moraimahyoka.']];
+ const line=campaignV030.intro?stationLines[campaignV030.dialogue]:[ACTIVE_STAGE.dialogue[campaignV030.dialogue].en,ACTIVE_STAGE.dialogue[campaignV030.dialogue].ja,ACTIVE_STAGE.dialogue[campaignV030.dialogue].spoken];
+ const speaker=campaignV030.intro?'KYOTO STATION / 烏丸 朔':ACTIVE_STAGE.name.split(' / ')[0]+' / '+CPU_CHARACTER.name;
+ campaignUIV030.innerHTML='<div class="campaign-dialogue"><div class="speaker">'+speaker+'</div><p class="en">'+line[0]+'</p><p class="ja">'+line[1]+'</p><div class="dialogue-actions">'+(campaignV030.intro?'':'<button id="dialogueGarden" class="campaign-small">石庭へ戻る</button>')+'<button id="dialogueNext" class="campaign-small">'+dialogueActionV030()+' ↗</button></div></div>';
  campaignV030.dialogueText=line[2];campaignV030.dialogueNeedsGesture=audio.voiceVolume>0&&!audio.canPlayVoice?.()&&(!audio.userChoice||audio.enabled);
  const next=campaignUIV030.querySelector('#dialogueNext');if(campaignV030.dialogueNeedsGesture)next.textContent='台詞を聞く ↗';
  next.addEventListener('click',()=>{if(campaignV030.phase!=='dialogue')return;if(!audio.userChoice)audio.set(true);audio.resumeFromGesture?.();
   if(campaignV030.dialogueNeedsGesture){speakDialogueLineV030();return;}
   if(campaignV030.dialogue++===0)showDialogueV030();else startCampaignMatchV030();});
+ campaignUIV030.querySelector('#dialogueGarden')?.addEventListener('click',showGardenV030);
  if(!campaignV030.dialogueNeedsGesture)speakDialogueLineV030();
 }
-function speakDialogueLineV030(){if(campaignV030.phase!=='dialogue')return;campaignV030.dialogueNeedsGesture=false;const next=campaignUIV030.querySelector('#dialogueNext');if(next)next.textContent=(campaignV030.dialogue?'鞠を受ける':'次へ')+' ↗';speakCallV010(campaignV030.dialogueText);}
+function dialogueActionV030(){return campaignV030.dialogue?(campaignV030.intro?'鞠を受ける':'PRACTICEへ'):'次へ';}
+function speakDialogueLineV030(){if(campaignV030.phase!=='dialogue')return;campaignV030.dialogueNeedsGesture=false;const next=campaignUIV030.querySelector('#dialogueNext');if(next)next.textContent=dialogueActionV030()+' ↗';speakCallV010(campaignV030.dialogueText);}
 const campaignKernelStartV030=start;
 function startCampaignMatchV030(){
  campaignSetPhaseV030('match');campaignScreenV030(false);campaignV030.committed=false;state.mode='over';campaignKernelStartV030();$('#stageName').textContent=campaignV030.intro?'KYOTO STATION / 帰郷':ACTIVE_STAGE.name;$('#pause').disabled=false;
@@ -123,14 +161,14 @@ function beginGatherV030(){
  if(!CampaignModelV030.unlocked(campaignSaveV030)){showGardenV030();return;}
  state.mode='idle';campaignSetPhaseV030('gather');campaignScreenV030(true);campaignV030.godmode=false;campaignUIV030.innerHTML='<div class="campaign-cinema"><div><h2>GION</h2><p>七つの鞠が、帰る。</p></div><button id="cinemaSkip" class="campaign-small">進む ↗</button></div>';campaignUIV030.querySelector('#cinemaSkip').addEventListener('click',()=>finishGatherV030());audio.note(146.83,3,.12,'sine');
 }
-function finishGatherV030(){if(campaignV030.phase!=='gather')return;campaignV030.godmode=true;window.kemari?.setGodMode?.(true);startCampaignMatchV030();}
+function finishGatherV030(){if(campaignV030.phase!=='gather')return;campaignV030.godmode=true;window.kemari?.setGodMode?.(true);showDialogueV030();}
 start=function(){
  if(state.mode==='error'||campaignV030.returning)return;
  if(campaignV030.phase==='title'){
   if(titlePendingV020)return;titlePendingV020=true;$('#start').disabled=true;audio.ensure();if(!audio.userChoice)audio.set(true);const serial=++campaignTitleSerialV030;let done=false;
   const finish=()=>{if(done||serial!==campaignTitleSerialV030)return;done=true;titlePendingV020=false;$('#start').disabled=false;setOverlay(null);if(campaignSaveV030.introComplete)showGardenV030();else showDialogueV030();};speakWord('FIFTEENTH EVER GARDEN',finish);return;
  }
- if(campaignV030.phase==='stage-card'){if(ACTIVE_STAGE.id==='gion')beginGatherV030();else startCampaignMatchV030();return;}
+ if(campaignV030.phase==='stage-card'){audio.ensure();if(!audio.userChoice)audio.set(true);audio.resumeFromGesture?.();if(ACTIVE_STAGE.id==='gion')beginGatherV030();else showDialogueV030();return;}
  if(campaignV030.phase==='match'&&(state.mode==='over'||state.mode==='paused')){if(ACTIVE_STAGE.id==='gion')window.kemari?.setGodMode?.(true);startCampaignMatchV030();}
 };
 let campaignTitleSerialV030=0;
@@ -255,9 +293,10 @@ function initializeCampaignV030(){
  if(requestedStage){
   campaignV030.intro=false;campaignSetPhaseV030('stage-card');
   if(ACTIVE_STAGE.id==='gion'&&!CampaignModelV030.unlocked(campaignSaveV030)){showGardenV030();return;}
-  $('#intro h2').textContent=ACTIVE_STAGE.id==='gion'?'GION':ACTIVE_STAGE.name.split(' / ')[0];$('#intro p').textContent=STAGE_CONTENT.characters.find(c=>c.id===ACTIVE_STAGE.opponent).name+' / '+ACTIVE_DECK.name;$('#start').innerHTML=(ACTIVE_STAGE.id==='gion'?'最後の勝負へ':'PRACTICEを始める')+' <span>↗</span>';const back=document.createElement('button');back.className='campaign-home';back.textContent='石庭へ戻る';back.addEventListener('click',showGardenV030);$('#intro').appendChild(back);return;
+  $('#intro h2').textContent=ACTIVE_STAGE.id==='gion'?'GION':ACTIVE_STAGE.name.split(' / ')[0];$('#intro p').textContent=STAGE_CONTENT.characters.find(c=>c.id===ACTIVE_STAGE.opponent).name+' / '+ACTIVE_DECK.name;$('#start').innerHTML=(ACTIVE_STAGE.id==='gion'?'最後の勝負へ':'対戦を始める')+' <span>↗</span>';const back=document.createElement('button');back.className='campaign-home';back.textContent='石庭へ戻る';back.addEventListener('click',showGardenV030);$('#intro').appendChild(back);return;
  }
- $('#intro p').innerHTML='<span class="campaign-phrase">音を聞く。</span><span class="campaign-phrase">記号を合わせる。</span><span class="campaign-phrase">鞠を返す。</span>';
+ $('#intro p').textContent=campaignSaveV030.introComplete?'石庭で、次の対戦相手を選ぶ。':'最初の対戦 · 京都駅 / 烏丸 朔';
+ $('#start').innerHTML=(campaignSaveV030.introComplete?'石庭へ':'京都駅から始める')+' <span>↗</span>';
 }
 $('#start').addEventListener('click',start);`);
  once('select(0);refreshHud();requestAnimationFrame(frame);',String.raw`

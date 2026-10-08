@@ -33,7 +33,7 @@ window.__audioQA={events:[],action:null,analysers:{},
  sample(name='output'){const a=this.analysers[name],data=new Float32Array(a.fftSize);a.getFloatTimeDomainData(data);let peak=0,sum=0;for(const v of data){if(!Number.isFinite(v))throw Error('Nonfinite audio sample');peak=Math.max(peak,Math.abs(v));sum+=v*v;}return {peak,rms:Math.sqrt(sum/data.length),contextTime:audio.ctx.currentTime};},
  pump(){soundPumpV030()},success(){audio.hit(true,soundV030.successes+1,false)},
  effect(isPlayer=false){audio.hit(isPlayer,0,false)},silence(){stopSourcesV030();state.mode='idle'},
- phase(value){duelV022.phase=value;audio.applyMix()},
+ phase(value){duelV022.phase=value;ceremony=value==='air'?'choice':'match';audio.applyMix();soundPumpV030()},
  speech(text,id){
   // Observe the utterance constructed by the production native dispatcher.
   // The browser method still runs unchanged; no voice, event or PCM is mocked.
@@ -44,7 +44,7 @@ window.__audioQA={events:[],action:null,analysers:{},
   };
   try{audio.speak({text,kind:'word'},()=>this.events.push({id,type:'released',at:performance.now()}));}finally{speechSynthesis.speak=speak;}
  },
- activate(){audio.userChoice=true;audio.set(true);state.mode='playing';campaignV030.phase='match';},
+ activate(){audio.userChoice=true;audio.set(true);state.mode='playing';campaignV030.phase='match';ceremony='match';duelV022.phase='rush';},
  resumeMusic(){state.mode='playing';soundPumpV030()},
  renderer(){const gl=renderer.gl,e=gl.getExtension('WEBGL_debug_renderer_info');return {version:gl.getParameter(gl.VERSION),renderer:gl.getParameter(e?e.UNMASKED_RENDERER_WEBGL:gl.RENDERER),error:gl.getError()};}
 };
@@ -111,7 +111,7 @@ async function run(){
     // Observe actual native PCM during sustained speech, including the quietest
     // dramatic scene. The same sho sources and context must keep running.
     const speechContinuity=[];
-    for(const [phase,factor] of [['front',1],['charge',.24]]){
+    for(const [phase,factor] of [['air',1],['rush',1]]){
      await page.evaluate(value=>__audioQA.phase(value),phase);await page.waitForTimeout(1100);const before=await samples(page,'music',8,25);
      const id='continuous-'+phase,prior=await page.evaluate(()=>__audioQA.diagnostics);
      await gesture(page,{kind:'speech',text:long,id});assert.equal((await speechEvent(page,id,'start')).type,'start');
