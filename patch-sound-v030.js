@@ -30,7 +30,11 @@ const voiceBytesV032=new Map(),voiceBuffersV032=new Map(),voiceLoadsV032=new Map
 const soundV030={successes:0,level:0,active:new Set(),sho:[],nextPulse:0,breathAt:0,beat:0,section:'',strikePitch:0,
  seed:0x6f746f,disposed:false,resumePending:null,resumeSerial:0,contextCount:0,
  needsGesture:false,speechBlocked:false,voiceStatus:'idle',lastVoiceError:'',lastVoiceText:'',lastMove:-99,lastHit:-99,lastSuccess:-99,
- counters:{sho:0,string:0,flute:0,taiko:0,tsuzumi:0,movement:0,hit:0,speech:0,recoveries:0},mixTarget:0};
+ counters:{sho:0,string:0,flute:0,taiko:0,tsuzumi:0,movement:0,hit:0,speech:0,recoveries:0,echo:0,suzu:0,shamisen:0,reply:0},mixTarget:0};
+// A short musical memory of real inputs, in beats rather than quantized slots.
+// The same RAF pump owns drums, echoes and replies; gameplay owns its own clock.
+const sessionV0377={position:0,lastTime:null,beatSeconds:.56,nextBeat:0,nextSub:0,phase:'',streak:0,level:0,strikes:0,notes:[],replyAt:-1};
+const sessionScaleV0377=[293.66,329.63,392,440,523.25,587.33,659.25,784,880,1046.5,1174.66];
 // Native speech uses an OS output outside our Web Audio graph. Ambient is the
 // mixable Audio Session type; do not flip categories for every word.
 const nativeMixV0374={session:null,previous:null,held:false,interruptions:0,error:''};
@@ -70,7 +74,7 @@ function soundUiV030(){
 function abortTitleSoundV030(){if(titlePendingV020){titlePendingV020=false;$('#start').disabled=false;$('#stageSelect').disabled=false;}}
 function soundTargetV030(param,value,seconds=.04){const t=audio.ctx.currentTime;param.cancelScheduledValues(t);param.setTargetAtTime(value,t,seconds);}
 function stopSourcesV030(kind){
- if(!kind)nativeMixV0374.held=false;
+ if(!kind){nativeMixV0374.held=false;sessionV0377.lastTime=null;sessionV0377.replyAt=-1;}
  for(const entry of [...soundV030.active])if(!kind||entry.kind===kind){entry.source.onended=null;try{entry.source.stop();}catch(e){}try{entry.source.disconnect();entry.gain.disconnect();}catch(e){}soundV030.active.delete(entry);}
  soundV030.sho=soundV030.sho.filter(e=>soundV030.active.has(e));if(!kind||kind==='sho'||kind==='music')soundV030.nextPulse=0;
 }
@@ -96,7 +100,7 @@ audio.ensure=function(){
   if(this.ctx)this.ctx.removeEventListener('statechange',soundContextStateV030);
   stopSourcesV030();++soundV030.resumeSerial;soundV030.resumePending=null;
   // AudioContext.currentTime restarts at zero when a closed context is replaced.
-  Object.assign(soundV030,{breathAt:0,lastMove:-99,lastHit:-99,lastSuccess:-99});
+  Object.assign(soundV030,{breathAt:0,lastMove:-99,lastHit:-99,lastSuccess:-99});sessionV0377.lastTime=null;
   try{
    this.ctx=new C();soundV030.contextCount++;this.master=this.ctx.createGain();this.master.gain.value=this.enabled?.32:0;
    // Reserve headroom for speech without compressing the quiet score on each
@@ -141,10 +145,12 @@ audio.set=function(on){
  this.applyMix();audioPrefsV030();soundUiV030();
 };
 audio.releaseVoice=function(token,cancel=false){
- if(token!==this.voiceToken)return;const done=this.voiceDone;this.stopVoice(false,false);recoverNativeMusicV0374();done?.();
+ if(token!==this.voiceToken)return;const done=this.voiceDone,word=this.voiceRequest?.u.kind==='word';this.stopVoice(false,false);recoverNativeMusicV0374();done?.();
+ // Only natural word completion earns a reply; cancelled/replaced words do not.
+ if(word&&!this.voiceRequest&&scoreSectionV0375()==='rally'&&['front','back'].includes(duelV022.phase))sessionV0377.replyAt=(this.ctx?.currentTime||0)+.09;
 };
 audio.stopVoice=function(complete=false,cancelNative=true){
- const done=complete?this.voiceDone:null;
+ const done=complete?this.voiceDone:null;sessionV0377.replyAt=-1;
  const submitted=this.voiceRequest?.submitted;
  ++this.voiceToken;clearTimeout(this.voiceTimer);this.voiceTimer=null;this.voiceDone=null;this.voiceRequest=null;this.ducked=false;
  if(voiceModeV033==='native'&&cancelNative&&submitted)try{window.speechSynthesis?.cancel();}catch(e){}
@@ -220,19 +226,20 @@ function preloadVoiceBuffersV032(){if(voiceModeV033!=='recorded'||typeof fetch!=
 // Fetch ahead without creating an autoplay context; decode after the first gesture.
 if(voiceModeV033==='recorded'&&typeof fetch==='function')for(const text of currentVoiceTextsV032())voiceBytesForV032(text).catch(()=>{});
 function audibleV030(bus='fx'){return audio.enabled&&audio.ctx?.state==='running'&&!soundV030.disposed&&!document.hidden&&state.mode!=='paused'&&(bus!=='music'||audio.musicVolume>0);}
-audio.note=function(freq,dur,vol,type='sine',delay=0,slide=0,bus='fx'){
+audio.note=function(freq,dur,vol,type='sine',delay=0,slide=0,bus='fx',kind=bus){
  if(!audibleV030(bus))return;const t=this.ctx.currentTime+Math.max(0,delay),o=this.ctx.createOscillator(),g=this.ctx.createGain();
  o.type=type;o.frequency.setValueAtTime(freq,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+dur);
  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0001,vol),t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
- o.connect(g);g.connect(bus==='music'?this.musicBus:this.fxBus);trackSourceV030(o,g,bus);o.start(t);o.stop(t+dur+.03);
+ o.connect(g);g.connect(bus==='music'?this.musicBus:this.fxBus);trackSourceV030(o,g,kind);o.start(t);o.stop(t+dur+.03);
 };
 function soundNoiseV030(){soundV030.seed=(Math.imul(soundV030.seed,1664525)+1013904223)>>>0;return soundV030.seed/2147483648-1;}
-function pluckV030(frequency,volume=.13,bus='music'){
- if(!audibleV030(bus))return;const c=audio.ctx,sr=c.sampleRate,len=Math.floor(sr*.95),period=Math.max(2,Math.round(sr/frequency));
+function pluckV030(frequency,volume=.13,bus='music',color='koto',kind=bus){
+ if(!audibleV030(bus))return;const c=audio.ctx,sr=c.sampleRate,duration=color==='shamisen'?.28:.95,len=Math.floor(sr*duration),period=Math.max(2,Math.round(sr/frequency));
  const b=c.createBuffer(1,len,sr),d=b.getChannelData(0);for(let i=0;i<period;i++)d[i]=soundNoiseV030()*.72;
- for(let i=period;i<len;i++)d[i]=.496*(d[i-period]+d[i-period+1]);
+ const damping=color==='shamisen'?.486:.496;for(let i=period;i<len;i++)d[i]=damping*(d[i-period]+d[i-period+1]);
+ if(color==='shamisen')for(let i=0;i<Math.min(len,sr*.007);i++)d[i]+=soundNoiseV030()*.35*(1-i/(sr*.007));
  const o=c.createBufferSource(),g=c.createGain();o.buffer=b;g.gain.value=volume;o.connect(g);g.connect(bus==='music'?audio.musicBus:audio.fxBus);
- trackSourceV030(o,g,bus);o.start();o.stop(c.currentTime+.97);soundV030.counters.string++;
+ trackSourceV030(o,g,kind);o.start();o.stop(c.currentTime+duration+.02);soundV030.counters.string++;
 }
 function fluteV030(frequency,volume=.075,duration=.75){
  if(!audibleV030('music'))return;audio.note(frequency,duration,volume,'sine',0,frequency*1.006,'music');audio.note(frequency*2,duration*.6933333333333334,volume*.13,'triangle',.025,0,'music');soundV030.counters.flute++;
@@ -241,10 +248,60 @@ function taikoV030(volume=.13){if(!audibleV030('music'))return;audio.note(95,.42
 function tsuzumiV0375(volume=.10,high=false){if(!audibleV030('music'))return;
  audio.note(high?310:220,.14,volume,'sine',0,high?155:92,'music');audio.note(high?680:470,.045,volume*.16,'triangle',0,high?230:170,'music');soundV030.counters.tsuzumi++;
 }
-function strikeSoundV0375(isPlayer,perfect=false){
- const scale=[293.66,329.63,440,493.88,587.33,659.25,880,987.77,1174.66],index=Math.min(scale.length-1,Math.floor(soundV030.successes/2));
- const pitch=scale[Math.max(0,index-(isPlayer?0:1))];soundV030.strikePitch=pitch;
- if(isPlayer)pluckV030(pitch,perfect?.25:.21);else fluteV030(pitch,.105,.29);
+function sessionPhaseV0377(){return duelV022.phase==='impact'&&typeof feelV023!=='undefined'?feelV023.resumePhase:duelV022.phase;}
+function sessionClockV0377(t){
+ const s=sessionV0377;
+ if(s.lastTime!==null){const dt=Math.max(0,Math.min(.25,t-s.lastTime)),target=['break','back','close','charge','shot'].includes(sessionPhaseV0377())?.44:.56;
+  s.beatSeconds+=(target-s.beatSeconds)*Math.min(1,dt*2);s.position+=dt/s.beatSeconds;}
+ s.lastTime=t;
+}
+function fadeSessionV0377(){
+ if(!audio.ctx)return;const t=audio.ctx.currentTime;
+ for(const e of soundV030.active)if(e.kind==='session'){soundTargetV030(e.gain.gain,.0001,.055);try{e.source.stop(t+.24);}catch(err){}}
+}
+function thinSessionV0377(){
+ Object.assign(sessionV0377,{streak:0,level:0,strikes:0,notes:[],replyAt:-1});fadeSessionV0377();
+}
+function suzuV0377(volume=.035,large=false){
+ if(!audibleV030('music'))return;
+ const duration=large?.95:.32;[1,2.76,4.08].forEach((ratio,i)=>audio.note(1318.51*ratio,duration/(1+i*.35),volume/(1+i*2),'sine',i*.008,0,'music','session'));
+ soundV030.counters.suzu++;
+}
+function strikeSoundV0375(isPlayer,perfect=false,remember=true){
+ const s=sessionV0377;sessionClockV0377(audio.ctx?.currentTime||0);
+ const pitch=sessionScaleV0377[Math.min(sessionScaleV0377.length-1,s.strikes++)];soundV030.strikePitch=pitch;
+ // Immediate live feedback stays on the exact kick, including off-beat kicks.
+ pluckV030(pitch,isPlayer?(perfect?.25:.21):.15,'music','koto','session');
+ if(isPlayer&&remember){s.notes.push({pitch,at:s.position,next:s.position+8,repeats:0});if(s.notes.length>6)s.notes.shift();}
+ if(isPlayer&&perfect&&s.level>=1)suzuV0377(.025);
+}
+function sessionPumpV0377(t){
+ const s=sessionV0377,phase=sessionPhaseV0377();sessionClockV0377(t);
+ if(s.phase!==phase){if(s.phase==='close'&&phase==='back')thinSessionV0377();if(phase==='break')suzuV0377(.12,true);if(['charge','breakCharge','close'].includes(phase))fadeSessionV0377();s.phase=phase;}
+ const rally=['front','back'].includes(phase),drums=rally||phase==='break';
+ if(s.position>=s.nextBeat){const beat=Math.floor(s.position);s.nextBeat=beat+1;
+  if(drums){if(beat%4!==2)tsuzumiV0375(beat%4===0?.105:.062,beat%4===3);
+   if(rally&&s.level>=1&&beat%8===4)suzuV0377(.022);
+   if(rally&&s.level>=3&&beat%4===0)taikoV030(.065);}
+ }
+ const speaking=!!audio.voiceRequest;
+ for(const note of s.notes)if(s.position>=note.next){
+  // Late frames and silent cinematics skip old events rather than burst them.
+  const due=s.position-note.next;note.next+=8*Math.max(1,Math.floor(due/8)+1);
+  if(rally&&s.level>=1&&due<.5&&note.repeats<3){pluckV030(note.pitch,.085*Math.pow(.55,note.repeats)*(speaking?.65:1),'music','koto','session');note.repeats++;soundV030.counters.echo++;}
+ }
+ s.notes=s.notes.filter(n=>n.repeats<3);
+ if(s.position*4>=s.nextSub){const sub=Math.floor(s.position*4);s.nextSub=sub+1;
+  // Short bachi runs answer the faster back-court pulse; leave alternate halves open.
+  if(phase==='back'&&s.level>=1&&!speaking&&sub%16>=8&&(s.level>=2||sub%2===0)){
+   const phrase=[0,2,1,3,2,4,3,5],i=phrase[sub%8]+Math.min(3,Math.floor(s.strikes/4));
+   pluckV030(sessionScaleV0377[Math.min(sessionScaleV0377.length-1,i)],.075,'music','shamisen','session');soundV030.counters.shamisen++;
+  }
+ }
+ if(s.replyAt>=0&&t>=s.replyAt){const due=t-s.replyAt;s.replyAt=-1;
+  if(rally&&!speaking&&due<.3){const pitch=sessionScaleV0377[Math.min(sessionScaleV0377.length-1,Math.max(0,s.strikes-1))];
+   if(s.level>=2)fluteV030(pitch,.065,.22);else pluckV030(pitch*2,.06,'music',phase==='back'?'shamisen':'koto','session');soundV030.counters.reply++;}
+ }
 }
 function shoV030(){
  if(soundV030.sho.length||!audibleV030('music')||!soundActiveV030())return;
@@ -256,7 +313,7 @@ function shoV030(){
 }
 function successSoundV030(contact=false){
  soundV030.successes++;soundV030.level=soundV030.successes>=8?3:soundV030.successes>=5?2:soundV030.successes>=2?1:0;audio.layers=soundV030.level;
- if(scoreSectionV0375()!=='rush'){if(contact)strikeSoundV0375(true);return;}
+ if(scoreSectionV0375()!=='rush'){const s=sessionV0377;s.streak++;s.level=s.streak>=8?3:s.streak>=5?2:s.streak>=2?1:0;if(contact)strikeSoundV0375(true,false,false);return;}
  const t=audio.ctx?.currentTime||0;
  if(t-soundV030.lastSuccess<.075)return;soundV030.lastSuccess=t;
  if(soundV030.level>=1)pluckV030([293.66,329.63,440,493.88,587.33][soundV030.successes%5],.11/Math.sqrt(1+soundV030.level*.3));
@@ -265,12 +322,13 @@ function successSoundV030(contact=false){
 }
 audio.hit=function(isPlayer,rally,perfect){
  if(isPlayer&&rally>0)successSoundV030();
+ if(isPlayer&&rally===0&&scoreSectionV0375()==='rally')thinSessionV0377();
  if(!audibleV030())return;const t=this.ctx.currentTime;if(t-soundV030.lastHit<.04)return;soundV030.lastHit=t;
  // Retain the old electronic attack, with space for the match's koto/flute reply.
  const regular=scoreSectionV0375()==='rally',gain=regular?.55:1;
  this.note(isPlayer?440:330,.18,.36*gain,'sine',0,isPlayer?180:140);this.note(isPlayer?880:660,.24,.12*gain,'triangle');
  if(rally>=4)this.note(82,.3,.32*gain,'sine');if(rally>=8)this.note(1320,.1,.08*gain,'triangle');
- if(perfect)this.note(1174.66,.36,.15*gain,'sine',.02);if(regular)strikeSoundV0375(isPlayer,perfect);soundV030.counters.hit++;
+ if(perfect)this.note(1174.66,.36,.15*gain,'sine',.02);if(regular&&!(isPlayer&&rally===0))strikeSoundV0375(isPlayer,perfect);soundV030.counters.hit++;
 };
 audio.movement=function(slot=0){if(!audibleV030())return;const t=this.ctx.currentTime;if(t-soundV030.lastMove<.11)return;soundV030.lastMove=t;
  this.note(145+slot*13,.065,.055,'triangle',0,65);soundV030.counters.movement++;};
@@ -279,12 +337,9 @@ function soundPumpV030(){
  if(!soundActiveV030()||!audio.enabled){if(soundV030.sho.length)stopSourcesV030('sho');return;}
  if(audio.ctx?.state!=='running'){if(!nativeMixV0374.held&&soundV030.sho.length)stopSourcesV030('sho');return;}
  const section=scoreSectionV0375(),t=audio.ctx.currentTime;
- if(section!==soundV030.section){stopSourcesV030('sho');stopSourcesV030('music');soundV030.section=section;soundV030.beat=0;soundV030.breathAt=0;}
+ if(section!==soundV030.section){stopSourcesV030('sho');stopSourcesV030('music');stopSourcesV030('session');sessionV0377.lastTime=null;sessionV0377.replyAt=-1;soundV030.section=section;soundV030.beat=0;soundV030.breathAt=0;}
  if(section==='rally'){
-  audio.applyMix();if(t<soundV030.nextPulse)return;soundV030.nextPulse=t+.56;soundV030.beat++;
-  const phase=typeof duelV022!=='undefined'?duelV022.phase:'front';
-  if(['charge','breakCharge','shot','break','settle'].includes(phase))return;
-  const beat=soundV030.beat%4;if(beat!==3)tsuzumiV0375(beat===1?.105:.062,beat===0);return;
+  audio.applyMix();sessionPumpV0377(t);return;
  }
  shoV030();
  if(t>=soundV030.breathAt){soundV030.breathAt=t+.16;const norm=1/Math.sqrt(1+soundV030.level*.28);
@@ -295,14 +350,15 @@ function soundPumpV030(){
  if(soundV030.level>=2&&soundV030.beat%4===1)fluteV030([587.33,659.25,880][soundV030.beat%3],.055);
  if(soundV030.level>=3&&soundV030.beat%2===0)taikoV030(.07);
 }
-function resetSoundV030(){stopSourcesV030();audio.stopVoice();Object.assign(soundV030,{successes:0,level:0,beat:0,breathAt:0,section:'',strikePitch:0,lastMove:-99,lastHit:-99,lastSuccess:-99});audio.layers=0;}
+function resetSoundV030(){stopSourcesV030();audio.stopVoice();Object.assign(soundV030,{successes:0,level:0,beat:0,breathAt:0,section:'',strikePitch:0,lastMove:-99,lastHit:-99,lastSuccess:-99});Object.assign(sessionV0377,{position:0,lastTime:null,beatSeconds:.56,nextBeat:0,nextSub:0,phase:'',streak:0,level:0,strikes:0,notes:[],replyAt:-1});audio.layers=0;}
 const startSoundV030=start;start=function(){if(titlePendingV020||state.mode==='error')return;resetSoundV030();if(audio.enabled)audio.resumeFromGesture();const r=startSoundV030();soundPumpV030();return r;};
 const matchSoundV030=beginMatch;beginMatch=function(){resetSoundV030();const r=matchSoundV030();soundPumpV030();return r;};
 const pauseSoundV030=pause;pause=function(){const wasPaused=state.mode==='paused';if(wasPaused&&audio.enabled)audio.resumeFromGesture();const r=pauseSoundV030();
  if(state.mode==='paused'){stopSourcesV030();audio.stopVoice();releaseNativeMixV0374();}else soundPumpV030();soundUiV030();return r;};
 const selectSoundV030=select;select=function(index){const before=state.selected,score=closeV027.score,r=selectSoundV030(index);if(closeV027.score>score)successSoundV030(true);if(soundActiveV030()&&state.selected!==before)audio.movement(state.selected);return r;};
+if(typeof answerCloseV027==='function'){const answerSoundV0377=answerCloseV027;answerCloseV027=function(index){const asking=closeV027.stage==='ask',r=answerSoundV0377(index);if(asking&&closeV027.stage==='react'&&!closeV027.correct)thinSessionV0377();return r;};}
 const kickSoundV030=kick;kick=function(){const taps=duelV022.taps,r=kickSoundV030();if(duelV022.taps>taps)successSoundV030();return r;};
-const endSoundV030=end;end=function(kind){const before=state.mode,r=endSoundV030(kind);if(state.mode!==before&&['over','finishing'].includes(state.mode))stopSourcesV030('sho');return r;};
+const endSoundV030=end;end=function(kind){const before=state.mode,r=endSoundV030(kind);if(state.mode!==before&&['over','finishing'].includes(state.mode)){stopSourcesV030('sho');if(state.mode==='over')thinSessionV0377();}return r;};
 const gameSoundV030=updateGame;updateGame=function(dt){const r=gameSoundV030(dt);soundPumpV030();return r;};
 for(const id of ['musicVolume','voiceVolume'])$('#'+id).addEventListener('input',audioPrefsV030);
 // Defaults affect new visits; an existing mute or personal mix stays intact.
@@ -328,10 +384,12 @@ window.addEventListener('pageshow',()=>{if(audio.enabled&&audio.ctx&&audio.ctx.s
 canvas.addEventListener('webglcontextlost',()=>{audio.stopVoice();stopSourcesV030();});
 $('#start').addEventListener('click',start);`);
  once('select(0);refreshHud();requestAnimationFrame(frame);',String.raw`
-window.kemari.getAudioDiagnostics=()=>({version:'0.37.5-match-score',voiceMode:voiceModeV033,voiceEngine:voiceModeV033==='native'?'native':'decoded-clips',voiceStatus:soundV030.voiceStatus,lastVoiceText:soundV030.lastVoiceText,lastVoiceError:soundV030.lastVoiceError,decodedVoices:voiceBuffersV032.size,contextState:audio.ctx?.state||'not-created',contexts:soundV030.contextCount,enabled:audio.enabled,
+window.kemari.getAudioDiagnostics=()=>({version:'0.37.7-rally-session',voiceMode:voiceModeV033,voiceEngine:voiceModeV033==='native'?'native':'decoded-clips',voiceStatus:soundV030.voiceStatus,lastVoiceText:soundV030.lastVoiceText,lastVoiceError:soundV030.lastVoiceError,decodedVoices:voiceBuffersV032.size,contextState:audio.ctx?.state||'not-created',contexts:soundV030.contextCount,enabled:audio.enabled,
  nativeMixType:nativeMixV0374.session?.type||'unsupported-or-unclaimed',nativeMixError:nativeMixV0374.error,nativeMusicHeld:nativeMixV0374.held,nativeInterruptions:nativeMixV0374.interruptions,
  music:audio.musicVolume,voice:audio.voiceVolume,ducked:audio.ducked,musicTarget:soundV030.mixTarget,successes:soundV030.successes,layer:soundV030.level,
- scoreSection:scoreSectionV0375(),strikePitch:soundV030.strikePitch,layerNames:scoreSectionV0375()==='rally'?['tsuzumi','kick koto/flute']:['shō',...(scoreSectionV0375()==='rush'&&soundV030.level>=1?['plucked strings']:[]),...(scoreSectionV0375()==='rush'&&soundV030.level>=2?['flute']:[]),...(scoreSectionV0375()==='rush'&&soundV030.level>=3?['taiko']:[])],
+ scoreSection:scoreSectionV0375(),strikePitch:soundV030.strikePitch,
+ session:{streak:sessionV0377.streak,layer:sessionV0377.level,strikes:sessionV0377.strikes,bpm:60/sessionV0377.beatSeconds,position:sessionV0377.position,loopBeats:8,notes:sessionV0377.notes.map(n=>({...n})),replyPending:sessionV0377.replyAt>=0},
+ layerNames:scoreSectionV0375()==='rally'?['tsuzumi','live koto',...(sessionV0377.level>=1?['koto loop','suzu']:[]),...(sessionV0377.level>=2?['flute replies']:[]),...(sessionV0377.level>=3?['taiko']:[]),...(duelV022.phase==='back'&&sessionV0377.level>=1?['shamisen']:[])]:['shō',...(scoreSectionV0375()==='rush'&&soundV030.level>=1?['plucked strings']:[]),...(scoreSectionV0375()==='rush'&&soundV030.level>=2?['flute']:[]),...(scoreSectionV0375()==='rush'&&soundV030.level>=3?['taiko']:[])],
  activeSources:soundV030.active.size,shoVoices:soundV030.sho.length,voiceToken:audio.voiceToken,voiceTimer:!!audio.voiceTimer,
  needsGesture:soundV030.needsGesture,speechBlocked:soundV030.speechBlocked,resumeVisible:!audioResumeV030.hidden,disposed:soundV030.disposed,
  counters:{...soundV030.counters},realDeviceAcceptance:'iPhone/iPad Safari: not yet tested'});

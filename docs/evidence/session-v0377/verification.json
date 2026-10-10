@@ -1,0 +1,299 @@
+{
+  "checkedAt": "2026-10-10T04:55:29.486Z",
+  "version": "0.37.7-rally-session",
+  "git": {
+    "branch": "migration/threejs-renderer",
+    "base": "1c094d3584c711ec9bd827f7cf9aaa3f8941ebb8",
+    "status": "local uncommitted; not pushed or published"
+  },
+  "sha256": {
+    "before": "77fede6ca295c37b7f615856a0828fa67ac48036dcc0dc60f6b7c7b2178ea7c7",
+    "after": "0cfbd71fb72e1e90b24244a22ecc706a623562b757dff9c506842f9a64179dde"
+  },
+  "score": {
+    "method": "Real Web Audio output; identical scheduled kicks and bundled recorded words, BGM82/voice72. No physical output or native speech PCM capture.",
+    "schedule": [
+      [
+        0.3,
+        "cpu",
+        "think"
+      ],
+      [
+        2.3,
+        "player"
+      ],
+      [
+        4.1,
+        "cpu",
+        "this"
+      ],
+      [
+        6.2,
+        "player"
+      ],
+      [
+        8,
+        "cpu",
+        "ship"
+      ],
+      [
+        9.9,
+        "player"
+      ],
+      [
+        11.7,
+        "cpu",
+        "vision"
+      ],
+      [
+        13.8,
+        "player"
+      ],
+      [
+        15,
+        "cpu",
+        "think"
+      ],
+      [
+        16.9,
+        "player"
+      ],
+      [
+        18,
+        "phase",
+        "breakCharge"
+      ],
+      [
+        19,
+        "phase",
+        "break"
+      ],
+      [
+        21,
+        "phase",
+        "back"
+      ],
+      [
+        21.1,
+        "cpu",
+        "this"
+      ],
+      [
+        22.5,
+        "player"
+      ],
+      [
+        23.8,
+        "cpu",
+        "ship"
+      ],
+      [
+        25.2,
+        "player"
+      ],
+      [
+        26.4,
+        "cpu",
+        "vision"
+      ],
+      [
+        27.8,
+        "player"
+      ],
+      [
+        29,
+        "cpu",
+        "think"
+      ],
+      [
+        30.4,
+        "player"
+      ],
+      [
+        31.3,
+        "miss"
+      ],
+      [
+        32.1,
+        "cpu",
+        "this"
+      ],
+      [
+        33.6,
+        "player"
+      ],
+      [
+        34.8,
+        "cpu",
+        "ship"
+      ],
+      [
+        36.1,
+        "player"
+      ],
+      [
+        37.4,
+        "phase",
+        "rush"
+      ],
+      [
+        37.6,
+        "rush",
+        "think"
+      ],
+      [
+        37.9,
+        "rush",
+        "this"
+      ],
+      [
+        38.2,
+        "rush",
+        "ship"
+      ],
+      [
+        38.5,
+        "rush",
+        "vision"
+      ],
+      [
+        38.800000000000004,
+        "rush",
+        "think"
+      ],
+      [
+        39.1,
+        "rush",
+        "this"
+      ],
+      [
+        39.4,
+        "rush",
+        "ship"
+      ],
+      [
+        39.7,
+        "rush",
+        "vision"
+      ],
+      [
+        40,
+        "rush",
+        "think"
+      ],
+      [
+        40.300000000000004,
+        "rush",
+        "this"
+      ],
+      [
+        40.6,
+        "rush",
+        "ship"
+      ],
+      [
+        40.9,
+        "rush",
+        "vision"
+      ],
+      [
+        41.2,
+        "rush",
+        "think"
+      ],
+      [
+        41.5,
+        "rush",
+        "this"
+      ],
+      [
+        41.800000000000004,
+        "rush",
+        "ship"
+      ]
+    ],
+    "cases": [
+      {
+        "name": "before",
+        "duration": 43.008,
+        "rms": 0.035999510340817144,
+        "peak": 0.329184889793396,
+        "counters": {
+          "sho": 1,
+          "string": 29,
+          "flute": 20,
+          "taiko": 17,
+          "tsuzumi": 45,
+          "movement": 0,
+          "hit": 38,
+          "speech": 26,
+          "recoveries": 1
+        },
+        "errors": []
+      },
+      {
+        "name": "after",
+        "duration": 42.965333333333334,
+        "rms": 0.03605222849825648,
+        "peak": 0.3290708661079407,
+        "counters": {
+          "sho": 1,
+          "string": 103,
+          "flute": 13,
+          "taiko": 19,
+          "tsuzumi": 56,
+          "movement": 0,
+          "hit": 38,
+          "speech": 26,
+          "recoveries": 1,
+          "echo": 18,
+          "suzu": 7,
+          "shamisen": 39,
+          "reply": 11
+        },
+        "errors": []
+      }
+    ]
+  },
+  "browser": {
+    "flow": {
+      "checks": 99,
+      "errors": [],
+      "browser": {
+        "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "requestedRenderer": "default hardware",
+        "softwareFallback": false,
+        "arguments": [],
+        "version": "154.0.8037.99",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    },
+    "native": {
+      "status": "passed",
+      "checks": 16,
+      "blocked": [],
+      "errors": []
+    },
+    "recorded": {
+      "status": "passed",
+      "checks": 12,
+      "errors": []
+    },
+    "localSmoke": {
+      "passed": true,
+      "errors": []
+    }
+  },
+  "limitations": [
+    "Scripted comparison uses recorded voice and controlled phase changes, not a human-played match.",
+    "Internal WebAudio recording does not capture native OS speech or physical speaker mixing.",
+    "iPhone/iPad Safari listening, touch and OS ducking remain unverified.",
+    "No claim of subjective musical quality or learning benefit."
+  ],
+  "automated": {
+    "status": "passed",
+    "suites": 22,
+    "log": "../work/session-v0377/unit-final.log",
+    "normalFlightComparison": "matched baseline samples, duration and hit/perfect windows"
+  }
+}

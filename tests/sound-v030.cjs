@@ -12,7 +12,7 @@ function make(saved,options={}){
  const speech={queue:[],cancelCount:0,resumeCount:0,cancel(){this.cancelCount++;this.queue=[];},resume(){this.resumeCount++;},speak(u){this.queue.push(u);u.onstart?.();}};
  const c={document:doc,window:win,AudioContext:Context,Float32Array,Math,Promise,Set,Number,JSON,console,
  localStorage:{getItem(k){return storage.get(k)||null},setItem(k,v){storage.set(k,v)}},setTimeout(f){const id=++serial;timers.set(id,f);return id},clearTimeout(id){timers.delete(id)},
- audio:{enabled:false,userChoice:false,musicVolume:.8,voiceVolume:.85,voiceToken:0,ctx:null},state:{mode:'idle',direction:-1,selected:0,rally:0},
+ audio:{enabled:false,userChoice:false,musicVolume:.8,voiceVolume:.85,voiceToken:0,ctx:null},state:{mode:'idle',direction:-1,selected:0,rally:0,misses:0},
  titlePendingV020:false,duelV022:{phase:'front',taps:0},closeV027:{score:0,stage:'idle'},ACTIVE_STAGE:{id:'gion'},canvas:new Element(),
  $:get,refreshHud(){},requestAnimationFrame(){}};
  Object.assign(win,{AudioContext:class extends Context{constructor(){super();this.deferDecode=options.deferDecode;this.failDecode=options.failDecode;}},speechSynthesis:speech,kemari:{}});c.fetch=options.fetch||(()=>Promise.resolve({ok:true,arrayBuffer:()=>Promise.resolve(new ArrayBuffer(4))}));
@@ -21,7 +21,8 @@ function make(saved,options={}){
  c.pause=function(){c.state.mode=c.state.mode==='paused'?'playing':'paused';};
  c.select=function(index){if(c.closeV027.stage==='ask'){c.closeV027.stage='react';if(index===1)c.closeV027.score++;}else c.state.selected=index;};
  c.kick=function(){if(c.state.mode!=='playing')return;if(c.duelV022.phase==='rush')c.duelV022.taps++;else c.audio.hit(true,++c.state.rally,false);};
- c.end=function(){c.state.mode='over';};c.updateGame=function(){};c.speakWord=function(){c.audio.speak({text:'think',lang:'en-US',rate:.82,pitch:1,volume:c.audio.voiceVolume});};
+ c.rescue=function(){c.state.misses=(c.state.misses||0)+1;c.audio.hit(true,0,false);};
+ c.end=function(){c.state.mode='over';};c.updateGame=function(){};c.speakWord=function(){c.audio.speak({text:'think',kind:'word',lang:'en-US',rate:.82,pitch:1,volume:c.audio.voiceVolume});};
  vm.createContext(c);vm.runInContext(runtime+'\n'+diagnostics,c);return {c,get,storage,timers,speech,stats:()=>c.window.kemari.getAudioDiagnostics()};
 }
 async function settle(){for(let i=0;i<30;i++)await Promise.resolve();}
@@ -57,6 +58,25 @@ async function settle(){for(let i=0;i<30;i++)await Promise.resolve();}
  const legacyHit=new Function('isPlayer','rally','perfect',legacyHitSource),kickAudio=make();kickAudio.c.start();kickAudio.c.state.mode='playing';kickAudio.c.duelV022.phase='rush';let actual=[];kickAudio.c.audio.note=(...args)=>{if(args[6]!=='music')actual.push(args)};
  for(const isPlayer of [false,true])for(const rally of [0,3,4,8])for(const perfect of [false,true]){const expected=[];legacyHit.call({note:(...args)=>expected.push(args)},isPlayer,rally,perfect);actual=[];kickAudio.c.audio.ctx.currentTime+=.2;kickAudio.c.audio.hit(isPlayer,rally,perfect);assert.deepEqual(actual,expected);}
  kickAudio.c.audio.dispose();
+ // The score repeats real input offsets, never snaps a live hit to the drum.
+ const music=make(),m=music.c,ma=m.audio,stats=music.stats; m.start();await settle();m.beginMatch();m.updateGame(0);
+ const advance=seconds=>{for(let left=seconds;left>1e-8;left-=Math.min(1/120,left)){const dt=Math.min(1/120,left);ma.ctx.currentTime+=dt;m.updateGame(dt);}};
+ advance(.137);m.kick();const one=stats().session.notes[0],firstPitch=stats().strikePitch;
+ assert(Math.abs(one.at-.137/.56)<1e-8,'off-grid timing captured unchanged');assert.equal(one.next-one.at,8);
+ advance(.271);ma.hit(false,1,false);assert(stats().strikePitch>firstPitch,'CPU joins the same pitch ladder');
+ advance(.113);m.kick();assert(stats().session.notes[1].pitch>stats().session.notes[0].pitch);assert.equal(stats().session.layer,1);
+ const echoes=stats().counters.echo;advance((one.next-stats().session.position)*.56-.005);assert.equal(stats().counters.echo,echoes,'no early echo');advance(.01);assert.equal(stats().counters.echo,echoes+1,'first echo lands eight beats after its live kick');
+ const pos=stats().session.position,noteCount=stats().session.notes.length;m.pause();ma.ctx.currentTime+=20;m.pause();m.updateGame(0);
+ assert.equal(stats().session.position,pos,'pause does not advance the loop');assert.equal(stats().session.notes.length,noteCount,'pause preserves the phrase');
+ for(let i=0;i<7;i++){advance(.2);m.kick();}assert.equal(stats().session.notes.length,6,'six recent kicks bound the phrase');assert.equal(stats().session.layer,3);
+ m.duelV022.phase='back';advance(2);assert(stats().session.bpm>130);assert(stats().counters.shamisen>0);
+ const beforeReply=stats().counters.reply;m.speakWord();await settle();ma.voiceRequest.u.onend();advance(.11);assert.equal(stats().counters.reply,beforeReply+1,'natural reading receives one musical reply');
+ m.speakWord();await settle();const replaced=ma.voiceRequest.u;m.speakWord();await settle();replaced.onend();advance(.2);assert.equal(stats().counters.reply,beforeReply+1,'cancelled reading cannot answer over the new voice');ma.stopVoice();
+ m.rescue('symbol');assert.equal(stats().session.layer,0);assert.equal(stats().session.notes.length,0);assert.equal(stats().session.strikes,0);assert(stats().session.bpm>130,'miss preserves the back-court drum tempo');
+ const quiet=stats().counters.shamisen;advance(1);assert.equal(stats().counters.shamisen,quiet,'miss strips earned accompaniment');assert(stats().counters.tsuzumi>0);
+ m.kick();assert.equal(stats().session.layer,0);advance(.2);m.kick();assert.equal(stats().session.layer,1,'correct returns rebuild the score');
+ const beforeRush={echo:stats().counters.echo,shamisen:stats().counters.shamisen};m.duelV022.phase='rush';advance(2);assert.equal(stats().counters.echo,beforeRush.echo);assert.equal(stats().counters.shamisen,beforeRush.shamisen,'Rush has no new loop layer');
+ m.beginMatch();assert.equal(stats().session.notes.length,0);assert.equal(stats().session.streak,0);assert.equal(stats().session.bpm,60/.56);ma.dispose();
  a.speak({text:'vision'});await settle();c.pause();assert.equal(h.stats().activeSources,0);assert.equal(h.stats().voiceTimer,false);c.pause();c.updateGame(.1);assert.equal(h.stats().shoVoices,5);assert.equal(h.stats().contexts,1);
  a.ctx.state='interrupted';a.ctx.emit('statechange');assert.equal(h.stats().activeSources,0);assert(h.stats().resumeVisible);a.ctx.blockResume=true;a.resumeFromGesture();await settle();assert(h.stats().resumeVisible);
  a.ctx.blockResume=false;a.resumeFromGesture();await settle();c.updateGame(.1);assert(!h.stats().resumeVisible);assert.equal(h.stats().shoVoices,5);
@@ -70,5 +90,5 @@ async function settle(){for(let i=0;i<30;i++)await Promise.resolve();}
  const oldTitle=interrupted.c.audio.voiceRequest.u;interrupted.c.audio.ctx.state='interrupted';interrupted.c.audio.ctx.emit('statechange');assert(!interrupted.c.titlePendingV020);oldTitle.onend();assert.equal(interruptedDone,0);interrupted.c.audio.dispose();
  const closed=make();closed.c.start();const oldContext=closed.c.audio.ctx;oldContext.state='closed';oldContext.emit('statechange');closed.c.audio.resumeFromGesture();await settle();assert.equal(closed.stats().contexts,2);assert.equal(oldContext.listeners.statechange.length,0);closed.c.audio.dispose();
  a.set(true);c.beginMatch();c.updateGame(.1);a.dispose();await settle();assert.equal(h.stats().activeSources,0);assert.equal(h.stats().contextState,'closed');a.resumeFromGesture();assert.equal(h.stats().contexts,1);
- console.log(JSON.stringify({passed:true,checks:['single context and shared voice bus','zero OS speech calls','delayed decode/title completion','immediate rush cancellation before and after decode','first-class decode error and explicit retry','steady music across all phases','historical kick regression','success layers','pause/mute/restart','context interruption and replacement','visibility recovery','bounded sources','stale callbacks','dispose'],verification:'VM mocked Web Audio; no physical-device listening claim'}));
+ console.log(JSON.stringify({passed:true,checks:['single context and shared voice bus','zero OS speech calls','delayed decode/title completion','immediate rush cancellation before and after decode','first-class decode error and explicit retry','steady music across all phases','historical kick regression','success layers','unquantized eight-beat kick loop','shared pitch ladder','bounded fading musical memory','back-court tempo and shamisen','natural completion reply and stale cancellation','miss thins and successes rebuild','Rush accompaniment isolated','pause/mute/restart','context interruption and replacement','visibility recovery','bounded sources','stale callbacks','dispose'],verification:'VM mocked Web Audio; no physical-device listening claim'}));
 })().catch(e=>{console.error(e);process.exitCode=1});
