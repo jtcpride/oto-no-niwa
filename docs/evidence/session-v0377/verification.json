@@ -4,7 +4,9 @@
   "git": {
     "branch": "migration/threejs-renderer",
     "base": "1c094d3584c711ec9bd827f7cf9aaa3f8941ebb8",
-    "status": "local uncommitted; not pushed or published"
+    "status": "committed and published to main and migration/threejs-renderer",
+    "applicationCommit": "296030a680f145e020e8b8878235033dd82d1fe7",
+    "pagesRun": "38028352429"
   },
   "sha256": {
     "before": "77fede6ca295c37b7f615856a0828fa67ac48036dcc0dc60f6b7c7b2178ea7c7",
@@ -295,5 +297,6 @@
     "suites": 22,
     "log": "../work/session-v0377/unit-final.log",
     "normalFlightComparison": "matched baseline samples, duration and hit/perfect windows"
-  }
+  },
+  "publication": "publication.json"
 }

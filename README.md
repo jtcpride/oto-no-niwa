@@ -2,7 +2,7 @@
 
 蹴った瞬間に琴が鳴り、実際のタイミングを8拍のループへ残します。正解で鈴・笛の返事・低い太鼓が加わり、奥舞台では鼓が107→136 BPMへ滑らかに上がって短い三味線の速弾きが入ります。ミスでは重なりが引き、鼓を残して育て直せます。単語が自然に読み終わると楽器が短く返事。音声方式・既存Rushの伴奏・ゲームの飛行時間と判定は維持。
 
-[変更前後の音と試遊](docs/evidence/session-v0377/index.html)。実Web Audio出力の同条件録音とMac Chromeの回帰検証。iPhone／iPadの実音・聴感は未確認。ユーザー承認済みの公開対象です。旧音声は [?voice=native](https://jtcpride.github.io/oto-no-niwa/?voice=native&v=0377) で選べます。
+[変更前後の音と試遊](docs/evidence/session-v0377/index.html)。実Web Audio出力の同条件録音とMac Chromeの回帰検証。iPhone／iPadの実音・聴感は未確認。GitHub Pagesへ公開済みです。旧音声は [?voice=native](https://jtcpride.github.io/oto-no-niwa/?voice=native&v=0377) で選べます。
 
 ## v0.37.6 — 石庭の対戦選択（2026-10-08）
 

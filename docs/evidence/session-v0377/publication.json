@@ -1,0 +1,656 @@
+{
+  "version": "0.37.7-rally-session",
+  "commit": "296030a680f145e020e8b8878235033dd82d1fe7",
+  "url": "https://jtcpride.github.io/oto-no-niwa/",
+  "checkedAt": "2026-10-10T05:47:29.548Z",
+  "status": "passed",
+  "files": [
+    {
+      "file": "content/voice-config.js",
+      "bytes": 143,
+      "sha256": "17e05bb21cd3624a74c798897610807bb11b538ca02ed05d928f0d94800ca373"
+    },
+    {
+      "file": "patch-campaign-v030.js",
+      "bytes": 40631,
+      "sha256": "4fe7e03cb2236a7577d0fabef7d7b8f28d869ae24b2a8470321ba0c0d80c0abb"
+    },
+    {
+      "file": "patch-sound-v030.js",
+      "bytes": 37437,
+      "sha256": "0300a3a25b3f81d4d2ba97088bd025c47038565a0ed50a5fdbfa880396021429"
+    },
+    {
+      "file": "index.html",
+      "bytes": 4877,
+      "sha256": "71d3bdcf8fc5ed048146e69bdc7e283ee0502aeb4c1135b51a09230c0cfbd98c"
+    },
+    {
+      "file": "docs/evidence/session-v0377/verification.json",
+      "bytes": 5314,
+      "sha256": "488255c0fa201a47be7467df0774810d0b5405d00f9a7611533cfdaf66036d62"
+    },
+    {
+      "file": "docs/evidence/session-v0377/index.html",
+      "bytes": 2874,
+      "sha256": "e73455f0acc39a78ae283d71503b340fea2937daa6f25f21668574563427a51d"
+    },
+    {
+      "file": "content/voice-clips.js",
+      "bytes": 26729,
+      "sha256": "7ae99b3152d4c5b782d6392d91d3292a0a507fd99b8c1135b871486330a7bcf3"
+    },
+    {
+      "file": "rendering/three-runtime.js",
+      "bytes": 547819,
+      "sha256": "b6ac7dabc8747a6fcb8e0bc15c73f1141ca995faa758fbcf3b39b17bd706c512"
+    },
+    {
+      "file": "docs/evidence/session-v0377/after.m4a",
+      "bytes": 567626,
+      "sha256": "23fc7f97a35d35a84bbb039ac2f90aa946492d94a67cce76b5076cf6e9329a1d"
+    },
+    {
+      "file": "docs/evidence/session-v0377/before.m4a",
+      "bytes": 438665,
+      "sha256": "b516bfa693815375bc96bf910f6a40dc35bd7cc6922edb9e79f28c15c84dab13"
+    }
+  ],
+  "checks": [
+    {
+      "name": "published game and comparison bytes match the approved release",
+      "evidence": {
+        "count": 10
+      }
+    },
+    {
+      "name": "native START, title and first Kyoto line naturally complete",
+      "evidence": {
+        "audio": {
+          "version": "0.37.7-rally-session",
+          "voiceMode": "native",
+          "voiceEngine": "native",
+          "voiceStatus": "idle",
+          "lastVoiceText": "Yoh, kaette kiharimashita na.",
+          "lastVoiceError": "",
+          "decodedVoices": 0,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": false,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "session": {
+            "streak": 0,
+            "layer": 0,
+            "strikes": 0,
+            "bpm": 107.14285714285714,
+            "position": 0,
+            "loopBeats": 8,
+            "notes": [],
+            "replyPending": false
+          },
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 5,
+          "shoVoices": 5,
+          "voiceToken": 7,
+          "voiceTimer": false,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 2,
+            "recoveries": 1,
+            "echo": 0,
+            "suzu": 0,
+            "shamisen": 0,
+            "reply": 0
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": [
+          {
+            "type": "start",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "end",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          }
+        ]
+      }
+    },
+    {
+      "name": "native ordinary PRACTICE timing grows and repeats the new score",
+      "evidence": {
+        "version": "0.37.7-rally-session",
+        "voiceMode": "native",
+        "voiceEngine": "native",
+        "voiceStatus": "idle",
+        "lastVoiceText": "ship",
+        "lastVoiceError": "",
+        "decodedVoices": 0,
+        "contextState": "running",
+        "contexts": 1,
+        "enabled": true,
+        "nativeMixType": "unsupported-or-unclaimed",
+        "nativeMixError": "",
+        "nativeMusicHeld": false,
+        "nativeInterruptions": 0,
+        "music": 0.82,
+        "voice": 0.72,
+        "ducked": false,
+        "musicTarget": 0.82,
+        "successes": 3,
+        "layer": 1,
+        "scoreSection": "rally",
+        "strikePitch": 587.33,
+        "session": {
+          "streak": 3,
+          "layer": 1,
+          "strikes": 6,
+          "bpm": 107.14285714285714,
+          "position": 21.84761904761898,
+          "loopBeats": 8,
+          "notes": [
+            {
+              "pitch": 329.63,
+              "at": 4.352380952380946,
+              "next": 28.352380952380948,
+              "repeats": 1
+            },
+            {
+              "pitch": 440,
+              "at": 13.104761904761855,
+              "next": 29.104761904761855,
+              "repeats": 1
+            },
+            {
+              "pitch": 587.33,
+              "at": 21.84761904761898,
+              "next": 29.84761904761898,
+              "repeats": 0
+            }
+          ],
+          "replyPending": false
+        },
+        "layerNames": [
+          "tsuzumi",
+          "live koto",
+          "koto loop",
+          "suzu"
+        ],
+        "activeSources": 9,
+        "shoVoices": 0,
+        "voiceToken": 20,
+        "voiceTimer": false,
+        "needsGesture": false,
+        "speechBlocked": false,
+        "resumeVisible": false,
+        "disposed": false,
+        "counters": {
+          "sho": 1,
+          "string": 10,
+          "flute": 0,
+          "taiko": 0,
+          "tsuzumi": 17,
+          "movement": 2,
+          "hit": 6,
+          "speech": 6,
+          "recoveries": 6,
+          "echo": 2,
+          "suzu": 3,
+          "shamisen": 0,
+          "reply": 2
+        },
+        "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+      }
+    },
+    {
+      "name": "native public pause and resume preserve the musical phrase",
+      "evidence": {
+        "position": 21.895238095238028
+      }
+    },
+    {
+      "name": "native second line, PRACTICE voice and landscape fit",
+      "evidence": {
+        "overflow": false,
+        "controls": [
+          {
+            "x": 790,
+            "y": 6,
+            "right": 834,
+            "bottom": 50
+          },
+          {
+            "x": 10,
+            "y": 196,
+            "right": 111.265625,
+            "bottom": 240
+          },
+          {
+            "x": 10,
+            "y": 244,
+            "right": 111.265625,
+            "bottom": 288
+          },
+          {
+            "x": 10,
+            "y": 290.39129638671875,
+            "right": 111.265625,
+            "bottom": 334.39129638671875
+          },
+          {
+            "x": 10,
+            "y": 340,
+            "right": 111.265625,
+            "bottom": 384
+          },
+          {
+            "x": 732.734375,
+            "y": 308,
+            "right": 834,
+            "bottom": 384
+          }
+        ],
+        "audio": {
+          "version": "0.37.7-rally-session",
+          "voiceMode": "native",
+          "voiceEngine": "native",
+          "voiceStatus": "idle",
+          "lastVoiceText": "ship",
+          "lastVoiceError": "",
+          "decodedVoices": 0,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": false,
+          "musicTarget": 0.82,
+          "successes": 3,
+          "layer": 1,
+          "scoreSection": "rally",
+          "strikePitch": 587.33,
+          "session": {
+            "streak": 3,
+            "layer": 1,
+            "strikes": 6,
+            "bpm": 107.14285714285714,
+            "position": 21.91428571428565,
+            "loopBeats": 8,
+            "notes": [
+              {
+                "pitch": 329.63,
+                "at": 4.352380952380946,
+                "next": 28.352380952380948,
+                "repeats": 1
+              },
+              {
+                "pitch": 440,
+                "at": 13.104761904761855,
+                "next": 29.104761904761855,
+                "repeats": 1
+              },
+              {
+                "pitch": 587.33,
+                "at": 21.84761904761898,
+                "next": 29.84761904761898,
+                "repeats": 0
+              }
+            ],
+            "replyPending": false
+          },
+          "layerNames": [
+            "tsuzumi",
+            "live koto",
+            "koto loop",
+            "suzu"
+          ],
+          "activeSources": 0,
+          "shoVoices": 0,
+          "voiceToken": 22,
+          "voiceTimer": false,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 10,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 17,
+            "movement": 2,
+            "hit": 6,
+            "speech": 6,
+            "recoveries": 7,
+            "echo": 2,
+            "suzu": 3,
+            "shamisen": 0,
+            "reply": 2
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": [
+          {
+            "type": "start",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "FIFTEENTH EVER GARDEN",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "end",
+            "text": "Yoh, kaette kiharimashita na.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "start",
+            "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+            "error": null,
+            "voice": "Fred"
+          },
+          {
+            "type": "error",
+            "text": "Dorehodo oboete haru ka, misete moraimahyoka.",
+            "error": "interrupted",
+            "voice": "Fred"
+          },
+          {
+            "type": "start",
+            "text": "think",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "think",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "this",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "this",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "start",
+            "text": "ship",
+            "error": null,
+            "voice": "Samantha"
+          },
+          {
+            "type": "end",
+            "text": "ship",
+            "error": null,
+            "voice": "Samantha"
+          }
+        ]
+      }
+    },
+    {
+      "name": "default START, title and first Kyoto line naturally complete",
+      "evidence": {
+        "audio": {
+          "version": "0.37.7-rally-session",
+          "voiceMode": "recorded",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "idle",
+          "lastVoiceText": "Yoh, kaette kiharimashita na.",
+          "lastVoiceError": "",
+          "decodedVoices": 45,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": false,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "session": {
+            "streak": 0,
+            "layer": 0,
+            "strikes": 0,
+            "bpm": 107.14285714285714,
+            "position": 0,
+            "loopBeats": 8,
+            "notes": [],
+            "replyPending": false
+          },
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 5,
+          "shoVoices": 5,
+          "voiceToken": 7,
+          "voiceTimer": false,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 2,
+            "recoveries": 1,
+            "echo": 0,
+            "suzu": 0,
+            "shamisen": 0,
+            "reply": 0
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": []
+      }
+    },
+    {
+      "name": "default second line, PRACTICE voice and landscape fit",
+      "evidence": {
+        "overflow": false,
+        "controls": [
+          {
+            "x": 790,
+            "y": 6,
+            "right": 834,
+            "bottom": 50
+          },
+          {
+            "x": 10,
+            "y": 196,
+            "right": 111.265625,
+            "bottom": 240
+          },
+          {
+            "x": 10,
+            "y": 244,
+            "right": 111.265625,
+            "bottom": 288
+          },
+          {
+            "x": 10,
+            "y": 292,
+            "right": 111.265625,
+            "bottom": 336
+          },
+          {
+            "x": 10,
+            "y": 340,
+            "right": 111.265625,
+            "bottom": 384
+          },
+          {
+            "x": 732.734375,
+            "y": 308,
+            "right": 834,
+            "bottom": 384
+          }
+        ],
+        "audio": {
+          "version": "0.37.7-rally-session",
+          "voiceMode": "recorded",
+          "voiceEngine": "decoded-clips",
+          "voiceStatus": "playing",
+          "lastVoiceText": "think",
+          "lastVoiceError": "",
+          "decodedVoices": 45,
+          "contextState": "running",
+          "contexts": 1,
+          "enabled": true,
+          "nativeMixType": "unsupported-or-unclaimed",
+          "nativeMixError": "",
+          "nativeMusicHeld": false,
+          "nativeInterruptions": 0,
+          "music": 0.82,
+          "voice": 0.72,
+          "ducked": true,
+          "musicTarget": 0.82,
+          "successes": 0,
+          "layer": 0,
+          "scoreSection": "air",
+          "strikePitch": 0,
+          "session": {
+            "streak": 0,
+            "layer": 0,
+            "strikes": 0,
+            "bpm": 107.14285714285714,
+            "position": 0,
+            "loopBeats": 8,
+            "notes": [],
+            "replyPending": false
+          },
+          "layerNames": [
+            "shō"
+          ],
+          "activeSources": 6,
+          "shoVoices": 5,
+          "voiceToken": 13,
+          "voiceTimer": true,
+          "needsGesture": false,
+          "speechBlocked": false,
+          "resumeVisible": false,
+          "disposed": false,
+          "counters": {
+            "sho": 1,
+            "string": 0,
+            "flute": 0,
+            "taiko": 0,
+            "tsuzumi": 0,
+            "movement": 0,
+            "hit": 0,
+            "speech": 4,
+            "recoveries": 6,
+            "echo": 0,
+            "suzu": 0,
+            "shamisen": 0,
+            "reply": 0
+          },
+          "realDeviceAcceptance": "iPhone/iPad Safari: not yet tested"
+        },
+        "speech": []
+      }
+    },
+    {
+      "name": "public comparison audio loads",
+      "evidence": [
+        {
+          "duration": 42.965,
+          "src": "https://jtcpride.github.io/oto-no-niwa/docs/evidence/session-v0377/after.m4a"
+        },
+        {
+          "duration": 43.008,
+          "src": "https://jtcpride.github.io/oto-no-niwa/docs/evidence/session-v0377/before.m4a"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Actual Mac Chrome with native speech and real WebAudio; no physical iPhone/iPad or acoustic acceptance.",
+    "Practice inputs are automated from the public diagnostic target, not human listening acceptance."
+  ],
+  "browser": "154.0.8037.99",
+  "finishedAt": "2026-10-10T05:47:59.196Z",
+  "pagesRun": {
+    "id": "38028352429",
+    "url": "https://github.com/jtcpride/oto-no-niwa/actions/runs/38028352429",
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "296030a680f145e020e8b8878235033dd82d1fe7"
+  },
+  "testFixtureCorrections": [
+    "Tutorial buttons animate continuously; choose before timing with force click, which bypasses Playwright stability waiting only.",
+    "PRACTICE intentionally restores the rally counter; assert successful returns through musical session streak instead. Earlier assertion attempts retained in ../work/session-v0377/public/. No production changes."
+  ]
+}
