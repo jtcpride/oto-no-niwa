@@ -35,7 +35,7 @@ async function settle(){for(let i=0;i<40;i++)await Promise.resolve();}
 (async()=>{
  let finishFirst;const first='Yoh, kaette kiharimashita na.';
  const instrumented=source.replace('select(0);refreshHud();requestAnimationFrame(frame);','window.__audio=audio;select(0);refreshHud();requestAnimationFrame(frame);');
- const f=vmFixture(instrumented,{url:'http://feg-qa.test/?intro=1',mockVoice:false,beforeScripts(w){
+ const f=vmFixture(instrumented,{url:'http://feg-qa.test/?intro=1&voice=recorded',mockVoice:false,beforeScripts(w){
   w.AudioContext=Context;
   // Resolve the filename from the manifest embedded in the assembled product.
   const data=JSON.parse(source.match(/const voiceClipsV032=(\{[^\n]+\});/)[1]),firstPath=data[first].file;

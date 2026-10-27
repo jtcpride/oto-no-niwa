@@ -1,6 +1,6 @@
 // Deterministic WebAudio fixed-voice lifecycle tests. No audible acceptance claim.
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-const root=path.resolve(__dirname,'..'),patchContext={window:{FEGVoiceClips:Object.fromEntries(['think','ship','vision','word','FIFTEENTH EVER GARDEN'].map(text=>[text,{file:text+'.mp3',kind:'word'}]))}};vm.createContext(patchContext);vm.runInContext(fs.readFileSync(path.join(root,'content/voice-config.js'),'utf8'),patchContext);vm.runInContext(fs.readFileSync(path.join(root,'patch-sound-v030.js'),'utf8'),patchContext);
+const root=path.resolve(__dirname,'..'),patchContext={window:{FEGVoiceClips:Object.fromEntries(['think','ship','vision','word','FIFTEENTH EVER GARDEN'].map(text=>[text,{file:text+'.mp3',kind:'word'}]))}};vm.createContext(patchContext);vm.runInContext(fs.readFileSync(path.join(root,'content/voice-config.js'),'utf8'),patchContext);patchContext.window.FEGVoiceConfig={engine:'recorded'};vm.runInContext(fs.readFileSync(path.join(root,'patch-sound-v030.js'),'utf8'),patchContext);
 const skeleton="<style></style><script>function speakWord(word=state.word,onDone){return;}\nfunction speakCallV010(text){return;}\nif(key==='voiceVolume')audio.stopVoice();$('#start').addEventListener('click',start);select(0);refreshHud();requestAnimationFrame(frame);</script>";
 const patched=patchContext.window.otoPatchSoundV030(skeleton);
 const runtime=patched.slice(patched.indexOf('// Audio lifecycle'),patched.indexOf("$('#start').addEventListener('click',start);"));

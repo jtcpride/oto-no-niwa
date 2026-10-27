@@ -41,9 +41,10 @@ const interrupted=fixture();interrupted.click('#start');const interruptedTitle=i
 interrupted.audio.ctx.state='interrupted';interrupted.audio.ctx.emit('statechange');assert.equal(interrupted.stats().voiceStatus,'playing');interruptedTitle.onend();assert.equal(interrupted.snapshot().campaign.phase,'dialogue');destroy(interrupted);
 // URL overrides never become saved preferences. Returning to a bare URL uses config.
 assert(![...title.storage.values()].some(value=>/voiceMode|voiceEngine|"engine"/.test(value)));
-for(const [url,expected] of [['http://feg-qa.test/','recorded'],['http://feg-qa.test/?voice=recorded','recorded'],['http://feg-qa.test/?voice=unknown','recorded']]){
- const f=fixture({url});assert.equal(f.stats().voiceMode,expected);assert.equal(f.nativeCalls(),0);destroy(f);assert.equal(f.nativeCalls(),0,'recorded dispose also makes zero native calls');
+for(const url of ['http://feg-qa.test/','http://feg-qa.test/?voice=unknown']){
+ const f=fixture({url});assert.equal(f.stats().voiceMode,'native');destroy(f);
 }
+const explicitRecorded=fixture({url:'http://feg-qa.test/?voice=recorded'});assert.equal(explicitRecorded.stats().voiceMode,'recorded');assert.equal(explicitRecorded.nativeCalls(),0);destroy(explicitRecorded);assert.equal(explicitRecorded.nativeCalls(),0,'recorded dispose also makes zero native calls');
 const configured=assemble(file=>file==='content/voice-config.js'?"window.FEGVoiceConfig={engine:'native'};":fs.readFileSync(path.join(root,file),'utf8'));
 const configNative=fixture({html:configured,url:'http://feg-qa.test/'});assert.equal(configNative.stats().voiceMode,'native');destroy(configNative);
 const overrideRecorded=fixture({html:configured,url:'http://feg-qa.test/?voice=recorded'});assert.equal(overrideRecorded.stats().voiceMode,'recorded');assert.equal(overrideRecorded.nativeCalls(),0);destroy(overrideRecorded);
